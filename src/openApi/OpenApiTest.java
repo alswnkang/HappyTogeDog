@@ -14,7 +14,7 @@ public class OpenApiTest {
 		try{
 			while(true){
 				// parsing할 url 지정(API 키 포함해서)
-				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/sido?ServiceKey=TZzGtB8BZdZ0VsTPgpNVa1IQMCBLU9%2FlEriT0S4AFcqcswb4YiOAqJiR7So%2BJMbWd5fB0P6%2B8JQsI7EpN4KKrg%3D%3D&pageNo="+page;
+				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde=20140301&endde=20140430&pageNo=1&numOfRows=10&ServiceKey=TZzGtB8BZdZ0VsTPgpNVa1IQMCBLU9%2FlEriT0S4AFcqcswb4YiOAqJiR7So%2BJMbWd5fB0P6%2B8JQsI7EpN4KKrg%3D%3D&pageNo="+page;
 				
 				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
@@ -26,7 +26,7 @@ public class OpenApiTest {
 				
 				// 파싱할 tag
 				NodeList nList = doc.getElementsByTagName("item");
-				//System.out.println("파싱할 리스트 수 : "+ nList.getLength());
+				System.out.println("파싱할 리스트 수 : "+ nList.getLength());
 				
 				for(int temp = 0; temp < nList.getLength(); temp++){
 					Node nNode = nList.item(temp);

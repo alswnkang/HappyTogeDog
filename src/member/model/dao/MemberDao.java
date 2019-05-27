@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+
 import common.JDBCTemplate;
 import member.model.vo.Member;
 
@@ -91,7 +93,8 @@ public class MemberDao {
 			m.setPw(rset.getString("pw"));
 			m.setCode(rset.getString("code"));
 			m.setName(rset.getString("name"));
-			m.setPhone(rset.getString("post"));
+			m.setPhone(rset.getString("phone"));
+			m.setPost(rset.getString("post"));
 			m.setAddress(rset.getString("address"));
 			m.setPossibleTime(rset.getString("possible_time"));
 			m.setEmail(rset.getString("email"));
@@ -102,4 +105,39 @@ public class MemberDao {
 		JDBCTemplate.close(pstmt);
 		return m;
 	}
+	
+	public Member selectOne(String id) throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		String query = "select * from member where id=?";
+		
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, id);
+		rset = pstmt.executeQuery();
+		if(rset.next()) {
+			m = new Member();
+			m.setId(rset.getString("id"));
+			m.setPw(rset.getString("pw"));
+			m.setCode(rset.getString("code"));
+			m.setName(rset.getString("name"));
+			m.setPhone(rset.getString("phone"));
+			m.setPost(rset.getString("post"));
+			m.setAddress(rset.getString("address"));
+			m.setPossibleTime(rset.getString("possible_time"));
+			m.setEmail(rset.getString("email"));
+			m.setMemberLevel(rset.getInt("member_level"));
+			System.out.println("다오");
+		}
+		JDBCTemplate.close(conn);
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
+		return m;
+		
+		
+	}
+	
+	
+	
 }

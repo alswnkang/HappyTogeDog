@@ -89,6 +89,13 @@ public class Member {
 	public void setMemberLevel(int memberLevel) {
 		this.memberLevel = memberLevel;
 	}
-	
+	public String getStartTime() {
+		String startTime = possibleTime.substring(0,3);
+		return startTime;
+	}
+	public String getEndTime() {
+		String endTime = possibleTime.substring(4, 7);
+		return endTime;
+	}
 	
 }
