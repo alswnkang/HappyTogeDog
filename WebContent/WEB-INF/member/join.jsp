@@ -67,12 +67,23 @@
 				var time = $('#time').val();
 				var no = $('#time').children().eq();
 				
-				for(var i=0;i<10;i++){
+				for(var i=0;i<11;i++){
+				
 					if(time>=$('#endTime').children().eq(i).val()){
 						$('#endTime').children().eq(i).css('display','none');
 					}else if(time<=$('#endTime').children().eq(i).val()){
 						$('#endTime').children().eq(i).css('display','block');
 					}
+				}
+			});
+			$('#endTime').change(function(){
+				var endTime = $('#endTime').val();
+				for(var j=0;j<11;j++){
+				if(endTime<=$('#time').children().eq(j).val()){
+					$('#time').children().eq(j).css('display','none');
+				}else if(endTime>=$('#time').children().eq(j).val()){
+					$('#time').children().eq(j).css('display','block');
+				}
 				}
 			});
 			var level = $('#level').val();

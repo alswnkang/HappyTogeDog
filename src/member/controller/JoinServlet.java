@@ -30,9 +30,20 @@ public class JoinServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/join.jsp");
-		rd.forward(request, response);
-	
+		request.setCharacterEncoding("utf-8");
+		int level = Integer.parseInt(request.getParameter("level"));
+		System.out.println(level);
+		if(level>0) {
+			request.setAttribute("level", level);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/join.jsp");
+			rd.forward(request, response);
+		}else {
+			request.setAttribute("level", level);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/join.jsp");
+			rd.forward(request, response);
+		}
+		
+		
 	}
 
 	/**
