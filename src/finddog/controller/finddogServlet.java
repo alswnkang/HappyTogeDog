@@ -29,6 +29,7 @@ public class finddogServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/findDog.jsp");
+		System.out.println("테스트");
 		rd.forward(request, response);
 		
 		
