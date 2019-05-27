@@ -5,7 +5,7 @@
 
 	<%-- Wrap --%>
 	<section id="wrap">
-		<a href="/sponsorship">후원하기ㅎㅇggggg제발</a>
+		<a href="/sponsorship">후원하기</a>
 	</section>
 	
 <%-- Footer --%>

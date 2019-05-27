@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member"%>
+    <%
+    	Member m = (Member)session.getAttribute("member");
+    %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,12 +38,14 @@
 				<!-- 부가메뉴 -->
 				<div class="header-util">
 					<ul class="header-util-box clearfix">
-						<!-- 로그인 전 -->
-						<li><a href="">Login</a></li>
-						<li><a href="/join">JOIN</a></li>
+						<%if(m == null){%>
+						<li><a href="/member/login.jsp">Login</a></li>
+						<li><a href="/member/selectJoin.jsp">JOIN</a></li>
+						<%}else{ %>
 						<!-- 로그인 후 -->
-						<li><a href="">Logout</a></li>
+						<li><a href="/logout">Logout</a></li>
 						<li><a href="">MyPage</a></li>
+						<%} %>
 					</ul>
 				</div>
 				<!-- 주메뉴 -->
