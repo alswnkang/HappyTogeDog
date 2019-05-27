@@ -39,7 +39,7 @@
 							<td>2019-05-24</td>
 							<td>9시 ~ 16시</td>
 							<td>20명</td>
-							<td>보호소이름이 들어갑니다.</td>
+							<td class="name">보호소이름이 들어갑니다.</td>
 							<td><span class="volun-status ing">모집중</span></td>
 						</tr>
 						<tr>

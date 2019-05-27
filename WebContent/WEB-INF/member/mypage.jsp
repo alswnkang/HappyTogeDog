@@ -8,25 +8,47 @@
 </head>
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 <body>
-	<jsp:include page="/WEB-INF/common/header.jsp" />
-	<section>
-		<form action="/memberJoin" method="post">
-			<div>
-				
-				<h1 id="h_title1">일반 회원가입</h1>
-				<h1 id="h_title2" style="display:none">보호소 회원가입</h1>
-				아이디 : <input type="text" name="id"><br>
-				비밀번호 : <input type="password" name="pw"><br>
-				비밀번호 확인 : <input type="password" name="pw_re"><br>
-				<p  id="p_code" style="display:none">보소호코드 : <input type="text" name="code"><br></p>
-				이름 : <input type="text" name="name"><br>
-				전화번호 : <input type="text" name="phone"><br>
-				우편번호 : <input type="text" name="post"><br>
-				주소 : <input type="text" name="address"><br>
-				EMAIL : <input type="text" name="email"><br>
-				<input type="text" name="level" id="level" value="${level}" style="display:none;">
-				<div id="selectTime">
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	<table>
+		<tr>
+			<th>이름</th>
+			<td><input type="text" name="id" value="${m.id }" readonly></td>
+		</tr>
+		<tr>
+			<th>코드</th>
+			<td><input type="text" name="code" value="${m.code }" readonly></td>
+		</tr>
+		<tr>
+			<th>이름</th>
+			<td><input type="text" name="name" value="${m.name }"></td>
+		</tr>
+		<tr>
+			<th>전화번호</th>
+			<td><input type="text" name="phone" value="${m.phone }"></td>
+		</tr>
+		<tr>
+			<th>우편번호</th>
+			<td><input type="text" name="post" value="${m.post }"></td>
+		</tr>
+		<tr>
+			<th>주소</th>
+			<td><input type="text" name="address" value="${m.address }"></td>
+		</tr>
+		<tr>
+			<th>이메일</th>
+			<td><input type="text" name="email" value="${m.email }"></td>
+		</tr>
+		<c:if test="${m.memberLevel == 1}">
+		<tr>
+			<th>시간</th>
+			<td>${m.possibleTime }</td>
+		</tr>
+		<tr>
+		<th>시간</th>
+		<td>
+		<div id="selectTime">
 				<select name="time" id="time">
+					<option id="startTime">${m.startTime }</option>
 					<option value="08">08시</option>
 					<option value="09">09시</option>
 					<option value="10">10시</option>
@@ -41,7 +63,7 @@
 				</select> 
 				~
 				<select name="endTime" id="endTime">
-					<option>시간선택</option>
+					<option id="endTime2">${m.endTime }</option>
 					<option value="09">09시</option>
 					<option value="10">10시</option>
 					<option value="11">11시</option>
@@ -55,14 +77,20 @@
 					
 				</select><br>
 				</div>
-				<input type="submit" value="회원가입">
-				<h1>레벨 : ${level }</h1>
-			</div>
-		</form>
-	</section>
+				</td>
+		</tr>
+		<tr>
+		<th>시간</th>
+		<td>${m.startTime },${m.endTime }</td>
+		</tr>
+		</c:if>
+	</table>
 	
 	<script>
 		$(document).ready(function(){
+			$('input').click(function(){
+				$(this).val("");
+			});
 			$('#time').change(function(){
 				var time = $('#time').val();
 				var no = $('#time').children().eq();
@@ -75,17 +103,14 @@
 					}
 				}
 			});
-			var level = $('#level').val();
-			if(level > 0){
-				$('#p_code').css('display','block');
-				$('#h_title2').css('display','block');
-				$('#h_title1').css('display','none');
-			}else if(level == 0){
-				$('#selectTime').css('display','none');
-			}
-			
+			$("#time").mouseover(function(){
+				$('#startTime').css('display','none');
+			});
+			$("#endTime").mouseover(function(){
+				$('#endTime2').css('display','none');
+			});
 		});
 	</script>
+	
 </body>
-	<jsp:include page="/WEB-INF/common/footer.jsp" />
 </html>

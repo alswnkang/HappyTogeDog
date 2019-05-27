@@ -44,7 +44,7 @@
 						<%}else{ %>
 						<!-- 로그인 후 -->
 						<li><a href="/logout">Logout</a></li>
-						<li><a href="">MyPage</a></li>
+						<li><a href="/myPage?id=<%= m.getId() %>">MyPage</a></li>
 						<%} %>
 					</ul>
 				</div>
@@ -56,7 +56,7 @@
 							<a href="">입양</a>
 							<div class="gnb-2dep">
 								<ul>
-									<li><a href="">입양하기</a></li>
+									<li><a href="bk.jsp">입양하기</a></li>
 									<li><a href="">전국 보호소 찾기</a></li>
 								</ul>
 							</div>
@@ -66,8 +66,8 @@
 							<div class="gnb-2dep">
 								<ul>
 									<!-- 봉사활동 공고등록은 보호소회원일때만 노출됩니다. -->
-									<!-- <li><a href="">봉사활동 공고 등록</a></li> -->
-									<li><a href="">봉사활동 신청</a></li>
+									<!-- <li><a href="/voluntaryRegister">봉사활동 공고 등록</a></li> -->
+									<li><a href="/volunteerList">봉사활동 신청</a></li>
 								</ul>
 							</div>
 						</li>
