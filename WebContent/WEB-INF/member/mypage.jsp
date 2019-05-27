@@ -11,8 +11,12 @@
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	<table>
 		<tr>
-			<th>이름</th>
+			<th>아이디</th>
 			<td><input type="text" name="id" value="${m.id }" readonly></td>
+		</tr>
+		<tr>
+			<th>비밀번호</th>
+			<td><input type="password" name="pw" value="${m.pw }"></td>
 		</tr>
 		<tr>
 			<th>코드</th>
@@ -20,82 +24,77 @@
 		</tr>
 		<tr>
 			<th>이름</th>
-			<td><input type="text" name="name" value="${m.name }"></td>
+			<td><input type="text" name="name" value="${m.name }" class="modify"></td>
 		</tr>
 		<tr>
 			<th>전화번호</th>
-			<td><input type="text" name="phone" value="${m.phone }"></td>
+			<td><input type="text" name="phone" value="${m.phone }" class="modify"></td>
 		</tr>
 		<tr>
 			<th>우편번호</th>
-			<td><input type="text" name="post" value="${m.post }"></td>
+			<td><input type="text" name="post" value="${m.post }" class="modify"></td>
 		</tr>
 		<tr>
 			<th>주소</th>
-			<td><input type="text" name="address" value="${m.address }"></td>
+			<td><input type="text" name="address" value="${m.address }" class="modify"></td>
 		</tr>
 		<tr>
 			<th>이메일</th>
-			<td><input type="text" name="email" value="${m.email }"></td>
+			<td><input type="text" name="email" value="${m.email }" class="modify"></td>
 		</tr>
 		<c:if test="${m.memberLevel == 1}">
 		<tr>
 			<th>시간</th>
-			<td>${m.possibleTime }</td>
-		</tr>
-		<tr>
-		<th>시간</th>
-		<td>
-		<div id="selectTime">
-				<select name="time" id="time">
-					<option id="startTime">${m.startTime }</option>
-					<option value="08">08시</option>
-					<option value="09">09시</option>
-					<option value="10">10시</option>
-					<option value="11">11시</option>
-					<option value="12">12시</option>
-					<option value="13">13시</option>
-					<option value="14">14시</option>
-					<option value="15">15시</option>
-					<option value="16">16시</option>
-					<option value="17">17시</option>
-					
-				</select> 
-				~
-				<select name="endTime" id="endTime">
-					<option id="endTime2">${m.endTime }</option>
-					<option value="09">09시</option>
-					<option value="10">10시</option>
-					<option value="11">11시</option>
-					<option value="12">12시</option>
-					<option value="13">13시</option>
-					<option value="14">14시</option>
-					<option value="15">15시</option>
-					<option value="16">16시</option>
-					<option value="17">17시</option>
-					<option value="18">18시</option>
-					
-				</select><br>
+			<td>
+				<div id="selectTime">
+					<select name="time" id="time">
+						<option id="startTime">${m.startTime }</option>
+						<option value="08">08시</option>
+						<option value="09">09시</option>
+						<option value="10">10시</option>
+						<option value="11">11시</option>
+						<option value="12">12시</option>
+						<option value="13">13시</option>
+						<option value="14">14시</option>
+						<option value="15">15시</option>
+						<option value="16">16시</option>
+						<option value="17">17시</option>
+							
+					</select> 
+					~
+					<select name="endTime" id="endTime">
+						<option id="endTime2">${m.endTime }</option>
+						<option value="09">09시</option>
+						<option value="10">10시</option>
+						<option value="11">11시</option>
+						<option value="12">12시</option>
+						<option value="13">13시</option>
+						<option value="14">14시</option>
+						<option value="15">15시</option>
+						<option value="16">16시</option>
+						<option value="17">17시</option>
+						<option value="18">18시</option>
+							
+					</select><br>
 				</div>
-				</td>
-		</tr>
-		<tr>
-		<th>시간</th>
-		<td>${m.startTime },${m.endTime }</td>
-		</tr>
+			</td>
+			</tr>
 		</c:if>
 	</table>
 	
 	<script>
 		$(document).ready(function(){
-			$('input').click(function(){
+			$('.modify').click(function(){
 				$(this).val("");
+				
+				
 			});
 			$('#time').change(function(){
 				var time = $('#time').val();
 				var no = $('#time').children().eq();
 				
-				for(var i=0;i<10;i++){
+				for(var i=0;i<11;i++){
+				
 					if(time>=$('#endTime').children().eq(i).val()){
 						$('#endTime').children().eq(i).css('display','none');
 					}else if(time<=$('#endTime').children().eq(i).val()){
@@ -103,6 +102,17 @@
 					}
 				}
 			});
+			$('#endTime').change(function(){
+				var endTime = $('#endTime').val();
+				for(var j=0;j<11;j++){
+				if(endTime<=$('#time').children().eq(j).val()){
+					$('#time').children().eq(j).css('display','none');
+				}else if(endTime>=$('#time').children().eq(j).val()){
+					$('#time').children().eq(j).css('display','block');
+				}
+				}
+			});
+
 			$("#time").mouseover(function(){
 				$('#startTime').css('display','none');
 			});
