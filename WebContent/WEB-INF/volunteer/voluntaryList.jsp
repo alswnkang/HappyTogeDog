@@ -44,7 +44,7 @@
 						</tr>
 						<tr>
 							<td>2</td>
-							<td><p class="volun-tit"><a href="">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
+							<td><p class="volun-tit"><a href="/voluntaryView">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
 							<td>2019-05-24</td>
 							<td>9시 ~ 16시</td>
 							<td>20명</td>
@@ -53,7 +53,7 @@
 						</tr>
 						<tr>
 							<td>3</td>
-							<td><p class="volun-tit"><a href="">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
+							<td><p class="volun-tit"><a href="/voluntaryView">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
 							<td>2019-05-24</td>
 							<td>9시 ~ 16시</td>
 							<td>20명</td>
@@ -62,7 +62,7 @@
 						</tr>
 						<tr>
 							<td>4</td>
-							<td><p class="volun-tit"><a href="">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
+							<td><p class="volun-tit"><a href="/voluntaryView">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
 							<td>2019-05-24</td>
 							<td>9시 ~ 16시</td>
 							<td>20명</td>
@@ -71,7 +71,7 @@
 						</tr>
 						<tr>
 							<td>5</td>
-							<td><p class="volun-tit"><a href="">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
+							<td><p class="volun-tit"><a href="/voluntaryView">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
 							<td>2019-05-24</td>
 							<td>9시 ~ 16시</td>
 							<td>20명</td>
@@ -80,7 +80,7 @@
 						</tr>
 						<tr>
 							<td>6</td>
-							<td><p class="volun-tit"><a href="">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
+							<td><p class="volun-tit"><a href="/voluntaryView">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
 							<td>2019-05-24</td>
 							<td>9시 ~ 16시</td>
 							<td>20명</td>
@@ -89,7 +89,7 @@
 						</tr>
 						<tr>
 							<td>7</td>
-							<td><p class="volun-tit"><a href="">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
+							<td><p class="volun-tit"><a href="/voluntaryView">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
 							<td>2019-05-24</td>
 							<td>9시 ~ 16시</td>
 							<td>20명</td>
@@ -98,7 +98,7 @@
 						</tr>
 						<tr>
 							<td>8</td>
-							<td><p class="volun-tit"><a href="">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
+							<td><p class="volun-tit"><a href="/voluntaryView">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
 							<td>2019-05-24</td>
 							<td>9시 ~ 16시</td>
 							<td>20명</td>
@@ -107,7 +107,7 @@
 						</tr>
 						<tr>
 							<td>9</td>
-							<td><p class="volun-tit"><a href="">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
+							<td><p class="volun-tit"><a href="/voluntaryView">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
 							<td>2019-05-24</td>
 							<td>9시 ~ 16시</td>
 							<td>20명</td>
@@ -116,7 +116,7 @@
 						</tr>
 						<tr>
 							<td>10</td>
-							<td><p class="volun-tit"><a href="">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
+							<td><p class="volun-tit"><a href="/voluntaryView">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
 							<td>2019-05-24</td>
 							<td>9시 ~ 16시</td>
 							<td>20명</td>
