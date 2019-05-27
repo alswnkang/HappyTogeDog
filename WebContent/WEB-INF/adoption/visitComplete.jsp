@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	<!-- 문자열 처리를 위해 -->
 <link rel="stylesheet" type="text/css" href="/css/reservationContent_bk.css">
 <!--  Header -->
 <jsp:include page="/WEB-INF/common/header.jsp" />
@@ -33,7 +34,10 @@
 					</tr>
 					<tr>
 						<th>방문 날짜</th>
-						<td>${ba.visitDate } ${ba.visitTime }</td>	<!-- 날짜 시간 결과 확인하기 -->
+						<td>${fn:substring(ba.visitDate,0,4}년  
+							${fn:substring(ba.visitDate,5,7}월  
+							${fn:substring(ba.visitDate,8,10}일  
+							${fn:substring(ba.visitTime, }</td>	<!-- 날짜 시간 결과 확인하기 -->
 					</tr>
 					<tr>
 						<th>신청날짜</th>

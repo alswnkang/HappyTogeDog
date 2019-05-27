@@ -1,14 +1,23 @@
-package member.model.dao;
+﻿package member.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import common.JDBCTemplate;
+import member.model.vo.CareCode;
 import member.model.vo.Member;
+import member.model.vo.cityCode;
 
 public class MemberDao {
 	
@@ -134,6 +143,7 @@ public class MemberDao {
 		JDBCTemplate.close(pstmt);
 		return m;
 	}
+
 	public int memberModify(Member m) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
 		PreparedStatement pstmt = null;
@@ -197,5 +207,177 @@ public class MemberDao {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	
+	public ArrayList<CareCode> getCode() {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+		ArrayList<CareCode> list = new ArrayList<>();
+	  
+			try{
+				while(true){
+					// parsing할 url 지정(API 키 포함해서)
+					String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/shelter?upr_cd=6110000&org_cd=3220000&ServiceKey=TZzGtB8BZdZ0VsTPgpNVa1IQMCBLU9%2FlEriT0S4AFcqcswb4YiOAqJiR7So%2BJMbWd5fB0P6%2B8JQsI7EpN4KKrg%3D%3D&";
+					
+					DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+					DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+					Document doc = dBuilder.parse(url);
+					
+					// root tag 
+					doc.getDocumentElement().normalize();
+					System.out.println("Root element :" + doc.getDocumentElement().getNodeName());		//XML의 최상위 tag값 가져오기
+					
+					// 파싱할 tag
+					NodeList nList = doc.getElementsByTagName("item");
+					//System.out.println("파싱할 리스트 수 : "+ nList.getLength());
+					
+					for(int temp = 0; temp < nList.getLength(); temp++){
+						CareCode cc = new CareCode();
+						Node nNode = nList.item(temp);
+						if(nNode.getNodeType() == Node.ELEMENT_NODE){
+							
+							Element eElement = (Element) nNode;
+							System.out.println("######################");
+							
+							cc.setCareNm(getTagValue("careNm", eElement));
+							cc.setCareRegNo(getTagValue("careRegNo", eElement));
+						
+							
+//					
+						
+							list.add(cc);
+						}	// for end
+					}	// if end
+					
+					break;
+					
+					
+				}	// while end
+				
+			} catch (Exception e){	
+				e.printStackTrace();
+			}
+	
+		return list;
+		
+		
+	}
+
+	public ArrayList<cityCode> getCityCode() {
+		// TODO Auto-generated method stub
+		ArrayList<cityCode> list = new ArrayList<>();
+	    
+		
+			// 페이지 초기값 
+			try{
+				while(true){
+					int page=0;
+					// parsing할 url 지정(API 키 포함해서)
+					String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/sido?ServiceKey=BbQpcBG0GiwHYBNrM7gxpyWUTHH9PAwSZgtjL%2Bj%2FIb6YYiHG86O4qZta75KyCzkPPBmRjXzOHffarvGnn67JzA%3D%3D&pageNo=2";
+					
+					DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+					DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+					Document doc = dBuilder.parse(url);
+					
+					// root tag 
+					doc.getDocumentElement().normalize();
+					System.out.println("Root element :" + doc.getDocumentElement().getNodeName());		//XML의 최상위 tag값 가져오기
+					
+					// 파싱할 tag
+					NodeList nList = doc.getElementsByTagName("item");
+					//System.out.println("파싱할 리스트 수 : "+ nList.getLength());
+					System.out.println("nList : "+nList.getLength());
+					for(int temp = 0; temp < nList.getLength(); temp++){
+						cityCode cc = new cityCode();
+						Node nNode = nList.item(temp);
+						if(nNode.getNodeType() == Node.ELEMENT_NODE){
+							
+							Element eElement = (Element) nNode;
+							
+							cc.setCityCode(getTagValue("orgCd", eElement));
+							cc.setCityName(getTagValue("orgdownNm", eElement));
+
+						
+							list.add(cc);
+						}	// for end
+					}	// if end
+					
+				break;
+				}	// while end
+				
+			} catch (Exception e){	
+				e.printStackTrace();
+			}
+			System.out.println("DAO : "+list.size());
+		return list;
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	public ArrayList<cityCode> getAreaCode() {
+		// TODO Auto-generated method stub
+		ArrayList<cityCode> list = new ArrayList<>();
+	    
+	
+		// 페이지 초기값 
+		try{
+			while(true){
+				// parsing할 url 지정(API 키 포함해서)
+				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/sigungu?upr_cd=6450000&ServiceKey=BbQpcBG0GiwHYBNrM7gxpyWUTHH9PAwSZgtjL%2Bj%2FIb6YYiHG86O4qZta75KyCzkPPBmRjXzOHffarvGnn67JzA%3D%3D";
+				
+				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+				Document doc = dBuilder.parse(url);
+				
+				// root tag 
+				doc.getDocumentElement().normalize();
+				System.out.println("Root element :" + doc.getDocumentElement().getNodeName());		//XML의 최상위 tag값 가져오기
+				
+				// 파싱할 tag
+				NodeList nList = doc.getElementsByTagName("item");
+				//System.out.println("파싱할 리스트 수 : "+ nList.getLength());
+				
+				for(int temp = 0; temp < nList.getLength(); temp++){
+					cityCode cc = new cityCode();
+					System.out.println("제발 좀 되자");
+					Node nNode = nList.item(temp);
+					if(nNode.getNodeType() == Node.ELEMENT_NODE){
+						
+						Element eElement = (Element) nNode;
+						
+						cc.setDistrict(getTagValue("orgCd", eElement));
+						cc.setDistrictName(getTagValue("orgdownNm", eElement));
+					
+						
+					
+						list.add(cc);
+					}	// for end
+				}	// if end
+				
+			break;
+			}	// while end
+			
+		} catch (Exception e){	
+			e.printStackTrace();
+		}
+
+	return list;
+	}
+	
+
+	
+	private static String getTagValue(String tag, Element eElement) {
+	    NodeList nlList = eElement.getElementsByTagName(tag).item(0).getChildNodes();
+	    Node nValue = (Node) nlList.item(0);
+	    if(nValue == null) 
+	        return null;
+	    return nValue.getNodeValue();
+	}
+	
+	
 	
 }
