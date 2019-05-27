@@ -24,6 +24,10 @@
 					</tr>
 					<tr>
 						<th>보호소 주소</th>
+						<td><input type="text" name="careAddr" value="받아오기" readonly></td>	
+					</tr>
+					<tr>
+						<th>보호소 전화번호</th>
 						<td><input type="text" name="careTel" value="받아오기" readonly></td>	
 					</tr>
 					<tr>
