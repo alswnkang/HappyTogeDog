@@ -5,7 +5,7 @@
 <!-- Header -->
 <jsp:include page="/WEB-INF/common/header.jsp" />
 
-<!-- 보호소 코드 디비에 저장해야하기 때문에 전 페이지에서 받아와야함 -->
+<!-- 보호소 코드 디비에 저장해야하기 때문에 전 페이지에서 받아와야함, 아이디는 세션에서 받아오기 -->
 
 <!-- Content -->
 <section id="content-wrapper">
@@ -20,15 +20,15 @@
 					</colgroup>
 					<tr>
 						<th>보호소명</th>
-						<td>보경이네 보호센터(보호소명 받아오기) </td>
+						<td><input type="text" name="careNm" value="받아오기" readonly> </td>
 					</tr>
 					<tr>
 						<th>보호소 주소</th>
-						<td>(주소 받아오기)</td>	
+						<td><input type="text" name="careTel" value="받아오기" readonly></td>	
 					</tr>
 					<tr>
 						<th>신청자 이름</th>
-						<td>받아오기</td>
+						<td><input type="text" name="name" value="받아오기" readonly></td>
 					</tr>
 					<!-- <tr>
 						<th>신청자 아이디</th>
@@ -36,7 +36,7 @@
 					</tr> -->
 					<tr>
 						<th>신청자 전화번호</th>
-						<td>받아오기<input type="text" name="phone"></td>	<!-- 받아올까 새로 입력할까? -->
+						<td><input type="text" name="phone" value="받아오기"></td>	<!-- 받아오는건 value로하고 새로 입력도 가능하게 -->
 					</tr>
 					<tr>
 						<th>마당이 있습니까?</th>
@@ -48,13 +48,13 @@
 					<tr>
 						<th>키우고 있는 애완동물이 있습니까?</th>
 						<td>
-							<input type="text" name="animal" placeholder="키우고 있다면 애완동물의 종류, 수 등에 대해 상세히 적어주세요.">
+							<input type="text" name="animal" placeholder="키우고 있다면 애완동물의 종류, 수 등 대해 상세히 적어주세요.">
 						</td>
 					</tr>
 					<tr>
 						<th>가족 구성원</th>
 						<td>
-							<input type="text" name="family" placeholder="가족구성원, 수 등에 대해 상세히 적어주세요.">
+							<input type="text" name="family" placeholder="가족구성원, 수 등 대해 상세히 적어주세요.">
 						</td>
 					</tr>
 					<tr>
@@ -79,6 +79,7 @@
 						<th>방문 시간</th>
 						<td>
 							<select name="visitTime">
+								
 								<!-- 보호소  방문가능시간 데이터 받아와서 option값 정하기 -->
 							</select>
 						</td>

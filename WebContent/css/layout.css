@@ -30,33 +30,39 @@ body { background-color:#fff; }
 .hasDatepicker{cursor: pointer;}
 
 /* ****************** Header ********************** */
-#header{position:relative; width:100%; }
-#headerInner{position:relative; height:70px; padding:0 15px;}
+#header{position:relative; width:100%; background:rgba(254,67,30);}
+#headerInner{position:relative; height:70px; padding:0 20px;}
 #header .header-logo{position:relative; z-index:100; float:left;}
-#header .header-logo a{display:block; width:200px; height:70px; background:#ddd; text-align:center; line-height:70px;}
+#header .header-logo a{display:block; width:200px; height:70px; text-align:center; line-height:70px;}
 
 /* header :: 부가 메뉴 */
 .header-util{position:relative; z-index:100; float:right;}
 .header-util-box{}
 .header-util-box > li{float:left; padding:15px 10px;}
-.header-util-box > li a{display:block; line-height:40px; text-align:center; color:#333; font-weight:500;}
+.header-util-box > li a{display:block; line-height:40px; text-align:center; color:#fff; font-weight:500;}
 
 /* ****************** GNB ********************** */
-#gnbBg{display:none; position:absolute; left:0; top:70px; width:100%; height:200px; background:#ddd; z-index:98;}
+#gnbBg{display:none; position:absolute; left:0; top:70px; width:100%; height:200px; background:#f5f5f5; z-index:98;}
 #gnb{position:absolute; left:0; top:0; width:100%; z-index:99;}
 #gnb > ul{text-align:center;}
 #gnb > ul > li{position:relative; display:inline-block; min-width:180px;}
-#gnb > ul > li > a{position:relative; z-index:100; display:block; height:70px; line-height:70px; text-align:center; color:#333; font-size:20px; font-weight:500;}
+#gnb > ul > li > a{position:relative; z-index:100; display:block; height:70px; line-height:70px; text-align:center; color:#fff; font-size:20px; font-weight:500;}
 
 /* GNB :: 2차 전체메뉴 */
 #gnb > ul > li .gnb-2dep{display:none; position:absolute; top0:70px; left:0; z-index:99; width:100%; height:200px; text-align:center;}
 #gnb > ul > li .gnb-2dep ul{padding:15px 0;}
 #gnb > ul > li .gnb-2dep ul li{position:relative; padding:10px;}
-#gnb > ul > li .gnb-2dep ul li a{display:block; text-align:center; font-size:16px;}
+#gnb > ul > li .gnb-2dep ul li a{display:block; text-align:center; font-size:16px; color:#333; font-weight:500;}
+
+/* ****************** Footer ********************** */
+#footer{padding:30px; background-color:#333; text-align:center;}
+.footer-inner{}
+.footer-inner > img{max-height:37px;}
+.footer-inner > p{padding-top:15px; color:#fff; opacity:0.6; letter-spacing:1.5px;}
 
 
 /* ****************** Main :: Visual ********************** */
-#mainVisual{width:100%; height:700px; background:#eee; text-align:center; font-size:36px; line-height:700px;}
+#mainVisual{width:100%; height:700px; background:#fff; text-align:center; font-size:36px; line-height:700px;}
 
 /* ****************** Main :: mainContainer ********************** */
 #mainContainer{padding-top:50px;}

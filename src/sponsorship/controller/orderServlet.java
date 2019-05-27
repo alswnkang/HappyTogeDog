@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "order", urlPatterns = { "/sponsorship", "/viewProduct", "/order", "/orderIng" })
+import sponsorship.model.vo.OrderInfoVO;
+
+@WebServlet(name = "order", urlPatterns = { "/sponsorship", "/viewProduct", "/order", "/4" })
 public class orderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -43,11 +45,10 @@ public class orderServlet extends HttpServlet {
 		}else if(action.equals("orderIng")) {
 			
 			String amount = request.getParameter("amount");
-			String price = request.getParameter("price");
+			String pay = request.getParameter("pay");
 
-			request.setAttribute("amount", amount);
-			request.setAttribute("price", price);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/orderForm.jsp");
+			//OrderInfoVO orderInfo = new OrderInfoVO(no, id, name, phone, payMethod, pay, amount, status, deilveryNum, productName, sponDate, memo, post, address, email, receiveName, receivePhone);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/orderSuc.jsp");
 			rd.forward(request, response);
 		}
 	}
