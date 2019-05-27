@@ -8,6 +8,9 @@
 </head>
 <body>
 	<a href="/reservation">방문예약 신청하기</a>
+	<a href="/searchCityCode">시도 조회</a>
+	<a href="/careCode">보호소 코드조회</a>
+	<a href="/areaCode">지역구 코드조회</a>
 	test입니당
 </body>
 </html>
