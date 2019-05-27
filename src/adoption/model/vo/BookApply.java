@@ -9,7 +9,7 @@ public class BookApply {
 	private String name;
 	private String phone;
 	private Date visitDate;
-	private int visitTime;
+	private String visitTime;
 	private Date applyDate;
 	private int status;
 	private String yard;
@@ -21,7 +21,7 @@ public class BookApply {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public BookApply(int no, String code, String id, String name, String phone, Date visitDate, int visitTime,
+	public BookApply(int no, String code, String id, String name, String phone, Date visitDate, String visitTime,
 			Date applyDate, int status, String yard, String animal, String family, String experience, String avgTime) {
 		super();
 		this.no = no;
@@ -75,10 +75,10 @@ public class BookApply {
 	public void setVisitDate(Date visitDate) {
 		this.visitDate = visitDate;
 	}
-	public int getVisitTime() {
+	public String getVisitTime() {
 		return visitTime;
 	}
-	public void setVisitTime(int visitTime) {
+	public void setVisitTime(String visitTime) {
 		this.visitTime = visitTime;
 	}
 	public Date getApplyDate() {
