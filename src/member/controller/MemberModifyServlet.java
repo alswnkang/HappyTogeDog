@@ -14,16 +14,16 @@ import member.model.Service.MemberService;
 import member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberJoinServlet
+ * Servlet implementation class MemberModifyServlet
  */
-@WebServlet(name = "MemberJoin", urlPatterns = { "/memberJoin" })
-public class MemberJoinServlet extends HttpServlet {
+@WebServlet(name = "MemberModify", urlPatterns = { "/memberModify" })
+public class MemberModifyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberJoinServlet() {
+    public MemberModifyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,6 +38,7 @@ public class MemberJoinServlet extends HttpServlet {
 		String time = request.getParameter("time");
 		String endTime = request.getParameter("endTime");
 		String possibleTime = time+"시~"+endTime+"시";
+		int level = Integer.parseInt(request.getParameter("level"));
 		System.out.println(possibleTime);
 		Member m = new Member();
 		m.setId(request.getParameter("id"));
@@ -49,26 +50,27 @@ public class MemberJoinServlet extends HttpServlet {
 		m.setAddress(request.getParameter("address"));
 		m.setPossibleTime(possibleTime);
 		m.setEmail(request.getParameter("email"));
-		m.setMemberLevel(Integer.parseInt(request.getParameter("level")));
-		System.out.println("memberjoin");
-		System.out.println(m.getMemberLevel());
+		m.setMemberLevel(level);
 		try {
-			int result = new MemberService().memberJoin(m);
-			System.out.println(result);
-			if(result > 0) {
-				System.out.println("가입완료");
-				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+			if(level == 0 ) {
+				int result = new MemberService().memberModify(m);
+				System.out.println("일반회원 수정완료");
+				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+				rd.forward(request, response);
+			}else if(level == 1){
+				int result = new MemberService().memberModify2(m);
+				System.out.println("보호소 회원 수정완료");
+				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 				rd.forward(request, response);
 			}else {
-				System.out.println("가입실패");
-				RequestDispatcher rd = request.getRequestDispatcher("/join");
+				System.out.println("수정실패");
+				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 				rd.forward(request, response);
 			}
+			
 		} catch (SQLException e) {
 			System.out.println("SQL문 오류");
 		}
-		
-
 		
 	}
 

@@ -10,6 +10,8 @@
 <body>
 	<jsp:include page="/WEB-INF/common/header.jsp" />
 	<section>
+	
+		<h1>임시 회원 가입 폼 일반회원,보호소회원</h1>
 		<form action="/memberJoin" method="post">
 			<div>
 				
