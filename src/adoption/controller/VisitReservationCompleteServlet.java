@@ -51,10 +51,16 @@ public class VisitReservationCompleteServlet extends HttpServlet {
 		ba.setExperience(request.getParameter("experience"));
 		ba.setAvgTime(request.getParameter("avgTime"));
 		ba.setVisitDate(Date.valueOf(request.getParameter("visitDate")));
-		ba.setVisitTime(Integer.parseInt(request.getParameter("visitTime")));
+		ba.setVisitTime(request.getParameter("visitTime"));
 		try {
 			int result = new BookApplyService().reservation(ba);
 			if(result>0) {
+				String[] care = new String[3];
+				care[0] = request.getParameter("careNm");
+				care[1] = request.getParameter("careAddr");
+				care[2] = request.getParameter("careTel");
+				request.setAttribute("care", care);
+				request.setAttribute("ba", ba);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/visitComplete.jsp");
 				rd.forward(request, response);
 			}else {

@@ -1,6 +1,7 @@
 package member.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,18 +9,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import member.model.Service.MemberService;
 
 /**
- * Servlet implementation class JoinServlet
+ * Servlet implementation class DeleteServlet
  */
-@WebServlet(name = "Join", urlPatterns = { "/join" })
-public class JoinServlet extends HttpServlet {
+@WebServlet(name = "Delete", urlPatterns = { "/delete" })
+public class DeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public JoinServlet() {
+    public DeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,12 +35,24 @@ public class JoinServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setCharacterEncoding("utf-8");
-		int level = Integer.parseInt(request.getParameter("level"));
-		System.out.println(level);
-		request.setAttribute("level", level);
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/join.jsp");
-		rd.forward(request, response);
-		
+		String id = request.getParameter("id");
+		try {
+			int result = new MemberService().delete(id);
+			if(result > 0) {
+				HttpSession session = request.getSession(false);
+				session.invalidate();
+				System.out.println("탈퇴완료");
+				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else {
+				System.out.println("탈퇴실패");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/mypage.jsp");
+				rd.forward(request, response);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 	}
