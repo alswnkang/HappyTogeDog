@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+	<h1>임시 회원가입 선택</h1>
 	<form action="/join" method="post">
 		<div>
 			<input type="hidden" name="level" value="0">

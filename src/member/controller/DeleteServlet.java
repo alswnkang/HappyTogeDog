@@ -9,21 +9,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import member.model.Service.MemberService;
-import member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberJoinServlet
+ * Servlet implementation class DeleteServlet
  */
-@WebServlet(name = "MemberJoin", urlPatterns = { "/memberJoin" })
-public class MemberJoinServlet extends HttpServlet {
+@WebServlet(name = "Delete", urlPatterns = { "/delete" })
+public class DeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberJoinServlet() {
+    public DeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,40 +35,25 @@ public class MemberJoinServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setCharacterEncoding("utf-8");
-		String time = request.getParameter("time");
-		String endTime = request.getParameter("endTime");
-		String possibleTime = time+"시~"+endTime+"시";
-		System.out.println(possibleTime);
-		Member m = new Member();
-		m.setId(request.getParameter("id"));
-		m.setPw(request.getParameter("pw"));
-		m.setCode(request.getParameter("code"));
-		m.setName(request.getParameter("name"));
-		m.setPhone(request.getParameter("phone"));
-		m.setPost(request.getParameter("post"));
-		m.setAddress(request.getParameter("address"));
-		m.setPossibleTime(possibleTime);
-		m.setEmail(request.getParameter("email"));
-		m.setMemberLevel(Integer.parseInt(request.getParameter("level")));
-		System.out.println("memberjoin");
-		System.out.println(m.getMemberLevel());
+		String id = request.getParameter("id");
 		try {
-			int result = new MemberService().memberJoin(m);
-			System.out.println(result);
+			int result = new MemberService().delete(id);
 			if(result > 0) {
-				System.out.println("가입완료");
+				HttpSession session = request.getSession(false);
+				session.invalidate();
+				System.out.println("탈퇴완료");
 				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 				rd.forward(request, response);
 			}else {
-				System.out.println("가입실패");
-				RequestDispatcher rd = request.getRequestDispatcher("/join");
+				System.out.println("탈퇴실패");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/mypage.jsp");
 				rd.forward(request, response);
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL문 오류");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-
 		
 	}
 

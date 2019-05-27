@@ -53,7 +53,7 @@ public class MemberDao {
 		String id = m.getId();
 		String query = "insert into member values(?,?,?,?,?,?,?,?,?,?)";
 		pstmt= conn.prepareStatement(query);
-		System.out.println("dao!!!!");
+		
 		pstmt.setString(1, m.getId());
 		pstmt.setString(2, m.getPw());
 		pstmt.setString(3, m.getCode());
@@ -65,7 +65,7 @@ public class MemberDao {
 		pstmt.setString(9, m.getEmail());
 		pstmt.setInt(10, m.getMemberLevel());
 		result = pstmt.executeUpdate();
-		System.out.println("DAO");
+		
 		
 		if(result>0) {
 			JDBCTemplate.commit(conn);
@@ -128,16 +128,74 @@ public class MemberDao {
 			m.setPossibleTime(rset.getString("possible_time"));
 			m.setEmail(rset.getString("email"));
 			m.setMemberLevel(rset.getInt("member_level"));
-			System.out.println("다오");
 		}
 		JDBCTemplate.close(conn);
 		JDBCTemplate.close(rset);
 		JDBCTemplate.close(pstmt);
 		return m;
-		
-		
 	}
-	
-	
+	public int memberModify(Member m) throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "update member set pw=?,name=?,phone=?,post=?,address=?,email=? where id=?";
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, m.getPw());
+		pstmt.setString(2, m.getName());
+		pstmt.setString(3, m.getPhone());
+		pstmt.setString(4, m.getPost());
+		pstmt.setString(5, m.getAddress());
+		pstmt.setString(6, m.getEmail());
+		pstmt.setString(7, m.getId());
+		result = pstmt.executeUpdate();
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(pstmt);
+		return result;
+	}
+	public int memberModify2(Member m) throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "update member set pw=?,name=?,phone=?,post=?,address=?,email=?,possible_time=? where id=?";
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, m.getPw());
+		pstmt.setString(2, m.getName());
+		pstmt.setString(3, m.getPhone());
+		pstmt.setString(4, m.getPost());
+		pstmt.setString(5, m.getAddress());
+		pstmt.setString(6, m.getEmail());
+		pstmt.setString(7, m.getPossibleTime());
+		pstmt.setString(8, m.getId());
+		result = pstmt.executeUpdate();
+		System.out.println(m.getPossibleTime());
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(pstmt);
+		return result;
+	}
+	public int delete(String id) throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "delete from member where id=?";
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, id);
+		result = pstmt.executeUpdate();
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(conn);
+		return result;
+	}
 	
 }
