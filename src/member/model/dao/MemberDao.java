@@ -332,7 +332,7 @@ public class MemberDao {
 	
 	
 	
-	public ArrayList<cityCode> getAreaCode() {
+	public ArrayList<cityCode> getAreaCode(String code) {
 		// TODO Auto-generated method stub
 		ArrayList<cityCode> list = new ArrayList<>();
 	    
@@ -341,7 +341,7 @@ public class MemberDao {
 		try{
 			while(true){
 				// parsing할 url 지정(API 키 포함해서)
-				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/sigungu?upr_cd=6450000&ServiceKey=BbQpcBG0GiwHYBNrM7gxpyWUTHH9PAwSZgtjL%2Bj%2FIb6YYiHG86O4qZta75KyCzkPPBmRjXzOHffarvGnn67JzA%3D%3D";
+				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/sigungu?upr_cd="+code+"&ServiceKey=BbQpcBG0GiwHYBNrM7gxpyWUTHH9PAwSZgtjL%2Bj%2FIb6YYiHG86O4qZta75KyCzkPPBmRjXzOHffarvGnn67JzA%3D%3D";
 				
 				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
