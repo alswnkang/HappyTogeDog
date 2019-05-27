@@ -26,7 +26,7 @@
 					<c:forEach items="${list }" var="m" varStatus="i">
 					<tr>
 						<td>${i.count }</td>
-						<td>${m.cityCode }</td>
+						<td><a href="/areaCode?code=${m.cityCode }">${m.cityCode }</a></td>
 						<td>${m.cityName }</td>
 
 					</tr>
