@@ -56,13 +56,13 @@ public class DogList {
 		return careNm;
 	}
 	public void setCareNm(String careNm) {
-		careNm = careNm;
+		this.careNm = careNm;
 	}
 	public String getCareTel() {
 		return careTel;
 	}
 	public void setCareTel(String careTel) {
-		careTel = careTel;
+		this.careTel = careTel;
 	}
 	public String getColorCd() {
 		return colorCd;
