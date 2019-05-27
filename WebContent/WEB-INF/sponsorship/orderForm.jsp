@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <jsp:include page="/WEB-INF/common/header.jsp" />
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -24,38 +25,49 @@
 				<p class="main-comm-tit">주문자 정보</p>
 				<table>
 					<tr>
-						<td>이름</td><td><input type="text" name="name"></td>
+						<td>이름</td><td><input type="hidden" name="id" value="${sessionScope.member.id }"><input type="text" name="name" value="${sessionScope.member.name }"></td>
 					</tr>
 					<tr>
 						<td>연락처</td>
 						<td>
+							<c:set var="phone" value="${fn:split(sessionScope.member.phone,'-') }" />
 							<select name="phone1" class="phone">
 								<option value="010">010</option>
 								<option value="011">011</option>
 							</select>
-							 - <input type="text" name="phone2" class="phone num" maxlength="4"> 
-							 - <input type="text" name="phone3" class="phone num" maxlength="4"></td>
+							 - <input type="text" name="phone2" class="phone num" maxlength="4" value="${fn:split(sessionScope.member.phone,'-')[1] }"> 
+							 - <input type="text" name="phone3" class="phone num" maxlength="4" value="${fn:split(sessionScope.member.phone,'-')[2] }">
+						</td>
 					</tr>
 					<tr>
-						<td>이메일</td><td><input type="text" name="email"></td>
+						<td>이메일</td><td><input type="text" name="email" value="${sessionScope.member.email }"></td>
 					</tr>
 				</table>
 			</div>
 			
 			<div class="delivery">
 				<p class="main-comm-tit">배송지 정보</p>
+				<p><input type="checkbox">주문자 정보와 동일</p>
 				<table>
 					<tr>
 						<td>이름</td><td><input type="text" name="receiveName"></td>
 					</tr>
 					<tr>
-						<td>연락처</td><td><input type="text" name="receivephone"></td>
+						<td>연락처</td>
+						<td>
+							<select name="receivePhone1" class="phone">
+								<option value="010">010</option>
+								<option value="011">011</option>
+							</select>
+							 - <input type="text" name="receivePhone2" class="phone num" maxlength="4"> 
+							 - <input type="text" name=receivePhone3" class="phone num" maxlength="4">
+						</td>
 					</tr>
 					<tr>
 						<td>배송지 주소</td>
 						<td style="height: 200px;">
-							<input type="text" name="post" class="post" onclick="getAddr(this.form);" readonly><br><br>
-							<input type="text" name="address" class="address" onclick="getAddr(this.form);" readonly><br><br>
+							<input type="text" name="post" class="post" onclick="getAddr(this.form);" value="${sessionScope.member.phone }" readonly><br><br>
+							<input type="text" name="address" class="address" onclick="getAddr(this.form);" value="${sessionScope.member.address }" readonly><br><br>
 							<input type="text" name="address2" class="address" placeholder="상세 주소를 입력하세요">
 						</td>
 					</tr>
@@ -82,7 +94,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2" style="text-align: right;"><input type="hidden" name="pay" value="${price}"><span id="total">${price}</span>원<button class="order-btn">결제하기</button></td>
+						<td colspan="2" style="text-align: right;"><input type="hidden" name="pay" value="${price}">총<span id="total">${price}</span>원 <button class="order-btn">결제하기</button></td>
 					</tr>
 				</table>
 			</div>
@@ -94,13 +106,20 @@
 </div>
 <script>
 	$(function() {
+		
+		$('input[type=checkbox]').click(function() {
+			$('input[name=receiveName]').val($('input[name=name]').val());
+			$('input[name=receivePhone2]').val($('input[name=phone2]').val());
+			$('input[name=receivePhone3]').val($('input[name=phone3]').val());
+		});
 
 		$('.pay button').click(function() {
 			
 			event.preventDefault();
 			
 			var prdName = $('#prdName').html();
-			var price = $('.pay span#total').html();
+			//var price = $('.pay span#total').html();
+			var price = $('input[name=pay]').val();
 			var name = $('input[name=name]').val();
 			var email = $('input[name=email]').val();
 			var phone = $('input[name=phone1]').val()+'-'+$('input[name=phone2]').val()+'-'+$('input[name=phone3]').val();
