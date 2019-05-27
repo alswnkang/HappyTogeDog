@@ -31,7 +31,7 @@
 			<!-- 헤더 상단 -->
 			<div id="headerInner" class="clearfix">
 				<!-- 로고 -->
-				<h1 class="header-logo"><a href="/">로고</a></h1>
+				<h1 class="header-logo"><a href="/"><img src="/img/logo_01.png" style="max-height:68px;"></a></h1>
 				<!-- 부가메뉴 -->
 				<div class="header-util">
 					<ul class="header-util-box clearfix">
@@ -60,6 +60,8 @@
 							<a href="">봉사활동</a>
 							<div class="gnb-2dep">
 								<ul>
+									<!-- 봉사활동 공고등록은 보호소회원일때만 노출됩니다. -->
+									<!-- <li><a href="">봉사활동 공고 등록</a></li> -->
 									<li><a href="">봉사활동 신청</a></li>
 								</ul>
 							</div>
