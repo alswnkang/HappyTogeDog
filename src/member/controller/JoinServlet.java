@@ -33,15 +33,10 @@ public class JoinServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		int level = Integer.parseInt(request.getParameter("level"));
 		System.out.println(level);
-		if(level>0) {
-			request.setAttribute("level", level);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/join.jsp");
-			rd.forward(request, response);
-		}else {
-			request.setAttribute("level", level);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/join.jsp");
-			rd.forward(request, response);
-		}
+		request.setAttribute("level", level);
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/join.jsp");
+		rd.forward(request, response);
+		
 		
 		
 	}
