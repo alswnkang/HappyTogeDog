@@ -1,0 +1,138 @@
+.clear-float:after {
+	content: '';
+	clear: both;
+	display: block;
+}
+
+/* productList.jsp */
+
+.product-list {margin-top: 100px;}
+.product-list .product {
+	float: left;
+	width: 50%;
+	text-align: center;
+	cursor: pointer;
+}
+.product-list .product:hover {background-color: #f0f0f0;}
+.product-list .product img {padding: 30px 0;}
+
+.product-list .product .info {padding: 30px 30px;text-align: left;}
+.product-list .product .info p {margin: 10px;}
+.product-list .product .info p:first-child {font-size: 40px;font-weight: bold;}
+.product-list .product .info p:nth-child(2) {font-size: 20px;}
+.product-list .product .info p:nth-child(3) {font-size: 15px;}
+
+
+
+/* productDetail.jsp */
+ 
+
+.product {margin: 100px 0 600px;}
+.product .product-top div {
+	float: left;
+	width: 50%;
+	text-align: center;
+}
+
+.product .product-img img {padding: 30px 0;}
+
+.product .product-info div {text-align:30px 0 0 0; text-align:left; width: 100%;}
+.product .product-info div p {margin: 20px;}
+.product .product-info div p:first-child {font-size: 40px;font-weight: bold;}
+.product .product-info div p:nth-child(2) {font-size: 15px;margin-bottom:150px;}
+.product .product-info div p:nth-child(3) {font-size: 20px;}
+.product .product-info div p:nth-child(4), .product .product-info div p:nth-child(5){font-size: 17px;}
+.product .product-info div p:nth-child(6){}
+.product .product-info div input {
+	width: 80px;
+	height: 30px;
+	font-size: 16px;
+}
+
+.product .order-btn {
+	width: 190px;
+	height: 80px;
+	background-color: rgba(254,67,30);
+	color: white;
+	font-size: 20px;
+}
+
+.product .tab a {
+	display: inline-block;
+	float: left;
+	height: 100px;
+	width: 50%;
+	border: 1px solid gray;
+	box-sizing: border-box;
+	line-height: 100px;
+	text-align: center;
+	font-size: 20px;
+}
+.product .tab a:hover {
+	border: 1px solid rgba(254,67,30);
+	color: rgba(254,67,30);
+}
+
+.product .product-bottom{
+	padding-top: 100px;
+	text-align: center;
+	font-size: 18px;
+}
+
+.right{
+	text-align: right;	
+}
+
+
+/* orderForm.jsp */
+
+
+.order-form {margin: 100px 0;}
+.order-form .order-product {
+	padding: 30px 0;
+	border-top: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;
+}
+
+.order-form .order-product ul li {
+	float: left;
+	width: 25%;
+	height: 150px;
+	line-height: 150px;
+	font-size: 17px;
+	text-align: center;
+}
+
+.order-form form {width: 80%;margin: 0 auto;}
+.order-form input {
+	width: 250px;
+	height: 40px;
+	font-size: 17px;
+}
+.order-form p {
+	font-weight: bold;
+	font-size: 30px;
+	margin: 50px 0;
+}
+
+.order-form table {width: 100%;}
+.order-form table tr:first-child {border-top: 1px solid lightgray;}
+.order-form table td {
+	height: 80px;
+	font-size: 17px;
+	border-bottom: 1px solid lightgray;
+}
+.order-form table td:first-child {text-align: center;width: 30%;}
+
+.order-form input.num {text-align: center;}
+.order-form .order {margin: 100px 0;}
+.order-form select.phone {height: 45px;font-size: 17px;text-align: center;}
+.order-form .phone {width: 73px;}
+.order-form .post {width: 80px;}
+.order-form .address {width: 400px;}
+.order-form .memo {width: 600px;}
+.order-form input[type=radio] {
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
+}
