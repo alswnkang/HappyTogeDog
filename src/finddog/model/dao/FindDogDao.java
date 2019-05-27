@@ -17,14 +17,8 @@ public class FindDogDao {
 	public ArrayList<DogList> getList() {
 		// TODO Auto-generated method stub
 		ArrayList<DogList> list = new ArrayList<>();
-		
-		
-		
-		
-		
 	    int page = 1;	// 페이지 초기값 
 			try{
-				
 				while(true){
 					// parsing할 url 지정(API 키 포함해서)
 					String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde=20190101&endde=20190524&pageNo=1&numOfRows=10&ServiceKey=TZzGtB8BZdZ0VsTPgpNVa1IQMCBLU9%2FlEriT0S4AFcqcswb4YiOAqJiR7So%2BJMbWd5fB0P6%2B8JQsI7EpN4KKrg%3D%3D&pageNo="+page;
@@ -100,14 +94,7 @@ public class FindDogDao {
 			} catch (Exception e){	
 				e.printStackTrace();
 			}
-		
-		
-		
-		
-		
-		
-		
-		
+	
 		return list;
 	}
 	private static String getTagValue(String tag, Element eElement) {
@@ -119,5 +106,5 @@ public class FindDogDao {
 	}
 	
 	
-
+	
 }
