@@ -93,7 +93,8 @@ public class MemberDao {
 			m.setPw(rset.getString("pw"));
 			m.setCode(rset.getString("code"));
 			m.setName(rset.getString("name"));
-			m.setPhone(rset.getString("post"));
+			m.setPhone(rset.getString("phone"));
+			m.setPost(rset.getString("post"));
 			m.setAddress(rset.getString("address"));
 			m.setPossibleTime(rset.getString("possible_time"));
 			m.setEmail(rset.getString("email"));
