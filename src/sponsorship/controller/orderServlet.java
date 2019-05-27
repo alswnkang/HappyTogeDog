@@ -44,10 +44,24 @@ public class orderServlet extends HttpServlet {
 			rd.forward(request, response);
 		}else if(action.equals("orderIng")) {
 			
-			String amount = request.getParameter("amount");
-			String pay = request.getParameter("pay");
-
-			//OrderInfoVO orderInfo = new OrderInfoVO(no, id, name, phone, payMethod, pay, amount, status, deilveryNum, productName, sponDate, memo, post, address, email, receiveName, receivePhone);
+			String id = request.getParameter("id");
+			String name = request.getParameter("name");
+			String phone = request.getParameter("phone1")+"-"+request.getParameter("phone2")+"-"+request.getParameter("phone3");
+			String payMethod = request.getParameter("payMethod");
+			int pay = Integer.parseInt(request.getParameter("pay"));
+			int amount = Integer.parseInt(request.getParameter("amount"));
+			String productName = request.getParameter("productName");
+			String memo = request.getParameter("memo");
+			String post = request.getParameter("post");
+			String address = request.getParameter("address")+" "+request.getParameter("address2");
+			String email = request.getParameter("email");
+			String receiveName = request.getParameter("receiveName");
+			String receivePhone = request.getParameter("receivePhone1")+"-"+request.getParameter("receivePhone2")+"-"+request.getParameter("receivePhone3");
+			
+			System.out.println();
+			
+			OrderInfoVO orderInfo = new OrderInfoVO(0, id, name, phone, payMethod, pay, amount, 0, null, productName, "sysdate", memo, post, address, email, receiveName, receivePhone);
+			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/orderSuc.jsp");
 			rd.forward(request, response);
 		}
