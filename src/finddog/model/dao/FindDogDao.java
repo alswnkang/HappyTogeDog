@@ -64,17 +64,17 @@ public class FindDogDao {
 //							System.out.println("보호소 이름 : " + getTagValue("careNm", eElement));
 //							System.out.println("보호소 전화번호  : " + getTagValue("careTel", eElement));
 //							System.out.println("강아지 색깔 : " + getTagValue("colorCd", eElement));
-//							System.out.println("파일이름 : " + getTagValue("filename", eElement));
+//							System.out.println("파일이름 : " + getTagValue("filename", eElement));		//컬럼 삭제하기
 //							System.out.println("happenDt : " + getTagValue("happenDt", eElement));
 //							System.out.println("발견장소 : " + getTagValue("happenPlace", eElement));
-//							System.out.println("고양이/개 : " + getTagValue("kindCd", eElement));
-//							System.out.println("중성화 여부 : " + getTagValue("neuterYn", eElement));
-//							System.out.println("공고시작일 : " + getTagValue("noticeSdt", eElement));
+//							System.out.println("고양이/개 : " + getTagValue("kindCd", eElement));		
+//							System.out.println("중성화 여부 : " + getTagValue("neuterYn", eElement));	
+//							System.out.println("공고시작일 : " + getTagValue("noticeSdt", eElement));	//컬럼 추가해야함
 //							System.out.println("공고번호 : " + getTagValue("noticeNo", eElement));
 //							System.out.println("공고 종료일 : " + getTagValue("noticeEdt", eElement));
 //							System.out.println("관할 기관 : " + getTagValue("orgNm", eElement));
-//							System.out.println("popfile : " + getTagValue("popfile", eElement));
-//							System.out.println("입양상태 : " + getTagValue("processState", eElement));
+//							System.out.println("popfile : " + getTagValue("popfile", eElement));	//컬럼 추가해야함
+//							System.out.println("입양상태 : " + getTagValue("processState", eElement));	//컬럼 추가해야함
 //							System.out.println("성별 : " + getTagValue("sexCd", eElement));
 //							System.out.println("특징 : " + getTagValue("specialMark", eElement));
 //							System.out.println("몸무게 : " + getTagValue("weight", eElement));

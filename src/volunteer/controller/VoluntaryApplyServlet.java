@@ -1,4 +1,4 @@
-package member.controller;
+package volunteer.controller;
 
 import java.io.IOException;
 
@@ -10,40 +10,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class JoinServlet
+ * Servlet implementation class VoluntaryApplyServlet
  */
-@WebServlet(name = "Join", urlPatterns = { "/join" })
-public class JoinServlet extends HttpServlet {
+@WebServlet(name = "VoluntaryApply", urlPatterns = { "/voluntaryApply" })
+public class VoluntaryApplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public JoinServlet() {
+    public VoluntaryApplyServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		request.setCharacterEncoding("utf-8");
-		int level = Integer.parseInt(request.getParameter("level"));
-		System.out.println(level);
-		if(level>0) {
-			request.setAttribute("level", level);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/join.jsp");
-			rd.forward(request, response);
-		}else {
-			request.setAttribute("level", level);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/join.jsp");
-			rd.forward(request, response);
-		}
-		
-		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/volunteer/voluntaryApply.jsp");
+		rd.forward(request, response);
 	}
 
 	/**

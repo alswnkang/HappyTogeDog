@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<link rel="stylesheet" type="text/css" href="/css/content.css"> <!-- 컨텐츠 css(민주) -->
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
 

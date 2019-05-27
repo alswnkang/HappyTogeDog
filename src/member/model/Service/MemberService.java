@@ -23,4 +23,10 @@ public class MemberService {
 		Member m = new MemberDao().login(id,pw);
 		return m;
 	}
+	
+	public Member selectOne(String id) throws SQLException {
+		System.out.println("서비스");
+		Member m = new MemberDao().selectOne(id);
+		return m;
+	}
 }

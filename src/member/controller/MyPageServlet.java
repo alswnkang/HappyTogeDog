@@ -1,6 +1,7 @@
 package member.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,18 +9,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import member.model.Service.MemberService;
+import member.model.vo.Member;
 
 /**
- * Servlet implementation class JoinServlet
+ * Servlet implementation class MyPageServlet
  */
-@WebServlet(name = "Join", urlPatterns = { "/join" })
-public class JoinServlet extends HttpServlet {
+@WebServlet(name = "MyPage", urlPatterns = { "/myPage" })
+public class MyPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public JoinServlet() {
+    public MyPageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,19 +35,23 @@ public class JoinServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		request.setCharacterEncoding("utf-8");
-		int level = Integer.parseInt(request.getParameter("level"));
-		System.out.println(level);
-		if(level>0) {
-			request.setAttribute("level", level);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/join.jsp");
-			rd.forward(request, response);
-		}else {
-			request.setAttribute("level", level);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/join.jsp");
-			rd.forward(request, response);
-		}
+		HttpSession session = request.getSession(false);
+		String id = request.getParameter("id");
 		
+		try {
+			Member m = new MemberService().selectOne(id);
+			if(m != null) {
+				request.setAttribute("m", m);
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/mypage.jsp");
+				rd.forward(request, response);
+			}else {
+				response.sendRedirect("/");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
