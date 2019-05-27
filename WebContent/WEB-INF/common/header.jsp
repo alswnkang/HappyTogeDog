@@ -44,7 +44,7 @@
 						<%}else{ %>
 						<!-- 로그인 후 -->
 						<li><a href="/logout">Logout</a></li>
-						<li><a href="">MyPage</a></li>
+						<li><a href="/myPage?id=<%= m.getId() %>">MyPage</a></li>
 						<%} %>
 					</ul>
 				</div>
