@@ -51,7 +51,7 @@ public class VisitReservationCompleteServlet extends HttpServlet {
 		ba.setExperience(request.getParameter("experience"));
 		ba.setAvgTime(request.getParameter("avgTime"));
 		ba.setVisitDate(Date.valueOf(request.getParameter("visitDate")));
-		ba.setVisitTime(Integer.parseInt(request.getParameter("visitTime")));
+		ba.setVisitTime(request.getParameter("visitTime"));
 		try {
 			int result = new BookApplyService().reservation(ba);
 			if(result>0) {
