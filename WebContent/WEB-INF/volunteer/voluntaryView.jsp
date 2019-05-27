@@ -22,7 +22,7 @@
 						<th colspan="4">
 							<p class="volun-view-tit">봉사활동 공고 제목이 노출됩니다.</p>
 							<p class="volun-view-sub-tit">
-								<span><b>작성일</b>2019-05-26</span>
+								<span><b>작성일</b>2019-05-26</span><!-- 공고 등록일이 노출됩니다. -->
 							</p>
 						</th>
 					</tr>
@@ -45,20 +45,24 @@
 						<td colspan="3">
 							봉사활동 상세 설명 내용이 들어갑니다. 봉사활동 상세 설명 내용이 들어갑니다. 봉사활동 상세 설명 내용이 들어갑니다.
 							봉사활동 상세 설명 내용이 들어갑니다. 봉사활동 상세 설명 내용이 들어갑니다. 봉사활동 상세 설명 내용이 들어갑니다.
-							(공고 등록 시 첨부파일 이미지가 여기에 같이 노출됨.)
 						</td>
+					</tr>
+					<tr>
+						<th>첨부파일</th>
+						<td colspan="3"><p><a href="">첨부파일 다운로드를 할 수 있습니다.</a></p></td>
 					</tr>
 				</table>
 				<div class="common-tbl-btn-group" style="text-align:right;">
+					<button type="button" class="btn-style1" onclick="javascript:layerLoad('/voluntaryApply');">신청하기</button><!-- 신청 마감시 버튼 변경->신청 마감 누르면 alert('신청이 마감되었습니다.') -->
 					<button type="button" class="btn-style2" onclick="location.href='/volunteerList'">목록으로</button>
 				</div>
 			</div>
-			<!-- 봉사활동 신청 폼 -->
-			<div class="voluntary-bottom-box">
+			<!-- 봉사활동 신청 폼 --><!-- 봉사활동 신청은 회원 전용 -->
+			<!-- <div class="voluntary-bottom-box">
 				<h2 class="comm-content-tit">봉사활동 신청하기</h2>
 				<div class="voluntary-bottom-inner">
 					<form action="" method="post">
-						<table class="comm-tbl"><!-- 봉사활동 신청은 회원 전용 -->
+						<table class="comm-tbl">
 							<colgroup>
 								<col width="20%">
 								<col width="/">
@@ -95,10 +99,71 @@
 						</div>
 					</form>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </section>
+
+<%-- 모달 레이어 팝업 --%>
+<article class="modal-fixed-pop-wrapper">
+	<div class="modal-fixed-pop-inner">
+		<div class="modal-loading"><span class="loading"></span></div>
+		<div class="modal-inner-box">
+			<div class="modal-inner-content"></div>
+		</div>
+	</div>
+</article>
+
+<%-- 모달 레이어 팝업 script --%>
+<script>
+function layerLoad(strUrl){
+	var $modalWrap = $(".modal-fixed-pop-wrapper");
+
+	$("html").css({
+		"margin-right":"17px",
+		"overflow-y":"hidden"
+	});
+	$modalWrap.fadeIn();
+	
+	$.ajax({
+		type: "POST",
+		url: strUrl,
+		data: "",
+		success: function(resultText){
+			$modalWrap.find(".modal-inner-content").html(resultText);
+		},
+		error: function() {
+			alert("호출에 실패했습니다.");
+			$(".modal-fixed-pop-wrapper").hide();
+			$("html").css({
+				"margin-right":"0",
+				"overflow-y":"scroll"
+			});
+		},
+		beforeSend:function(){ 
+			$('.modal-loading').fadeIn(); 
+		},
+		complete:function(){ 
+			$('.modal-loading').hide();
+		}
+	});
+}
+
+// 모달 창 닫기
+$(document).ready(function  () {
+	var $modalWrap = $(".modal-fixed-pop-wrapper");
+	$(".modal-close-btn").click(function  () {
+		$(".modal-inner-content").empty();
+		$modalWrap.css("display","none");
+		$("html").css({
+			"margin-right":"0",
+			"overflow-y":"scroll"
+		});
+		$modalWrap.fadeOut();
+		return false;
+	});
+});
+</script>
 
 <%-- Footer --%>
 <jsp:include page="/WEB-INF/common/footer.jsp" />

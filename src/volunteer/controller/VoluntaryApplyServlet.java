@@ -1,4 +1,4 @@
-package finddog.controller;
+package volunteer.controller;
 
 import java.io.IOException;
 
@@ -10,29 +10,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class finddogServlet
+ * Servlet implementation class VoluntaryApplyServlet
  */
-@WebServlet(name = "finddog", urlPatterns = { "/finddog" })
-public class finddogServlet extends HttpServlet {
+@WebServlet(name = "VoluntaryApply", urlPatterns = { "/voluntaryApply" })
+public class VoluntaryApplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public finddogServlet() {
+    public VoluntaryApplyServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/findDog.jsp");
-		System.out.println("테스트");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/volunteer/voluntaryApply.jsp");
 		rd.forward(request, response);
-		
-		
 	}
 
 	/**
