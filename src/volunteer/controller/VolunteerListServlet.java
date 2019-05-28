@@ -8,6 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import volunteer.model.service.VoluntaryService;
+import volunteer.model.vo.VoluntaryListData;
 
 /**
  * Servlet implementation class VolunteerListServlet
@@ -27,6 +31,20 @@ public class VolunteerListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		
+		HttpSession session = request.getSession(false);
+		
+		int reqPage;
+		try {
+			reqPage = Integer.parseInt(request.getParameter("reqPage"));
+		}catch(NumberFormatException e) {
+			reqPage = 1;
+		}
+		
+		VoluntaryListData vld = new VoluntaryService().voluntaryList(reqPage);
+		request.setAttribute("vld", vld);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/volunteer/voluntaryList.jsp");
 		rd.forward(request, response);
 	}

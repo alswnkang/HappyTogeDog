@@ -10,19 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import volunteer.model.service.VoluntaryService;
-import volunteer.model.vo.VoluntaryRegister;
+import volunteer.model.vo.VoluntaryListData;
 
 /**
- * Servlet implementation class VoluntaryViewServlet
+ * Servlet implementation class SearchVoluntaryServlet
  */
-@WebServlet(name = "VoluntaryView", urlPatterns = { "/voluntaryView" })
-public class VoluntaryViewServlet extends HttpServlet {
+@WebServlet(name = "SearchVoluntary", urlPatterns = { "/searchVoluntary" })
+public class SearchVoluntaryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VoluntaryViewServlet() {
+    public SearchVoluntaryServlet() {
         super();
     }
 
@@ -31,19 +31,23 @@ public class VoluntaryViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		int no = Integer.parseInt(request.getParameter("no"));
-		VoluntaryRegister vr = new VoluntaryService().voluntaryView(no);
-		String view="";
-		if(vr != null) {
-			request.setAttribute("vr", vr);
-			view = "/WEB-INF/volunteer/voluntaryView.jsp";
-		}else {
-			request.setAttribute("msg", "해당 봉사활동 신청 공고가 존재하지 않습니다.");
-			request.setAttribute("loc", "/voluntaryList");
-			view = "/WEB-INF/common/msg.jsp";
+		String type= request.getParameter("type");
+		String keyword = request.getParameter("keyword");
+		
+		int reqPage;
+		try {
+			reqPage = Integer.parseInt(request.getParameter("reqPage"));
+		}catch(NumberFormatException e) {
+			reqPage = 1;
 		}
 		
-		RequestDispatcher rd = request.getRequestDispatcher(view);
+		VoluntaryListData vld = new VoluntaryService().searchVoluntary(reqPage, type, keyword);
+		
+		request.setAttribute("vld", vld);
+		request.setAttribute("type", type);
+		request.setAttribute("keyword", keyword);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/volunteer/voluntaryList.jsp");
 		rd.forward(request, response);
 	}
 

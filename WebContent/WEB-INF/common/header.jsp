@@ -62,11 +62,13 @@
 							</div>
 						</li>
 						<li class="gnb02">
-							<a href="">봉사활동</a>
+							<a href="/volunteerList">봉사활동</a>
 							<div class="gnb-2dep">
 								<ul>
 									<!-- 봉사활동 공고등록은 보호소회원일때만 노출됩니다. -->
-									<!-- <li><a href="/voluntaryRegister">봉사활동 공고 등록</a></li> -->
+									<%if(m != null && m.getMemberLevel() == 1){%>
+									<li><a href="/voluntaryWrite">봉사활동 공고등록</a></li>
+									<%} %>
 									<li><a href="/volunteerList">봉사활동 신청</a></li>
 								</ul>
 							</div>
