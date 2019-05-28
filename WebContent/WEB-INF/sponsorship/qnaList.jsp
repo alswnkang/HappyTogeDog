@@ -32,14 +32,14 @@
 						<tr>
 							<td>1</td>
 							<td><span class="volun-status ing">답변대기</span></td>
-							<td><p class="volun-tit"><a href="/voluntaryView">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
+							<td><p class="volun-tit"><a href="/qnaView">비밀글입니다.</a></p></td>
 							<td>작성자</td>	
 							<td>2019-05-24</td>						
 						</tr>
 						<tr>
 							<td>2</td>
 							<td><span class="volun-status end">답변완료</span></td>
-							<td><p class="volun-tit"><a href="/voluntaryView">봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.봉사활동 제목이 들어갑니다.</a></p></td>
+							<td><p class="volun-tit"><a href="/qnaView">배송 언제 되나요</a></p></td>
 							<td>작성자</td>
 							<td>2019-05-24</td>
 						</tr>

@@ -18,7 +18,7 @@ import sponsorship.model.service.OrderService;
 import sponsorship.model.vo.OrderInfoVO;
 import sponsorship.model.vo.TotalOrder;
 
-@WebServlet(name = "order", urlPatterns = { "/sponsorship", "/viewProduct", "/order", "/orderIng", "/orderEnd", "/findOrder", "/myOrder", "/qnaList", "/orderList" })
+@WebServlet(name = "order", urlPatterns = { "/sponsorship", "/viewProduct", "/order", "/orderIng", "/orderEnd", "/findOrder", "/myOrder", "/qnaList", "/qnaView", "/orderList" })
 public class orderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -42,6 +42,10 @@ public class orderServlet extends HttpServlet {
 		
 		}else if(action.equals("qnaList")){
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/qnaList.jsp");
+			rd.forward(request, response);
+			
+		}else if(action.equals("qnaView")){
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/qnaView.jsp");
 			rd.forward(request, response);
 			
 		}else if(action.equals("orderList")){
@@ -85,7 +89,10 @@ public class orderServlet extends HttpServlet {
 			String email = mRequest.getParameter("email");
 			String receiveName = mRequest.getParameter("receiveName");
 			String receivePhone = mRequest.getParameter("receivePhone1")+"-"+mRequest.getParameter("receivePhone2")+"-"+mRequest.getParameter("receivePhone3");
-	
+			String vbankName = mRequest.getParameter("vbankName");
+			String vbankNum = mRequest.getParameter("vbankNum");
+			String vbankHolder = mRequest.getParameter("vbankHolder");
+			String vbankDate = mRequest.getParameter("vbankDate");
 			
 			OrderInfoVO orderInfo = new OrderInfoVO(no, id, name, phone, payMethod, pay, amount, 0, null, productName, "sysdate", memo, post, address, email, receiveName, receivePhone);
 
