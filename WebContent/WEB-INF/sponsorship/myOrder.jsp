@@ -6,10 +6,7 @@
 
 <div class="area">
 	<div class="order-success">
-		<p class="main-comm-tit">주문이 완료되었습니다.</p>
-		<c:if test="${empty orderInfo.id }">
-			<p>비회원 주문시 주문번호를 메모해주세요.</p>
-		</c:if>
+		<p class="main-comm-tit">주문 상세</p>
 		<table class="comm-tbl type2">
 			<tr>
 				<td>주문번호</td><td>${orderInfo.no }</td>
@@ -36,7 +33,9 @@
 				<td>배송 메모</td><td>${orderInfo.memo }</td>
 			</tr>
 		</table>
-		<button class="order-btn">주문 내역 확인</button>
+		<c:if test="${not empty sessionScope.member }">
+			<button class="order-btn">목록으로</button>
+		</c:if>
 	</div>
 	
 </div>

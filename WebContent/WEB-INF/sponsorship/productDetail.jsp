@@ -61,7 +61,7 @@
 				</tr>
 			</table>
 			<p class="common-tbl-btn-group right">
-				<button class="btn-style2">더보기</button><button class="btn-style2">작성하기</button>
+				<button class="btn-style2" onclick="location.href='/qnaList'">더보기</button><button class="btn-style2">작성하기</button>
 			</p>
 		</div>
 	</div>

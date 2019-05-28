@@ -76,7 +76,8 @@
 							<div class="gnb-2dep">
 								<ul>
 									<li><a href="/sponsorship">후원하기</a></li>
-									<li><a href="">Q&A</a></li>
+									<li><a href="/qnaList">Q&A</a></li>
+									<li><a href="/findOrder.jsp">주문조회</a></li>
 								</ul>
 							</div>
 						</li>
