@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class finddogServlet
  */
-@WebServlet(name = "finddog", urlPatterns = { "/finddog" })
+@WebServlet(name = "finddog", urlPatterns = { "/findDog" })
 public class finddogServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -28,7 +28,7 @@ public class finddogServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/findDog.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/selectMenu.jsp");
 		System.out.println("테스트");
 		rd.forward(request, response);
 		
