@@ -2,7 +2,7 @@ package sponsorship.model.vo;
 
 public class OrderInfoVO {
 	
-	private int no;
+	private String no;
 	private String id;
 	private String name;
 	private String phone;
@@ -24,7 +24,7 @@ public class OrderInfoVO {
 		super();
 	}
 	
-	public OrderInfoVO(int no, String id, String name, String phone, String payMethod, int pay, int amount, int status,
+	public OrderInfoVO(String no, String id, String name, String phone, String payMethod, int pay, int amount, int status,
 			String deilveryNum, String productName, String sponDate, String memo, String post, String address,
 			String email, String receiveName, String receivePhone) {
 		super();
@@ -46,10 +46,10 @@ public class OrderInfoVO {
 		this.receiveName = receiveName;
 		this.receivePhone = receivePhone;
 	}
-	public int getNo() {
+	public String getNo() {
 		return no;
 	}
-	public void setNo(int no) {
+	public void setNo(String no) {
 		this.no = no;
 	}
 	public String getId() {

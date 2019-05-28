@@ -21,6 +21,8 @@
 		</div>
 		
 		<form id="orderForm">
+			<input type="hidden" name="orderNo">
+			<input type="hidden" name="productName" value="에코백">
 			<div class="order">
 				<p class="main-comm-tit">주문자 정보</p>
 				<table>
@@ -60,13 +62,13 @@
 								<option value="011">011</option>
 							</select>
 							 - <input type="text" name="receivePhone2" class="phone num" maxlength="4"> 
-							 - <input type="text" name=receivePhone3" class="phone num" maxlength="4">
+							 - <input type="text" name="receivePhone3" class="phone num" maxlength="4">
 						</td>
 					</tr>
 					<tr>
 						<td>배송지 주소</td>
 						<td style="height: 200px;">
-							<input type="text" name="post" class="post" onclick="getAddr(this.form);" value="${sessionScope.member.phone }" readonly><br><br>
+							<input type="text" name="post" class="post" onclick="getAddr(this.form);" value="${sessionScope.member.post }" readonly><br><br>
 							<input type="text" name="address" class="address" onclick="getAddr(this.form);" value="${sessionScope.member.address }" readonly><br><br>
 							<input type="text" name="address2" class="address" placeholder="상세 주소를 입력하세요">
 						</td>
@@ -94,7 +96,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2" style="text-align: right;"><input type="hidden" name="pay" value="${price}">총<span id="total">${price}</span>원 <button class="order-btn">결제하기</button></td>
+						<td colspan="2" style="text-align: right;"><input type="hidden" name="amount" value="${amount}"><input type="hidden" name="pay" value="${price}">총<span id="total">${price}</span>원 <button class="order-btn">결제하기</button></td>
 					</tr>
 				</table>
 			</div>
@@ -109,6 +111,7 @@
 		
 		$('input[type=checkbox]').click(function() {
 			$('input[name=receiveName]').val($('input[name=name]').val());
+			$('input[name=receivePhone1]').val($('input[name=phone1]').val());
 			$('input[name=receivePhone2]').val($('input[name=phone2]').val());
 			$('input[name=receivePhone3]').val($('input[name=phone3]').val());
 		});
@@ -118,7 +121,6 @@
 			event.preventDefault();
 			
 			var prdName = $('#prdName').html();
-			//var price = $('.pay span#total').html();
 			var price = $('input[name=pay]').val();
 			var name = $('input[name=name]').val();
 			var email = $('input[name=email]').val();
@@ -126,27 +128,23 @@
 			var post = $('input[name=post]').val();
 			var addr = $('input[name=address]').val()+' '+$('input[name=address2]').val();
 			var method = $('input[name=payMethod]:checked').val();
+
 			/*
-			console.log(prdName);
-			console.log(price);
-			console.log(name);
-			console.log(email);
-			console.log(phone);
-			console.log(post);
-			console.log(addr);
-			console.log(method);
-			*/
 			if(method=='account'){
 
 				var form = $('#orderForm')[0];
+				console.log(form);
 				var data = new FormData(form);
-					
+				console.log(data);
 				$.ajax({
 					url : "/orderIng",
 					type : "post",
 					data : data,
+					enctype : "multipart/form-data",
+					processData: false,
+		            contentType: false,
 					success : function(data){
-						
+						location.href='/orderEnd';
 					},
 					error : function(){
 						console.log("실패");
@@ -154,10 +152,10 @@
 				});
 				
 			}else{
-				
+			*/
 				var d = new Date();
 				var date = d.getFullYear() + '' + (d.getMonth() + 1) + '' + d.getDate() + '' + d.getHours() + '' + d.getMinutes() + '' + d.getSeconds();
-				
+				$('input[name=orderNo]').val(date);
 				IMP.init('imp20013985');
 				IMP.request_pay({
 					merchant_uid : prdName+"_"+ date,
@@ -171,7 +169,27 @@
 					pay_method : method
 				}, function(response) {
 					if (response.success) {
-						alert('완료');
+						var form = $('#orderForm')[0];
+						var data = new FormData(form);
+						$.ajax({
+							url : "/orderIng",
+							type : "post",
+							data : data,
+							enctype : "multipart/form-data",
+							processData: false,
+				            contentType: false,
+							success : function(data){
+								if(data=='fail'){
+									console.log('결제실패ㅐ패패패패패ㅐ패패ㅐ주문실패');
+								}else{
+									location.href=data;
+								}
+								
+							},
+							error : function(){
+								console.log("실패");
+							}
+						});
 						/*
 						var msg = '결제가 완료되었습니다.';
 						var info1 = '고유 ID : ' + response.imp_uid;
@@ -183,10 +201,10 @@
 						*/
 					} else {
 						alert('결제를 취소하셨습니다.');
-						//$('#paymentResult').html('에러내용 : ' + response.error_msg + date);
+						console.log("에러 : "+response.error_msg);
 					}
 				});	
-			}
+			//}
 		});
 		
 	});
