@@ -17,9 +17,14 @@
 				
 				<h1 id="h_title1">일반 회원가입</h1>
 				<h1 id="h_title2" style="display:none">보호소 회원가입</h1>
-				아이디 : <input type="text" name="id" id="id"><br>
-				비밀번호 : <input type="password" name="pw" id="pw"><br>
+				아이디 : <input type="text" name="id" id="id" placeholder = "6~12자리 영/숫자">
+				<button type="button" id="checkId">중복체크</button><br>
+				<p id="p_checkId" style="display:none">아이디 입력양식 확인</p>
+				
+				비밀번호 : <input type="password" name="pw" id="pw" placeholder = "영/숫자를 포함한 8~13자리"><br>
+				<p id="p_checkPw" style="display:none">비밀번호 입력양식 확인</p>
 				비밀번호 확인 : <input type="password" name="pw_re" id="pw_re"><br>
+				<p id="p_checkPw_re" style="display:none">비밀번호가 일치하지 않습니다</p>
 				<p  id="p_code" style="display:none">보소호코드 : <input type="text" name="code"><br></p>
 				이름 : <input type="text" name="name"><br>
 				전화번호 : <input type="text" name="phone"><br>
@@ -58,6 +63,7 @@
 				</select><br>
 				</div>
 				<input type="submit" value="회원가입">
+				<input type="reset" value="취소" id="reset">
 				<h1>레벨 : ${level }</h1>
 			</div>
 		</form>
@@ -96,7 +102,68 @@
 				$('#selectTime').css('display','none');		//level이 0일때 none
 			}
 			
+			$('#id').keyup(function(){
+				var id = $('#id').val();
+				var id_re = /^[a-zA-Z0-9]{5,11}$/;
+				if(id_re.test(id)==true){
+					$('#p_checkId').css('display','none');
+					
+				}else if(id_re.test(id)==false){
+					$('#p_checkId').css('display','block');
+					$('#p_checkId').css('color','red');
+				}
+			});
+			
+			$('#pw').keyup(function(){
+				var pw = $('#pw').val();
+				var checkPw = /^[a-zA-Z0-9]{7,12}$/;
+				if(checkPw.test(pw)==true){
+					$('#p_checkPw').css('display','none');
+					
+				}else if(checkPw.test(pw)==false){
+					$('#p_checkPw').css('display','block');
+					$('#p_checkPw').css('color','red');
+				}
+			});
+			
+			$('#pw_re').keyup(function(){
+				var pw = $('#pw').val();
+				var pw_re = $('#pw_re').val();
+				if(pw != pw_re){
+					$('#p_checkPw_re').css('display','block');
+					$('#p_checkPw_re').css('color','red');
+				}else{
+					$('#p_checkPw_re').css('display','none');
+				}
+			});
+			$('#reset').click(function(){
+				$('#p_checkId').css('display','none');
+				$('#p_checkPw').css('display','none');
+				$('#p_checkPw_re').css('display','none');
+			});
+			
 		});
+		
+		$('#checkId').click(function(){
+			var memberId = $('#id').val();
+			$.ajax({
+				url : "/checkId",
+				type : "get",
+				data : {memberId : memberId},
+				success : function(data){
+					if(data ==1){
+						alert("사용가능")
+					}else{
+						alert("사용불가")
+					}
+				},
+				error : function(){
+					console.log("실패");
+				}
+			});
+		});
+		
+		
 	</script>
 </body>
 	<jsp:include page="/WEB-INF/common/footer.jsp" />
