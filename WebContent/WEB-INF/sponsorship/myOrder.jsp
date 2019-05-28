@@ -33,7 +33,9 @@
 				<td>배송 메모</td><td>${orderInfo.memo }</td>
 			</tr>
 		</table>
-		<button class="order-btn">주문 내역 확인</button>
+		<c:if test="${not empty sessionScope.member }">
+			<button class="order-btn">목록으로</button>
+		</c:if>
 	</div>
 	
 </div>

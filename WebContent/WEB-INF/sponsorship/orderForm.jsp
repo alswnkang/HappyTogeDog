@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <jsp:include page="/WEB-INF/common/header.jsp" />
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -16,7 +18,7 @@
 				<li><img src="/img/76896814691427225_1127979769.jpg" width="150" onclick="location.href='/viewProduct'"></li>
 				<li id="prdName">상품명</li>
 				<li>${amount} 개</li>
-				<li>${price} 원</li>
+				<li><fmt:formatNumber value="${price}" pattern="#,###" /> 원</li>
 			</ul>
 		</div>
 		
@@ -96,7 +98,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2" style="text-align: right;"><input type="hidden" name="amount" value="${amount}"><input type="hidden" name="pay" value="${price}">총<span id="total">${price}</span>원 <button class="order-btn">결제하기</button></td>
+						<td colspan="2" style="text-align: right;"><input type="hidden" name="amount" value="${amount}"><input type="hidden" name="pay" value="${price}">총<span id="total"><fmt:formatNumber value="${price}" pattern="#,###" /></span>원 <button class="order-btn">결제하기</button></td>
 					</tr>
 				</table>
 			</div>

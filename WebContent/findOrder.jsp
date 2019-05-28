@@ -21,4 +21,28 @@
 	</div>
 	
 </div>
+<script>
+	$(function() {
+		$('.order-success button').click(function() {
+			var no = $('input[name=no]').val();
+			var phone = $('input[name=phone1]').val()+'-'+$('input[name=phone2]').val()+'-'+$('input[name=phone3]').val();
+			$.ajax({
+				url : "/findOrder",
+				type : "post",
+				data : {no:no,phone:phone},
+				success : function(data){
+					if(data=='fail'){
+						alert('조회 결과가 없습니다.');
+					}else{
+						location.href=data;
+					}
+					
+				},
+				error : function(){
+					console.log("실패");
+				}
+			});
+		});
+	});
+</script>
 <jsp:include page="/WEB-INF/common/footer.jsp" />
