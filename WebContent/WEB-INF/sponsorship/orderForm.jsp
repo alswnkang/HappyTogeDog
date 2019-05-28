@@ -95,8 +95,12 @@
 								<label><input type="radio" name="payMethod" value="card" checked> 신용카드</label>
 								<label><input type="radio" name="payMethod" value="trans"> 실시간 계좌이체</label>
 								<label><input type="radio" name="payMethod" value="vbank"> 가상계좌</label>
-								<label><input type="radio" name="payMethod" value="account"> 무통장입금</label>
+								<!-- <label><input type="radio" name="payMethod" value="account"> 무통장입금</label> -->
 								<label><input type="radio" name="payMethod" value="phone"> 휴대폰</label>
+								<input type="hidden" name="vbankName">
+								<input type="hidden" name="vbankNum">
+								<input type="hidden" name="vbankHolder">
+								<input type="hidden" name="vbankDate">
 							</td>
 						</tr>
 						<tr>
@@ -134,82 +138,67 @@
 			var addr = $('input[name=address]').val()+' '+$('input[name=address2]').val();
 			var method = $('input[name=payMethod]:checked').val();
 
-			/*
-			if(method=='account'){
-
-				var form = $('#orderForm')[0];
-				console.log(form);
-				var data = new FormData(form);
-				console.log(data);
-				$.ajax({
-					url : "/orderIng",
-					type : "post",
-					data : data,
-					enctype : "multipart/form-data",
-					processData: false,
-		            contentType: false,
-					success : function(data){
-						location.href='/orderEnd';
-					},
-					error : function(){
-						console.log("실패");
+			var d = new Date();
+			var date = d.getFullYear() + '' + (d.getMonth() + 1) + '' + d.getDate() + '' + d.getHours() + '' + d.getMinutes() + '' + d.getSeconds();
+			$('input[name=orderNo]').val(date);
+			IMP.init('imp20013985');
+			IMP.request_pay({
+				merchant_uid : prdName+"_"+ date,
+				name : prdName,
+				amount : price, 
+				buyer_name : name,
+				buyer_tel : phone,
+				buyer_email : email,
+				buyer_addr : addr,
+				buyer_postcode : post,
+				pay_method : method,
+				escrow: true,
+				vbank_due : d.getFullYear() + '' + (d.getMonth() + 1) + '' + (d.getDate()+3)
+			}, function(response) {
+				if (response.success) {
+					
+					if(method=='vbank'){
+						$('input[name=vbankName]').val(response.vbank_name);
+						$('input[name=vbankNum]').val(response.vbank_num);
+						$('input[name=vbankHolder]').val(response.vbank_holder);
+						$('input[name=vbankDate]').val(response.vbank_date);
 					}
-				});
-				
-			}else{
-			*/
-				var d = new Date();
-				var date = d.getFullYear() + '' + (d.getMonth() + 1) + '' + d.getDate() + '' + d.getHours() + '' + d.getMinutes() + '' + d.getSeconds();
-				$('input[name=orderNo]').val(date);
-				IMP.init('imp20013985');
-				IMP.request_pay({
-					merchant_uid : prdName+"_"+ date,
-					name : prdName,
-					amount : price, 
-					buyer_name : name,
-					buyer_tel : phone,
-					buyer_email : email,
-					buyer_addr : addr,
-					buyer_postcode : post,
-					pay_method : method
-				}, function(response) {
-					if (response.success) {
-						var form = $('#orderForm')[0];
-						var data = new FormData(form);
-						$.ajax({
-							url : "/orderIng",
-							type : "post",
-							data : data,
-							enctype : "multipart/form-data",
-							processData: false,
-				            contentType: false,
-							success : function(data){
-								if(data=='fail'){
-									console.log('결제실패ㅐ패패패패패ㅐ패패ㅐ주문실패');
-								}else{
-									location.href=data;
-								}
-								
-							},
-							error : function(){
-								console.log("실패");
+					var form = $('#orderForm')[0];
+					var data = new FormData(form);
+					$.ajax({
+						url : "/orderIng",
+						type : "post",
+						data : data,
+						enctype : "multipart/form-data",
+						processData: false,
+			            contentType: false,
+						success : function(data){
+							if(data=='fail'){
+								console.log('결제실패ㅐ패패패패패ㅐ패패ㅐ주문실패');
+							}else{
+								location.href=data;
 							}
-						});
-						/*
-						var msg = '결제가 완료되었습니다.';
-						var info1 = '고유 ID : ' + response.imp_uid;
-						var info2 = '결제금액 : ' + response.paid_amount;
-						var info3 = '카드 승인 번호 : ' + response.apply_num;
-						$('#paymentResult').html(
-								msg + "<br>" + info1 + "<br>" + info2
-										+ "<br>" + info3 + "<br>");
-						*/
-					} else {
-						alert('결제를 취소하셨습니다.');
-						console.log("에러 : "+response.error_msg);
-					}
-				});	
-			//}
+							
+						},
+						error : function(){
+							console.log("실패");
+						}
+					});
+					/*
+					var msg = '결제가 완료되었습니다.';
+					var info1 = '고유 ID : ' + response.imp_uid;
+					var info2 = '결제금액 : ' + response.paid_amount;
+					var info3 = '카드 승인 번호 : ' + response.apply_num;
+					$('#paymentResult').html(
+							msg + "<br>" + info1 + "<br>" + info2
+									+ "<br>" + info3 + "<br>");
+					*/
+				} else {
+					alert('결제를 취소하셨습니다.');
+					console.log("에러 : "+response.error_msg);
+				}
+			});	
+			
 		});
 		
 	});
