@@ -29,7 +29,9 @@
 .comm-tbl th{font-size:17px; line-height:20px; font-weight:500;}
 .comm-tbl input[type='text'], .comm-tbl input[type='password'], .comm-tbl input[type='file'],
 .comm-tbl select, .comm-tbl textarea{padding:7px; border:1px solid #ddd; border-radius:4px; width:90%;}
-.comm-tbl input[type='text'].short, .comm-tbl input[type='password'].short{width:30%;}
+.comm-tbl input[type='text'].short, .comm-tbl input[type='password'].short, .comm-tbl input[type='file'].short{width:30%;}
+.comm-tbl .comment{padding-top:5px; font-size:12px; color:#888;}
+.comm-tbl .none{padding:40px 0; font-size:16px;}
 .comm-tbl.type2{width:100%;}
 .comm-tbl.type2 th, .comm-tbl.type2 td{padding:10px;}
 .comm-tbl.type2 tr:first-child td{border-top:1px solid #ddd;}
@@ -41,6 +43,8 @@
 .common-tbl-btn-group > button{width:130px; height:50px; border-radius:5px; font-size:17px; color:#fff; margin:0 10px;}
 .common-tbl-btn-group > button.btn-style1{background-color:rgba(254,67,30);}
 .common-tbl-btn-group > button.btn-style2{background-color:#444;}
+.common-tbl-btn-group > button.btn-style3{background-color:#888;}
+.comm-tbl .file-del-btn{height:30px; padding:0 10px; border-radius:5px; background-color:#888; color:#fff; margin-left:5px;}
 
 /* 봉사활동 신청 List */
 .volun-tit{max-width:385px; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; text-align:left;}

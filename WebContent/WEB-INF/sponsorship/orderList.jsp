@@ -5,6 +5,7 @@
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
+<link rel="stylesheet" type="text/css" href="/css/style.css">
 
 <%-- Content --%>
 <section id="content-wrapper">
@@ -12,9 +13,9 @@
 		<h2 class="comm-content-tit">주문 내역(관리자)</h2>
 		<div id="orderListBox" class="common-tbl-box"><!-- id는 바꿔서 복붙 -->
 			<!-- 검색박스 -->
-		 		<div class="board-search-box">
-		 			<input class="datepicker"> ~ <input class="datepicker">
-		 			<br>
+		 		<div class="board-search-box order-search">
+		 			<input class="datepicker search-word"> ~ <input class="datepicker search-word">
+		 			<br><br>
 		 			<select name="status">
 		 				<option>---주문상태---</option>
 						<option value="0">주문 완료</option>
@@ -22,21 +23,21 @@
 						<option value="2">배송중</option>
 						<option value="3">배송 완료</option>
 					</select>
-		 			<br>
+		 			<br><br>
 		 			<label><input type="radio" name="payMethod" value="card" checked> 신용카드</label>
 					<label><input type="radio" name="payMethod" value="trans"> 실시간 계좌이체</label>
 					<label><input type="radio" name="payMethod" value="vbank"> 가상계좌</label>
 					<label><input type="radio" name="payMethod" value="account"> 무통장입금</label>
 					<label><input type="radio" name="payMethod" value="phone"> 휴대폰</label>
-					<br>
-					<select name="search_item"><!-- option 세부항목은 각자 알아서 넣으시면 됩니다. -->
+					<br><br>
+					<select name="search_item">
 						<option value="no">주문번호</option>
 						<option value="name">주문자명</option>
 					</select>
 					<input placeholder="검색어를 입력해주세요." type="search" name="search_order" class="search-word" value="">
 					<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
 				</div>
-				<p>총 주문 수 : ${total.count } / 총 후원 금액(결제 완료된 주문합계) : <fmt:formatNumber value="${total.price }" pattern="#,###" /> 원</p>
+				<p class="total">총 주문 수 : ${total.count } / 총 후원 금액(결제 완료된 주문합계) : <fmt:formatNumber value="${total.price }" pattern="#,###" /> 원</p>
 				<table class="comm-tbl type2"><!-- 신청목록게시판은 한페이지에 게시물 최대 10개 노출 -->
 					<colgroup>
 						<col width="15%">

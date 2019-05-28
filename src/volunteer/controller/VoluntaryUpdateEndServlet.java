@@ -1,8 +1,7 @@
 package volunteer.controller;
 
+import java.io.File;
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,16 +17,16 @@ import volunteer.model.service.VoluntaryService;
 import volunteer.model.vo.VoluntaryRegister;
 
 /**
- * Servlet implementation class VoluntaryRegisterServlet
+ * Servlet implementation class VoluntaryUpdateEndServlet
  */
-@WebServlet(name = "VoluntaryRegister", urlPatterns = { "/voluntaryRegister" })
-public class VoluntaryRegisterServlet extends HttpServlet {
+@WebServlet(name = "VoluntaryUpdateEnd", urlPatterns = { "/voluntaryUpdateEnd" })
+public class VoluntaryUpdateEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VoluntaryRegisterServlet() {
+    public VoluntaryUpdateEndServlet() {
         super();
     }
 
@@ -49,8 +48,7 @@ public class VoluntaryRegisterServlet extends HttpServlet {
 		int maxSize = 10*1024*1024;	//최대 10MB
 		MultipartRequest mRequest = new MultipartRequest(request, saveDirectory, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 		
-		String code = mRequest.getParameter("code");
-		String name = mRequest.getParameter("name");
+		int no = Integer.parseInt(mRequest.getParameter("no"));
 		String title = mRequest.getParameter("title");
 		String volunDate = mRequest.getParameter("volunDate");
 		String volunTime1 = mRequest.getParameter("volunTime1");
@@ -60,18 +58,35 @@ public class VoluntaryRegisterServlet extends HttpServlet {
 		String detail = mRequest.getParameter("detail");
 		String filename = mRequest.getOriginalFileName("filename");
 		String filepath = mRequest.getFilesystemName("filename");
+		String oldFilename = request.getParameter("oldfilename");
+		String oldFilepath = request.getParameter("oldFilepath");
+		String fileStatus = mRequest.getParameter("fileStatus");
+		File f = mRequest.getFile("filename");
+		if(f != null && f.length() > 0) {
+			if(oldFilename != null) {
+				File deleteFile = new File(saveDirectory+"/"+oldFilepath);
+				boolean bool = deleteFile.delete();
+			}
+		}else {
+			if(fileStatus.equals("stay")) {
+				filename = oldFilename;
+				filepath = oldFilepath;
+			}else {
+				File deleteFile = new File(saveDirectory+"/"+oldFilepath);
+				boolean bool = deleteFile.delete();
+			}
+		}
 		
-		VoluntaryRegister vr = new VoluntaryRegister(0, 0, code, title, volunDate, volunTime, person, detail, 0, filename, filepath, null);
-		int result = new VoluntaryService().insertVoluntaryRegister(vr);
+		VoluntaryRegister vr = new VoluntaryRegister(0, no, null, title, volunDate, volunTime, person, detail, 0, oldFilename, oldFilepath, null);
+		int result = new VoluntaryService().updateVoluntary(vr);
 		
 		if(result > 0) {
-			request.setAttribute("msg", "봉사활동 공고 등록을 완료했습니다.");
+			request.setAttribute("msg", "봉사활동 공고 수정 완료");
 		}else {
-			request.setAttribute("msg", "봉사활동 공고 등록을 실패했습니다.");
+			request.setAttribute("msg", "봉사활동 공고 수정 실패");
 		}
-		request.setAttribute("loc", "/volunteerList");
+		request.setAttribute("loc", "/voluntaryView?no="+no);
 		request.getRequestDispatcher("/WEB-INF/common/msg.jsp").forward(request, response);
-		
 	}
 
 	/**

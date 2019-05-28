@@ -13,16 +13,16 @@ import volunteer.model.service.VoluntaryService;
 import volunteer.model.vo.VoluntaryRegister;
 
 /**
- * Servlet implementation class VoluntaryViewServlet
+ * Servlet implementation class VoluntaryUpdateServlet
  */
-@WebServlet(name = "VoluntaryView", urlPatterns = { "/voluntaryView" })
-public class VoluntaryViewServlet extends HttpServlet {
+@WebServlet(name = "VoluntaryUpdate", urlPatterns = { "/voluntaryUpdate" })
+public class VoluntaryUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VoluntaryViewServlet() {
+    public VoluntaryUpdateServlet() {
         super();
     }
 
@@ -33,18 +33,11 @@ public class VoluntaryViewServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		int no = Integer.parseInt(request.getParameter("no"));
 		VoluntaryRegister vr = new VoluntaryService().voluntaryView(no);
-		String view="";
 		if(vr != null) {
 			request.setAttribute("vr", vr);
-			view = "/WEB-INF/volunteer/voluntaryView.jsp";
-		}else {
-			request.setAttribute("msg", "해당 봉사활동 신청 공고가 존재하지 않습니다.");
-			request.setAttribute("loc", "/voluntaryList");
-			view = "/WEB-INF/common/msg.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/volunteer/voluntaryUpdate.jsp");
+			rd.forward(request, response);
 		}
-		
-		RequestDispatcher rd = request.getRequestDispatcher(view);
-		rd.forward(request, response);
 	}
 
 	/**
