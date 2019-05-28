@@ -9,7 +9,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class OpenApiTest2 {
-
 	public static void main(String[] args) {
 		int page = 1;	// 페이지 초기값 
 		try{
@@ -26,7 +25,7 @@ public class OpenApiTest2 {
 				System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 				
 				// 파싱할 tag
-				NodeList nList = doc.getElementsByTagName("baseinfo");
+				NodeList nList = doc.getElementsByTagName("item");
 				System.out.println("파싱할 리스트 수 : "+ nList.getLength());
 				
 				for(int temp = 0; temp < nList.getLength(); temp++){
@@ -35,8 +34,8 @@ public class OpenApiTest2 {
 						
 						Element eElement = (Element) nNode;
 						System.out.println("######################");
-						System.out.println("시도코드 : " + getTagValue("upr_cd", eElement));
-						System.out.println("시군구코드  : " + getTagValue("org_cd", eElement));
+						//System.out.println("시도코드 : " + getTagValue("upr_cd", eElement));
+						//System.out.println("시군구코드  : " + getTagValue("org_cd", eElement));
 						System.out.println("보호소번호  : " + getTagValue("careRegNo", eElement));
 						System.out.println("보호소명 : " + getTagValue("careNm", eElement));
 					}	// for end

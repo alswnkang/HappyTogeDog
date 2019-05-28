@@ -34,7 +34,8 @@ public class AraeCodeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		ArrayList<cityCode> list= new MemberDao().getAreaCode();
+		String code=request.getParameter("code");
+		ArrayList<cityCode> list= new MemberDao().getAreaCode(code);
 		
 
 		

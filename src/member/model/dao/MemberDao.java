@@ -266,13 +266,13 @@ public class MemberDao {
 		// TODO Auto-generated method stub
 		ArrayList<cityCode> list = new ArrayList<>();
 	    
-		
+		int page=1;
 			// 페이지 초기값 
 			try{
 				while(true){
-					int page=0;
+					System.out.println(page);
 					// parsing할 url 지정(API 키 포함해서)
-					String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/sido?ServiceKey=BbQpcBG0GiwHYBNrM7gxpyWUTHH9PAwSZgtjL%2Bj%2FIb6YYiHG86O4qZta75KyCzkPPBmRjXzOHffarvGnn67JzA%3D%3D&pageNo=2";
+					String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/sido?ServiceKey=BbQpcBG0GiwHYBNrM7gxpyWUTHH9PAwSZgtjL%2Bj%2FIb6YYiHG86O4qZta75KyCzkPPBmRjXzOHffarvGnn67JzA%3D%3D&pageNo="+page;
 					
 					DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 					DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
@@ -285,7 +285,7 @@ public class MemberDao {
 					// 파싱할 tag
 					NodeList nList = doc.getElementsByTagName("item");
 					//System.out.println("파싱할 리스트 수 : "+ nList.getLength());
-					System.out.println("nList : "+nList.getLength());
+					
 					for(int temp = 0; temp < nList.getLength(); temp++){
 						cityCode cc = new cityCode();
 						Node nNode = nList.item(temp);
@@ -298,17 +298,31 @@ public class MemberDao {
 
 						
 							list.add(cc);
-						}	// for end
-					}	// if end
+						}	// if end
+					}	// for end
+					page++;
 					
-				break;
+					for(int i=0;i<200000;i++) {
+						
+					}
+				
+					if(page>2) {
+						System.out.println("종료");
+						page=1;
+						break;
+					}
+					
+				
 				}	// while end
 				
 			} catch (Exception e){	
 				e.printStackTrace();
 			}
-			System.out.println("DAO : "+list.size());
-		return list;
+			System.out.println("DAO : "+list.size()+""+page);
+		
+		
+			return list;
+		
 		
 		
 		
@@ -318,7 +332,7 @@ public class MemberDao {
 	
 	
 	
-	public ArrayList<cityCode> getAreaCode() {
+	public ArrayList<cityCode> getAreaCode(String code) {
 		// TODO Auto-generated method stub
 		ArrayList<cityCode> list = new ArrayList<>();
 	    
@@ -327,7 +341,7 @@ public class MemberDao {
 		try{
 			while(true){
 				// parsing할 url 지정(API 키 포함해서)
-				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/sigungu?upr_cd=6450000&ServiceKey=BbQpcBG0GiwHYBNrM7gxpyWUTHH9PAwSZgtjL%2Bj%2FIb6YYiHG86O4qZta75KyCzkPPBmRjXzOHffarvGnn67JzA%3D%3D";
+				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/sigungu?upr_cd="+code+"&ServiceKey=BbQpcBG0GiwHYBNrM7gxpyWUTHH9PAwSZgtjL%2Bj%2FIb6YYiHG86O4qZta75KyCzkPPBmRjXzOHffarvGnn67JzA%3D%3D";
 				
 				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
