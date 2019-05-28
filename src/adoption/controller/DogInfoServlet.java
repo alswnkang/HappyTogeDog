@@ -1,4 +1,4 @@
-package controller;
+package adoption.controller;
 
 import java.io.IOException;
 
@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class finddogServlet
+ * Servlet implementation class DogInfoServlet
  */
-@WebServlet(name = "finddog", urlPatterns = { "/finddog" })
-public class finddogServlet extends HttpServlet {
+@WebServlet(name = "DogInfo", urlPatterns = { "/dogInfo" })
+public class DogInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public finddogServlet() {
+    public DogInfoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,10 +28,9 @@ public class finddogServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/findDog.jsp");
+		request.setCharacterEncoding("UTF-8");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/dogInfo.jsp");
 		rd.forward(request, response);
-		
-		
 	}
 
 	/**

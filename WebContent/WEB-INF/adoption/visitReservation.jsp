@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<link rel="stylesheet" type="text/css" href="/css/reservationContent_bk.css">	<!-- css -->
+<link rel="stylesheet" type="text/css" href="/css/adoption_bk.css">	<!-- css -->
 <!-- Header -->
 <jsp:include page="/WEB-INF/common/header.jsp" />
 
@@ -29,6 +29,10 @@
 					<tr>
 						<th>보호소 전화번호</th>
 						<td><input type="text" name="careTel" value="받아오기" readonly></td>	
+					</tr>
+					<tr>
+						<th>보호소 이용가능 시간</th>
+						<td><input type="text" name="possibleTime" value="받아오기" readonly></td>	
 					</tr>
 					<tr>
 						<th>신청자 이름</th>
