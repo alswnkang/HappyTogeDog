@@ -12,12 +12,12 @@
 	<section>
 	
 		<h1>임시 회원 가입 폼 일반회원,보호소회원</h1>
-		<form action="/memberJoin" method="post">
+		<form action="/memberJoin" method="post" onsubmit="return check()">
 			<div>
 				
 				<h1 id="h_title1">일반 회원가입</h1>
 				<h1 id="h_title2" style="display:none">보호소 회원가입</h1>
-				아이디 : <input type="text" name="id" id="id" placeholder = "6~12자리 영/숫자">
+				아이디 : <input type="text" name="id" id="id" placeholder = "4~12자리 영/숫자">
 				<button type="button" id="checkId">중복체크</button><br>
 				<p id="p_checkId" style="display:none">아이디 입력양식 확인</p>
 				
@@ -25,12 +25,12 @@
 				<p id="p_checkPw" style="display:none">비밀번호 입력양식 확인</p>
 				비밀번호 확인 : <input type="password" name="pw_re" id="pw_re"><br>
 				<p id="p_checkPw_re" style="display:none">비밀번호가 일치하지 않습니다</p>
-				<p  id="p_code" style="display:none">보소호코드 : <input type="text" name="code"><br></p>
-				이름 : <input type="text" name="name"><br>
-				전화번호 : <input type="text" name="phone"><br>
-				우편번호 : <input type="text" name="post"><br>
-				주소 : <input type="text" name="address"><br>
-				EMAIL : <input type="text" name="email"><br>
+				<p id="p_code" style="display:none">보소호코드 : <input type="text" name="code"><br></p>
+				이름 : <input type="text" name="name" id="name"><br>
+				전화번호 : <input type="text" name="phone" id="phone"><br>
+				우편번호 : <input type="text" name="post" id="post"><br>
+				주소 : <input type="text" name="address" id="address"><br>
+				EMAIL : <input type="text" name="email" id="email"><br>
 				<input type="hidden" name="level" id="level" value="${level}">
 				<div id="selectTime">
 				<select name="time" id="time">
@@ -62,7 +62,7 @@
 					
 				</select><br>
 				</div>
-				<input type="submit" value="회원가입">
+				<input type="submit" value="회원가입" id="sub">
 				<input type="reset" value="취소" id="reset">
 				<h1>레벨 : ${level }</h1>
 			</div>
@@ -104,7 +104,7 @@
 			
 			$('#id').keyup(function(){
 				var id = $('#id').val();
-				var id_re = /^[a-zA-Z0-9]{5,11}$/;
+				var id_re = /^[a-zA-Z0-9]{4,12}$/;
 				if(id_re.test(id)==true){
 					$('#p_checkId').css('display','none');
 					
@@ -116,7 +116,7 @@
 			
 			$('#pw').keyup(function(){
 				var pw = $('#pw').val();
-				var checkPw = /^[a-zA-Z0-9]{7,12}$/;
+				var checkPw = /^[a-zA-Z0-9]{8,13}$/;
 				if(checkPw.test(pw)==true){
 					$('#p_checkPw').css('display','none');
 					
@@ -136,6 +136,7 @@
 					$('#p_checkPw_re').css('display','none');
 				}
 			});
+			
 			$('#reset').click(function(){
 				$('#p_checkId').css('display','none');
 				$('#p_checkPw').css('display','none');
@@ -162,6 +163,55 @@
 				}
 			});
 		});
+		function check(){
+			var id_re = /^[a-zA-Z0-9]{4,12}$/;
+			var checkPw = /^[a-zA-Z0-9]{8,13}$/;
+			if($('#id').val() == ""){
+				alert("아이디를 입력해주세요");
+				$('#id').focus();
+				return false;
+			}
+			if(id_re.test($('#id').val())==false){
+				alert("아이디 양식이 틀렸습니다");
+				$('#id').focus();
+				return false;
+			}
+			if($('#pw').val() == ""){
+				alert("비밀번호를 입력해주세요");
+				$('#pw').focus();
+				return false;
+			}
+			if(checkPw.test($('#pw').val())==false){
+				alert("비밀번호 양식이 틀렸습니다");
+				$('#pw').focus();
+				return false;
+			}
+			if($('#name').val() == ""){
+				alert("이름을 입력해주세요");
+				$('#name').focus();
+				return false;
+			}
+			if($('#phone').val() == ""){
+				alert("전화번호를 입력해주세요");
+				$('#phone').focus();
+				return false;
+			}
+			if($('#post').val() == ""){
+				alert("우편번호를 입력해주세요");
+				$('#post').focus();
+				return false;
+			}
+			if($('#address').val() == ""){
+				alert("주소를 입력해주세요");
+				$('#address').focus();
+				return false;
+			}
+			if($('#email').val() == ""){
+				alert("이메일을 입력해주세요");
+				$('#email').focus();
+				return false;
+			}
+		}
 		
 		
 	</script>
