@@ -10,104 +10,107 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="/js/script.js"></script>
 
-
-<div class="area">
-	<div class="order-form">
-		<div class="order-product">
-			<ul class="clear-float">
-				<li><img src="/img/76896814691427225_1127979769.jpg" width="150" onclick="location.href='/viewProduct'"></li>
-				<li id="prdName">상품명</li>
-				<li>${amount} 개</li>
-				<li><fmt:formatNumber value="${price}" pattern="#,###" /> 원</li>
-			</ul>
+<%-- Content --%>
+<section id="content-wrapper">
+	<div class="area">
+		<p class="main-comm-tit">주문서 작성</p>
+		<div class="order-form">
+			<div class="order-product">
+				<ul class="clear-float">
+					<li><img src="/img/76896814691427225_1127979769.jpg" width="150" onclick="location.href='/viewProduct'"></li>
+					<li id="prdName">상품명</li>
+					<li>${amount} 개</li>
+					<li><fmt:formatNumber value="${price}" pattern="#,###" /> 원</li>
+				</ul>
+			</div>
+			
+			<form id="orderForm">
+				<input type="hidden" name="orderNo">
+				<input type="hidden" name="productName" value="에코백">
+				<div class="order">
+					<p class="main-comm-tit">주문자 정보</p>
+					<table>
+						<tr>
+							<td>이름</td><td><input type="hidden" name="id" value="${sessionScope.member.id }"><input type="text" name="name" value="${sessionScope.member.name }"></td>
+						</tr>
+						<tr>
+							<td>연락처</td>
+							<td>
+								<c:set var="phone" value="${fn:split(sessionScope.member.phone,'-') }" />
+								<select name="phone1" class="phone">
+									<option value="010">010</option>
+									<option value="011">011</option>
+								</select>
+								 - <input type="text" name="phone2" class="phone num" maxlength="4" value="${fn:split(sessionScope.member.phone,'-')[1] }"> 
+								 - <input type="text" name="phone3" class="phone num" maxlength="4" value="${fn:split(sessionScope.member.phone,'-')[2] }">
+							</td>
+						</tr>
+						<tr>
+							<td>이메일</td><td><input type="text" name="email" value="${sessionScope.member.email }"></td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="delivery">
+					<p class="main-comm-tit">배송지 정보</p>
+					<p><input type="checkbox">주문자 정보와 동일</p>
+					<table>
+						<tr>
+							<td>이름</td><td><input type="text" name="receiveName"></td>
+						</tr>
+						<tr>
+							<td>연락처</td>
+							<td>
+								<select name="receivePhone1" class="phone">
+									<option value="010">010</option>
+									<option value="011">011</option>
+								</select>
+								 - <input type="text" name="receivePhone2" class="phone num" maxlength="4"> 
+								 - <input type="text" name="receivePhone3" class="phone num" maxlength="4">
+							</td>
+						</tr>
+						<tr>
+							<td>배송지 주소</td>
+							<td style="height: 200px;">
+								<input type="text" name="post" class="post" onclick="getAddr(this.form);" value="${sessionScope.member.post }" readonly><br><br>
+								<input type="text" name="address" class="address" onclick="getAddr(this.form);" value="${sessionScope.member.address }" readonly><br><br>
+								<input type="text" name="address2" class="address" placeholder="상세 주소를 입력하세요">
+							</td>
+						</tr>
+						<tr>
+							<td>배송 메모</td>
+							<td>
+								<input type="text" name="memo" class="memo">
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="pay">
+					<p class="main-comm-tit">결제 정보</p>
+					<table>
+						<tr>
+							<td>결제 수단</td>
+							<td>
+								<label><input type="radio" name="payMethod" value="card" checked> 신용카드</label>
+								<label><input type="radio" name="payMethod" value="trans"> 실시간 계좌이체</label>
+								<label><input type="radio" name="payMethod" value="vbank"> 가상계좌</label>
+								<label><input type="radio" name="payMethod" value="account"> 무통장입금</label>
+								<label><input type="radio" name="payMethod" value="phone"> 휴대폰</label>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="text-align: right;"><input type="hidden" name="amount" value="${amount}"><input type="hidden" name="pay" value="${price}">총<span id="total"><fmt:formatNumber value="${price}" pattern="#,###" /></span>원 <button class="order-btn">결제하기</button></td>
+						</tr>
+					</table>
+				</div>
+				
+			</form>
+	
 		</div>
 		
-		<form id="orderForm">
-			<input type="hidden" name="orderNo">
-			<input type="hidden" name="productName" value="에코백">
-			<div class="order">
-				<p class="main-comm-tit">주문자 정보</p>
-				<table>
-					<tr>
-						<td>이름</td><td><input type="hidden" name="id" value="${sessionScope.member.id }"><input type="text" name="name" value="${sessionScope.member.name }"></td>
-					</tr>
-					<tr>
-						<td>연락처</td>
-						<td>
-							<c:set var="phone" value="${fn:split(sessionScope.member.phone,'-') }" />
-							<select name="phone1" class="phone">
-								<option value="010">010</option>
-								<option value="011">011</option>
-							</select>
-							 - <input type="text" name="phone2" class="phone num" maxlength="4" value="${fn:split(sessionScope.member.phone,'-')[1] }"> 
-							 - <input type="text" name="phone3" class="phone num" maxlength="4" value="${fn:split(sessionScope.member.phone,'-')[2] }">
-						</td>
-					</tr>
-					<tr>
-						<td>이메일</td><td><input type="text" name="email" value="${sessionScope.member.email }"></td>
-					</tr>
-				</table>
-			</div>
-			
-			<div class="delivery">
-				<p class="main-comm-tit">배송지 정보</p>
-				<p><input type="checkbox">주문자 정보와 동일</p>
-				<table>
-					<tr>
-						<td>이름</td><td><input type="text" name="receiveName"></td>
-					</tr>
-					<tr>
-						<td>연락처</td>
-						<td>
-							<select name="receivePhone1" class="phone">
-								<option value="010">010</option>
-								<option value="011">011</option>
-							</select>
-							 - <input type="text" name="receivePhone2" class="phone num" maxlength="4"> 
-							 - <input type="text" name="receivePhone3" class="phone num" maxlength="4">
-						</td>
-					</tr>
-					<tr>
-						<td>배송지 주소</td>
-						<td style="height: 200px;">
-							<input type="text" name="post" class="post" onclick="getAddr(this.form);" value="${sessionScope.member.post }" readonly><br><br>
-							<input type="text" name="address" class="address" onclick="getAddr(this.form);" value="${sessionScope.member.address }" readonly><br><br>
-							<input type="text" name="address2" class="address" placeholder="상세 주소를 입력하세요">
-						</td>
-					</tr>
-					<tr>
-						<td>배송 메모</td>
-						<td>
-							<input type="text" name="memo" class="memo">
-						</td>
-					</tr>
-				</table>
-			</div>
-			
-			<div class="pay">
-				<p class="main-comm-tit">결제 정보</p>
-				<table>
-					<tr>
-						<td>결제 수단</td>
-						<td>
-							<label><input type="radio" name="payMethod" value="card" checked> 신용카드</label>
-							<label><input type="radio" name="payMethod" value="trans"> 실시간 계좌이체</label>
-							<label><input type="radio" name="payMethod" value="vbank"> 가상계좌</label>
-							<label><input type="radio" name="payMethod" value="account"> 무통장입금</label>
-							<label><input type="radio" name="payMethod" value="phone"> 휴대폰</label>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" style="text-align: right;"><input type="hidden" name="amount" value="${amount}"><input type="hidden" name="pay" value="${price}">총<span id="total"><fmt:formatNumber value="${price}" pattern="#,###" /></span>원 <button class="order-btn">결제하기</button></td>
-					</tr>
-				</table>
-			</div>
-			
-		</form>
-
 	</div>
-	
-</div>
+</section>
 <script>
 	$(function() {
 		
