@@ -10,7 +10,7 @@
 	<div class="area">
 		<h2 class="comm-content-tit">봉사활동 공고등록</h2>
 		<div id="voluntaryRegisterBox" class="common-tbl-box"><!-- id는 바꿔서 복붙 -->
-			<form action="" method="post">
+			<form action="/voluntaryRegister" method="post" enctype="multipart/form-data">
 				<table class="comm-tbl"><!-- 공고등록은 보호소회원 전용메뉴(보호소회원 로그인시에만 사용가능) :: 로그인 후 등록하려는 보호소 회원의 보호소 코드, 보호소명 fix -->
 					<colgroup>
 						<col width="28%">
@@ -18,15 +18,15 @@
 					</colgroup>
 					<tr>
 						<th>보호소 코드</th>
-						<td><input type="text" name="" readonly></td>
+						<td><input type="text" name="code" readonly></td>
 					</tr>
 					<tr>
 						<th>보호소 명</th>
-						<td><input type="text" name="" readonly></td>
+						<td><input type="text" name="name" readonly></td>
 					</tr>
 					<tr>
 						<th>봉사활동 공고 제목</th>
-						<td><input type="text" name="volunTitle"></td>
+						<td><input type="text" name="title"></td>
 					</tr>				
 					<tr>
 						<th>봉사 날짜</th>
@@ -35,7 +35,7 @@
 					<tr>
 						<th>봉사 시간</th>
 						<td>
-							<input type="text" name="volunTime" class="short num"> 시&nbsp;&nbsp;~&nbsp;&nbsp;<input type="text" name="volunTime" class="short num"> 시 &nbsp;&nbsp;
+							<input type="text" name="volunTime1" class="short num"> 시&nbsp;&nbsp;~&nbsp;&nbsp;<input type="text" name="volunTime2" class="short num"> 시 &nbsp;&nbsp;
 							(ex. 9시 ~ 15시)
 						</td>
 					</tr>

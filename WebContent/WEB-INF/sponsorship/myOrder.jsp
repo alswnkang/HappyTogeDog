@@ -6,10 +6,7 @@
 
 <div class="area">
 	<div class="order-success">
-		<p class="main-comm-tit">주문이 완료되었습니다.</p>
-		<c:if test="${empty orderInfo.id }">
-			<p>비회원 주문시 주문번호를 메모해주세요.</p>
-		</c:if>
+		<p class="main-comm-tit">주문 상세</p>
 		<table class="comm-tbl type2">
 			<tr>
 				<td>주문번호</td><td>${orderInfo.no }</td>
