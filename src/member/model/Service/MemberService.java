@@ -25,8 +25,20 @@ public class MemberService {
 	}
 	
 	public Member selectOne(String id) throws SQLException {
-		System.out.println("서비스");
 		Member m = new MemberDao().selectOne(id);
 		return m;
 	}
+	public int memberModify(Member m) throws SQLException {
+		int result = new MemberDao().memberModify(m);
+		return result;
+	}
+	public int memberModify2(Member m) throws SQLException {
+		int result = new MemberDao().memberModify2(m);
+		return result;
+	}
+	public int delete(String id) throws SQLException {
+		int result = new MemberDao().delete(id);
+		return result;
+	}
+	
 }

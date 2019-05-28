@@ -9,6 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import volunteer.model.service.VoluntaryRegisterService;
+import volunteer.model.vo.VoluntaryRegister;
+
 /**
  * Servlet implementation class VoluntaryRegisterServlet
  */
@@ -27,8 +35,46 @@ public class VoluntaryRegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/volunteer/voluntaryRegister.jsp");
-		rd.forward(request, response);
+		/*RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/volunteer/voluntaryRegister.jsp");
+		rd.forward(request, response);*/
+		
+		request.setCharacterEncoding("utf-8");
+		
+		if(!ServletFileUpload.isMultipartContent(request)) {
+			request.setAttribute("msg", "공지사항 작성 오류[enctype]");
+			request.setAttribute("loc", "/");
+			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
+			return; //return 통해서 서블릿 종료
+		}
+		
+		String root = getServletContext().getRealPath("/");
+		String saveDirectory = root+"upload/volunteer";
+		int maxSize = 10*1024*1024;	//최대 10MB
+		MultipartRequest mRequest = new MultipartRequest(request, saveDirectory, maxSize, "UTF-8", new DefaultFileRenamePolicy());
+		
+		String code = mRequest.getParameter("code");
+		String name = mRequest.getParameter("name");
+		String title = mRequest.getParameter("title");
+		String volunDate = mRequest.getParameter("volunDate");
+		String volunTime1 = mRequest.getParameter("volunTime1");
+		String volunTime2 = mRequest.getParameter("volunTime2");
+		String volunTime = volunTime1+","+volunTime2;
+		int person = Integer.parseInt(mRequest.getParameter("person"));
+		String detail = mRequest.getParameter("detail");
+		String filename = mRequest.getOriginalFileName("filename");
+		String filepath = mRequest.getFilesystemName("filename");
+		
+		VoluntaryRegister vr = new VoluntaryRegister(0, code, title, volunDate, volunTime, person, detail, 1, 0, filename, filepath, null);
+		int result = new VoluntaryRegisterService().insertVoluntaryRegister(vr);
+		
+		if(result > 0) {
+			request.setAttribute("msg", "봉사활동 공고 등록을 완료했습니다.");
+		}else {
+			request.setAttribute("msg", "봉사활동 공고 등록을 실패했습니다.");
+		}
+		request.setAttribute("loc", "/WEB-INF/volunteer/voluntaryList.jsp");
+		request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
+		
 	}
 
 	/**

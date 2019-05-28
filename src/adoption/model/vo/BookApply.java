@@ -3,25 +3,25 @@ package adoption.model.vo;
 import java.sql.Date;
 
 public class BookApply {
-	private int no;
-	private String code;
-	private String id;
-	private String name;
-	private String phone;
-	private Date visitDate;
-	private int visitTime;
-	private Date applyDate;
-	private int status;
-	private String yard;
-	private String animal;
-	private String family;
-	private String experience;
-	private String avgTime;
+	private int no;				//방문예약신청 넘버
+	private String code;		//보호소 코드
+	private String id;			//신청자 아이디
+	private String name;		//신청자 이름
+	private String phone;		//신청자 전화번호
+	private Date visitDate;		//방문 날짜
+	private String visitTime;	//방문 시간(08시~18시 -> 0818로 저장)
+	private Date applyDate;		//신청 날짜(년월일까지)
+	private int status;			//방문신청 상태(0:대기,1:승인,2:거절)
+	private String yard;		//마당여부
+	private String animal;		//애완동물 키우는지
+	private String family;		//가족 구성원
+	private String experience;	//애완동물 키워본 경험
+	private String avgTime;		//애완동물과 함께 있어줄 수 있는 평균 시간
 	public BookApply() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public BookApply(int no, String code, String id, String name, String phone, Date visitDate, int visitTime,
+	public BookApply(int no, String code, String id, String name, String phone, Date visitDate, String visitTime,
 			Date applyDate, int status, String yard, String animal, String family, String experience, String avgTime) {
 		super();
 		this.no = no;
@@ -75,10 +75,10 @@ public class BookApply {
 	public void setVisitDate(Date visitDate) {
 		this.visitDate = visitDate;
 	}
-	public int getVisitTime() {
+	public String getVisitTime() {
 		return visitTime;
 	}
-	public void setVisitTime(int visitTime) {
+	public void setVisitTime(String visitTime) {
 		this.visitTime = visitTime;
 	}
 	public Date getApplyDate() {

@@ -9,93 +9,104 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 <body>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	<table>
-		<tr>
-			<th>이름</th>
-			<td><input type="text" name="id" value="${m.id }" readonly></td>
-		</tr>
-		<tr>
-			<th>코드</th>
-			<td><input type="text" name="code" value="${m.code }" readonly></td>
-		</tr>
-		<tr>
-			<th>이름</th>
-			<td><input type="text" name="name" value="${m.name }"></td>
-		</tr>
-		<tr>
-			<th>전화번호</th>
-			<td><input type="text" name="phone" value="${m.phone }"></td>
-		</tr>
-		<tr>
-			<th>우편번호</th>
-			<td><input type="text" name="post" value="${m.post }"></td>
-		</tr>
-		<tr>
-			<th>주소</th>
-			<td><input type="text" name="address" value="${m.address }"></td>
-		</tr>
-		<tr>
-			<th>이메일</th>
-			<td><input type="text" name="email" value="${m.email }"></td>
-		</tr>
-		<c:if test="${m.memberLevel == 1}">
-		<tr>
-			<th>시간</th>
-			<td>${m.possibleTime }</td>
-		</tr>
-		<tr>
-		<th>시간</th>
-		<td>
-		<div id="selectTime">
-				<select name="time" id="time">
-					<option id="startTime">${m.startTime }</option>
-					<option value="08">08시</option>
-					<option value="09">09시</option>
-					<option value="10">10시</option>
-					<option value="11">11시</option>
-					<option value="12">12시</option>
-					<option value="13">13시</option>
-					<option value="14">14시</option>
-					<option value="15">15시</option>
-					<option value="16">16시</option>
-					<option value="17">17시</option>
+	<h1>임시 마이페이지 일반회원,보호소회원</h1>
+	<section>
+		<form action="/memberModify" method="post">
+			<div><input type="hidden" name="level" value="${m.memberLevel }">
+				<table>
+					<tr>
+						<th>아이디</th>
+						<td><input type="text" name="id" value="${m.id }" readonly></td>
+					</tr>
+					<tr>
+						<th>비밀번호</th>
+						<td><input type="password" name="pw" value="${m.pw }"></td>
+					</tr>
+					<tr>
+						<th>코드</th>
+						<td><input type="text" name="code" value="${m.code }" readonly></td>
+					</tr>
+					<tr>
+						<th>이름</th>
+						<td><input type="text" name="name" value="${m.name }" class="modify"></td>
+					</tr>
+					<tr>
+						<th>전화번호</th>
+						<td><input type="text" name="phone" value="${m.phone }" class="modify"></td>
+					</tr>
+					<tr>
+						<th>우편번호</th>
+						<td><input type="text" name="post" value="${m.post }" class="modify"></td>
+					</tr>
+					<tr>
+						<th>주소</th>
+						<td><input type="text" name="address" value="${m.address }" class="modify"></td>
+					</tr>
+					<tr>
+						<th>이메일</th>
+						<td><input type="text" name="email" value="${m.email }" class="modify"></td>
+						
+					</tr>
 					
-				</select> 
-				~
-				<select name="endTime" id="endTime">
-					<option id="endTime2">${m.endTime }</option>
-					<option value="09">09시</option>
-					<option value="10">10시</option>
-					<option value="11">11시</option>
-					<option value="12">12시</option>
-					<option value="13">13시</option>
-					<option value="14">14시</option>
-					<option value="15">15시</option>
-					<option value="16">16시</option>
-					<option value="17">17시</option>
-					<option value="18">18시</option>
+					<c:if test="${m.memberLevel == 1}">
+					<tr>
+						<th>시간</th>
+						<td>
+							<div id="selectTime">
+								<select name="time" id="time">
+									<option id="startTime">${m.startTime }</option>
+									<option value="08">08시</option>
+									<option value="09">09시</option>
+									<option value="10">10시</option>
+									<option value="11">11시</option>
+									<option value="12">12시</option>
+									<option value="13">13시</option>
+									<option value="14">14시</option>
+									<option value="15">15시</option>
+									<option value="16">16시</option>
+									<option value="17">17시</option>
+										
+								</select> 
+								~
+								<select name="endTime" id="endTime">
+									<option id="endTime2">${m.endTime }</option>
+									<option value="09">09시</option>
+									<option value="10">10시</option>
+									<option value="11">11시</option>
+									<option value="12">12시</option>
+									<option value="13">13시</option>
+									<option value="14">14시</option>
+									<option value="15">15시</option>
+									<option value="16">16시</option>
+									<option value="17">17시</option>
+									<option value="18">18시</option>
+										
+									</select><br>
+								</div>
+							</td>
+						</tr>
+					</c:if>
 					
-				</select><br>
-				</div>
-				</td>
-		</tr>
-		<tr>
-		<th>시간</th>
-		<td>${m.startTime },${m.endTime }</td>
-		</tr>
-		</c:if>
-	</table>
-	
+				</table><br>
+				<button type="button" onclick="location.href='/delete?id=${m.id}'">탈퇴하기</button>
+				<input type="submit" value="수정하기">
+				<input type="reset" value="취소">
+			</div>
+		</form>
+	</section>
 	<script>
 		$(document).ready(function(){
-			$('input').click(function(){
+			$('.modify').click(function(){
 				$(this).val("");
+				
+				
 			});
 			$('#time').change(function(){
 				var time = $('#time').val();
 				var no = $('#time').children().eq();
 				
-				for(var i=0;i<10;i++){
+				for(var i=0;i<11;i++){
+				
 					if(time>=$('#endTime').children().eq(i).val()){
 						$('#endTime').children().eq(i).css('display','none');
 					}else if(time<=$('#endTime').children().eq(i).val()){
@@ -103,6 +114,17 @@
 					}
 				}
 			});
+			$('#endTime').change(function(){
+				var endTime = $('#endTime').val();
+				for(var j=0;j<11;j++){
+				if(endTime<=$('#time').children().eq(j).val()){
+					$('#time').children().eq(j).css('display','none');
+				}else if(endTime>=$('#time').children().eq(j).val()){
+					$('#time').children().eq(j).css('display','block');
+				}
+				}
+			});
+
 			$("#time").mouseover(function(){
 				$('#startTime').css('display','none');
 			});

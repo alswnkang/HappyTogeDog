@@ -37,6 +37,7 @@ public class VisitReservationCompleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession(false);
+		System.out.println(((Member)session.getAttribute("member")).getId());
 		String id = ((Member)session.getAttribute("member")).getId();	//로그인 할때 아이디, 이름, 전화번호 세션에 저장하기
 		String name = ((Member)session.getAttribute("member")).getName();
 		String phone = ((Member)session.getAttribute("member")).getPhone();
@@ -51,10 +52,17 @@ public class VisitReservationCompleteServlet extends HttpServlet {
 		ba.setExperience(request.getParameter("experience"));
 		ba.setAvgTime(request.getParameter("avgTime"));
 		ba.setVisitDate(Date.valueOf(request.getParameter("visitDate")));
-		ba.setVisitTime(Integer.parseInt(request.getParameter("visitTime")));
+		ba.setVisitTime(request.getParameter("visitTime"));
 		try {
 			int result = new BookApplyService().reservation(ba);
 			if(result>0) {
+				System.out.println("sql성공?");
+				String[] care = new String[3];
+				care[0] = request.getParameter("careNm");
+				care[1] = request.getParameter("careAddr");
+				care[2] = request.getParameter("careTel");
+				request.setAttribute("care", care);
+				request.setAttribute("ba", ba);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/visitComplete.jsp");
 				rd.forward(request, response);
 			}else {
@@ -63,7 +71,7 @@ public class VisitReservationCompleteServlet extends HttpServlet {
 				rd.forward(request, response);
 			}
 		} catch (SQLException e) {
-			RequestDispatcher rd = request.getRequestDispatcher("/views/error/sqlError.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/error/sqlError.jsp");
 			request.setAttribute("msg", "SQL 구문 에러 발생");
 			rd.forward(request, response);
 		}

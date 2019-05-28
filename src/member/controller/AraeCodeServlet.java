@@ -1,6 +1,7 @@
-package controller;
+package member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,17 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.dao.MemberDao;
+import member.model.vo.cityCode;
+
 /**
- * Servlet implementation class findlostDogServlet
+ * Servlet implementation class AraeCodeServlet
  */
-@WebServlet(name = "findlostDog", urlPatterns = { "/findlostDog" })
-public class findlostDogServlet extends HttpServlet {
+@WebServlet(name = "AraeCode", urlPatterns = { "/areaCode" })
+public class AraeCodeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public findlostDogServlet() {
+    public AraeCodeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +32,18 @@ public class findlostDogServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/selectMenu.jsp");
+		// TODO Auto-generated method stub
+		
+		String code=request.getParameter("code");
+		ArrayList<cityCode> list= new MemberDao().getAreaCode(code);
+		
+
+		
+		request.setAttribute("list", list);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/areaCode.jsp");
+		
+
 		rd.forward(request, response);
 	}
 

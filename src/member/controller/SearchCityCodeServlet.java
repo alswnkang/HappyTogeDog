@@ -1,6 +1,7 @@
-package adoption.controller;
+package member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,19 +9,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import member.model.dao.MemberDao;
+import member.model.vo.CareCode;
+import member.model.vo.cityCode;
 
 /**
- * Servlet implementation class VisitReservationServlet
+ * Servlet implementation class SearchCityCodeServlet
  */
-@WebServlet(name = "VisitReservation", urlPatterns = { "/reservation" })
-public class VisitReservationServlet extends HttpServlet {
+@WebServlet(name = "SearchCityCode", urlPatterns = { "/searchCityCode" })
+public class SearchCityCodeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VisitReservationServlet() {
+    public SearchCityCodeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,14 +33,23 @@ public class VisitReservationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		if(session.getAttribute("member") != null) {
-			request.setCharacterEncoding("utf-8");
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/visitReservation.jsp");
-			rd.forward(request, response);
-		}else {
-			response.sendRedirect("/"); 	//로그인 안 했을 경우 메인페이지로 보내거나 alert창 띄어주기?
-		}
+		// TODO Auto-generated method stub
+		
+		ArrayList<cityCode> list= new MemberDao().getCityCode();
+		
+		
+		
+		
+		
+		
+		System.out.println(list.size());
+		request.setAttribute("list", list);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/cityCode.jsp");
+		
+		
+
+		rd.forward(request, response);
 	}
 
 	/**
