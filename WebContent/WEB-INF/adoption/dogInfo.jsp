@@ -51,9 +51,15 @@
 				</tr>
 			</table>
 			<div class="common-tbl-btn-group">
-				<button type="button" class="btn-style1"
-					onclick="location.href='/reservation'">보호소 방문예약</button>
-				<!-- onclick="location.href='/reservation?보호소명,주소,전화번호,코드넘겨주기 -->
+				<c:if test="${not empty sessionScope.member}">	
+					<button type="button" class="btn-style1" onclick="location.href='/reservation'">보호소 방문예약</button>
+					<!-- onclick="location.href='/reservation?보호소명,주소,전화번호,코드넘겨주기 -->
+				</c:if>
+				<!-- 로그인 안했을 경우 alert창 띄워주고 login창으로 이동 -->
+				<c:if test="${empty sessionScope.member}">	
+					<button type="button" class="btn-style1" onclick="alert('로그인 후 이용해주세요');location.href='/member/login.jsp'">보호소 방문예약</button>
+					<!-- onclick="location.href='/reservation?보호소명,주소,전화번호,코드넘겨주기 -->
+				</c:if>
 			</div>
 		</div>
 		<div class="view-detail">
@@ -69,7 +75,7 @@
 <script>
 	window.onload = function(){
 		//보호소 주소 받아와서 넣기
-		searchAddressToCoordinate('전라남도 무안군 삼향읍 석매길 36');	/* 페이지 로드 되면 메소드 바로 불러오기 */
+		searchAddressToCoordinate('전라남도 무안군 삼향읍 석매길 36');	/* 페이지 로드 되면 주소->위경도로 변환하는 메소드 바로 불러오기 */
 	
 		//보호소 주소 위도,경도로 변환
 		function searchAddressToCoordinate(address) {
