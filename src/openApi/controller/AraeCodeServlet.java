@@ -40,12 +40,17 @@ public class AraeCodeServlet extends HttpServlet {
 		
 		String code=request.getParameter("value");
 		
-		
-		ArrayList<cityCode> list = new OpenApiDao().getAreaCode(code);
-		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		new Gson().toJson(list,response.getWriter());
+		while(true) {
+			ArrayList<cityCode> list = new OpenApiDao().getAreaCode(code);
+			
+			if(!list.isEmpty()) {
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				new Gson().toJson(list,response.getWriter());
+			}
+			
+		}
+	
 		
 		
 	}

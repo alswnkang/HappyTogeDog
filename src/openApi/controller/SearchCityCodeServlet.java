@@ -34,22 +34,20 @@ public class SearchCityCodeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		ArrayList<cityCode> list=null;
+		boolean b= true;
+		while(b) {
+			list= new OpenApiDao().getCityCode();
+			System.out.println(list.size());
+			if(!list.isEmpty()) {
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/cityCode.jsp");
+				rd.forward(request, response);
+			}
 		
-		ArrayList<cityCode> list= new OpenApiDao().getCityCode();
+		}
 		
 		
 		
-		
-		
-		
-		System.out.println(list.size());
-		request.setAttribute("list", list);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/cityCode.jsp");
-		
-		
-
-		rd.forward(request, response);
 	}
 
 	/**
