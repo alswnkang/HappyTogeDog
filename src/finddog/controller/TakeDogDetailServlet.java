@@ -1,7 +1,6 @@
-package member.controller;
+package finddog.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,20 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import openApi.model.dao.OpenApiDao;
-import openApi.model.vo.cityCode;
-
 /**
- * Servlet implementation class JoinServlet
+ * Servlet implementation class TakeDogDetailServlet
  */
-@WebServlet(name = "Join", urlPatterns = { "/join" })
-public class JoinServlet extends HttpServlet {
+@WebServlet("/takeDogDetail")
+public class TakeDogDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public JoinServlet() {
+    public TakeDogDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,17 +29,9 @@ public class JoinServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		request.setCharacterEncoding("utf-8");
-		int level = Integer.parseInt(request.getParameter("level"));
-
-		System.out.println(level);
-
-		request.setAttribute("level", level);
-		RequestDispatcher rd = request.getRequestDispatcher("/member/email.jsp");
+		request.setCharacterEncoding("UTF-8");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/takeDogDetail.jsp");
 		rd.forward(request, response);
-
-		
 		
 		
 	}
