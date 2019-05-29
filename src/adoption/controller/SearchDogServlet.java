@@ -45,11 +45,11 @@ public class SearchDogServlet extends HttpServlet {
 		SearchDogPageData sdpd = new SearchDogPageData();
 		while(b) {
 			sdpd = new FindDogService().selectList(page);
-			if(sdpd.getList().size()==12) {
+			if(sdpd.getList().size()==12) { //12개의 리스트를답을때까지 반복
 				b=false;
 			}
 		}
-		request.setAttribute("sdpd", sdpd);
+		request.setAttribute("sdpd", sdpd);   //pagedata저장
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/searchDog.jsp");
 		rd.forward(request, response);
 	}

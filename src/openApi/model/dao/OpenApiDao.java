@@ -141,7 +141,7 @@ public class OpenApiDao {
 		ArrayList<cityCode> list = new ArrayList<cityCode>();
 	    
 	
-		// 페이지 초기값 
+	
 		try{
 			while(true){
 				// parsing할 url 지정(API 키 포함해서)

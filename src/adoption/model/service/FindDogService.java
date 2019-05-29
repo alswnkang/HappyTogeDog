@@ -12,6 +12,7 @@ public class FindDogService {
 		// TODO Auto-generated method stub
 		ArrayList<DogList> list= new FindDogDao().getList(page);
 		
+		//네비바 생성
 		String pageNavi="";
 		if(page==1) {   //시작페이지 버튼
 			pageNavi+="<a href='/searchDog?page=1'>1</a>";

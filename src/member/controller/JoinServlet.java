@@ -41,8 +41,8 @@ public class JoinServlet extends HttpServlet {
 		
 		
 		System.out.println(level);
-		request.setAttribute("level", level);
-		request.setAttribute("list", list);
+		request.setAttribute("level", level); //회원에 대한 분류
+		request.setAttribute("list", list);   //도시코드의값
 		
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/join.jsp");

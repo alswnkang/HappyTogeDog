@@ -39,7 +39,7 @@ public class AraeCodeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		String code=request.getParameter("value");
+		String code=request.getParameter("value");  //선택되는 시도 의 코드값
 		
 		
 		ArrayList<cityCode> list = new OpenApiDao().getAreaCode(code);
