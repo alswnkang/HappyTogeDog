@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <link rel="stylesheet" type="text/css" href="/css/adoption_bk.css">
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=5l95i6gfap&submodules=geocoder"></script>
@@ -14,9 +15,23 @@
 	<div class="area">
 		<h2 class="comm-content-tit">입양하기</h2>
 		<div id="dogInfo" class="common-box">
+		
+		<!-- 넘길 값들 form태그로 전송하기 -->
+		<form action="/reservation" method="post" id="sendToApplyFrom">
+			<input type="hidden" name="careNm" value="${dl.careNm }">
+			<c:if test="${fn:contains(dl.careAddr,'(')}">
+				<input type="hidden" name="careAddr" value="${fn:split(dl.careAddr,'(')[0] }">
+			</c:if>
+			<c:if test="${fn:contains(dl.careAddr,'(')==false}">
+				<input type="hidden" name="careAddr" value="${dl.careAddr}">
+			</c:if>
+			<input type="hidden" name="careTel" value="${dl.careTel }">
+			<input type="hidden" name="careTime" value="${careTime}">
+		</form>
+		
 			<div class="common-tbl-btn-group type2">
 				<c:if test="${not empty sessionScope.member}">	
-					<button type="button" class="btn-style10" onclick="location.href='/reservation'">보호소 방문예약</button>
+					<button type="button" class="btn-style10" onclick="javascript:sendToApplyFrom.submit();">보호소 방문예약</button>
 					<!-- onclick="location.href='/reservation?보호소명,주소,전화번호,코드넘겨주기 -->
 				</c:if>
 				<!-- 로그인 안했을 경우 alert창 띄워주고 login창으로 이동 -->
@@ -61,7 +76,7 @@
 						</tr>
 						<tr>
 							<th>성별</th>
-							<td>${dl.sexCd}</td>
+							<td>${dl.sex}</td>
 						</tr>
 						<tr>
 							<th>특징</th>

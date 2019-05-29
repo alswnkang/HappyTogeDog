@@ -25,11 +25,11 @@
 						<td>${care[0]}</td>
 					</tr>
 					<tr>
-						<th>보호소주소</th>
+						<th>보호소 주소</th>
 						<td>${care[1]}</td>
 					</tr>
 					<tr>
-						<th>보호소전화번호</th>
+						<th>보호소 전화번호</th>
 						<td>${care[2]}</td>
 					</tr>
 					<tr>
@@ -42,7 +42,7 @@
 						</td>	<!-- 날짜 시간 결과 확인하기 -->
 					</tr>
 					<tr>
-						<th>신청날짜</th>
+						<th>신청 날짜</th>
 						<td id="apply-date"></td>
 					</tr>
 				</table>

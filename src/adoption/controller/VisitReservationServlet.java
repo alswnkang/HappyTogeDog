@@ -29,14 +29,20 @@ public class VisitReservationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession(false);
-		if(session.getAttribute("member") != null) {
-			request.setCharacterEncoding("utf-8");
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/visitReservation.jsp");
-			rd.forward(request, response);
-		}else {
-			response.sendRedirect("/"); 	//로그인 안 했을 경우 메인페이지로 보내거나 alert창 띄어주기?
-		}
+		String careNm = request.getParameter("careNm");				//보호소명 받기
+		String careAddr = request.getParameter("careAddr");			//보호소주소
+		String careTel = request.getParameter("careTel");			//보호소 전화번호
+		String careTime = request.getParameter("careTime");			//보호소 방문가능시간
+		System.out.println(careTime);
+		System.out.println(careAddr);
+		request.setAttribute("careNm", careNm);
+		request.setAttribute("careAddr", careAddr);
+		request.setAttribute("careTel", careTel);
+		request.setAttribute("careTime", careTime);
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/visitReservation.jsp");
+		rd.forward(request, response);
 	}
 
 	/**

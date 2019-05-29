@@ -20,23 +20,23 @@
 					</colgroup>
 					<tr>
 						<th>보호소명</th>
-						<td><input type="text" name="careNm" value="받아오기" readonly> </td>
+						<td><input type="text" name="careNm" value="${careNm}" readonly> </td>
 					</tr>
 					<tr>
 						<th>보호소 주소</th>
-						<td><input type="text" name="careAddr" value="받아오기" readonly></td>	
+						<td><input type="text" name="careAddr" value="${careAddr }" readonly></td>	
 					</tr>
 					<tr>
 						<th>보호소 전화번호</th>
-						<td><input type="text" name="careTel" value="받아오기" readonly></td>	
+						<td><input type="text" name="careTel" value="${careTel }" readonly></td>	
 					</tr>
 					<tr>
 						<th>보호소 이용가능 시간</th>
-						<td><input type="text" name="possibleTime" value="받아오기" readonly></td>	
+						<td><input type="text" name="possibleTime" value="${careTime }" readonly></td>	
 					</tr>
 					<tr>
 						<th>신청자 이름</th>
-						<td><input type="text" name="name" value="${member.name}" readonly></td>
+						<td><input type="text" name="name" value="${sessionScope.member.name}" readonly></td>
 					</tr>
 					<!-- <tr>
 						<th>신청자 아이디</th>
@@ -44,7 +44,7 @@
 					</tr> -->
 					<tr>
 						<th>신청자 전화번호</th>
-						<td><input type="text" name="phone" value="${member.phone }"></td>	<!-- 받아오는건 value로하고 새로 입력도 가능하게 -->
+						<td><input type="text" name="phone" value="${sessionScope.member.phone }"></td>	<!-- 받아오는건 value로하고 새로 입력도 가능하게 -->
 					</tr>
 					<tr>
 						<th>마당이 있습니까?</th>
