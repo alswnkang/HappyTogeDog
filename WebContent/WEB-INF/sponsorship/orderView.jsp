@@ -6,6 +6,7 @@
 
 <jsp:include page="/WEB-INF/common/header.jsp" />
 <link rel="stylesheet" type="text/css" href="/css/style.css">
+<script type="text/javascript" src="/js/order.js"></script>
 
 <%-- Content --%>
 <section id="content-wrapper">
@@ -19,10 +20,13 @@
 				<tr>
 					<td>주문상태</td>
 					<td>
-						<c:if test="${orderInfo.status eq 0 }">주문 완료</c:if>
-						<c:if test="${orderInfo.status eq 1 }">결제 완료</c:if>
-						<c:if test="${orderInfo.status eq 2 }">배송중</c:if>
-						<c:if test="${orderInfo.status eq 3 }">배송완료</c:if>
+						<select class="status" data-status="${orderInfo.status}">
+							<option>---주문상태---</option>
+							<option value="0">주문 완료</option>
+							<option value="1">결제 완료</option>
+							<option value="2">배송중</option>
+							<option value="3">배송 완료</option>
+						</select>
 					</td>
 				</tr>
 				<tr class="tr-title"><td colspan="2">주문자 정보</td></tr>
@@ -48,11 +52,9 @@
 				<tr>
 					<td>배송 메모</td><td>${orderInfo.memo }</td>
 				</tr>
-				<c:if test="${not empty orderInfo.deilveryNum }">
-					<tr>
-						<td>운송장 번호</td><td>${orderInfo.deilveryNum }</td>
-					</tr>
-				</c:if>
+				<tr>
+					<td>운송장 번호</td><td><input type="text" name="deilveryNum" value="${orderInfo.deilveryNum }"></td>
+				</tr>
 				<tr class="tr-title"><td colspan="2">결제 정보</td></tr>
 				<tr>
 					<td>결제 수단</td>
@@ -82,9 +84,11 @@
 					<td>결제 금액</td><td><fmt:formatNumber value="${orderInfo.pay }" pattern="#,###" /> 원</td>
 				</tr>
 			</table>
-			<c:if test="${not empty sessionScope.member }">
-				<button class="order-btn">목록으로</button>
-			</c:if>
+			<div class="common-tbl-btn-group">
+				<button class="btn-style1" onclick="location.href='/orderList'">수정하기</button>
+				<button class="btn-style2" onclick="location.href='/orderList'">목록으로</button>
+			</div>
+
 		</div>
 		
 	</div>
