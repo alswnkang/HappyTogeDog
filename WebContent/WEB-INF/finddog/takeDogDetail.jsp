@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<link rel="stylesheet" type="text/css" href="/css/adoption_bk.css">
 <jsp:include page="/WEB-INF/common/header.jsp" />
 <%-- Content --%>
 
-<section id="content-wrapper">
+	<section id="content-wrapper">
 		<div class="area">
-		<h2 class="comm-content-tit">조회 뷰</h2>
+			<h2 class="comm-content-tit">조회 뷰</h2>
 		<div id="takeDogDetail" class="common-box">
 			<div class="dog-detail-top-inner clearfix">
 				<div class="dog-info-left">
@@ -21,7 +21,7 @@
 						</colgroup>
 						<tr>
 							<th>제목</th>
-							<td>받아오기
+							<td>
 				
 							</td>
 						</tr>
@@ -59,6 +59,6 @@
 			
 		</div>
 	
-</section>
+	</section>
 
 <jsp:include page="/WEB-INF/common/footer.jsp" />
