@@ -7,8 +7,8 @@
 
 /* 공통 :: PAGING */
 .paging{width:100%; text-align:center; margin:30px 0;}
-.paging a{display:inline-block; vertical-align:middle; width:30px; height:30px; border:1px solid #ddd; text-align:center; font-size:12px; line-height:30px; color:#868686; letter-spacing:-0.25px; margin: 2px 0; background:#fff;}
-.paging a.cur{border:1px solid #4b4b4b; background-color:#4b4b4b; color:#fff;}
+.paging a, .paging span{display:inline-block; vertical-align:middle; width:30px; height:30px; border:1px solid #ddd; text-align:center; font-size:12px; line-height:30px; color:#868686; letter-spacing:-0.25px; margin: 2px 0; background:#fff;}
+.paging .cur{border:1px solid #4b4b4b; background-color:#4b4b4b; color:#fff;}
 .paging a.paging-arrow{line-height:28px;}
 .paging i{vertical-align:middle; color:inherit}
 
@@ -32,7 +32,7 @@
 .comm-tbl input[type='text'].short, .comm-tbl input[type='password'].short, .comm-tbl input[type='file'].short{width:30%;}
 .comm-tbl .comment{padding-top:5px; font-size:12px; color:#888;}
 .comm-tbl .none{padding:40px 0; font-size:16px;}
-.comm-tbl.type2{width:100%;}
+.comm-tbl.type2{width:100%; max-width:none;}
 .comm-tbl.type2 th, .comm-tbl.type2 td{padding:10px;}
 .comm-tbl.type2 tr:first-child td{border-top:1px solid #ddd;}
 .comm-tbl.type2 th{text-align:center; font-size:16px; border-top:2px solid rgba(254,67,30);}

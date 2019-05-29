@@ -37,21 +37,21 @@ public class BookApplyService {
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		
 		if(pageNo!=1) {
-			pageNavi += "<a class='btn' href='/reservationMypage?reqPage=1'><<</a>";
-			pageNavi += "<a class='btn' href='/reservationMypage?reqPage="+(pageNo-1)+"'><</a>";
+			pageNavi += "<a class='paging-arrow prev-arrow' href='/reservationMypage?reqPage=1'><<</a>";
+			pageNavi += "<a class='paging-arrow prev-arrow' href='/reservationMypage?reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
 		}
 		int i = 1;
 		while(!(i++>pageNaviSize||pageNo>totalPage)) {
 			if(reqPage==pageNo) {
-				pageNavi += "<span class='selectPage'>"+pageNo+"</span>";
+				pageNavi += "<span class='cur'>"+pageNo+"</span>";
 			}else {
-				pageNavi +="<a class='btn' href='/reservationMypage?reqPage="+pageNo+"'>"+pageNo+"</a>";
+				pageNavi +="<a href='/reservationMypage?reqPage="+pageNo+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
 		if(pageNo <= totalPage) {
-			pageNavi += "<a class='btn' href='/reservationMypage?reqPage="+pageNo+"'>></a>";
-			pageNavi += "<a class='btn' href='/reservationMypage?reqPage="+totalPage+"'>>></a>";
+			pageNavi += "<a class='paging-arrow next-arrow' href='/reservationMypage?reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
+			pageNavi += "<a class='paging-arrow next-arrow' href='/reservationMypage?reqPage="+totalPage+"'>>></a>";
 		}
 		JDBCTemplate.close(conn);
 		BookApplyPageData bp = new BookApplyPageData(list, pageNavi);

@@ -19,11 +19,19 @@
 .common-tbl-btn-group > button{width:130px; height:50px; border-radius:5px; font-size:17px; color:#fff; margin:0 10px;}
 .common-tbl-btn-group > button.btn-style1{background-color:rgba(254,67,30);}
 .common-tbl-btn-group > button.btn-style2{background-color:#444;}*/
-.common-tbl-btn-group > button.btn-style10{width:90px; height:30px; border-radius:5px; font-size:12px; color:#fff; margin:0 10px;background-color:rgba(254,67,30);}
+.common-tbl-btn-group > button.btn-style10{width:125px; height:45px; border-radius:5px; font-size:15px; color:#fff; margin:0;background-color:rgba(254,67,30);}
 
 /* ****************** dogInfo.jsp 폼 ********************** */
 .common-box{padding:70px 50px;background-color:#f5f5f5;}
 
 .view-detail{text-align:center;}
 
-.care-location{width:1200px;height:500px;}
+/*.care-location{width:1200px;height:500px;}*/
+.care-location{width:100%; height:450px;}
+
+/* 입양하기 페이지 */
+.common-tbl-btn-group.type2{padding-top:0; text-align:right; margin-bottom:10px;}
+.dog-info-top-inner{}
+.dog-info-bottom-inner{padding-top:50px;}
+.dog-info-left{float:left; width:45%;}
+.dog-info-right{float:right; width:52%;}

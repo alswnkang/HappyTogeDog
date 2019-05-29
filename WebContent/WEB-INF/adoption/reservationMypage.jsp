@@ -13,7 +13,7 @@
 	<div class="area">
 		<h2 class="comm-content-tit">방문신청 예약 내역</h2>
 		<div id="dogInfo" class="common-box">
-			<table class="comm-tbl">
+			<table class="comm-tbl type2">
 				<tr>
 					<th>No.</th><th>보호소명</th><th>방문 날짜</th><th>방문 시간</th><th>신청 날짜</th><th>신청 상태</th>
 				</tr>
@@ -31,9 +31,9 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<div id="pageNavi" style="width:80%;">${bp.pageNavi}</div>
+			<div class="paging">${bp.pageNavi}</div>
 		</div>
-	</div>>
+	</div>
 </section>
 
 

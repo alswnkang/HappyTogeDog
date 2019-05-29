@@ -14,8 +14,8 @@
 	<div class="area">
 		<h2 class="comm-content-tit">입양하기</h2>
 		<div id="dogInfo" class="common-box">
-		<div class="common-tbl-btn-group" style="text-align:right;margin-bottom:10px;">
-			<c:if test="${not empty sessionScope.member}">	
+			<div class="common-tbl-btn-group type2">
+				<c:if test="${not empty sessionScope.member}">	
 					<button type="button" class="btn-style10" onclick="location.href='/reservation'">보호소 방문예약</button>
 					<!-- onclick="location.href='/reservation?보호소명,주소,전화번호,코드넘겨주기 -->
 				</c:if>
@@ -24,12 +24,12 @@
 					<button type="button" class="btn-style10" onclick="alert('로그인 후 이용해주세요');location.href='/member/login.jsp'">보호소 방문예약</button>
 					<!-- onclick="location.href='/reservation?보호소명,주소,전화번호,코드넘겨주기 -->
 				</c:if>
-		</div>
-			<div class="dog-info-inner clearfix">
-				<div class="dog-info-left" style="float:left; width:40%;">
+			</div>
+			<div class="dog-info-top-inner clearfix">
+				<div class="dog-info-left">
 					<img src="/img/dog_test_bk.jpg" style="max-width:100%;">
 				</div>
-				<div class="dog-info-right " style="float:right; width:57%;">
+				<div class="dog-info-right">
 					<table class="comm-tbl">
 						<colgroup>
 							<col width="25%">
@@ -72,24 +72,12 @@
 					</table>
 				</div>
 			</div>
-			<%-- <div class="common-tbl-btn-group">
-				<c:if test="${not empty sessionScope.member}">	
-					<button type="button" class="btn-style1" onclick="location.href='/reservation'">보호소 방문예약</button>
-					<!-- onclick="location.href='/reservation?보호소명,주소,전화번호,코드넘겨주기 -->
-				</c:if>
-				<!-- 로그인 안했을 경우 alert창 띄워주고 login창으로 이동 -->
-				<c:if test="${empty sessionScope.member}">	
-					<button type="button" class="btn-style1" onclick="alert('로그인 후 이용해주세요');location.href='/member/login.jsp'">보호소 방문예약</button>
-					<!-- onclick="location.href='/reservation?보호소명,주소,전화번호,코드넘겨주기 -->
-				</c:if>
-			</div> --%>
-		</div>
-		<!-- <div class="view-detail">
-			<img src="/img/dog_test_bk.jpg" style="max-width:100%;"><br><br>
-			 강아지에 대한 설명을 넣을까 말까?
-		</div> -->
-		<div class="care-location" id="map">
 			
+		</div>
+		<!-- <div class="care-location" id="map"></div> -->
+		<div class="dog-info-bottom-inner clearfix">
+			<h2 class="comm-content-tit">보호소 위치</h2>
+			<div class="care-location" id="map"></div>
 		</div>
 	</div>
 </section>
@@ -127,7 +115,7 @@
 	var map = new naver.maps.Map("map", {
 		//searchAddressToCoordinate()에서 marder 중심 정해주기 때문에 center가 따로 필요없음
 	    /* center: new naver.maps.LatLng(37.3595316, 127.1052133), */
-	    zoom: 10,
+	    zoom: 11,
 	    zoomControl : true,		//줌 컨트롤 가능하게
 	    mapTypeControl: true
 	});
