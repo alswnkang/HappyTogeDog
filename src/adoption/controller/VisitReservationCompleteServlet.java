@@ -56,7 +56,6 @@ public class VisitReservationCompleteServlet extends HttpServlet {
 		try {
 			int result = new BookApplyService().reservation(ba);
 			if(result>0) {
-				System.out.println("sql성공?");
 				String[] care = new String[3];
 				care[0] = request.getParameter("careNm");
 				care[1] = request.getParameter("careAddr");

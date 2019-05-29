@@ -18,11 +18,11 @@
 					</colgroup>
 					<tr>
 						<th>보호소 코드</th>
-						<td><input type="text" name="code" readonly></td>
+						<td><input type="text" name="code" value="${sessionScope.member.code}" readonly></td>
 					</tr>
 					<tr>
 						<th>보호소 명</th>
-						<td><input type="text" name="name" readonly></td>
+						<td><input type="text" name="name" value="${sessionScope.member.name}" readonly></td>
 					</tr>
 					<tr>
 						<th>봉사활동 공고 제목</th>
@@ -49,7 +49,7 @@
 					</tr>
 					<tr>
 						<th>첨부파일</th>
-						<td><input type="file" name="filename"></td>
+						<td><input type="file" name="filename"><p class="comment">(※ 파일 크기는 최대 10MB까지만 가능합니다.)</p></td>
 					</tr>
 				</table>
 				<div class="common-tbl-btn-group">

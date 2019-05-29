@@ -1,6 +1,7 @@
 package member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import openApi.model.dao.OpenApiDao;
+import openApi.model.vo.cityCode;
 
 /**
  * Servlet implementation class JoinServlet
@@ -32,9 +36,21 @@ public class JoinServlet extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setCharacterEncoding("utf-8");
 		int level = Integer.parseInt(request.getParameter("level"));
+		
+		ArrayList<cityCode> list= new OpenApiDao().getCityCode();
+		
+		
 		System.out.println(level);
+<<<<<<< HEAD
 		request.setAttribute("level", level);
 		RequestDispatcher rd = request.getRequestDispatcher("/member/email.jsp");
+=======
+		request.setAttribute("level", level); //회원에 대한 분류
+		request.setAttribute("list", list);   //도시코드의값
+		
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/join.jsp");
+>>>>>>> 85d53fc8e9287655e152c4c06b92cddaf16ae279
 		rd.forward(request, response);
 		
 		

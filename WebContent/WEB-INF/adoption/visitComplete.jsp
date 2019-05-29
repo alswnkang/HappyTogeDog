@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	<!-- 문자열 처리를 위해 -->
-<link rel="stylesheet" type="text/css" href="/css/reservationContent_bk.css">
+<link rel="stylesheet" type="text/css" href="/css/adoption_bk.css">
 <!--  Header -->
 <jsp:include page="/WEB-INF/common/header.jsp" />
 

@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import volunteer.model.service.VoluntaryService;
+import volunteer.model.vo.VoluntaryRegister;
+
 /**
  * Servlet implementation class VoluntaryViewServlet
  */
@@ -27,7 +30,20 @@ public class VoluntaryViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/volunteer/voluntaryView.jsp");
+		request.setCharacterEncoding("utf-8");
+		int no = Integer.parseInt(request.getParameter("no"));
+		VoluntaryRegister vr = new VoluntaryService().voluntaryView(no);
+		String view="";
+		if(vr != null) {
+			request.setAttribute("vr", vr);
+			view = "/WEB-INF/volunteer/voluntaryView.jsp";
+		}else {
+			request.setAttribute("msg", "해당 봉사활동 신청 공고가 존재하지 않습니다.");
+			request.setAttribute("loc", "/voluntaryList");
+			view = "/WEB-INF/common/msg.jsp";
+		}
+		
+		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
 	}
 

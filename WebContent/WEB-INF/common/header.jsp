@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="member.model.vo.Member"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
     <%
     	Member m = (Member)session.getAttribute("member");
     %>
@@ -56,17 +58,19 @@
 							<a href="">입양</a>
 							<div class="gnb-2dep">
 								<ul>
-									<li><a href="bk.jsp">입양하기</a></li>
-									<li><a href="">전국 보호소 찾기</a></li>
+									<li><a href="/searchDog">입양하기</a></li>
+									<li><a href="/bk.jsp">전국 보호소 찾기</a></li>
 								</ul>
 							</div>
 						</li>
 						<li class="gnb02">
-							<a href="">봉사활동</a>
+							<a href="/volunteerList">봉사활동</a>
 							<div class="gnb-2dep">
 								<ul>
 									<!-- 봉사활동 공고등록은 보호소회원일때만 노출됩니다. -->
-									<!-- <li><a href="/voluntaryRegister">봉사활동 공고 등록</a></li> -->
+									<%if(m != null && m.getMemberLevel() == 1){%>
+									<li><a href="/voluntaryWrite">봉사활동 공고등록</a></li>
+									<%} %>
 									<li><a href="/volunteerList">봉사활동 신청</a></li>
 								</ul>
 							</div>
@@ -76,7 +80,11 @@
 							<div class="gnb-2dep">
 								<ul>
 									<li><a href="/sponsorship">후원하기</a></li>
-									<li><a href="">Q&A</a></li>
+									<li><a href="/qnaList">Q&A</a></li>
+									<li><a href="/findOrder.jsp">주문조회</a></li>
+									<c:if test="${sessionScope.member.memberLevel eq 2 }">
+										<li><a href="/orderList">주문관리</a></li>
+									</c:if>
 								</ul>
 							</div>
 						</li>

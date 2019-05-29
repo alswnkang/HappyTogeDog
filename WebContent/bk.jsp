@@ -7,10 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="/reservation">방문예약 신청하기</a>
+	<a href="/dogInfo">유기견 리스트</a>
 	<a href="/searchCityCode">시도 조회</a>
 	<a href="/careCode">보호소 코드조회</a>
 	<a href="/areaCode">지역구 코드조회</a>
-	test입니당
+	<br>
+	<a href="/reservationMypage">방문예약내역 마이페이지</a>
 </body>
 </html>

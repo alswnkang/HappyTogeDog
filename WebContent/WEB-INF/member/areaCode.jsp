@@ -23,12 +23,12 @@
 						</tr>
 					</thead>
 					<tbody >
-					<c:forEach items="${list }" var="m" varStatus="i">
+					<c:forEach items="${gcc.list }" var="m" varStatus="i">
+					${gcc.areaCode }
 					<tr>
 						<td>${i.count }</td>
 						<td>${m.district }</td>
 						<td>${m.districtName }</td>
-
 					</tr>
 					
 					</c:forEach>

@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class VoluntaryRegister {
 
+	private int rnum;
 	private int no;				//공고번호
 	private String code;		//보호소코드
 	private String title;		//봉사활동 공고 제목
@@ -11,7 +12,6 @@ public class VoluntaryRegister {
 	private String volunTime;	//봉사 시간
 	private int person;			//봉사 가능 인원 수
 	private String detail;		//봉사 상세설명
-	private int status;			//모집상태 (1:모집중/2:마감)
 	private int applyNum;		//신청한 인원 수
 	private String filename;	//이미지 명
 	private String filepath;	//이미지 경로
@@ -21,10 +21,11 @@ public class VoluntaryRegister {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	public VoluntaryRegister(int no, String code, String title, String volunDate, String volunTime, int person,
-			String detail, int status, int applyNum, String filename, String filepath, Date enrollDate) {
+	
+	public VoluntaryRegister(int rnum, int no, String code, String title, String volunDate, String volunTime,
+			int person, String detail, int applyNum, String filename, String filepath, Date enrollDate) {
 		super();
+		this.rnum = rnum;
 		this.no = no;
 		this.code = code;
 		this.title = title;
@@ -32,11 +33,18 @@ public class VoluntaryRegister {
 		this.volunTime = volunTime;
 		this.person = person;
 		this.detail = detail;
-		this.status = status;
 		this.applyNum = applyNum;
 		this.filename = filename;
 		this.filepath = filepath;
 		this.enrollDate = enrollDate;
+	}
+
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 
 	public int getNo() {
@@ -95,19 +103,6 @@ public class VoluntaryRegister {
 		this.detail = detail;
 	}
 
-	public int getStatus() {
-		//return status;
-		if(person > applyNum) {
-			return status; //모집 중
-		}else {
-			return 2; //마감
-		}
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
 	public int getApplyNum() {
 		return applyNum;
 	}
@@ -139,6 +134,24 @@ public class VoluntaryRegister {
 	public void setEnrollDate(Date enrollDate) {
 		this.enrollDate = enrollDate;
 	}
+
+	// 모집 상태
+	public String getStatus() {
+		if(person > applyNum) {
+			return "모집중"; //모집 중
+		}else {
+			return "모집마감"; //마감
+		}
+	}
 	
+	// 시간 :: 시작 시간
+	public String getStartTime() {
+		return volunTime.split(",")[0];
+	}
+	
+	// 시간 :: 끝나는 시간
+	public String getEndTime() {
+		return volunTime.split(",")[1];
+	}
 	
 }

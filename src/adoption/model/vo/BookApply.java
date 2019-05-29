@@ -21,6 +21,7 @@ public class BookApply {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	public BookApply(int no, String code, String id, String name, String phone, Date visitDate, String visitTime,
 			Date applyDate, int status, String yard, String animal, String family, String experience, String avgTime) {
 		super();
@@ -123,5 +124,13 @@ public class BookApply {
 	public void setAvgTime(String avgTime) {
 		this.avgTime = avgTime;
 	}
-	
+	public String getResult() {
+		if(status==0) {
+			return "대기중";
+		}else if(status==1) {
+			return "승인";
+		}else {
+			return "거절";
+		}
+	}
 }

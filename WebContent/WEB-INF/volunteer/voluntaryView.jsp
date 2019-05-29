@@ -20,41 +20,48 @@
 					</colgroup>
 					<tr>
 						<th colspan="4">
-							<p class="volun-view-tit">봉사활동 공고 제목이 노출됩니다.</p>
+							<p class="volun-view-tit">${vr.title }</p>
 							<p class="volun-view-sub-tit">
-								<span><b>작성일</b>2019-05-26</span><!-- 공고 등록일이 노출됩니다. -->
+								<span><b>작성일</b>${vr.enrollDate }</span><!-- 공고 등록일이 노출됩니다. -->
 							</p>
 						</th>
 					</tr>
 					<tr>
 						<th>보호소 명</th>
-						<td colspan="3">보호소 명이 들어갑니다.</td>
+						<td colspan="3">${sessionScope.member.name}</td>
 					</tr>				
 					<tr>
 						<th>봉사 날짜</th>
-						<td>봉사 날짜가 들어갑니다.(ex. 2019-05-26)</td>
+						<td>${vr.volunDate }</td>
 						<th>봉사 시간</th>
-						<td>봉사 시간이 들어갑니다.(ex. 9시 ~ 16시)</td>
+						<td>${vr.startTime }시 ~ ${vr.endTime }시</td>
 					</tr>
 					<tr>
 						<th>봉사 가능 인원 수</th>
-						<td colspan="3">봉사 가능 인원 수가 들어갑니다.(ex. 10명)</td>
+						<td colspan="3">${vr.person }명</td>
 					</tr>
 					<tr>
 						<th>봉사 상세설명</th>
 						<td colspan="3">
-							봉사활동 상세 설명 내용이 들어갑니다. 봉사활동 상세 설명 내용이 들어갑니다. 봉사활동 상세 설명 내용이 들어갑니다.
-							봉사활동 상세 설명 내용이 들어갑니다. 봉사활동 상세 설명 내용이 들어갑니다. 봉사활동 상세 설명 내용이 들어갑니다.
+							${vr.detail }
 						</td>
 					</tr>
 					<tr>
 						<th>첨부파일</th>
-						<td colspan="3"><p><a href="">첨부파일 다운로드를 할 수 있습니다.</a></p></td>
+						<td colspan="3">
+							<c:if test="${vr.filepath != null }">
+								<p><img src="/img/file.png" width="20px"> <a href="javascript:fileDownload('${vr.filename }','${vr.filepath }');"><span>${vr.filename }</span></a></p>
+							</c:if>
+						</td>
 					</tr>
 				</table>
 				<div class="common-tbl-btn-group" style="text-align:right;">
 					<button type="button" class="btn-style1" onclick="javascript:layerLoad('/voluntaryApply');">신청하기</button><!-- 신청 마감시 버튼 변경->신청 마감 누르면 alert('신청이 마감되었습니다.') -->
 					<button type="button" class="btn-style2" onclick="location.href='/volunteerList'">목록으로</button>
+					<c:if test="${sessionScope.member.code == vr.code}">
+						<button type="button" class="btn-style3" onclick="location.href='/voluntaryUpdate?no=${vr.no}'">수정</button>
+						<button type="button" class="btn-style3" onclick="location.href='/voluntaryDelete?no=${vr.no}'">삭제</button>
+					</c:if>
 				</div>
 			</div>
 			<!-- 봉사활동 신청 폼 --><!-- 봉사활동 신청은 회원 전용 -->
@@ -114,8 +121,17 @@
 	</div>
 </article>
 
-<%-- 모달 레이어 팝업 script --%>
+<%-- script --%>
 <script>
+//파일 다운로드
+function fileDownload(filename,filepath){
+	var url = "/voluntaryFileDownload";
+	var encFilename = encodeURIComponent(filename);
+	var encFilepath = encodeURIComponent(filepath);
+	location.href=url+'?filename='+encFilename+'&filepath='+encFilepath;
+}
+
+//모달 레이어 팝업 띄우기
 function layerLoad(strUrl){
 	var $modalWrap = $(".modal-fixed-pop-wrapper");
 

@@ -14,7 +14,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import volunteer.model.service.VoluntaryRegisterService;
+import volunteer.model.service.VoluntaryService;
 import volunteer.model.vo.VoluntaryRegister;
 
 /**
@@ -35,15 +35,12 @@ public class VoluntaryRegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/volunteer/voluntaryRegister.jsp");
-		rd.forward(request, response);*/
-		
 		request.setCharacterEncoding("utf-8");
 		
 		if(!ServletFileUpload.isMultipartContent(request)) {
 			request.setAttribute("msg", "공지사항 작성 오류[enctype]");
 			request.setAttribute("loc", "/");
-			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/common/msg.jsp").forward(request, response);
 			return; //return 통해서 서블릿 종료
 		}
 		
@@ -64,16 +61,16 @@ public class VoluntaryRegisterServlet extends HttpServlet {
 		String filename = mRequest.getOriginalFileName("filename");
 		String filepath = mRequest.getFilesystemName("filename");
 		
-		VoluntaryRegister vr = new VoluntaryRegister(0, code, title, volunDate, volunTime, person, detail, 1, 0, filename, filepath, null);
-		int result = new VoluntaryRegisterService().insertVoluntaryRegister(vr);
+		VoluntaryRegister vr = new VoluntaryRegister(0, 0, code, title, volunDate, volunTime, person, detail, 0, filename, filepath, null);
+		int result = new VoluntaryService().insertVoluntaryRegister(vr);
 		
 		if(result > 0) {
 			request.setAttribute("msg", "봉사활동 공고 등록을 완료했습니다.");
 		}else {
 			request.setAttribute("msg", "봉사활동 공고 등록을 실패했습니다.");
 		}
-		request.setAttribute("loc", "/WEB-INF/volunteer/voluntaryList.jsp");
-		request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
+		request.setAttribute("loc", "/volunteerList");
+		request.getRequestDispatcher("/WEB-INF/common/msg.jsp").forward(request, response);
 		
 	}
 

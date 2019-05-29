@@ -3,6 +3,7 @@ package sponsorship.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,8 +16,9 @@ import com.oreilly.servlet.MultipartRequest;
 
 import sponsorship.model.service.OrderService;
 import sponsorship.model.vo.OrderInfoVO;
+import sponsorship.model.vo.TotalOrder;
 
-@WebServlet(name = "order", urlPatterns = { "/sponsorship", "/viewProduct", "/order", "/orderIng", "/orderEnd" })
+@WebServlet(name = "order", urlPatterns = { "/sponsorship", "/viewProduct", "/order", "/orderIng", "/orderEnd", "/findOrder", "/myOrder", "/qnaList", "/qnaView", "/orderList" })
 public class orderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -37,6 +39,26 @@ public class orderServlet extends HttpServlet {
 		}else if(action.equals("viewProduct")) {	
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/productDetail.jsp");
 			rd.forward(request, response);
+		
+		}else if(action.equals("qnaList")){
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/qnaList.jsp");
+			rd.forward(request, response);
+			
+		}else if(action.equals("qnaView")){
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/qnaView.jsp");
+			rd.forward(request, response);
+			
+		}else if(action.equals("orderList")){
+			try {
+				TotalOrder total = new OrderService().totalOrder();
+				request.setAttribute("total", total);
+				ArrayList<OrderInfoVO> orderList = new OrderService().selectOrder();
+				request.setAttribute("orderList", orderList);
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/orderList.jsp");
+				rd.forward(request, response);
+			} catch (SQLException e) {
+				System.out.println("SQL에러 ㅠ");
+			}			
 			
 		}else if(action.equals("order")) {
 			String amount = request.getParameter("amount");
@@ -67,7 +89,10 @@ public class orderServlet extends HttpServlet {
 			String email = mRequest.getParameter("email");
 			String receiveName = mRequest.getParameter("receiveName");
 			String receivePhone = mRequest.getParameter("receivePhone1")+"-"+mRequest.getParameter("receivePhone2")+"-"+mRequest.getParameter("receivePhone3");
-	
+			String vbankName = mRequest.getParameter("vbankName");
+			String vbankNum = mRequest.getParameter("vbankNum");
+			String vbankHolder = mRequest.getParameter("vbankHolder");
+			String vbankDate = mRequest.getParameter("vbankDate");
 			
 			OrderInfoVO orderInfo = new OrderInfoVO(no, id, name, phone, payMethod, pay, amount, 0, null, productName, "sysdate", memo, post, address, email, receiveName, receivePhone);
 
@@ -81,24 +106,50 @@ public class orderServlet extends HttpServlet {
 					out.print("fail");
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				System.out.println("SQL에러 ㅠ");
 			}
 			
-			
-			
-			
+		
 		}else if(action.equals("orderEnd")) {
 			String no = request.getParameter("no");
 			
 			try {
 				OrderInfoVO orderInfo = new OrderService().selectOrder(no);
 				request.setAttribute("orderInfo", orderInfo);
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/orderSuc.jsp");
+				rd.forward(request, response);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				System.out.println("SQL에러 ㅠ");
+			}
+		
+		}else if(action.equals("findOrder")) {
+			String no = request.getParameter("no");
+			String phone = request.getParameter("phone");
+			try {
+				int result = new OrderService().findOrder(no,phone);
+				response.setCharacterEncoding("utf-8");
+				PrintWriter out = response.getWriter();
+				if(result>0){
+					out.print("/myOrder?no="+no);
+				}else{
+					out.print("fail");
+				}
+			} catch (SQLException e) {
+				System.out.println("SQL에러 ㅠ");
 			}
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/orderSuc.jsp");
-			rd.forward(request, response);
+		}else if(action.equals("myOrder")) {
+			String no = request.getParameter("no");
+			
+			try {
+				OrderInfoVO orderInfo = new OrderService().selectOrder(no);
+				request.setAttribute("orderInfo", orderInfo);
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/myOrder.jsp");
+				rd.forward(request, response);
+			} catch (SQLException e) {
+				System.out.println("SQL에러 ㅠ");
+			}
+		
 		}
 	}
 

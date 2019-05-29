@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -69,9 +70,87 @@
 				<h1>레벨 : ${level }</h1>
 			</div>
 		</form>
+		
+			시 선택 : 
+			<select name="city" id="city">
+				<option>도시선택</option>
+				<c:forEach items="${list }" var="m" varStatus="i">
+						<option value="${m.cityCode }">${m.cityName }</option>
+				</c:forEach>
+			</select>
+			<button id="citysel">확인</button><br>
+			구 선택:
+			<select name="area" id="area">
+				<option>지역구선택</option>
+			</select>
+			<button id="areasel">확인</button><br>
+			<select name="care" id="care">
+				<option>보호소선택</option>
+			</select>
+		
 	</section>
 	
 	<script>
+	$("#citysel").click(function(){
+		var value = $("#city").val();
+		$.ajax({
+			url:"/areaCode",		
+			data : {value:value},
+			type : "get",
+			
+			success : function(data){
+				var $select = $("#area");
+				$select.find("option").remove();
+				$select.append("<option>지역구선택</option>");
+				
+				for(var i=0;i<data.length;i++){
+					var areaName=data[i].districtName;
+					var areaValue=data[i].district;
+					var selected="";
+					
+					$select.append("<option value='"+areaValue+"''"+selected+">"+areaName+"</option>");
+					
+				}
+				
+			},
+			error : function(){
+			console.log("실패");	
+			}
+		});
+		
+	});
+	
+	$("#areasel").click(function(){
+		var citValue = $("#city").val();
+		var areValue =	$("#area").val();
+		$.ajax({
+			url:"/careCode",		
+			data : {citValue:citValue,areValue:areValue},
+			type : "get",
+			
+			success : function(data){
+				var $select = $("#care");
+				$select.find("option").remove();
+				$select.append("<option>보호소선택</option>");
+				
+				for(var i=0;i<data.length;i++){
+					var careName=data[i].careNm;
+					var careRegNo=data[i].careRegNo;
+					var selected="";
+					
+					$select.append("<option value='"+careRegNo+"''"+selected+">"+careName+"</option>");
+					
+				}
+				
+			},
+			error : function(){
+			console.log("실패");	
+			}
+		});
+		
+	});
+	
+	
 		$(document).ready(function(){
 			$('#time').change(function(){
 				var time = $('#time').val();

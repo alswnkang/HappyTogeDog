@@ -15,17 +15,17 @@
 						</colgroup>
 						<tr>
 							<th>보호소 명</th>
-							<td colspan="3"><input type="text" name="" readonly></td>
+							<td colspan="3">${sessionScope.member.name}</td>
 						</tr>
 						<tr class="hidden">
 							<th>보호소 코드</th>
-							<td colspan="3"><input type="text" name="" readonly></td>
+							<td colspan="3"><input type="text" name="code" value="${sessionScope.member.code}" readonly></td>
 						</tr>
 						<tr>
 							<th>신청자 아이디</th>
-							<td>신청자 아이디가 들어갑니다.</td>
+							<td>${sessionScope.member.id}</td>
 							<th>신청자 전화번호</th>
-							<td>신청자 전화번호가 들어갑니다.</td>
+							<td>${sessionScope.member.phone}</td>
 						</tr>				
 						<tr>
 							<th>봉사 날짜</th>
