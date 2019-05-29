@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import common.JDBCTemplate;
 import sponsorship.model.dao.OrderDao;
 import sponsorship.model.vo.OrderInfoVO;
+import sponsorship.model.vo.OrderListVO;
 import sponsorship.model.vo.TotalOrder;
 
 public class OrderService {
@@ -31,9 +32,54 @@ public class OrderService {
 		return orderInfo;
 	}
 	
-	public ArrayList<OrderInfoVO> selectOrder() throws SQLException {
+	public OrderListVO selectOrder(int reqPage) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
-		ArrayList<OrderInfoVO> orderList = new OrderDao().selectOrder(conn);
+		
+		int total = 0;
+		/*
+		if(type.equals("")) total = new NoticeDao().listCnt(conn);
+		else total = new NoticeDao().listCnt(conn, type, keyword);
+		*/
+		total = new OrderDao().totalCount(conn);
+		
+		int pageNum = 5;//한 페이지에 출력할 게시물 개수
+		int totalPage = (total%pageNum==0)?(total/pageNum):(total/pageNum)+1;
+		
+		
+		int start = (reqPage*pageNum-pageNum)+1;//시작 번호
+		int end  = reqPage*pageNum;
+		ArrayList<OrderInfoVO> orderinfoList = null;
+		/*
+		if(type.equals("")) list = new NoticeDao().noticeList(conn,start,end);
+		else list = new NoticeDao().noticeList(conn,start,end,type,keyword);
+		*/
+		orderinfoList = new OrderDao().selectOrder(conn,start,end);
+		
+		int totalNavi = 5;//노출시킬 네비 버튼 개수
+		String pageNavi = "";
+		
+		int pageNo = ((reqPage-1)/totalNavi)*totalNavi+1;
+		if(pageNo != 1) {
+			//pageNavi += "<a class='btn' href='/orderList?reqPage="+(pageNo-1)+"&type="+type+"&keyword="+keyword+"'>[이전]</a>";//[이전] 버튼 생성.
+			pageNavi += "<a class='paging-arrow prev-arrow' href='/orderList?reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a> ";//[이전] 버튼 생성.
+			
+		}
+		int i = 1;
+		while(!(i++>totalNavi || pageNo>totalPage)) {
+			if(reqPage == pageNo) {
+				pageNavi += "<a class='cur'>"+pageNo+"</a> ";
+			}else {
+				//pageNavi += "<a class='btn' href='/orderList?reqPage="+pageNo+"&type="+type+"&keyword="+keyword+"'>"+pageNo+"</a>";
+				pageNavi += "<a href='/orderList?reqPage="+pageNo+"'>"+pageNo+"</a> ";
+			}
+			pageNo++;
+		}
+		if(pageNo <= totalPage) {
+			//pageNavi += "<a class='btn' href='/orderList?reqPage="+pageNo+"&type="+type+"&keyword="+keyword+"'>[다음]</a>";//[다음] 버튼 생성
+			pageNavi += "<a class='paging-arrow next-arrrow' href='/orderList?reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";//[다음] 버튼 생성
+		}
+		
+		OrderListVO orderList = new OrderListVO(orderinfoList, pageNavi);
 		JDBCTemplate.close(conn);
 		return orderList;
 	}

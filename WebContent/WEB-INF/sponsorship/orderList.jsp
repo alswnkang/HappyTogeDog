@@ -6,11 +6,12 @@
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
 <link rel="stylesheet" type="text/css" href="/css/style.css">
+<script type="text/javascript" src="/js/order.js"></script>
 
 <%-- Content --%>
 <section id="content-wrapper">
 	<div class="area">
-		<h2 class="comm-content-tit">주문 내역(관리자)</h2>
+		<h2 class="comm-content-tit">주문 관리</h2>
 		<div id="orderListBox" class="common-tbl-box"><!-- id는 바꿔서 복붙 -->
 			<!-- 검색박스 -->
 		 		<div class="board-search-box order-search">
@@ -60,10 +61,10 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${orderList}" var="order">
+						<c:forEach items="${orderList.orderinfoList}" var="order">
 							<tr>
 								
-								<td><a href="/myOrder?no=${order.no}">${order.no }</a></td>
+								<td><a href="/orderView?no=${order.no}">${order.no }</a></td>
 								<td>
 									${order.name }<br>
 									<c:if test="${not empty order.id}">(${order.id })</c:if>
@@ -93,14 +94,8 @@
 					</tbody>
 				</table>
 				<!-- paging -->
-				<div class="paging">
-		 			<a href="" class="paging-arrow prev-arrow"><img src="/img/left_arrow.png" style="width:30px;height:30px;"></a>
-		 			<a href="" class="cur">1</a>
-		 			<a href="">2</a>  
-		 			<a href="">3</a>
-		 			<a href="">4</a>
-		 			<a href="">5</a>
-		 			<a href="" class="paging-arrow next-arrrow"><img src="/img/right_arrow.png" style="width:30px;height:30px;"></a>
+		 		<div class="paging">
+		 			${orderList.pageNavi }	
 		 		</div>
 
 		</div>
@@ -108,18 +103,4 @@
 </section>
 
 <%-- Footer --%>
-<script>
-	$(function(){
-		
-		$('.status').each(function(){
-			var st = $(this).data('status');
-			$(this).children('option').each(function(){
-				if(st == $(this).val()){
-					$(this).prop("selected",true);
-				}
-			});
-		});
-		
-	});
-</script>
 <jsp:include page="/WEB-INF/common/footer.jsp" />
