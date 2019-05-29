@@ -32,7 +32,7 @@
 		</ul>
 		
 		<!-- paging -->
-		<div class="paging">${sdpd.pageNavi }</div>
+		<div class="paging">${sdpd.pageNavi}</div>
 		
 		<div id="searchDog" class="common-tbl-box"><!-- id는 바꿔서 복붙 -->
 			<!-- search -->
@@ -53,15 +53,5 @@
 
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<%--footer --%>
-	<jsp:include page="/WEB-INF/common/footer.jsp" />
+<%--footer --%>
+<jsp:include page="/WEB-INF/common/footer.jsp" />

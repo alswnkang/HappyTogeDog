@@ -67,7 +67,7 @@
 						</tr>
 						<tr>
 							<th>특징</th>
-							<td colspan="3">받아오기(specialMark, noticeComment, neuterYn)</td>
+							<td colspan="3">받아오기(specialMark, neuterYn)</td>
 						</tr>
 					</table>
 				</div>
