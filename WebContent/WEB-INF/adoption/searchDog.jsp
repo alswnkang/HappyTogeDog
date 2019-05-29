@@ -34,7 +34,7 @@
 				<li>
 					<a href="">
 						<div class="img-thum">
-						<a href="/dogInfo"><span style="background:url('${m.filename }') no-repeat center center; background-size:cover;"></span></a>
+						<span style="background:url('${m.filename }') no-repeat center center; background-size:cover;"></span>
 						</div>
 						<div class="txt-thum">
 						

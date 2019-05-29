@@ -50,7 +50,7 @@ public class FindDogDao {
 							dl.setCareNm(getTagValue("careNm", eElement));
 							dl.setCareTel(getTagValue("careTel", eElement));
 							dl.setColorCd(getTagValue("colorCd", eElement));
-							dl.setFilename(getTagValue("filename", eElement));
+							dl.setFilename(getTagValue("popfile", eElement));
 							dl.setHappenDt(getTagValue("happenDt", eElement));
 							dl.setHappenPlace(getTagValue("happenPlace", eElement));
 							dl.setKindCd(getTagValue("kindCd", eElement));
@@ -60,6 +60,8 @@ public class FindDogDao {
 							dl.setSexCd(getTagValue("sexCd", eElement));
 							dl.setSpecialMark(getTagValue("specialMark", eElement));
 							dl.setWeight(getTagValue("weight", eElement));
+							dl.setNoticeSdt(getTagValue("noticeSdt", eElement));
+							dl.setProcessState(getTagValue("processState", eElement));
 							count++;
 //							System.out.println("강아지 나이  : " + getTagValue("age", eElement));
 //							System.out.println("보호소 주소  : " + getTagValue("careAddr", eElement));
