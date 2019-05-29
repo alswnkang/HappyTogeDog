@@ -3,8 +3,8 @@ package adoption.model.vo;
 import java.util.ArrayList;
 
 public class SearchDogPageData {
-	ArrayList<DogList> list;
-	String pageNavi;
+	private ArrayList<DogList> list;  //강아지 데이터 리스트<12>개만담기
+	private String pageNavi; //페이지네비
 	public SearchDogPageData() {
 		super();
 		// TODO Auto-generated constructor stub
