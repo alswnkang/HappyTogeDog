@@ -1,6 +1,7 @@
 package member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import openApi.model.dao.OpenApiDao;
+import openApi.model.vo.cityCode;
 
 /**
  * Servlet implementation class JoinServlet
@@ -32,10 +36,13 @@ public class JoinServlet extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setCharacterEncoding("utf-8");
 		int level = Integer.parseInt(request.getParameter("level"));
+
 		System.out.println(level);
+
 		request.setAttribute("level", level);
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/join.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/member/email.jsp");
 		rd.forward(request, response);
+
 		
 		
 		

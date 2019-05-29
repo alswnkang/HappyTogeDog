@@ -38,14 +38,34 @@ public class AraeCodeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String code=request.getParameter("value");
+		ArrayList<cityCode> list=null;
+		String code=request.getParameter("value");  //선택되는 시도 의 코드값
+		System.out.println("선택된 구군청 의 코드값:"+code);
+		boolean b =true;
+		int count=0;
+		while(b) {
+			list = new OpenApiDao().getAreaCode(code);
+			
+			if(list.size()!=0) {
+				b=false;
+			}
+			count++;
+			if(count==30) {
+				b=false;
+			}
+		}
+	
+		
+		System.out.println("지역 구군청 까지왔음"+list.size());
 		
 		
-		ArrayList<cityCode> list = new OpenApiDao().getAreaCode(code);
+		
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(list,response.getWriter());
+		
+
 		
 		
 	}

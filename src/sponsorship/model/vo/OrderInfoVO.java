@@ -2,6 +2,7 @@ package sponsorship.model.vo;
 
 public class OrderInfoVO {
 	
+	private int rnum;
 	private String no;
 	private String id;
 	private String name;
@@ -19,15 +20,21 @@ public class OrderInfoVO {
 	private String email;
 	private String receiveName;
 	private String receivePhone;
+	private String vbankName;
+	private String vbankNum;
+	private String vbankHolder;
+	private String vbankDate;
 	
 	public OrderInfoVO() {
 		super();
 	}
 	
-	public OrderInfoVO(String no, String id, String name, String phone, String payMethod, int pay, int amount, int status,
-			String deilveryNum, String productName, String sponDate, String memo, String post, String address,
-			String email, String receiveName, String receivePhone) {
+	public OrderInfoVO(int rnum, String no, String id, String name, String phone, String payMethod, int pay, int amount,
+			int status, String deilveryNum, String productName, String sponDate, String memo, String post,
+			String address, String email, String receiveName, String receivePhone, String vbankName, String vbankNum,
+			String vbankHolder, String vbankDate) {
 		super();
+		this.rnum = rnum;
 		this.no = no;
 		this.id = id;
 		this.name = name;
@@ -45,7 +52,21 @@ public class OrderInfoVO {
 		this.email = email;
 		this.receiveName = receiveName;
 		this.receivePhone = receivePhone;
+		this.vbankName = vbankName;
+		this.vbankNum = vbankNum;
+		this.vbankHolder = vbankHolder;
+		this.vbankDate = vbankDate;
 	}
+
+	
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+
 	public String getNo() {
 		return no;
 	}
@@ -148,6 +169,39 @@ public class OrderInfoVO {
 	public void setReceivePhone(String receivePhone) {
 		this.receivePhone = receivePhone;
 	}
+
+	public String getVbankName() {
+		return vbankName;
+	}
+
+	public void setVbankName(String vbankName) {
+		this.vbankName = vbankName;
+	}
+
+	public String getVbankNum() {
+		return vbankNum;
+	}
+
+	public void setVbankNum(String vbankNum) {
+		this.vbankNum = vbankNum;
+	}
+
+	public String getVbankHolder() {
+		return vbankHolder;
+	}
+
+	public void setVbankHolder(String vbankHolder) {
+		this.vbankHolder = vbankHolder;
+	}
+
+	public String getVbankDate() {
+		return vbankDate;
+	}
+
+	public void setVbankDate(String vbankDate) {
+		this.vbankDate = vbankDate;
+	}
+	
 	
 	
 	

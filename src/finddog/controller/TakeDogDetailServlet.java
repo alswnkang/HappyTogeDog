@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class findlostDogServlet
+ * Servlet implementation class TakeDogDetailServlet
  */
-@WebServlet(name = "findlostDog", urlPatterns = { "/findlostDog" })
-public class findlostDogServlet extends HttpServlet {
+@WebServlet("/takeDogDetail")
+public class TakeDogDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public findlostDogServlet() {
+    public TakeDogDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,8 +28,12 @@ public class findlostDogServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/selectMenu.jsp");
+		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/takeDogDetail.jsp");
 		rd.forward(request, response);
+		
+		
 	}
 
 	/**

@@ -73,14 +73,14 @@ public class OpenApiDao {
 	public ArrayList<cityCode> getCityCode() {
 		// TODO Auto-generated method stub
 		ArrayList<cityCode> list = new ArrayList<>();
-	    
+	    int page=1;
 		
 			// 페이지 초기값 
 			try{
 				while(true){
 					
 					// parsing할 url 지정(API 키 포함해서)
-					String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/sido?ServiceKey=BbQpcBG0GiwHYBNrM7gxpyWUTHH9PAwSZgtjL%2Bj%2FIb6YYiHG86O4qZta75KyCzkPPBmRjXzOHffarvGnn67JzA%3D%3D";
+					String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/sido?pageNo="+page+"&ServiceKey=BbQpcBG0GiwHYBNrM7gxpyWUTHH9PAwSZgtjL%2Bj%2FIb6YYiHG86O4qZta75KyCzkPPBmRjXzOHffarvGnn67JzA%3D%3D";
 					
 					DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 					DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
@@ -88,12 +88,12 @@ public class OpenApiDao {
 					
 					// root tag 
 					doc.getDocumentElement().normalize();
-					System.out.println("Root element :" + doc.getDocumentElement().getNodeName());		//XML의 최상위 tag값 가져오기
+					System.out.println("Root element 시티코드 구하러왔음:" + doc.getDocumentElement().getNodeName());		//XML의 최상위 tag값 가져오기
 					
 					// 파싱할 tag
 					NodeList nList = doc.getElementsByTagName("item");
 					//System.out.println("파싱할 리스트 수 : "+ nList.getLength());
-					
+					int count=0;
 					for(int temp = 0; temp < nList.getLength(); temp++){
 						cityCode cc = new cityCode();
 						Node nNode = nList.item(temp);
@@ -103,17 +103,20 @@ public class OpenApiDao {
 							
 							cc.setCityCode(getTagValue("orgCd", eElement));
 							cc.setCityName(getTagValue("orgdownNm", eElement));
-
-						
+							count++;
+							System.out.println("for문안에 잘들어옴 for문안 들어온 횟수"+count);
+							
 							list.add(cc);
 						}	// if end
 					}	// for end
-				
+				page++;
 					
 					
+				if(page>3) {
+					break;
+				}
 				
 				
-				break;
 					
 					
 				
@@ -141,11 +144,11 @@ public class OpenApiDao {
 		ArrayList<cityCode> list = new ArrayList<cityCode>();
 	    
 	
-		// 페이지 초기값 
+	
 		try{
 			while(true){
 				// parsing할 url 지정(API 키 포함해서)
-				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/sigungu?upr_cd="+code+"&ServiceKey=BbQpcBG0GiwHYBNrM7gxpyWUTHH9PAwSZgtjL%2Bj%2FIb6YYiHG86O4qZta75KyCzkPPBmRjXzOHffarvGnn67JzA%3D%3D";
+				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/sigungu?upr_cd="+code+"&ServiceKey=TZzGtB8BZdZ0VsTPgpNVa1IQMCBLU9%2FlEriT0S4AFcqcswb4YiOAqJiR7So%2BJMbWd5fB0P6%2B8JQsI7EpN4KKrg%3D%3D";
 				
 				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
@@ -153,11 +156,11 @@ public class OpenApiDao {
 				
 				// root tag 
 				doc.getDocumentElement().normalize();
-				System.out.println("Root element :" + doc.getDocumentElement().getNodeName());		//XML의 최상위 tag값 가져오기
+				System.out.println("areaCode"+"Root element :" + doc.getDocumentElement().getNodeName());		//XML의 최상위 tag값 가져오기
 				
 				// 파싱할 tag
 				NodeList nList = doc.getElementsByTagName("item");
-				//System.out.println("파싱할 리스트 수 : "+ nList.getLength());
+				System.out.println("파싱할 리스트 수 : "+ nList.getLength());
 				
 				for(int temp = 0; temp < nList.getLength(); temp++){
 					cityCode cc = new cityCode();
@@ -170,11 +173,11 @@ public class OpenApiDao {
 						cc.setDistrict(getTagValue("orgCd", eElement));
 						cc.setDistrictName(getTagValue("orgdownNm", eElement));
 					
-						
+						System.out.println("체크 구군청 for문 안");
 					
 						list.add(cc);
 					}	// for end
-					System.out.println("^^^^^");
+					
 				}	// if end
 				
 			break;

@@ -8,13 +8,14 @@ import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import sponsorship.model.vo.OrderInfoVO;
+import sponsorship.model.vo.OrderUpdate;
 
 public class OrderDao {
 
 	public int insertOrder(Connection conn, OrderInfoVO orderInfo) throws SQLException {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = "insert into sponsorship values(?,?,?,?,?,?,?,?,?,?,sysdate,?,?,?,?,?,?)";
+		String sql = "insert into sponsorship values(?,?,?,?,?,?,?,?,?,?,sysdate,?,?,?,?,?,?,?,?,?,?)";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, orderInfo.getNo());
 		pstmt.setString(2, orderInfo.getId());
@@ -32,6 +33,11 @@ public class OrderDao {
 		pstmt.setString(14, orderInfo.getEmail());
 		pstmt.setString(15, orderInfo.getReceiveName());
 		pstmt.setString(16, orderInfo.getReceivePhone());
+		pstmt.setString(17, orderInfo.getVbankName());
+		pstmt.setString(18, orderInfo.getVbankNum());
+		pstmt.setString(19, orderInfo.getVbankHolder());
+		pstmt.setString(20, orderInfo.getVbankDate());
+		
 		result = pstmt.executeUpdate();
 		JDBCTemplate.close(pstmt);
 
@@ -42,7 +48,7 @@ public class OrderDao {
 		OrderInfoVO orderInfo = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = "select no,id,name,phone,pay_method,amount,pay,status,deilvery_num,product_name,TO_CHAR(spon_date,'YYY/MM/DD HH24:MI:SS') as time,memo,post,address,email,receive_name,receive_phone from sponsorship where no=?";
+		String sql = "select no,id,name,phone,pay_method,amount,pay,status,deilvery_num,product_name,TO_CHAR(spon_date,'YYY/MM/DD HH24:MI:SS') as time,memo,post,address,email,receive_name,receive_phone,vbank_name,vbank_num,vbank_holder,vbank_date from sponsorship where no=?";
 		
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, no);
@@ -66,7 +72,10 @@ public class OrderDao {
 			orderInfo.setEmail(rset.getString("email"));
 			orderInfo.setReceiveName(rset.getString("receive_name"));
 			orderInfo.setReceivePhone(rset.getString("receive_phone"));
-			
+			orderInfo.setVbankName(rset.getString("vbank_name"));
+			orderInfo.setVbankNum(rset.getString("vbank_num"));
+			orderInfo.setVbankHolder(rset.getString("vbank_holder"));
+			orderInfo.setVbankDate(rset.getString("vbank_date"));
 		}
 		JDBCTemplate.close(rset);
 		JDBCTemplate.close(pstmt);
@@ -74,13 +83,15 @@ public class OrderDao {
 		return orderInfo;
 	}
 	
-	public ArrayList<OrderInfoVO> selectOrder(Connection conn) throws SQLException {
+	public ArrayList<OrderInfoVO> selectOrder(Connection conn,int start,int end) throws SQLException {
 		ArrayList<OrderInfoVO> orderList = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = "select no,id,name,phone,pay_method,amount,pay,status,deilvery_num,product_name,TO_CHAR(spon_date,'YYYY/MM/DD HH24:MI:SS') as time,memo,post,address,email,receive_name,receive_phone from sponsorship ";
+		String sql = "select rnum,no,id,name,phone,pay_method,amount,pay,status,deilvery_num,product_name,TO_CHAR(spon_date,'YYYY/MM/DD HH24:MI:SS') as time,memo,post,address,email,receive_name,receive_phone from (select rownum rnum,s.* from (select * from sponsorship order by spon_date desc) s ) where rnum between ? and ? ";
 		
 		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, start);
+		pstmt.setInt(2, end);
 		rset = pstmt.executeQuery();
 		orderList = new ArrayList<OrderInfoVO>();
 		while(rset.next()){
@@ -160,6 +171,20 @@ public class OrderDao {
 		JDBCTemplate.close(rset);
 		JDBCTemplate.close(pstmt);
 		
+		return result;
+	}
+
+	public int updateOrder(Connection conn, OrderUpdate updateInfo) throws SQLException {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = "update sponsorship set deilvery_num=?,status=? where no=?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, updateInfo.getDeilveryNum());
+		pstmt.setInt(2, updateInfo.getStatus());
+		pstmt.setString(3, updateInfo.getNo());
+		result = pstmt.executeUpdate();
+		JDBCTemplate.close(pstmt);
+
 		return result;
 	}
 

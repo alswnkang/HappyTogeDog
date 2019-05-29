@@ -44,7 +44,7 @@ public class VoluntaryService {
 		int i = 1;
 		while( !(i++>pageNaviSize || pageNo>totalPage) ) {
 			if(reqPage == pageNo) {
-				pageNavi += "<a class='cur' href='#'>"+pageNo+"</a>";
+				pageNavi += "<span class='cur'>"+pageNo+"</span>";
 			}else {
 				pageNavi += "<a class='' href='/volunteerList?reqPage="+pageNo+"'>"+pageNo+"</a>";
 			}
@@ -90,7 +90,7 @@ public class VoluntaryService {
 		int i = 1;
 		while( !(i++>pageNaviSize || pageNo>totalPage) ) {
 			if(reqPage == pageNo) {
-				pageNavi += "<a class='cur' href='#'>"+pageNo+"</a>";
+				pageNavi += "<span class='cur'>"+pageNo+"</span>";
 			}else {
 				pageNavi += "<a class='' href='/searchVoluntary?reqPage="+pageNo+"'>"+pageNo+"</a>";
 			}

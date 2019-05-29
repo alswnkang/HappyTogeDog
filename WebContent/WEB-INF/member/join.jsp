@@ -8,10 +8,10 @@
 <title>Insert title here</title>
 </head>
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
 <body>
 	<jsp:include page="/WEB-INF/common/header.jsp" />
 	<section>
-	
 		<h1>임시 회원 가입 폼 일반회원,보호소회원</h1>
 		<form action="/memberJoin" method="post" onsubmit="return check()">
 			<div>
@@ -19,19 +19,24 @@
 				<h1 id="h_title1">일반 회원가입</h1>
 				<h1 id="h_title2" style="display:none">보호소 회원가입</h1>
 				아이디 : <input type="text" name="id" id="id" placeholder = "4~12자리 영/숫자">
-				<button type="button" id="checkId">중복체크</button><br>
+				<input type="button" id="checkId" value="중복체크"><br>
 				<p id="p_checkId" style="display:none">아이디 입력양식 확인</p>
 				
 				비밀번호 : <input type="password" name="pw" id="pw" placeholder = "영/숫자를 포함한 8~13자리"><br>
 				<p id="p_checkPw" style="display:none">비밀번호 입력양식 확인</p>
 				비밀번호 확인 : <input type="password" name="pw_re" id="pw_re"><br>
 				<p id="p_checkPw_re" style="display:none">비밀번호가 일치하지 않습니다</p>
-				<p id="p_code" style="display:none">보소호코드 : <input type="text" name="code"><br></p>
+				
 				이름 : <input type="text" name="name" id="name"><br>
 				전화번호 : <input type="text" name="phone" id="phone"><br>
-				우편번호 : <input type="text" name="post" id="post"><br>
-				주소 : <input type="text" name="address" id="address"><br>
-				EMAIL : <input type="text" name="email" id="email"><br>
+				우편번호 : <input type="text" id="post" placeholder="우편번호" name="post">
+				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+				주소 : <input type="text" id="address" placeholder="도로명주소" name="address">
+					<span id="guide" style="color:#999;display:none"></span>
+					<input type="text" id="detailAddress" placeholder="상세주소" name="detailAddress" value=""><br>
+				EMAIL : <input type="text" name="email" id="email" value="${email }" readonly>
+				
+				<br>
 				<input type="hidden" name="level" id="level" value="${level}">
 				<div id="selectTime">
 				<select name="time" id="time">
@@ -63,12 +68,10 @@
 					
 				</select><br>
 				</div>
-				<input type="submit" value="회원가입" id="sub">
-				<input type="reset" value="취소" id="reset">
+				
 				<h1>레벨 : ${level }</h1>
 			</div>
-		</form>
-		
+			
 			시 선택 : 
 			<select name="city" id="city">
 				<option>도시선택</option>
@@ -76,17 +79,79 @@
 						<option value="${m.cityCode }">${m.cityName }</option>
 				</c:forEach>
 			</select>
-			<button id="citysel">확인</button><br>
+			<input type="button" id="citysel" value="확인"><br>
 			구 선택:
 			<select name="area" id="area">
 				<option>지역구선택</option>
 			</select>
-			<button id="areasel">확인</button><br>
+			<input type="button" id="areasel" value="확인"><br>
+			보호소 선택 :
 			<select name="care" id="care">
 				<option>보호소선택</option>
 			</select>
+			<input type="button" id="caresel" value="확인"><br>
+			<div id="caretext"></div>
+			
+			<input type="submit" value="회원가입" id="sub">
+			<input type="reset" value="취소" id="reset">
+			
+			
+		</form>
+		
+	
 		
 	</section>
+	
+	
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('post').value = data.zonecode;
+                document.getElementById("address").value = roadAddr;
+                
+                
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+              
+
+                var guideTextBox = document.getElementById("guide");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+            }
+        }).open();
+    }
+</script>
 	
 	<script>
 	$("#citysel").click(function(){
@@ -110,6 +175,8 @@
 					
 				}
 				
+				
+				
 			},
 			error : function(){
 			console.log("실패");	
@@ -117,6 +184,13 @@
 		});
 		
 	});
+	
+	$("#caresel").click(function(){
+		$("#caretext").text($("#care").val());
+		
+	});
+	
+
 	
 	$("#areasel").click(function(){
 		var citValue = $("#city").val();
@@ -291,7 +365,6 @@
 				return false;
 			}
 		}
-		
 		
 	</script>
 </body>
