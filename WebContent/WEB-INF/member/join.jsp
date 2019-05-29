@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
 <body>
 	<jsp:include page="/WEB-INF/common/header.jsp" />
 	<section>
-	
 		<h1>임시 회원 가입 폼 일반회원,보호소회원</h1>
 		<form action="/memberJoin" method="post" onsubmit="return check()">
 			<div>
@@ -30,7 +30,9 @@
 				전화번호 : <input type="text" name="phone" id="phone"><br>
 				우편번호 : <input type="text" name="post" id="post"><br>
 				주소 : <input type="text" name="address" id="address"><br>
-				EMAIL : <input type="text" name="email" id="email"><br>
+				EMAIL : <input type="text" name="email" id="email" value="${email }" readonly>
+				
+				<br>
 				<input type="hidden" name="level" id="level" value="${level}">
 				<div id="selectTime">
 				<select name="time" id="time">
@@ -212,7 +214,6 @@
 				return false;
 			}
 		}
-		
 		
 	</script>
 </body>
