@@ -60,6 +60,7 @@
 								<ul>
 									<li><a href="/searchDog">입양하기</a></li>
 									<li><a href="/findShelter">전국 보호소 찾기</a></li><!-- /bk.jsp -->
+									<li><a href="/dogAdopList">입양(유기견리스트_bk)</a></li>
 								</ul>
 							</div>
 						</li>
@@ -104,7 +105,7 @@
 								<ul>
 									<li><a href="">공지사항</a></li>
 									<li><a href="">입양후기</a></li>
-									<li><a href="">자유게시판</a></li>
+									<li><a href="/siPreBoard">자유게시판</a></li>
 								</ul>
 							</div>
 						</li>

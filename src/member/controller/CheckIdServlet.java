@@ -37,7 +37,9 @@ public class CheckIdServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String memberId = request.getParameter("memberId");
 		try {
+			System.out.println(memberId);
 			Member m = new MemberService().selectOne(memberId);
+			
 			PrintWriter out = response.getWriter();
 			if(m == null) {
 				out.print(1);

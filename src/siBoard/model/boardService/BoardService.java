@@ -43,7 +43,7 @@ public class BoardService {
 	public int boardInsert(Board b) {
 		Connection conn = JDBCTemplete.getConnection();
 		int result = new BoardDao().boardInsert(conn, b);
-		if(result>0) {
+		if(result>0 && (b.getBoardType()==0 || b.getBoardType()==1 || b.getBoardType()==2)) {
 			JDBCTemplete.commit(conn);
 		}else {
 			JDBCTemplete.rollback(conn);
@@ -94,7 +94,6 @@ public class BoardService {
 			list = new BoardDao().boardSearchTitle(conn,searchKeyword);
 		}
 		JDBCTemplete.close(conn);
-		BoardPageData bp = new BoardPageData();
 		return list;
 	}
 }

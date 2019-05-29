@@ -6,11 +6,12 @@
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
 <link rel="stylesheet" type="text/css" href="/css/style.css">
+<script type="text/javascript" src="/js/order.js"></script>
 
 <%-- Content --%>
 <section id="content-wrapper">
 	<div class="area">
-		<h2 class="comm-content-tit">주문 내역(관리자)</h2>
+		<h2 class="comm-content-tit">주문 관리</h2>
 		<div id="orderListBox" class="common-tbl-box"><!-- id는 바꿔서 복붙 -->
 			<!-- 검색박스 -->
 		 		<div class="board-search-box order-search">
@@ -34,7 +35,11 @@
 						<option value="no">주문번호</option>
 						<option value="name">주문자명</option>
 					</select>
-					<input placeholder="검색어를 입력해주세요." type="search" name="search_order" class="search-word" value="">
+					<form action="/" method="post" name="dd">
+						<a href="javascript:dd.submit();">얍</a>
+						<input placeholder="검색어를 입력해주세요." type="search" name="search_order" class="search-word" value="">
+					</form>
+					
 					<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
 				</div>
 				<p class="total">총 주문 수 : ${total.count } / 총 후원 금액(결제 완료된 주문합계) : <fmt:formatNumber value="${total.price }" pattern="#,###" /> 원</p>
@@ -60,10 +65,10 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${orderList}" var="order">
+						<c:forEach items="${orderList.orderinfoList}" var="order">
 							<tr>
 								
-								<td><a href="/myOrder?no=${order.no}">${order.no }</a></td>
+								<td><a href="/orderView?no=${order.no}">${order.no }</a></td>
 								<td>
 									${order.name }<br>
 									<c:if test="${not empty order.id}">(${order.id })</c:if>
@@ -80,7 +85,7 @@
 								<td><fmt:formatNumber value="${order.pay }" pattern="#,###" /> 원</td>	
 								<td>${order.sponDate }</td>
 								<td>
-									<select class="status" data-status="${order.status}">
+									<select class="status" data-status="${order.status}" data-no="${order.no}">
 										<option>---주문상태---</option>
 										<option value="0">주문 완료</option>
 										<option value="1">결제 완료</option>
@@ -93,14 +98,8 @@
 					</tbody>
 				</table>
 				<!-- paging -->
-				<div class="paging">
-		 			<a href="" class="paging-arrow prev-arrow"><img src="/img/left_arrow.png" style="width:30px;height:30px;"></a>
-		 			<a href="" class="cur">1</a>
-		 			<a href="">2</a>  
-		 			<a href="">3</a>
-		 			<a href="">4</a>
-		 			<a href="">5</a>
-		 			<a href="" class="paging-arrow next-arrrow"><img src="/img/right_arrow.png" style="width:30px;height:30px;"></a>
+		 		<div class="paging">
+		 			${orderList.pageNavi }	
 		 		</div>
 
 		</div>
@@ -108,18 +107,4 @@
 </section>
 
 <%-- Footer --%>
-<script>
-	$(function(){
-		
-		$('.status').each(function(){
-			var st = $(this).data('status');
-			$(this).children('option').each(function(){
-				if(st == $(this).val()){
-					$(this).prop("selected",true);
-				}
-			});
-		});
-		
-	});
-</script>
 <jsp:include page="/WEB-INF/common/footer.jsp" />

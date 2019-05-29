@@ -38,18 +38,24 @@ public class MemberJoinServlet extends HttpServlet {
 		String time = request.getParameter("time");
 		String endTime = request.getParameter("endTime");
 		String possibleTime = time+"시~"+endTime+"시";
+		String address = request.getParameter("address");
+		String detailAddress = request.getParameter("detailAddress");
+		String fullAddress = address+" "+detailAddress;
+		System.out.println(fullAddress);
 		System.out.println(possibleTime);
 		Member m = new Member();
 		m.setId(request.getParameter("id"));
 		m.setPw(request.getParameter("pw"));
-		m.setCode(request.getParameter("code"));
+		
 		m.setName(request.getParameter("name"));
 		m.setPhone(request.getParameter("phone"));
 		m.setPost(request.getParameter("post"));
-		m.setAddress(request.getParameter("address"));
+		m.setAddress(fullAddress);
 		m.setPossibleTime(possibleTime);
 		m.setEmail(request.getParameter("email"));
 		m.setMemberLevel(Integer.parseInt(request.getParameter("level")));
+		m.setCode(request.getParameter("care"));
+		
 		System.out.println("memberjoin");
 		System.out.println(m.getMemberLevel());
 		try {

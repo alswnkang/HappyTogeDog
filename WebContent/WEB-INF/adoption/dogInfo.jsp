@@ -27,7 +27,7 @@
 			</div>
 			<div class="dog-info-top-inner clearfix">
 				<div class="dog-info-left">
-					<img src="/img/dog_test_bk.jpg" style="max-width:100%;">
+					<img src="${dl.filename}" style="max-width:100%;">
 				</div>
 				<div class="dog-info-right">
 					<table class="comm-tbl">
@@ -37,37 +37,35 @@
 						</colgroup>
 						<tr>
 							<th>보호소명</th>
-							<td>받아오기
-				
-							</td>
+							<td>${dl.careNm}</td>
 						</tr>
 						<tr>
 							<th>보호소 주소</th>
-							<td>받아오기</td>
+							<td>${dl.careAddr}</td>
 						</tr>
 						<tr>
 							<th>보호소 연락처</th>
-							<td>받아오기</td>
+							<td>${dl.careTel}</td>
 						</tr>
 						<tr>
 							<th>보호소 <br>방문가능 시간</th>
-							<td>받아오기</td>
+							<td>${careTime}</td>
 						</tr>
 						<tr>
 							<th>품종</th>
-							<td>받아오기(kindCd)</td>
+							<td>${dl.kindCd}</td>
 						</tr>
 						<tr>
 							<th>나이</th>
-							<td>받아오기(age)</td>
+							<td>${dl.age}</td>
 						</tr>
 						<tr>
 							<th>성별</th>
-							<td>받아오기(sexCd)</td>
+							<td>${dl.sex}</td>
 						</tr>
 						<tr>
 							<th>특징</th>
-							<td colspan="3">받아오기(specialMark, noticeComment, neuterYn)</td>
+							<td colspan="3">중성화 여부 : ${dl.neuter}<br>${dl.specialMark}</td>
 						</tr>
 					</table>
 				</div>

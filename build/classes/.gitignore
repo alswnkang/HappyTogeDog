@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+/member/
+/adoption/
+/common/
+/finddog/
+/openApi/
+=======
 /adoption/
 /common/
 /finddog/
@@ -7,5 +14,6 @@
 /siBoardComment/
 /siSql/
 /siTemplete/
+>>>>>>> 85d53fc8e9287655e152c4c06b92cddaf16ae279
 /sponsorship/
 /volunteer/

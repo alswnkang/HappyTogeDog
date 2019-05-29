@@ -62,9 +62,9 @@ public class BoardDao {
 			list = new ArrayList<Board>();
 			while(rset.next()) {
 				Board b = new Board();
-//				b.setBoardNo(rset.getInt("board_no"));
-				b.setBoardNo(rset.getInt("rnum"));
-				b.setBoardLevel(rset.getInt("board_level"));
+				b.setBoardRnum(rset.getInt("rnum"));
+				b.setBoardNo(rset.getInt("board_no"));
+				b.setBoardType(rset.getInt("board_Type"));
 				b.setBoardId(rset.getString("board_id"));
 				b.setBoardName(rset.getString("board_Name"));
 				b.setBoardTitle(rset.getString("board_title"));
@@ -89,14 +89,16 @@ public class BoardDao {
 	public int boardInsert(Connection conn, Board b) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into board values(board_seq.nextval,1,'admin',?,?,?,?,?,sysdate,0,0,'비밀번호')";
+		String query = "insert into board values(board_seq.nextval,?,?,?,?,?,?,?,sysdate,0,0,null)";
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, b.getBoardName());
-			pstmt.setString(2, b.getBoardTitle());
-			pstmt.setString(3, b.getBoardContent());
-			pstmt.setString(4, b.getBoardFilename());
-			pstmt.setString(5, b.getBoardFilepath());
+			pstmt.setInt(1, b.getBoardType());
+			pstmt.setString(2, b.getBoardId());
+			pstmt.setString(3, b.getBoardName());
+			pstmt.setString(4, b.getBoardTitle());
+			pstmt.setString(5, b.getBoardContent());
+			pstmt.setString(6, b.getBoardFilename());
+			pstmt.setString(7, b.getBoardFilepath());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -118,7 +120,7 @@ public class BoardDao {
 			if(rset.next()) {
 				b = new Board();
 				b.setBoardNo(rset.getInt("board_no"));
-				b.setBoardLevel(rset.getInt("board_level"));
+				b.setBoardType(rset.getInt("board_Type"));
 				b.setBoardId(rset.getString("board_id"));
 				b.setBoardName(rset.getString("board_Name"));
 				b.setBoardTitle(rset.getString("board_title"));
@@ -171,7 +173,7 @@ public class BoardDao {
 			if(rset.next()) {
 				b = new Board();
 				b.setBoardNo(rset.getInt("board_no"));
-				b.setBoardLevel(rset.getInt("board_level"));
+				b.setBoardType(rset.getInt("board_Type"));
 				b.setBoardId(rset.getString("board_id"));
 				b.setBoardName(rset.getString("board_Name"));
 				b.setBoardTitle(rset.getString("board_title"));
@@ -212,7 +214,7 @@ public class BoardDao {
 		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from board where board_name=?";
+		String query = "select * from board where board_name = ?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, searchKeyword);
@@ -221,7 +223,7 @@ public class BoardDao {
 			while(rset.next()) {
 				Board b = new Board();
 				b.setBoardNo(rset.getInt("board_no"));
-				b.setBoardLevel(rset.getInt("board_level"));
+				b.setBoardType(rset.getInt("board_Type"));
 				b.setBoardId(rset.getString("board_id"));
 				b.setBoardName(rset.getString("board_Name"));
 				b.setBoardTitle(rset.getString("board_title"));
@@ -247,16 +249,16 @@ public class BoardDao {
 		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from board where board_Title=?";
+		String query = "select * from board where board_Title like ?";
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, searchKeyword);
+			pstmt.setString(1, "%"+searchKeyword+"%");
 			rset = pstmt.executeQuery();
 			list = new ArrayList<Board>();
 			while(rset.next()) {
 				Board b = new Board();
 				b.setBoardNo(rset.getInt("board_no"));
-				b.setBoardLevel(rset.getInt("board_level"));
+				b.setBoardType(rset.getInt("board_type"));
 				b.setBoardId(rset.getString("board_id"));
 				b.setBoardName(rset.getString("board_Name"));
 				b.setBoardTitle(rset.getString("board_title"));

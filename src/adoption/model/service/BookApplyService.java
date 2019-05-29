@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import adoption.model.dao.BookApplyDao;
 import adoption.model.vo.BookApply;
 import adoption.model.vo.BookApplyPageData;
+import adoption.model.vo.DogList;
+import adoption.model.vo.SearchDogPageData;
 import common.JDBCTemplate;
 
 public class BookApplyService {
@@ -25,8 +27,9 @@ public class BookApplyService {
 	public BookApplyPageData selectList(int reqPage,String id) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
 		ArrayList<BookApply> list = new ArrayList<BookApply>();
-		int numPerPage = 5;
+		int numPerPage = 3;
 		int totalCount = new BookApplyDao().reservationCount(conn,id);
+		System.out.println(totalCount);
 		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
 		int start = (reqPage-1)*numPerPage+1;
 		int end = reqPage*numPerPage;
@@ -37,7 +40,7 @@ public class BookApplyService {
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		
 		if(pageNo!=1) {
-			pageNavi += "<a class='paging-arrow prev-arrow' href='/reservationMypage?reqPage=1'><<</a>";
+			/*pageNavi += "<a class='paging-arrow prev-arrow' href='/reservationMypage?reqPage=1'><<</a>";*/
 			pageNavi += "<a class='paging-arrow prev-arrow' href='/reservationMypage?reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
 		}
 		int i = 1;
@@ -51,11 +54,47 @@ public class BookApplyService {
 		}
 		if(pageNo <= totalPage) {
 			pageNavi += "<a class='paging-arrow next-arrow' href='/reservationMypage?reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
-			pageNavi += "<a class='paging-arrow next-arrow' href='/reservationMypage?reqPage="+totalPage+"'>>></a>";
+			/*pageNavi += "<a class='paging-arrow next-arrow' href='/reservationMypage?reqPage="+totalPage+"'>>></a>";*/
 		}
 		JDBCTemplate.close(conn);
 		BookApplyPageData bp = new BookApplyPageData(list, pageNavi);
 		return bp;
+	}
+	
+	//유기견 리스트 받아오기
+	public SearchDogPageData dogList(int reqPage) {
+		//기간을 어떻게 잡아줘야할까?
+		ArrayList<DogList> list= new BookApplyDao().dogList(reqPage);
+		String pageNavi ="";
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
+		
+		if(pageNo!=1) {
+			/*pageNavi += "<a class='paging-arrow prev-arrow' href='/reservationMypage?reqPage=1'><<</a>";*/
+			pageNavi += "<a class='paging-arrow prev-arrow' href='/dogAdopList?reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
+		}
+		int i = 1;
+		while(!(i++>pageNaviSize||pageNo>100)) {		//pageNo>100 : totalPage를 구하는 방법 생각해보기
+			if(reqPage==pageNo) {
+				pageNavi += "<span class='cur'>"+pageNo+"</span>";
+			}else {
+				pageNavi +="<a href='/dogAdopList?reqPage="+pageNo+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
+		if(pageNo <= 100) {		//pageN<=>100 : totalPage를 구하는 방법 생각해보기
+			pageNavi += "<a class='paging-arrow next-arrow' href='/dogAdopList?reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
+			/*pageNavi += "<a class='paging-arrow next-arrow' href='/reservationMypage?reqPage="+totalPage+"'>>></a>";*/
+		}
+		SearchDogPageData sdpd = new SearchDogPageData(list,pageNavi);
+		return sdpd;
+	}
+	//보호소 방문가능시간 가져오기
+	public String careTime(String careNm) {
+		Connection conn = JDBCTemplate.getCon();
+		String careTime = new BookApplyDao().careTime(conn, careNm);
+		JDBCTemplate.close(conn);
+		return careTime;
 	}
 	
 	

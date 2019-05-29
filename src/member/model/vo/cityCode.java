@@ -1,10 +1,10 @@
 package member.model.vo;
 
 public class cityCode {
-	String cityCode;
-	String cityName;
-	String district;
-	String districtName;
+	private String cityCode; //시
+	private String cityName; //시이름
+	private String district; //지역구
+	private String districtName; //지역구 코드
 	public cityCode() {
 		super();
 		// TODO Auto-generated constructor stub
