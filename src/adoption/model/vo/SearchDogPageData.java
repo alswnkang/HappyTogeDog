@@ -27,6 +27,4 @@ public class SearchDogPageData {
 		this.pageNavi = pageNavi;
 	}
 	
-	
-	
 }
