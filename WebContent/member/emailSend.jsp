@@ -22,8 +22,8 @@
 <body>
 	
 	<div id="checked-container">
-		인증번호 입력 <input type="text" name="email_num" id="email_num">
-		<input type="text" name="serverNum" id="serverNum" value="${num }">
+		인증번호 입력 <input type="text" name="email_num" id="email_num">			<!-- 인증번호 입력받는 곳 -->
+		<input type="text" name="serverNum" id="serverNum" value="${num }">		<!-- 서버 인증번호 -->
 		<input type="button" id="btn" value="확인">
 		<div id="countdown"></div>
 	</div>
@@ -63,15 +63,12 @@
 			var email_num = $('#email_num').val();
 			if(serverNum == email_num){
 				alert("인증완료");
-				var a = opener.document.getElementById("a");
-				a.value=1;
-				self.close();
-				
-				$('#btn2').css('display','block');
+				var a = opener.document.getElementById("a");		//email.jsp 의 input a 저장
+				a.value=1;											// value값 1로 변경
+				self.close();										//팝업창 닫기
 			}else{
 				alert("인증실패");
 			}
-			
 		});
 		
 		
