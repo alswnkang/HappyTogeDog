@@ -32,7 +32,7 @@
 			
 			
 				<li>
-					<a href="">
+					<a href="/dogInfo">
 						<div class="img-thum">
 						<span style="background:url('${m.filename }') no-repeat center center; background-size:cover;"></span>
 						</div>

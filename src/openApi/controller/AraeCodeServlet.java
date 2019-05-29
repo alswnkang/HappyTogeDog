@@ -38,6 +38,7 @@ public class AraeCodeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		
 		String code=request.getParameter("value");
 		
 		

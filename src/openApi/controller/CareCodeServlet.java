@@ -34,8 +34,8 @@ public class CareCodeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	String citcode=request.getParameter("citValue");
-	String arecode=request.getParameter("areValue");	
+		String citcode=request.getParameter("citValue");
+		String arecode=request.getParameter("areValue");	
 		
 		ArrayList<CareCode> list = new OpenApiDao().getCareCode(arecode,citcode);
 		
