@@ -7,6 +7,7 @@ public class VoluntaryRegister {
 	private int rnum;
 	private int no;				//공고번호
 	private String code;		//보호소코드
+	private String name;		//이름
 	private String title;		//봉사활동 공고 제목
 	private String volunDate;	//봉사 날짜
 	private String volunTime;	//봉사 시간
@@ -22,12 +23,13 @@ public class VoluntaryRegister {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public VoluntaryRegister(int rnum, int no, String code, String title, String volunDate, String volunTime,
+	public VoluntaryRegister(int rnum, int no, String code, String name, String title, String volunDate, String volunTime,
 			int person, String detail, int applyNum, String filename, String filepath, Date enrollDate) {
 		super();
 		this.rnum = rnum;
 		this.no = no;
 		this.code = code;
+		this.name = name;
 		this.title = title;
 		this.volunDate = volunDate;
 		this.volunTime = volunTime;
@@ -61,6 +63,14 @@ public class VoluntaryRegister {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getTitle() {
