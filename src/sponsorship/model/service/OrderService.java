@@ -8,6 +8,7 @@ import common.JDBCTemplate;
 import sponsorship.model.dao.OrderDao;
 import sponsorship.model.vo.OrderInfoVO;
 import sponsorship.model.vo.OrderListVO;
+import sponsorship.model.vo.OrderUpdate;
 import sponsorship.model.vo.TotalOrder;
 
 public class OrderService {
@@ -98,6 +99,24 @@ public class OrderService {
 		JDBCTemplate.close(conn);
 		TotalOrder total = new TotalOrder(price, count);
 		return total;
+	}
+
+	public int updateOrder(OrderUpdate updateInfo) throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		
+		int result = 0;
+		if(updateInfo.getDeilveryNum() == null){
+			result = new OrderDao().updateStatus(conn,updateInfo);
+		}else{
+			result = new OrderDao().updateOrder(conn,updateInfo);
+		}
+		if(result>0){
+			JDBCTemplate.commit(conn);
+		}else{
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
 	}
 
 }

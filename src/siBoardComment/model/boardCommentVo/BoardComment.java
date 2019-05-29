@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class BoardComment {
 	private int boardCommentNo;
-	private int boardCommentLevel;
+	private int boardCommentType;
 	private String boardCommentId;
 	private String boardCommentName;
 	private String boardCommentContent;
@@ -15,11 +15,11 @@ public class BoardComment {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public BoardComment(int boardCommentNo, int boardCommentLevel, String boardCommentId, String boardCommentName,
+	public BoardComment(int boardCommentNo, int boardCommentType, String boardCommentId, String boardCommentName,
 			String boardCommentContent, int boardRef, int boardCommentRef, Date boardCommentDate) {
 		super();
 		this.boardCommentNo = boardCommentNo;
-		this.boardCommentLevel = boardCommentLevel;
+		this.boardCommentType = boardCommentType;
 		this.boardCommentId = boardCommentId;
 		this.boardCommentName = boardCommentName;
 		this.boardCommentContent = boardCommentContent;
@@ -33,11 +33,11 @@ public class BoardComment {
 	public void setBoardCommentNo(int boardCommentNo) {
 		this.boardCommentNo = boardCommentNo;
 	}
-	public int getBoardCommentLevel() {
-		return boardCommentLevel;
+	public int getBoardCommentType() {
+		return boardCommentType;
 	}
-	public void setBoardCommentLevel(int boardCommentLevel) {
-		this.boardCommentLevel = boardCommentLevel;
+	public void setBoardCommentType(int boardCommentType) {
+		this.boardCommentType = boardCommentType;
 	}
 	public String getBoardCommentId() {
 		return boardCommentId;

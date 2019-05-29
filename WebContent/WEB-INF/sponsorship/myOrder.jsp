@@ -50,7 +50,7 @@
 				</tr>
 				<c:if test="${not empty orderInfo.deilveryNum }">
 					<tr>
-						<td>운송장 번호</td><td>${orderInfo.deilveryNum }</td>
+						<td>운송장 번호</td><td>${orderInfo.deilveryNum } <a href="javascript:window.open('https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?sid1=${orderInfo.deilveryNum }','');">배송조회</a></td>
 					</tr>
 				</c:if>
 				<tr class="tr-title"><td colspan="2">결제 정보</td></tr>

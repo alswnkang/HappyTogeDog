@@ -36,8 +36,26 @@ public class CareCodeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String citcode=request.getParameter("citValue");
 		String arecode=request.getParameter("areValue");	
+		ArrayList<CareCode> list =null;
 		
-		ArrayList<CareCode> list = new OpenApiDao().getCareCode(arecode,citcode);
+		boolean b =true;
+		int count=0;
+		
+		while(b) {
+			list = new OpenApiDao().getCareCode(arecode,citcode);
+			
+			if(list.size()!=0) {
+				b=false;
+			}
+			count++;
+			
+			
+			if(count==30) {
+				b=false;
+			}
+			
+		}
+		
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
