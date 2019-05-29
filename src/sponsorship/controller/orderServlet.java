@@ -18,6 +18,7 @@ import sponsorship.model.service.OrderService;
 import sponsorship.model.vo.OrderInfoVO;
 import sponsorship.model.vo.OrderListVO;
 import sponsorship.model.vo.OrderUpdate;
+import sponsorship.model.vo.SearchVO;
 import sponsorship.model.vo.TotalOrder;
 
 @WebServlet(name = "order", urlPatterns = { "/sponsorship", "/viewProduct", "/order", "/orderIng",
@@ -61,11 +62,19 @@ public class orderServlet extends HttpServlet {
 			}catch (Exception e) {
 				reqPage = 1;
 			}
+			String startDay = request.getParameter("startDay");
+			String endDay = request.getParameter("startDay");
+			String status = request.getParameter("status");
+			String payMethod = request.getParameter("payMethod");
+			String searchType = request.getParameter("searchType");
+			String searchVal = request.getParameter("searchVal");
 			
+			SearchVO search = new SearchVO(reqPage, startDay, endDay, status, payMethod, searchType, searchVal);
 			try {
-				TotalOrder total = new OrderService().totalOrder();
+				TotalOrder total = new OrderService().totalOrder(search);
+				request.setAttribute("search", search);
 				request.setAttribute("total", total);
-				OrderListVO orderList = new OrderService().selectOrder(reqPage);
+				OrderListVO orderList = new OrderService().selectOrder(search);
 				request.setAttribute("orderList", orderList);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/orderList.jsp");
 				rd.forward(request, response);
