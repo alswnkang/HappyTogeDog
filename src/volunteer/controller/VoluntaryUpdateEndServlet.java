@@ -77,7 +77,7 @@ public class VoluntaryUpdateEndServlet extends HttpServlet {
 			}
 		}
 		
-		VoluntaryRegister vr = new VoluntaryRegister(0, no, null, title, volunDate, volunTime, person, detail, 0, oldFilename, oldFilepath, null);
+		VoluntaryRegister vr = new VoluntaryRegister(0, no, null, null, title, volunDate, volunTime, person, detail, 0, oldFilename, oldFilepath, null);
 		int result = new VoluntaryService().updateVoluntary(vr);
 		
 		if(result > 0) {
