@@ -1,6 +1,11 @@
 /adoption/
-/member/
-/volunteer/
-/adoption/
+/common/
 /finddog/
+/member/
+/openApi/
+/siBoard/
+/siBoardComment/
+/siSql/
+/siTemplete/
 /sponsorship/
+/volunteer/
