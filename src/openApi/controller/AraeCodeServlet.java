@@ -48,6 +48,8 @@ public class AraeCodeServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(list,response.getWriter());
 		
+
+		
 		
 	}
 

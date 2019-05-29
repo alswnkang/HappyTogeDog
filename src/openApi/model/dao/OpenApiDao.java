@@ -153,7 +153,7 @@ public class OpenApiDao {
 				
 				// root tag 
 				doc.getDocumentElement().normalize();
-				System.out.println("Root element :" + doc.getDocumentElement().getNodeName());		//XML의 최상위 tag값 가져오기
+				System.out.println("areaCode"+"Root element :" + doc.getDocumentElement().getNodeName());		//XML의 최상위 tag값 가져오기
 				
 				// 파싱할 tag
 				NodeList nList = doc.getElementsByTagName("item");
@@ -174,7 +174,7 @@ public class OpenApiDao {
 					
 						list.add(cc);
 					}	// for end
-					System.out.println(list.size());
+					System.out.println("체크");
 				}	// if end
 				
 			break;
