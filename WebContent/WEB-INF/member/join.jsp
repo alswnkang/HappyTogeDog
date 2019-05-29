@@ -26,7 +26,7 @@
 				<p id="p_checkPw" style="display:none">비밀번호 입력양식 확인</p>
 				비밀번호 확인 : <input type="password" name="pw_re" id="pw_re"><br>
 				<p id="p_checkPw_re" style="display:none">비밀번호가 일치하지 않습니다</p>
-				<p id="p_code" style="display:none">보소호코드 : <input type="text" name="code"><br></p>
+				
 				이름 : <input type="text" name="name" id="name"><br>
 				전화번호 : <input type="text" name="phone" id="phone"><br>
 				우편번호 : <input type="text" id="post" placeholder="우편번호" name="post">
@@ -68,12 +68,10 @@
 					
 				</select><br>
 				</div>
-				<input type="submit" value="회원가입" id="sub">
-				<input type="reset" value="취소" id="reset">
+				
 				<h1>레벨 : ${level }</h1>
 			</div>
-		</form>
-		
+			
 			시 선택 : 
 			<select name="city" id="city">
 				<option>도시선택</option>
@@ -81,15 +79,26 @@
 						<option value="${m.cityCode }">${m.cityName }</option>
 				</c:forEach>
 			</select>
-			<button id="citysel">확인</button><br>
+			<input type="button" id="citysel" value="확인"><br>
 			구 선택:
 			<select name="area" id="area">
 				<option>지역구선택</option>
 			</select>
-			<button id="areasel">확인</button><br>
+			<input type="button" id="areasel" value="확인"><br>
+			보호소 선택 :
 			<select name="care" id="care">
 				<option>보호소선택</option>
 			</select>
+			<input type="button" id="caresel" value="확인"><br>
+			<div id="caretext"></div>
+			
+			<input type="submit" value="회원가입" id="sub">
+			<input type="reset" value="취소" id="reset">
+			
+			
+		</form>
+		
+	
 		
 	</section>
 	
@@ -167,6 +176,8 @@
 					
 				}
 				
+				
+				
 			},
 			error : function(){
 			console.log("실패");	
@@ -174,6 +185,13 @@
 		});
 		
 	});
+	
+	$("#caresel").click(function(){
+		$("#caretext").text($("#care").val());
+		
+	});
+	
+
 	
 	$("#areasel").click(function(){
 		var citValue = $("#city").val();

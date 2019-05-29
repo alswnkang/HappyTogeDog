@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import sponsorship.model.vo.OrderInfoVO;
+import sponsorship.model.vo.OrderUpdate;
 
 public class OrderDao {
 
@@ -170,6 +171,20 @@ public class OrderDao {
 		JDBCTemplate.close(rset);
 		JDBCTemplate.close(pstmt);
 		
+		return result;
+	}
+
+	public int updateOrder(Connection conn, OrderUpdate updateInfo) throws SQLException {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = "update sponsorship set deilvery_num=?,status=? where no=?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, updateInfo.getDeilveryNum());
+		pstmt.setInt(2, updateInfo.getStatus());
+		pstmt.setString(3, updateInfo.getNo());
+		result = pstmt.executeUpdate();
+		JDBCTemplate.close(pstmt);
+
 		return result;
 	}
 
