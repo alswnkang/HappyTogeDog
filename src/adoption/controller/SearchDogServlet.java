@@ -43,10 +43,17 @@ public class SearchDogServlet extends HttpServlet {
 			page = 1;
 		}
 		
-		SearchDogPageData sdpd = new FindDogService().selectList(page);
+	boolean b= true;
 		
-		
-		
+		SearchDogPageData sdpd = new SearchDogPageData();
+		while(b) {
+			sdpd = new FindDogService().selectList(page);
+			
+			if(sdpd.getList().size()==12) {
+				b=false;
+			}
+			
+		}
 		
 		
 		
