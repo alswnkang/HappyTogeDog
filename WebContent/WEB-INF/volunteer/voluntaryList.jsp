@@ -28,7 +28,7 @@ $(function(){
 <section id="content-wrapper">
 	<div class="area">
 		<h2 class="comm-content-tit">봉사활동 신청</h2>
-		<div id="voluntaryListBox" class="common-tbl-box"><!-- id는 바꿔서 복붙 -->
+		<div id="voluntaryListBox"><!-- class="common-tbl-box" id는 바꿔서 복붙 -->
 			<table class="comm-tbl type2"><!-- 신청목록게시판은 한페이지에 게시물 최대 10개 노출 -->
 				<colgroup>
 					<col width="5%">
@@ -58,7 +58,7 @@ $(function(){
 								<td><p class="volun-tit"><a href="/voluntaryView?no=${volunRegister.no }">${volunRegister.title}</a></p></td>
 								<td>${volunRegister.volunDate } <br>${volunRegister.startTime }시 ~ ${volunRegister.endTime }시</td>
 								<td>${volunRegister.person }명</td>
-								<td class="name">${sessionScope.member.name}</td>
+								<td class="name">${volunRegister.name}</td>
 								<td>${volunRegister.enrollDate }</td><!-- ${volunRegister.status } -->
 								<td>
 									<c:if test="${volunRegister.status eq '모집중' }">

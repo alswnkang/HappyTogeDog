@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import volunteer.model.dao.VoluntaryDao;
+import volunteer.model.vo.VoluntaryApplyBoard;
 import volunteer.model.vo.VoluntaryListData;
 import volunteer.model.vo.VoluntaryRegister;
 
@@ -139,6 +140,9 @@ public class VoluntaryService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+
+	// 봉사활동 신청
+	
 
 	
 	

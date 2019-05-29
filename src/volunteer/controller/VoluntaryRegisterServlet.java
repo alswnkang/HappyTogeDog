@@ -61,7 +61,7 @@ public class VoluntaryRegisterServlet extends HttpServlet {
 		String filename = mRequest.getOriginalFileName("filename");
 		String filepath = mRequest.getFilesystemName("filename");
 		
-		VoluntaryRegister vr = new VoluntaryRegister(0, 0, code, title, volunDate, volunTime, person, detail, 0, filename, filepath, null);
+		VoluntaryRegister vr = new VoluntaryRegister(0, 0, code, name, title, volunDate, volunTime, person, detail, 0, filename, filepath, null);
 		int result = new VoluntaryService().insertVoluntaryRegister(vr);
 		
 		if(result > 0) {
