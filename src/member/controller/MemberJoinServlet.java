@@ -42,7 +42,7 @@ public class MemberJoinServlet extends HttpServlet {
 		Member m = new Member();
 		m.setId(request.getParameter("id"));
 		m.setPw(request.getParameter("pw"));
-		m.setCode(request.getParameter("code"));
+		
 		m.setName(request.getParameter("name"));
 		m.setPhone(request.getParameter("phone"));
 		m.setPost(request.getParameter("post"));
@@ -50,6 +50,8 @@ public class MemberJoinServlet extends HttpServlet {
 		m.setPossibleTime(possibleTime);
 		m.setEmail(request.getParameter("email"));
 		m.setMemberLevel(Integer.parseInt(request.getParameter("level")));
+		m.setCode(request.getParameter("care"));
+		
 		System.out.println("memberjoin");
 		System.out.println(m.getMemberLevel());
 		try {
