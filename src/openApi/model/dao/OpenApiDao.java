@@ -174,6 +174,7 @@ public class OpenApiDao {
 					
 						list.add(cc);
 					}	// for end
+					System.out.println("^^^^^");
 				}	// if end
 				
 			break;
