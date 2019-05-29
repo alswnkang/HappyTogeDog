@@ -49,10 +49,26 @@ public class DogList {
 		this.processState = processState;
 		this.neuterYn = neuterYn;
 	}
+	//보호소 방문예약 신청페이지로 데이터 넘기기 위해
+	
 
 	public String getNoticeSdt() {
 		return noticeSdt;
 	}
+	public DogList(String age, String careAddr, String careNm, String careTel, String filename, String kindCd,
+			String sexCd, String specialMark, String neuterYn) {
+		super();
+		this.age = age;
+		this.careAddr = careAddr;
+		this.careNm = careNm;
+		this.careTel = careTel;
+		this.filename = filename;
+		this.kindCd = kindCd;
+		this.sexCd = sexCd;
+		this.specialMark = specialMark;
+		this.neuterYn = neuterYn;
+	}
+
 	public void setNoticeSdt(String noticeSdt) {
 		this.noticeSdt = noticeSdt;
 	}
@@ -158,5 +174,24 @@ public class DogList {
 	public void setNeuterYn(String neuterYn) {
 		this.neuterYn = neuterYn;
 	}
-
+	// 성별 문자열로 가져오기
+	public String getSex() {
+		if(sexCd=="M") {
+			return "수컷";
+		}else if(sexCd =="F") {
+			return "암컷";
+		}else {
+			return "미상";
+		}
+	}
+	//중성화 여부 문자열로 가져오기
+	public String getNeuter() {
+		if(neuterYn =="Y") {
+			return "O";
+		}else if(neuterYn =="N") {
+			return "X";
+		}else {
+			return "모름";
+		}
+	}
 }
