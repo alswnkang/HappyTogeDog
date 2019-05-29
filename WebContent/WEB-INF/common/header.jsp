@@ -56,8 +56,8 @@
 							<a href="">입양</a>
 							<div class="gnb-2dep">
 								<ul>
-									<li><a href="bk.jsp">입양하기</a></li>
-									<li><a href="">전국 보호소 찾기</a></li>
+									<li><a href="/searchDog">입양하기</a></li>
+									<li><a href="/bk.jsp">전국 보호소 찾기</a></li>
 								</ul>
 							</div>
 						</li>
