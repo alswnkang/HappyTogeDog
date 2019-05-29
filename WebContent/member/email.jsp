@@ -16,10 +16,10 @@
 	</form>
 		<form action="/emailJoin" method="post" onsubmit="return check()">
 		<div>
-			이메일 입력<input type="text" name="email" id="email">
-					레벨<input type="text" name="level" id="level" value="${level }">						<!-- 가입자 레벨 -->
-					인증완료되면1<input type="text" name="a" id="a" value="0" change="emailChk();">			<!-- 이메일 인증 완료시 1 미완료시 0 -->
-			<button type="button" onclick="send_email()" id="btn">인증하기</button>						<!-- email.js로  -->
+			이메일 입력<input type="text" name="email" id="email"><br>
+					레벨<input type="text" name="level" id="level" value="${level }">	<br>					<!-- 가입자 레벨 -->
+					인증완료되면1<input type="text" name="a" id="a" value="0" change="emailChk();">	<br>		<!-- 이메일 인증 완료시 1 미완료시 0 -->
+			<button type="button" onclick="send_email()" id="btn">인증하기</button><br>						<!-- email.js로  -->
 			<input type="submit" value="계속하기" id="btn2">
 		</div>
 		</form>

@@ -36,10 +36,7 @@ public class JoinServlet extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setCharacterEncoding("utf-8");
 		int level = Integer.parseInt(request.getParameter("level"));
-		
-	
-		
-		
+
 		System.out.println(level);
 
 		request.setAttribute("level", level);
