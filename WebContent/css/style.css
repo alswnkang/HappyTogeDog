@@ -5,22 +5,25 @@
 }
 
 /* productList.jsp */
-
 .product-list .product {
 	float: left;
-	width: 50%;
+	width: 30%;
 	text-align: center;
 	cursor: pointer;
+	margin-left:5%;
 }
-.product-list .product:hover {background-color: #f0f0f0;}
-.product-list .product img {padding: 30px 0;}
-
-.product-list .product .info {padding: 30px 30px;text-align: left;}
-.product-list .product .info p {margin: 10px;}
-.product-list .product .info p:first-child {font-size: 40px;font-weight: bold;}
-.product-list .product .info p:nth-child(2) {font-size: 20px;}
-.product-list .product .info p:nth-child(3) {font-size: 15px;}
-
+.product-list .product:first-child, .product-list .product:nth-child(3n+1){margin-left:0;}
+.product-list .product .product-inner{}
+.product-list .product .prd-img-thum{position:relative; padding-top:100%; border:1px solid #ddd; overflow:hidden;}
+.product-list .product .prd-img-thum > span{position:absolute; top:0; left:0; bottom:0; right:0; transition:all 0.5s;}
+.product-list .product:hover .prd-img-thum > span{transform:scale(1.1,1.1); transition:all 0.5s;}
+.product-list .product .prd-img-thum > span img{max-width:100%;}
+.product-list .product .prd-txt-thum{padding:15px 0; text-align:left;}
+.product-list .product .prd-txt-thum h3{font-size:18px; line-height:30px; color:#2b2b2b; font-weight:500; width:100%; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; margin-bottom:5px;}
+.product-list .product:hover .prd-txt-thum h3{color:rgba(254,67,30);}
+.product-list .product .prd-txt-thum .price{font-size:13px; line-height:20px; margin-bottom:5px;}
+.product-list .product .prd-txt-thum .price b{font-weight:500; font-size:16px; margin-left:3px;}
+.product-list .product .prd-txt-thum .txt{font-size:13px; line-height:18px; color:#888; max-height:36px; overflow:hidden;}
 
 
 /* productDetail.jsp */
