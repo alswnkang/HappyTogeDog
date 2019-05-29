@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import member.model.vo.Member;
 import siBoard.model.boardService.BoardService;
 import siBoard.model.boardVo.Board;
 
@@ -36,6 +37,7 @@ public class SiPreBoardInsertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		HttpSession session = request.getSession();
 		//첨부파일
 		String root = getServletContext().getRealPath("/");
 		String saveDirectory = root+"/siUpload/board";			//파일 저장경로
@@ -43,23 +45,29 @@ public class SiPreBoardInsertServlet extends HttpServlet {
 		MultipartRequest mRequest = new MultipartRequest(request, saveDirectory,maxSize,"utf-8",new DefaultFileRenamePolicy());
 		//multipart/form-data 형식으로 보내진 정보를 받기 위해 MultipartRequest 형태로 변환
 		//DefaultFileRenamePolicy -> 기존에 업로드된 파일과 이름이 같은 경우, 덮어쓰기 되는 것을 방지하기 위한 것
+		int boardType = Integer.parseInt(mRequest.getParameter("boardType"));
+		String boardId = mRequest.getParameter("memberId");
+		//회원의 로그인 정보를 가져와서 boardId에 대입
 		String boardName = mRequest.getParameter("boardName");
 		String boardTitle = mRequest.getParameter("boardTitle");
 		String boardContent = mRequest.getParameter("boardContent");		
 		String boardFilename = mRequest.getOriginalFileName("boardFilename");
 		//DefaultFileRenamePlicy 클래스 객체에 의해 파일명이 변경되기 전, 원래의 파일명을 리턴(원본 파일이름 유지)
 		String boardFilepath = mRequest.getFilesystemName("boardFilepath");
-		Board b = new Board(0, 0, null, boardName, boardTitle, boardContent, boardFilename, boardFilepath, null, 0, 0, null);
+		Board b = new Board(0,0, boardType, boardId, boardName, boardTitle, boardContent, boardFilename, boardFilepath, null, 0, 0, null);
 		//insert가 작동하는지 확인용 / 로그인 정보와 연동 필요
-		
 		int result = new BoardService().boardInsert(b);
-		if(result>0) {
+		String view = "";
+		if(result>0 && (b.getBoardType()==0 || b.getBoardType()==1 || b.getBoardType()==2)) {//자유게시판에서 글쓰기해야만 작성되도록
 			request.setAttribute("msg", "게시글이 등록되었습니다.");
+			request.setAttribute("loc", "/siPreBoard");
+			view = "/WEB-INF/siViews/common/siMsg.jsp";
 		}else {
 			request.setAttribute("msg", "게시글을 다시 등록해주세요.");
+			request.setAttribute("loc", "/siPreBoard");
+			view = "/WEB-INF/siViews/common/siMsg.jsp";
 		}
-		request.setAttribute("loc", "/siPreBoard");
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/common/siMsg.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
 	}
 

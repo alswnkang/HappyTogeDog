@@ -3,8 +3,9 @@ package siBoard.model.boardVo;
 import java.sql.Date;
 
 public class Board {
+	private int boardRnum;
 	private int boardNo;
-	private int boardLevel;
+	private int boardType;
 	private String boardId;
 	private String boardName;
 	private String boardTitle;
@@ -19,12 +20,13 @@ public class Board {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Board(int boardNo, int boardLevel, String boardId, String boardName, String boardTitle, String boardContent,
-			String boardFilename, String boardFilepath, Date boardDate, int boardCount, int boardSecret,
-			String boardPw) {
+	public Board(int boardRnum, int boardNo, int boardType, String boardId, String boardName, String boardTitle,
+			String boardContent, String boardFilename, String boardFilepath, Date boardDate, int boardCount,
+			int boardSecret, String boardPw) {
 		super();
+		this.boardRnum = boardRnum;
 		this.boardNo = boardNo;
-		this.boardLevel = boardLevel;
+		this.boardType = boardType;
 		this.boardId = boardId;
 		this.boardName = boardName;
 		this.boardTitle = boardTitle;
@@ -36,17 +38,23 @@ public class Board {
 		this.boardSecret = boardSecret;
 		this.boardPw = boardPw;
 	}
+	public int getBoardRnum() {
+		return boardRnum;
+	}
+	public void setBoardRnum(int boardRnum) {
+		this.boardRnum = boardRnum;
+	}
 	public int getBoardNo() {
 		return boardNo;
 	}
 	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
 	}
-	public int getBoardLevel() {
-		return boardLevel;
+	public int getBoardType() {
+		return boardType;
 	}
-	public void setBoardLevel(int boardLevel) {
-		this.boardLevel = boardLevel;
+	public void setBoardType(int boardType) {
+		this.boardType = boardType;
 	}
 	public String getBoardId() {
 		return boardId;
