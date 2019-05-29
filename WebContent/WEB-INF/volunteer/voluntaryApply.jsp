@@ -5,42 +5,44 @@
 	<div class="modal-inner-con">
 		<div class="modal-inner">
 			<div class="voluntary-bottom-inner">
-				<form action="" method="post">
+				<form action="/voluntaryApply?no=${vr.no }" method="post">
 					<table class="comm-tbl"><!-- 봉사활동 신청은 회원 전용 -->
 						<colgroup>
 							<col width="20%">
-							<col width="/">
+							<col width="30%">
 							<col width="20%">
 							<col width="/">
 						</colgroup>
 						<tr>
 							<th>보호소 명</th>
-							<td colspan="3">${sessionScope.member.name}</td>
+							<td colspan="3"><input type="hidden" name="name" value="${vr.name}" readonly>${vr.name}</td>
 						</tr>
 						<tr class="hidden">
 							<th>보호소 코드</th>
-							<td colspan="3"><input type="text" name="code" value="${sessionScope.member.code}" readonly></td>
+							<td colspan="3"><input type="hidden" name="code" value="${vr.code}" readonly>${vr.code}</td>
 						</tr>
 						<tr>
 							<th>신청자 아이디</th>
-							<td>${sessionScope.member.id}</td>
+							<td><input type="hidden" name="id" value="${sessionScope.member.id}" readonly>${sessionScope.member.id}</td>
 							<th>신청자 전화번호</th>
-							<td>${sessionScope.member.phone}</td>
+							<td><input type="hidden" name="phone" value="${sessionScope.member.phone}" readonly>${sessionScope.member.phone}</td>
 						</tr>				
 						<tr>
 							<th>봉사 날짜</th>
-							<td>봉사 날짜가 들어갑니다.(ex. 2019-05-26)</td>
+							<td><input type="hidden" name="volunDate" value="${vr.volunDate }" readonly>${vr.volunDate }</td>
 							<th>봉사 시간</th>
-							<td>봉사 시간이 들어갑니다.(ex. 9시 ~ 16시)</td>
+							<td>
+								<input type="hidden" name="volunTime1" class="short" value="${vr.startTime }" readonly>${vr.startTime }시 ~ 
+								<input type="hidden" name="volunTime2" class="short" value="${vr.endTime }" readonly>${vr.endTime }시</td>
 						</tr>
 						<tr>
 							<th>봉사 신청 인원 수</th>
-							<td colspan="3"><input type="text" name="person" class="short num"> 명</td>
+							<td colspan="3"><input type="text" name="person" class="short num" required> 명</td>
 						</tr>
 					</table>
 					<div class="common-tbl-btn-group">
 						<button type="submit" class="btn-style1">신청하기</button>
-						<button type="button" onclick="javascript:;" class="modal-close-btn btn-style2">닫기</button>
+						<button type="reset" onclick="javascript:;" class="modal-close-btn btn-style2">닫기</button>
 					</div>
 				</form>
 			</div>

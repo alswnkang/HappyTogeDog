@@ -8,6 +8,7 @@
 <%-- Content --%>
 <section id="content-wrapper">
 	<div class="area">
+		<h2 class="comm-content-tit">봉사활동 신청</h2>
 		<div id="voluntaryViewBox" class="voluntary-box">
 			<!-- 봉사활동 상세정보 -->
 			<div class="voluntary-top-box">
@@ -28,7 +29,7 @@
 					</tr>
 					<tr>
 						<th>보호소 명</th>
-						<td colspan="3">${sessionScope.member.name}</td>
+						<td colspan="3">${vr.name }</td>
 					</tr>				
 					<tr>
 						<th>봉사 날짜</th>
@@ -56,11 +57,16 @@
 					</tr>
 				</table>
 				<div class="common-tbl-btn-group" style="text-align:right;">
-					<button type="button" class="btn-style1" onclick="javascript:layerLoad('/voluntaryApply');">신청하기</button><!-- 신청 마감시 버튼 변경->신청 마감 누르면 alert('신청이 마감되었습니다.') -->
+					<c:if test="${not empty member && member.memberLevel == 0 }">
+						<button type="button" class="btn-style1" onclick="javascript:layerLoad('/voluntaryApplyForm?no=${vr.no}');">신청하기</button><!-- 신청 마감시 버튼 변경->신청 마감 누르면 alert('신청이 마감되었습니다.') -->
+					</c:if>
+					<c:if test="${empty member && member.memberLevel != 1 }">
+						<button type="button" id="applyCheckBtn" class="btn-style1">신청하기</button><!-- 신청 마감시 버튼 변경->신청 마감 누르면 alert('신청이 마감되었습니다.') -->
+					</c:if>
 					<button type="button" class="btn-style2" onclick="location.href='/volunteerList'">목록으로</button>
 					<c:if test="${sessionScope.member.code == vr.code}">
 						<button type="button" class="btn-style3" onclick="location.href='/voluntaryUpdate?no=${vr.no}'">수정</button>
-						<button type="button" class="btn-style3" onclick="location.href='/voluntaryDelete?no=${vr.no}'">삭제</button>
+						<button type="button" id="deleteBtn" class="btn-style3">삭제</button>
 					</c:if>
 				</div>
 			</div>
@@ -123,7 +129,7 @@
 
 <%-- script --%>
 <script>
-//파일 다운로드
+// 파일 다운로드
 function fileDownload(filename,filepath){
 	var url = "/voluntaryFileDownload";
 	var encFilename = encodeURIComponent(filename);
@@ -131,7 +137,35 @@ function fileDownload(filename,filepath){
 	location.href=url+'?filename='+encFilename+'&filepath='+encFilepath;
 }
 
-//모달 레이어 팝업 띄우기
+// 로그인 전 봉사신청 버튼 눌렀을 때 & 삭제 버튼 눌렀을 때
+$(document).ready(function(){
+	//로그인 전 봉사신청 버튼 눌렀을 때
+	var $applyChkBtn = $("#applyCheckBtn");
+	$applyChkBtn.on("click",function(){
+		var choice = confirm("로그인 후 이용가능합니다. 로그인 하시겠습니까?");
+		if(choice == true){
+			location.href="/member/login.jsp";
+			return true;
+		} else{
+			return false;
+		}
+	});
+	
+	//해당 공지 올린 보호소회원이 삭제 버튼 눌렀을 때
+	var $deleteBtn = $("#deleteBtn");
+	$deleteBtn.on("click",function(){
+		var deleteChk = confirm("삭제하시겠습니까?");
+		if(deleteChk == true){
+			location.href="/voluntaryDelete?no=${vr.no}";
+			return true;
+		}else{
+			return false;
+		}
+	});
+});
+
+// 로그인 후 봉사신청 버튼 눌렀을 때
+// 모달 레이어 팝업 띄우기
 function layerLoad(strUrl){
 	var $modalWrap = $(".modal-fixed-pop-wrapper");
 
