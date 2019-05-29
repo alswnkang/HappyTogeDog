@@ -1,4 +1,4 @@
-package member.controller;
+package adoption.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,20 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.dao.MemberDao;
-import member.model.vo.CareCode;
+import adoption.model.dao.FindDogDao;
+import adoption.model.service.FindDogService;
+import adoption.model.vo.DogList;
+import adoption.model.vo.SearchDogPageData;
 
 /**
- * Servlet implementation class CareCodeServlet
+ * Servlet implementation class SearchDogServlet
  */
-@WebServlet(name = "CareCode", urlPatterns = { "/careCode" })
-public class CareCodeServlet extends HttpServlet {
+@WebServlet(name = "SearchDog", urlPatterns = { "/searchDog" })
+public class SearchDogServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CareCodeServlet() {
+    public SearchDogServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,15 +35,31 @@ public class CareCodeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ArrayList<CareCode> list= new MemberDao().getCode();
+		int page;
 		
-		request.setAttribute("list", list);
+		try {
+			page = Integer.parseInt(request.getParameter("page"));
+		}catch(NumberFormatException e){ // 처음요청시 숫자가 아니므로 1을 줘서 첫페이지로 향하게한다.
+			page = 1;
+		}
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/careCode.jsp");
+		SearchDogPageData sdpd = new FindDogService().selectList(page);
+		
+		
+		
+		
+		
+		
+		
+		request.setAttribute("sdpd", sdpd);
+		
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/searchDog.jsp");
 		
 		
 
 		rd.forward(request, response);
+		
 	}
 
 	/**

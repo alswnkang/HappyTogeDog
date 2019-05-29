@@ -1,6 +1,7 @@
-package member.controller;
+package openApi.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -10,8 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.dao.MemberDao;
-import member.model.vo.cityCode;
+import com.google.gson.Gson;
+
+import openApi.model.dao.OpenApiDao;
+import openApi.model.vo.cityCode;
+import openApi.model.vo.getCareCode;
 
 /**
  * Servlet implementation class AraeCodeServlet
@@ -34,17 +38,16 @@ public class AraeCodeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String code=request.getParameter("code");
-		ArrayList<cityCode> list= new MemberDao().getAreaCode(code);
+		String code=request.getParameter("value");
 		
-
 		
-		request.setAttribute("list", list);
+		ArrayList<cityCode> list = new OpenApiDao().getAreaCode(code);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/areaCode.jsp");
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		new Gson().toJson(list,response.getWriter());
 		
-
-		rd.forward(request, response);
+		
 	}
 
 	/**
