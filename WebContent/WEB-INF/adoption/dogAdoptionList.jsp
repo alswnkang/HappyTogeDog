@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <link rel="stylesheet" type="text/css" href="/css/content.css">
-<link rel="stylesheet" type="text/css" href="/css/findMydog_DJ.css">
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
@@ -17,19 +17,37 @@
 		<ul class="main-adopt-review-list clearfix"><!-- 입양후기는 최소/최대 8개가 노출됩니다. -->
 			<c:forEach items="${sdpd.list }" var="m" varStatus="i">
 				<li>
-					<a href="/dogInfo">
-						<div class="img-thum">
-						<span style="background:url('${m.filename }') no-repeat center center; background-size:cover;"></span>
-						</div>
-						<div class="txt-thum">
-						
-						<p>보호소명  : ${m.careNm }, 품종 : ${m.kindCd }</p><br>
-						<p>성별 :${m.sexCd }
-						</div>
-					</a>
+					<form action="/dogInfo" method="post" name="form_${i.count}">
+						<input type="hidden" name="careNm" value="${m.careNm }">
+						<c:if test="${fn:contains(m.careAddr,'(')}">
+							<input type="hidden" name="careAddr" value="${fn:split(m.careAddr,'(')[0] }">
+						</c:if>
+						<c:if test="${fn:contains(m.careAddr,'(')==false}">
+							<input type="hidden" name="careAddr" value="${m.careAddr}">
+						</c:if>
+						<input type="hidden" name="careTel" value="${m.careTel }">
+						<input type="hidden" name="kindCd" value="${m.kindCd }">
+						<input type="hidden" name="age" value="${m.age }">
+						<input type="hidden" name="sexCd" value="${m.sexCd }">
+						<input type="hidden" name="specialMark" value="${m.specialMark }">
+						<input type="hidden" name="neuterYn" value="${m.neuterYn }">
+						<input type="hidden" name="filename" value="${m.filename }">
+						<button type="submit" style="display:none;"></button>
+						<a onclick="javascript:form_${i.count}.submit();">		<!-- 보호소명 보내기 -->
+							<div class="img-thum">
+							<span style="background:url('${m.filename }') no-repeat center center; background-size:cover;"></span>
+							</div>
+							<div class="txt-thum">
+							
+							<p>보호소명  : ${m.careNm }, 품종 : ${m.kindCd }</p><br>
+							<p>성별 :${m.sexCd }
+							</div>
+						</a>
+					</form>
 				</li>
 			</c:forEach>
 		</ul>
+		
 		
 		<!-- paging -->
 		<div class="paging">${sdpd.pageNavi}</div>
@@ -50,8 +68,6 @@
 		</div>
 	</div>
 </section>
-
-
 	
 <%--footer --%>
 <jsp:include page="/WEB-INF/common/footer.jsp" />

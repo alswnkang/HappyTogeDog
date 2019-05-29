@@ -188,4 +188,17 @@ public class OrderDao {
 		return result;
 	}
 
+	public int updateStatus(Connection conn, OrderUpdate updateInfo) throws SQLException {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = "update sponsorship set status=? where no=?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, updateInfo.getStatus());
+		pstmt.setString(2, updateInfo.getNo());
+		result = pstmt.executeUpdate();
+		JDBCTemplate.close(pstmt);
+
+		return result;
+	}
+
 }

@@ -90,7 +90,6 @@
 			</select>
 			<input type="button" id="caresel" value="확인"><br>
 			<div id="caretext"></div>
-			<div id="careName"></div>
 			
 			</c:if>
 			<input type="submit" value="회원가입" id="sub">
@@ -186,9 +185,9 @@
 	
 	$("#caresel").click(function(){
 		$("#caretext").text($("#care").val());
+
 		$('#name').val($('#care option:selected').text());
-		
-	});
+
 	
 
 	

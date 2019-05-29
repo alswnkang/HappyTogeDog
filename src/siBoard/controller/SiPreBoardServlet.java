@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import member.model.vo.Member;
 import siBoard.model.boardService.BoardService;
 import siBoard.model.boardVo.Board;
 import siBoard.model.boardVo.BoardPageData;
@@ -35,13 +36,6 @@ public class SiPreBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8"); //인코딩
-		
-		String memberId = "user2";
-		HttpSession session = request.getSession();
-		session.setAttribute("memberId", memberId);
-		//임시 session memberId 설정 값
-		
 		int reqPage;
 		try {
 			reqPage = Integer.parseInt(request.getParameter("reqPage"));

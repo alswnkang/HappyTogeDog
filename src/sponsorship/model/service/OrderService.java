@@ -104,7 +104,12 @@ public class OrderService {
 	public int updateOrder(OrderUpdate updateInfo) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
 		
-		int result = new OrderDao().updateOrder(conn,updateInfo);
+		int result = 0;
+		if(updateInfo.getDeilveryNum() == null){
+			result = new OrderDao().updateStatus(conn,updateInfo);
+		}else{
+			result = new OrderDao().updateOrder(conn,updateInfo);
+		}
 		if(result>0){
 			JDBCTemplate.commit(conn);
 		}else{

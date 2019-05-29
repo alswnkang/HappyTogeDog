@@ -35,7 +35,11 @@
 						<option value="no">주문번호</option>
 						<option value="name">주문자명</option>
 					</select>
-					<input placeholder="검색어를 입력해주세요." type="search" name="search_order" class="search-word" value="">
+					<form action="/" method="post" name="dd">
+						<a href="javascript:dd.submit();">얍</a>
+						<input placeholder="검색어를 입력해주세요." type="search" name="search_order" class="search-word" value="">
+					</form>
+					
 					<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
 				</div>
 				<p class="total">총 주문 수 : ${total.count } / 총 후원 금액(결제 완료된 주문합계) : <fmt:formatNumber value="${total.price }" pattern="#,###" /> 원</p>
@@ -81,7 +85,7 @@
 								<td><fmt:formatNumber value="${order.pay }" pattern="#,###" /> 원</td>	
 								<td>${order.sponDate }</td>
 								<td>
-									<select class="status" data-status="${order.status}">
+									<select class="status" data-status="${order.status}" data-no="${order.no}">
 										<option>---주문상태---</option>
 										<option value="0">주문 완료</option>
 										<option value="1">결제 완료</option>
