@@ -91,6 +91,7 @@
 			</select>
 			<input type="button" id="caresel" value="확인"><br>
 			<div id="caretext"></div>
+			<input type="hidden" id="careNm" name="careNm" >
 			
 			<input type="submit" value="회원가입" id="sub">
 			<input type="reset" value="취소" id="reset">
@@ -188,6 +189,7 @@
 	
 	$("#caresel").click(function(){
 		$("#caretext").text($("#care").val());
+		$("#careNm").text($("#care").text());
 		
 	});
 	
