@@ -1,30 +1,34 @@
 package adoption.model.vo;
 
 public class DogList {
-	String age;
-	String careAddr;
-	String careNm;
-	String careTel;
-	String colorCd;
-	String filename;
-	String happenDt;
-	String happenPlace;
-	String kindCd;
-	String noticeNo;
-	String noticeEdt;
-	String orgNm;
-	String sexCd;
-	String specialMark;
-	String weight;
-	String noticeSdt;
-	String processState;
+	private String age;			//강아지 나이
+	private String careAddr;	//보호소 주소
+	private String careNm;		//보호소 이름
+	private String careTel;		//보호소 전화번호
+	private String colorCd;		//강아지 색깔
+	private String filename;	//popfile(강아지사진)
+	private String happenDt;	//발견날짜
+	private String happenPlace;	//발결장소
+	private String kindCd;		//품종
+	private String noticeNo;	//공고번호
+	private String noticeEdt;	//공고종료일
+	private String orgNm;		//관할기관
+	private String sexCd;		//성별
+	private String specialMark;	//특징
+	private String weight;		//몸무게
+	private String noticeSdt;	//공고시작일
+	private String processState;//입양상태
+	private String neuterYn;	//중성화여부
+	
+	
 	public DogList() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	public DogList(String age, String careAddr, String careNm, String careTel, String colorCd, String filename,
 			String happenDt, String happenPlace, String kindCd, String noticeNo, String noticeEdt, String orgNm,
-			String sexCd, String specialMark, String weight) {
+			String sexCd, String specialMark, String weight, String noticeSdt, String processState, String neuterYn) {
 		super();
 		this.age = age;
 		this.careAddr = careAddr;
@@ -41,7 +45,11 @@ public class DogList {
 		this.sexCd = sexCd;
 		this.specialMark = specialMark;
 		this.weight = weight;
+		this.noticeSdt = noticeSdt;
+		this.processState = processState;
+		this.neuterYn = neuterYn;
 	}
+
 	public String getNoticeSdt() {
 		return noticeSdt;
 	}
@@ -144,6 +152,11 @@ public class DogList {
 	public void setWeight(String weight) {
 		this.weight = weight;
 	}
-
+	public String getNeuterYn() {
+		return neuterYn;
+	}
+	public void setNeuterYn(String neuterYn) {
+		this.neuterYn = neuterYn;
+	}
 
 }

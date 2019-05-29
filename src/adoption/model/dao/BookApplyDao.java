@@ -15,7 +15,7 @@ import common.JDBCTemplate;
 public class BookApplyDao {
 	private Properties prop = new Properties();
 	public BookApplyDao() {
-		String fileName = BookApplyDao.class.getResource("/adoption/sql/bookApply2.properties").getPath();
+		String fileName = BookApplyDao.class.getResource("/adoption/sql/bookApply.properties").getPath();
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (IOException e) {

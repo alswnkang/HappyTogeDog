@@ -8,15 +8,11 @@ import adoption.model.vo.SearchDogPageData;
 
 public class FindDogService {
 	
-
-	
-
 	public SearchDogPageData selectList(int page) {
 		// TODO Auto-generated method stub
-		
-		
 		ArrayList<DogList> list= new FindDogDao().getList(page);
 		
+		//네비바 생성
 		String pageNavi="";
 		if(page==1) {   //시작페이지 버튼
 			pageNavi+="<a href='/searchDog?page=1'>1</a>";
@@ -42,10 +38,7 @@ public class FindDogService {
 			pageNavi+="<a href='/searchDog?page="+(page+2)+"'>"+(page+2)+"</a>";
  			pageNavi+="<a href='/searchDog?page="+(page+1)+"' class='paging-arrow next-arrrow'><img src='/img/right_arrow.png' style='width:30px;height:30px'</a>";		
 		}
-		
-	
 		SearchDogPageData sdpd = new SearchDogPageData(list,pageNavi);
-		
 		return sdpd;
 	}
 	
