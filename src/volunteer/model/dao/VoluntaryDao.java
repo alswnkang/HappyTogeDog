@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import common.JDBCTemplate;
+import volunteer.model.vo.VoluntaryApplyBoard;
 import volunteer.model.vo.VoluntaryRegister;
 
 public class VoluntaryDao {
@@ -67,7 +68,7 @@ public class VoluntaryDao {
 		ArrayList<VoluntaryRegister> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from (select rownum as rnum, v.* from (select * from volunteer_register order by no desc) v) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, v.* from (select * from volunteer_register left join member using(code) order by no desc) v) where rnum between ? and ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -80,6 +81,7 @@ public class VoluntaryDao {
 				VoluntaryRegister vr = new VoluntaryRegister();
 				vr.setNo(rset.getInt("no"));
 				vr.setCode(rset.getString("code"));
+				vr.setName(rset.getString("name"));
 				vr.setTitle(rset.getString("title"));
 				vr.setVolunDate(rset.getString("volun_date"));
 				vr.setVolunTime(rset.getString("volun_time"));
@@ -150,7 +152,7 @@ public class VoluntaryDao {
 		ArrayList<VoluntaryRegister> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from (select rownum as rnum, v.* from (select * from volunteer_register where title like(?) order by title) v) where rnum between ? and ? ";
+		String query = "select * from (select rownum as rnum, v.* from (select * from volunteer_register left join member using(code) where title like(?) order by title) v) where rnum between ? and ? ";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -164,6 +166,7 @@ public class VoluntaryDao {
 				VoluntaryRegister vr = new VoluntaryRegister();
 				vr.setNo(rset.getInt("no"));
 				vr.setCode(rset.getString("code"));
+				vr.setName(rset.getString("name"));
 				vr.setTitle(rset.getString("title"));
 				vr.setVolunDate(rset.getString("volun_date"));
 				vr.setVolunTime(rset.getString("volun_time"));
@@ -200,6 +203,7 @@ public class VoluntaryDao {
 				VoluntaryRegister vr = new VoluntaryRegister();
 				vr.setNo(rset.getInt("no"));
 				vr.setCode(rset.getString("code"));
+				vr.setName(rset.getString("name"));
 				vr.setTitle(rset.getString("title"));
 				vr.setVolunDate(rset.getString("volun_date"));
 				vr.setVolunTime(rset.getString("volun_time"));
@@ -222,7 +226,7 @@ public class VoluntaryDao {
 		VoluntaryRegister vr = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from volunteer_register where no=?";
+		String query = "select * from volunteer_register left join member using(code) where no=?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -232,6 +236,7 @@ public class VoluntaryDao {
 				vr = new VoluntaryRegister();
 				vr.setNo(rset.getInt("no"));
 				vr.setCode(rset.getString("code"));
+				vr.setName(rset.getString("name"));
 				vr.setTitle(rset.getString("title"));
 				vr.setVolunDate(rset.getString("volun_date"));
 				vr.setVolunTime(rset.getString("volun_time"));
@@ -294,5 +299,8 @@ public class VoluntaryDao {
 		}
 		return result;
 	}
+
+	// 봉사활동 신청
+	
 
 }

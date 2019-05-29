@@ -8,19 +8,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import adoption.model.service.BookApplyService;
+import adoption.model.vo.SearchDogPageData;
 
 /**
- * Servlet implementation class VisitReservationServlet
+ * Servlet implementation class DogAdopListServlet
  */
-@WebServlet(name = "VisitReservation", urlPatterns = { "/reservation" })
-public class VisitReservationServlet extends HttpServlet {
+@WebServlet(name = "DogAdopList", urlPatterns = { "/dogAdopList" })
+public class DogAdopListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VisitReservationServlet() {
+    public DogAdopListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,18 +32,22 @@ public class VisitReservationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		HttpSession session = request.getSession(false);
-		String careNm = request.getParameter("careNm");				//보호소명 받기
-		String careAddr = request.getParameter("careAddr");			//보호소주소
-		String careTel = request.getParameter("careTel");			//보호소 전화번호
-		String careTime = request.getParameter("careTime");			//보호소 방문가능시간
-		System.out.println(careTime);
-		System.out.println(careAddr);
-		request.setAttribute("careNm", careNm);
-		request.setAttribute("careAddr", careAddr);
-		request.setAttribute("careTel", careTel);
-		request.setAttribute("careTime", careTime);
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/visitReservation.jsp");
+		int reqPage;
+		try {
+			reqPage = Integer.parseInt(request.getParameter("page"));
+		}catch(NumberFormatException e) {
+			reqPage=1;
+		}
+		boolean b= true;
+		SearchDogPageData sdpd = new SearchDogPageData();
+		while(b) {
+			sdpd = new BookApplyService().dogList(reqPage);
+			if(sdpd.getList().size()==12) { //12개의 리스트를답을때까지 반복
+				b=false;
+			}
+		}
+		request.setAttribute("sdpd", sdpd);   //pagedata저장
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/dogAdoptionList.jsp");	//유기견 리스트 페이지로 이동
 		rd.forward(request, response);
 	}
 
