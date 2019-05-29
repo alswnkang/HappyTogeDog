@@ -19,14 +19,14 @@
 				<h1 id="h_title1">일반 회원가입</h1>
 				<h1 id="h_title2" style="display:none">보호소 회원가입</h1>
 				아이디 : <input type="text" name="id" id="id" placeholder = "4~12자리 영/숫자">
-				<button type="button" id="checkId">중복체크</button><br>
+				<input type="button" id="checkId" value="중복체크"><br>
 				<p id="p_checkId" style="display:none">아이디 입력양식 확인</p>
 				
 				비밀번호 : <input type="password" name="pw" id="pw" placeholder = "영/숫자를 포함한 8~13자리"><br>
 				<p id="p_checkPw" style="display:none">비밀번호 입력양식 확인</p>
 				비밀번호 확인 : <input type="password" name="pw_re" id="pw_re"><br>
 				<p id="p_checkPw_re" style="display:none">비밀번호가 일치하지 않습니다</p>
-				<p id="p_code" style="display:none">보소호코드 : <input type="text" name="code"><br></p>
+				
 				이름 : <input type="text" name="name" id="name"><br>
 				전화번호 : <input type="text" name="phone" id="phone"><br>
 				우편번호 : <input type="text" id="post" placeholder="우편번호" name="post">
@@ -68,12 +68,10 @@
 					
 				</select><br>
 				</div>
-				<input type="submit" value="회원가입" id="sub">
-				<input type="reset" value="취소" id="reset">
+				
 				<h1>레벨 : ${level }</h1>
 			</div>
-		</form>
-		
+			
 			시 선택 : 
 			<select name="city" id="city">
 				<option>도시선택</option>
@@ -81,22 +79,33 @@
 						<option value="${m.cityCode }">${m.cityName }</option>
 				</c:forEach>
 			</select>
-			<button id="citysel">확인</button><br>
+			<input type="button" id="citysel" value="확인"><br>
 			구 선택:
 			<select name="area" id="area">
 				<option>지역구선택</option>
 			</select>
-			<button id="areasel">확인</button><br>
+			<input type="button" id="areasel" value="확인"><br>
+			보호소 선택 :
 			<select name="care" id="care">
 				<option>보호소선택</option>
 			</select>
+			<input type="button" id="caresel" value="확인"><br>
+			<div id="caretext"></div>
+			<input type="hidden" id="careNm" name="careNm" >
+			
+			<input type="submit" value="회원가입" id="sub">
+			<input type="reset" value="취소" id="reset">
+			
+			
+		</form>
+		
+	
 		
 	</section>
 	
 	
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
-    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function sample4_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -167,6 +176,8 @@
 					
 				}
 				
+				
+				
 			},
 			error : function(){
 			console.log("실패");	
@@ -174,6 +185,14 @@
 		});
 		
 	});
+	
+	$("#caresel").click(function(){
+		$("#caretext").text($("#care").val());
+		$("#careNm").text($("#care").text());
+		
+	});
+	
+
 	
 	$("#areasel").click(function(){
 		var citValue = $("#city").val();
