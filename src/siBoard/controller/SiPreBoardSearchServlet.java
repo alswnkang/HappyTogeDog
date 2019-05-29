@@ -33,24 +33,22 @@ public class SiPreBoardSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8");		
 		String searchType = request.getParameter("searchWord");
 		String searchKeyword = request.getParameter("keyword");
-		System.out.println(searchType);
-		System.out.println(searchKeyword);
 		ArrayList<Board> list = new BoardService().boardSearch(searchType,searchKeyword);
-		System.out.println(list.size());
 		// 여기서 검색부터 다시 해야됨
+		String view = "";
 		if(list.size()>0){
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/board/siPreBoardList.jsp");
 			request.setAttribute("list", list);
-			rd.forward(request, response);
+			view = "/WEB-INF/siViews/board/siPreBoardSearchList.jsp";
 		}else {
 			request.setAttribute("msg", "일치하는 정보가 없습니다.");
 			request.setAttribute("loc", "/siPreBoard");
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/common/siMsg.jsp");
-			rd.forward(request, response);
+			view = "/WEB-INF/siViews/common/siMsg.jsp";
 		}
+		RequestDispatcher rd = request.getRequestDispatcher(view);
+		rd.forward(request, response);
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
