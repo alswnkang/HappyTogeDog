@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="member.model.vo.Member"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
     <%
     	Member m = (Member)session.getAttribute("member");
     %>
@@ -80,6 +82,9 @@
 									<li><a href="/sponsorship">후원하기</a></li>
 									<li><a href="/qnaList">Q&A</a></li>
 									<li><a href="/findOrder.jsp">주문조회</a></li>
+									<c:if test="${sessionScope.member.memberLevel eq 2 }">
+										<li><a href="/orderList">주문관리</a></li>
+									</c:if>
 								</ul>
 							</div>
 						</li>
