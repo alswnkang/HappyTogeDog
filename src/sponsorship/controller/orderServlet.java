@@ -22,7 +22,7 @@ import sponsorship.model.vo.TotalOrder;
 
 @WebServlet(name = "order", urlPatterns = { "/sponsorship", "/viewProduct", "/order", "/orderIng",
 		"/orderEnd", "/findOrder", "/myOrder", "/qnaList", "/qnaView", "/orderList", "/orderView",
-		"/updateOrder"})
+		"/updateOrder", "/updateStatus"})
 public class orderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -192,8 +192,31 @@ public class orderServlet extends HttpServlet {
 				System.out.println("SQL에러 ㅠ");
 			}
 			
+		}else if(action.equals("updateStatus")){
+			String no = request.getParameter("no");
+			int status = Integer.parseInt(request.getParameter("status"));
+			System.out.println(no);
+			System.out.println(status);
+			OrderUpdate updateInfo = new OrderUpdate(no, null, status);
+			try {
+				int result = new OrderService().updateOrder(updateInfo);
+
+				response.setCharacterEncoding("utf-8");
+				PrintWriter out = response.getWriter();
+				if(result>0){
+					System.out.println("수정 완료");
+					out.print("success");
+				}else{
+					System.out.println("수정 실패");
+					out.print("fail");
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("SQL에러 ㅠ");
+			}
 			
 		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

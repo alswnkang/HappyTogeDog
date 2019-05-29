@@ -21,13 +21,13 @@
 				</c:if>
 				<!-- 로그인 안했을 경우 alert창 띄워주고 login창으로 이동 -->
 				<c:if test="${empty sessionScope.member}">	
-					<button type="button" class="btn-style10" onclick="alert('로그인 후 이용해주세요');location.href='/member/login.jsp'">보호소 방문예약</button>
+					<button type="button" class="btn-style10" onclick="login();">보호소 방문예약</button>
 					<!-- onclick="location.href='/reservation?보호소명,주소,전화번호,코드넘겨주기 -->
 				</c:if>
 			</div>
 			<div class="dog-info-top-inner clearfix">
 				<div class="dog-info-left">
-					<img src="/img/dog_test_bk.jpg" style="max-width:100%;">
+					<img src="${dl.filename}" style="max-width:100%;">
 				</div>
 				<div class="dog-info-right">
 					<table class="comm-tbl">
@@ -37,37 +37,35 @@
 						</colgroup>
 						<tr>
 							<th>보호소명</th>
-							<td>받아오기
-				
-							</td>
+							<td>${dl.careNm}</td>
 						</tr>
 						<tr>
 							<th>보호소 주소</th>
-							<td>받아오기</td>
+							<td>${dl.careAddr}</td>
 						</tr>
 						<tr>
 							<th>보호소 연락처</th>
-							<td>받아오기</td>
+							<td>${dl.careTel}</td>
 						</tr>
 						<tr>
 							<th>보호소 <br>방문가능 시간</th>
-							<td>받아오기</td>
+							<td>${careTime}</td>
 						</tr>
 						<tr>
 							<th>품종</th>
-							<td>받아오기(kindCd)</td>
+							<td>${dl.kindCd}</td>
 						</tr>
 						<tr>
 							<th>나이</th>
-							<td>받아오기(age)</td>
+							<td>${dl.age}</td>
 						</tr>
 						<tr>
 							<th>성별</th>
-							<td>받아오기(sexCd)</td>
+							<td>${dl.sexCd}</td>
 						</tr>
 						<tr>
 							<th>특징</th>
-							<td colspan="3">받아오기(specialMark, neuterYn)</td>
+							<td colspan="3">중성화 여부 : ${dl.neuter}<br>${dl.specialMark}</td>
 						</tr>
 					</table>
 				</div>
@@ -83,9 +81,18 @@
 </section>
 
 <script>
+	//방문예약 신청시 회원,비회원 구분하여 알림창띄워주기
+		function login(){
+		alert("뭐야");
+		if(confirm("로그인이 필요한페이지 입니다. \n로그인 하시겠습니까?")){
+			location.href='/member/login.jsp';
+		}
+	}
+
+
 	window.onload = function(){
 		//보호소 주소 받아와서 넣기
-		searchAddressToCoordinate('전라남도 무안군 삼향읍 석매길 36');	/* 페이지 로드 되면 주소->위경도로 변환하는 메소드 바로 불러오기 */
+		searchAddressToCoordinate('${dl.careAddr}');	/* 페이지 로드 되면 주소->위경도로 변환하는 메소드 바로 불러오기 */
 	
 		//보호소 주소 위도,경도로 변환
 		function searchAddressToCoordinate(address) {
@@ -259,6 +266,7 @@
 	} */
 
 	/* naver.maps.onJSContentLoaded = initGeocoder; */
+
 }
 </script>
 
