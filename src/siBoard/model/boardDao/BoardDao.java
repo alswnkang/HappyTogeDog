@@ -108,6 +108,22 @@ public class BoardDao {
 		}
 		return result;
 	}
+	public int boardCount(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "update board set board_count = board_count+1 where board_no = ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, boardNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(pstmt);
+		}
+		return result;
+	}
 	public Board boardView(Connection conn, int boardNo){
 		Board b = null;
 		PreparedStatement pstmt = null;
