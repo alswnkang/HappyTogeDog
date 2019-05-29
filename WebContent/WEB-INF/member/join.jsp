@@ -19,7 +19,7 @@
 				<h1 id="h_title1">일반 회원가입</h1>
 				<h1 id="h_title2" style="display:none">보호소 회원가입</h1>
 				아이디 : <input type="text" name="id" id="id" placeholder = "4~12자리 영/숫자">
-				<button type="button" id="checkId">중복체크</button><br>
+				<input type="button" id="checkId" value="중복체크"><br>
 				<p id="p_checkId" style="display:none">아이디 입력양식 확인</p>
 				
 				비밀번호 : <input type="password" name="pw" id="pw" placeholder = "영/숫자를 포함한 8~13자리"><br>
