@@ -32,6 +32,38 @@ public class VoluntaryApplyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
+		int possiblePerson = Integer.parseInt(request.getParameter("possiblePerson"));
+		//System.out.println(possiblePerson); // 봉사 가능 인원수
+		/*int applyNum = Integer.parseInt(request.getParameter("applyNum"));
+		System.out.println(applyNum); // 현재 신청한 인원수*/
+		
+		int no = Integer.parseInt(request.getParameter("no")); //공고 번호
+		String code = request.getParameter("code"); //보호소 코드
+		String name = request.getParameter("name"); //보호소 이름
+		String id = request.getParameter("id"); 	  //신청자 아이디
+		String phone = request.getParameter("phone"); //신청자 전화번호
+		String volunDate = request.getParameter("volunDate"); //봉사 날짜
+		String volunTime1 = request.getParameter("volunTime1");	//봉사 시작 시간
+		String volunTime2 = request.getParameter("volunTime2"); //봉사 마감 시간
+		String volunTime = volunTime1+","+volunTime2; //봉사 시간
+		int person = Integer.parseInt(request.getParameter("person")); //봉사 신청 인원 수
+		
+		VoluntaryApplyBoard vab = new VoluntaryApplyBoard(0, no, code, name, id, phone, person, volunDate, volunTime, null);
+		int result = new VoluntaryService().voluntaryApply(vab, possiblePerson);
+		
+		if(result > 0) {
+			request.setAttribute("msg", "봉사활동 신청이 완료되었습니다.");
+		}else {
+			if(result == -1) {
+				request.setAttribute("msg", "해당 공고의 신청 인원이 초과하였습니다.");
+			}
+			request.setAttribute("msg", "해당 공고의 신청이 실패했습니다.");
+		}
+		
+		request.setAttribute("loc", "/voluntaryView?no="+no);
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+		rd.forward(request, response);
+		
 		
 		
 	}
