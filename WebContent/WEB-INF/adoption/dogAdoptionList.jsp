@@ -32,15 +32,16 @@
 						<input type="hidden" name="specialMark" value="${m.specialMark }">
 						<input type="hidden" name="neuterYn" value="${m.neuterYn }">
 						<input type="hidden" name="filename" value="${m.filename }">
-						<button type="submit" style="display:none;"></button>
 						<a onclick="javascript:form_${i.count}.submit();">		<!-- 보호소명 보내기 -->
 							<div class="img-thum">
-							<span style="background:url('${m.filename }') no-repeat center center; background-size:cover;"></span>
+								<span style="background:url('${m.filename }') no-repeat center center; background-size:cover;"></span>
 							</div>
 							<div class="txt-thum">
-							
-							<p>보호소명  : ${m.careNm }, 품종 : ${m.kindCd }</p><br>
-							<p>성별 :${m.sex }
+								<span style="line-height:18px;font-size:14px;">
+									보호소명  : ${m.careNm }<br>
+								 	품종 : ${fn:split(m.kindCd,']')[1]}<br>
+									성별 : ${m.sex}
+								</span>
 							</div>
 						</a>
 					</form>

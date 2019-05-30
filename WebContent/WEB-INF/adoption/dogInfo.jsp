@@ -68,7 +68,7 @@
 						</tr>
 						<tr>
 							<th>품종</th>
-							<td>${dl.kindCd}</td>
+							<td>${fn:split(m.kindCd,']')[1]}</td>
 						</tr>
 						<tr>
 							<th>나이</th>
