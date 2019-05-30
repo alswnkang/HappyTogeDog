@@ -12,6 +12,28 @@ import sponsorship.model.vo.OrderUpdate;
 import sponsorship.model.vo.SearchVO;
 
 public class OrderDao {
+	
+	/* 검색 쿼리 */
+	public String makeQuery(SearchVO search){
+		String query = "";
+		if(search.getStartDay()!=null && search.getStartDay()!=""){
+			query += " and spon_date>'"+search.getStartDay()+"'";
+		}
+		if(search.getEndDay()!=null && search.getEndDay()!=""){
+			query += " and TO_CHAR(spon_date,'yyyy-mm-dd')<='"+search.getEndDay()+"'";
+		}
+		if(search.getStatus()!=null && search.getStatus()!=""){
+			query += " and status="+search.getStatus();
+		}
+		if(search.getPayMethod()!=null && search.getPayMethod()!=""){
+			query += " and pay_method='"+search.getPayMethod()+"'";
+		}
+		if(search.getSearchVal()!=null && search.getSearchVal()!=""){
+			query += " and "+search.getSearchType()+" like '%"+search.getSearchVal()+"%'";
+		}
+		
+		return query;
+	}
 
 	public int insertOrder(Connection conn, OrderInfoVO orderInfo) throws SQLException {
 		int result = 0;
@@ -176,27 +198,6 @@ public class OrderDao {
 		return result;
 	}
 	
-	public String makeQuery(SearchVO search){
-		String query = "";
-		if(search.getStartDay()!=null && search.getStartDay()!=""){
-			query += " and spon_date>'"+search.getStartDay()+"'";
-		}
-		if(search.getEndDay()!=null && search.getEndDay()!=""){
-			query += " and spon_date<'"+search.getEndDay()+"'";
-		}
-		if(search.getStatus()!=null && search.getStatus()!=""){
-			query += " and status="+search.getStatus();
-		}
-		if(search.getPayMethod()!=null && search.getPayMethod()!=""){
-			query += " and pay_method='"+search.getPayMethod()+"'";
-		}
-		if(search.getSearchVal()!=null && search.getSearchVal()!=""){
-			query += " and "+search.getSearchType()+" like '%"+search.getSearchVal()+"%'";
-		}
-		
-		return query;
-		
-	}
 
 	public int updateOrder(Connection conn, OrderUpdate updateInfo) throws SQLException {
 		int result = 0;

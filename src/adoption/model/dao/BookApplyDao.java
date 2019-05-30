@@ -20,7 +20,6 @@ import org.w3c.dom.NodeList;
 import adoption.model.vo.BookApply;
 import adoption.model.vo.DogList;
 import common.JDBCTemplate;
-import openApi.Sting;
 
 public class BookApplyDao {
 	private Properties prop = new Properties();

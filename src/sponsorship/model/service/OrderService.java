@@ -16,7 +16,7 @@ public class OrderService {
 
 	public int insertOrder(OrderInfoVO orderInfo) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
-		
+
 		int result = new OrderDao().insertOrder(conn,orderInfo);
 		if(result>0){
 			JDBCTemplate.commit(conn);
@@ -24,6 +24,7 @@ public class OrderService {
 			JDBCTemplate.rollback(conn);
 		}
 		JDBCTemplate.close(conn);
+
 		return result;
 	}
 
@@ -42,7 +43,7 @@ public class OrderService {
 
 		total = new OrderDao().totalCount(conn,search);
 		
-		int pageNum = 5;//한 페이지에 출력할 게시물 개수
+		int pageNum = 1;//한 페이지에 출력할 게시물 개수
 		int totalPage = (total%pageNum==0)?(total/pageNum):(total/pageNum)+1;
 		
 		
