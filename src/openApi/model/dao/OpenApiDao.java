@@ -225,9 +225,9 @@ public class OpenApiDao {
 						cc.setCareNm(getTagValue("careNm", eElement));
 						cc.setCareRegNo(getTagValue("careRegNo", eElement));
 					
-						System.out.println("여기들어왔나요?");
-						System.out.println(getTagValue("careNm", eElement));
-					
+						
+						System.out.print(getTagValue("careNm", eElement));
+						System.out.println(getTagValue("careRegNo", eElement));
 						list.add(cc);
 					}	// for end
 				}	// if end
