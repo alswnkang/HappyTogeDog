@@ -16,7 +16,7 @@
 			<!-- 검색박스 -->
 		 		<div class="board-search-box order-search">
 		 			<form action="/orderList" method="post" name="search">
-		 				<input type="hidden" name="reqPage" value="${reqPage }">
+		 				<input type="hidden" name="reqPage" value="">
 			 			<input type="search" name="startDay" class="datepicker search-word" value="${search.startDay }"> ~ <input type="search" name="endDay" class="datepicker search-word" value="${search.endDay }">
 			 			<br><br>
 			 			<select name="status" data-val="${search.status }">
@@ -68,7 +68,6 @@
 					<tbody>
 						<c:forEach items="${orderList.orderinfoList}" var="order">
 							<tr>
-								
 								<td><a href="/orderView?no=${order.no}">${order.no }</a></td>
 								<td>
 									${order.name }<br>
