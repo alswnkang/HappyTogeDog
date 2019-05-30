@@ -34,7 +34,7 @@ public class DogAdopListServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		int reqPage;
 		try {
-			reqPage = Integer.parseInt(request.getParameter("page"));
+			reqPage = Integer.parseInt(request.getParameter("reqPage"));
 		}catch(NumberFormatException e) {
 			reqPage=1;
 		}

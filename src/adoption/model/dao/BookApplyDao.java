@@ -20,11 +20,12 @@ import org.w3c.dom.NodeList;
 import adoption.model.vo.BookApply;
 import adoption.model.vo.DogList;
 import common.JDBCTemplate;
+import openApi.Sting;
 
 public class BookApplyDao {
 	private Properties prop = new Properties();
 	public BookApplyDao() {
-		String fileName = BookApplyDao.class.getResource("/adoption/sql/bookApply.properties").getPath();
+		String fileName = BookApplyDao.class.getResource("/adoption/sql/bookApply2.properties").getPath();
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (IOException e) {
@@ -77,9 +78,9 @@ public class BookApplyDao {
 		ArrayList<BookApply> list = new ArrayList<BookApply>();
 		String query = prop.getProperty("selectList");
 		pstmt = conn.prepareStatement(query);
-		pstmt.setInt(1, start);
-		pstmt.setInt(2, end);
-		pstmt.setString(3, id);
+		pstmt.setString(1, id);
+		pstmt.setInt(2, start);
+		pstmt.setInt(3, end);
 		rset = pstmt.executeQuery();
 		while(rset.next()) {
 			BookApply ba = new BookApply();
@@ -104,24 +105,40 @@ public class BookApplyDao {
 		try {
 			while (true) {
 				// parsing할 url 지정(API 키 포함해서)
-				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde=20190101&endde=20190524&pageNo="
+				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde=20190501&endde=20190502&pageNo="
 						+ reqPage
-						+ "&upkind=417000&numOfRows=12&ServiceKey=TZzGtB8BZdZ0VsTPgpNVa1IQMCBLU9%2FlEriT0S4AFcqcswb4YiOAqJiR7So%2BJMbWd5fB0P6%2B8JQsI7EpN4KKrg%3D%3D";
+						+ "&upkind=417000&numOfRows=12&ServiceKey=aLiSUfKw3hrZNSZrqXuG6iJtNr0ufMlgmB8Y%2Fh93hFuOk5E%2Brl8bd8mxxl%2Fcga%2B6i2CP7lD5%2BGBnLYmmVm%2BkFw%3D%3D";
+				//보경 서비스키 : TZzGtB8BZdZ0VsTPgpNVa1IQMCBLU9%2FlEriT0S4AFcqcswb4YiOAqJiR7So%2BJMbWd5fB0P6%2B8JQsI7EpN4KKrg%3D%3D
+				//지영이 서비스키 : aLiSUfKw3hrZNSZrqXuG6iJtNr0ufMlgmB8Y%2Fh93hFuOk5E%2Brl8bd8mxxl%2Fcga%2B6i2CP7lD5%2BGBnLYmmVm%2BkFw%3D%3D
 				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
 				Document doc = dBuilder.parse(url);
 				// root tag
 				doc.getDocumentElement().normalize();
 				System.out.println("Root element :" + doc.getDocumentElement().getNodeName()); // XML의 최상위 tag값 가져오기
-
+				
+				//총 유기견 마리수 구하기(totalCount)
+				/*NodeList nList2 = doc.getElementsByTagName("body");
+				Node nNode2 = nList2.item(0);
+				Element eElement2 = (Element) nNode2;
+				System.out.println(getTagValue("totalCount",eElement2));*/
+				
 				// 파싱할 tag
 				NodeList nList = doc.getElementsByTagName("item");
+				Node node1 = doc.getElementsByTagName("totalCount").item(0);
 				// System.out.println("파싱할 리스트 수 : "+ nList.getLength());
+				/*
+				 * NodeList nlList = eElement.getElementsByTagName(tag).item(0).getChildNodes();
+		Node nValue = (Node) nlList.item(0);
+		if (nValue == null)
+			return null;
+		return nValue.getNodeValue();*/
+				
 				int count = 0;
 				list = new ArrayList<DogList>();
 				for (int temp = 0; temp < nList.getLength(); temp++) {
 					DogList dl = new DogList();
-					Node nNode = nList.item(temp);
+					Node nNode = nList.item(temp);					
 					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 						Element eElement = (Element) nNode;
 						System.out.println("######################");
@@ -150,6 +167,7 @@ public class BookApplyDao {
 					} // for end
 				} // if end
 				System.out.println("page number : " + reqPage);
+				
 				break;
 			} // while end
 		} catch (Exception e) {

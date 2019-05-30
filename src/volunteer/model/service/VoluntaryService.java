@@ -142,6 +142,31 @@ public class VoluntaryService {
 	}
 
 	// 봉사활동 신청
+	public int voluntaryApply(VoluntaryApplyBoard vab, int possiblePerson) { // possiblePerson 봉사 가능 인원수
+		Connection conn = JDBCTemplate.getCon();
+		int possible = new VoluntaryDao().totalApply(conn, vab); //신청 인원수 파악
+		int result = 0; //신청
+		int currentPerson = 0;//신청 누적 인원수
+		if(possiblePerson > possible && (possiblePerson-possible) >= vab.getPerson()) { 
+			//봉사 가능 인원수 > 해당공고에 현재까지 신청된 인원수 && (봉사 가능 인원수 - 해당공고에 현재까지 신청된 인원수) >= 신청한 인원 수
+			result = new VoluntaryDao().voluntaryApply(conn, vab);
+			if(result > 0) {
+				currentPerson = new VoluntaryDao().voluntaryCurrentPerson(conn, vab);
+				if(currentPerson > 0) {
+					JDBCTemplate.commit(conn);
+				}else {
+					JDBCTemplate.rollback(conn);
+				}
+			}else {
+				currentPerson = 0;
+			}	
+		}else {
+			currentPerson = -1;
+		}
+		JDBCTemplate.close(conn);
+		return currentPerson;
+	}
+
 	
 
 	
