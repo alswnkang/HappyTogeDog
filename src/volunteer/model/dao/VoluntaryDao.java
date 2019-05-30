@@ -86,6 +86,7 @@ public class VoluntaryDao {
 				vr.setVolunDate(rset.getString("volun_date"));
 				vr.setVolunTime(rset.getString("volun_time"));
 				vr.setPerson(rset.getInt("person"));
+				vr.setApplyNum(rset.getInt("apply_num"));
 				vr.setEnrollDate(rset.getDate("enroll_date"));
 				list.add(vr);
 			}
@@ -171,6 +172,7 @@ public class VoluntaryDao {
 				vr.setVolunDate(rset.getString("volun_date"));
 				vr.setVolunTime(rset.getString("volun_time"));
 				vr.setPerson(rset.getInt("person"));
+				vr.setApplyNum(rset.getInt("apply_num"));
 				vr.setEnrollDate(rset.getDate("enroll_date"));
 				list.add(vr);
 			}
@@ -208,6 +210,7 @@ public class VoluntaryDao {
 				vr.setVolunDate(rset.getString("volun_date"));
 				vr.setVolunTime(rset.getString("volun_time"));
 				vr.setPerson(rset.getInt("person"));
+				vr.setApplyNum(rset.getInt("apply_num"));
 				vr.setEnrollDate(rset.getDate("enroll_date"));
 				list.add(vr);
 			}
@@ -241,6 +244,7 @@ public class VoluntaryDao {
 				vr.setVolunDate(rset.getString("volun_date"));
 				vr.setVolunTime(rset.getString("volun_time"));
 				vr.setPerson(rset.getInt("person"));
+				vr.setApplyNum(rset.getInt("apply_num"));
 				vr.setDetail(rset.getString("detail"));
 				vr.setFilename(rset.getString("filename"));
 				vr.setFilepath(rset.getString("filepath"));
@@ -300,7 +304,69 @@ public class VoluntaryDao {
 		return result;
 	}
 
-	// 봉사활동 신청
+	//신청 인원수 파악
+	public int totalApply(Connection conn, VoluntaryApplyBoard vab) {
+		int possible = 0;
+		PreparedStatement pstmt = null;
+		String query = "select count(*) cnt from (select apply_num from volunteer_register where no=?)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, vab.getNo());
+			possible = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return possible;
+	}
+
+	//신청하기
+	public int voluntaryApply(Connection conn, VoluntaryApplyBoard vab) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "insert into volunteer_board values(volunteer_board_seq.nextval,?,?,?,?,?,?,?,sysdate)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, vab.getNo());
+			pstmt.setString(2, vab.getCode());
+			pstmt.setString(3, vab.getId());
+			pstmt.setString(4, vab.getPhone());
+			pstmt.setInt(5, vab.getPerson());
+			pstmt.setString(6, vab.getVolunDate());
+			pstmt.setString(7, vab.getVolunTime());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	// 신청 누적 인원수
+	public int voluntaryCurrentPerson(Connection conn, VoluntaryApplyBoard vab) {
+		int currentPerson = 0;
+		PreparedStatement pstmt = null;
+		String query = "update volunteer_register set apply_num=apply_num+? where no=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, vab.getPerson());
+			pstmt.setInt(2, vab.getNo());
+			currentPerson = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return currentPerson;
+	}
 	
 
 }

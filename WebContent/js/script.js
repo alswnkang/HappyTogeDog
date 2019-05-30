@@ -1,6 +1,7 @@
 
 /* 후원물품 수량,금액 체크 */
 function check(){
+	var chkPrice = $('input[name=chkPrice]').val();
 	var amount = $('input[name=amount]').val();
 	var price = $('input[name=price]').val();
 	if(amount==''){
@@ -13,7 +14,7 @@ function check(){
 		$('input[name=price]').focus();
 		return false;
 	}
-	if(10000*amount>price){
+	if(chkPrice*amount>price){
 		alert('양심있냐 ㅠㅠ');
 		return false;
 	}

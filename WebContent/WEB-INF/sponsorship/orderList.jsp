@@ -16,10 +16,10 @@
 			<!-- 검색박스 -->
 		 		<div class="board-search-box order-search">
 		 			<form action="/orderList" method="post" name="search">
-		 				<input type="hidden" name="reqPage">
-			 			<input name="startDay" class="datepicker search-word" value="${search.startDay }"> ~ <input name="endDay" class="datepicker search-word" value="${search.endDay }">
+		 				<input type="hidden" name="reqPage" value="${reqPage }">
+			 			<input type="search" name="startDay" class="datepicker search-word" value="${search.startDay }"> ~ <input type="search" name="endDay" class="datepicker search-word" value="${search.endDay }">
 			 			<br><br>
-			 			<select name="status">
+			 			<select name="status" data-val="${search.status }">
 			 				<option value="">---주문상태---</option>
 							<option value="0">주문 완료</option>
 							<option value="1">결제 완료</option>
@@ -27,22 +27,24 @@
 							<option value="3">배송 완료</option>
 						</select>
 			 			<br><br>
+			 			<input type="hidden" name="method" value="${search.payMethod }">
 			 			<label><input type="radio" name="payMethod" value="card"> 신용카드</label>
 						<label><input type="radio" name="payMethod" value="trans"> 실시간 계좌이체</label>
 						<label><input type="radio" name="payMethod" value="vbank"> 가상계좌</label>
 						<label><input type="radio" name="payMethod" value="account"> 무통장입금</label>
 						<label><input type="radio" name="payMethod" value="phone"> 휴대폰</label>
 						<br><br>
-						<select name="searchType">
+						<select name="searchType" data-val="${search.searchType }">
 							<option value="no">주문번호</option>
 							<option value="name">주문자명</option>
 						</select>
 						<input placeholder="검색어를 입력해주세요." type="search" name="searchVal" class="search-word" value="${search.searchVal }">
 						<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
+						&nbsp;<button type="button" onclick="location.href='/orderList'" class="bbs-search-btn" title="검색">초기화</button>
 					</form>
 				</div>
 				<p class="total">총 주문 수 : ${total.count } / 총 후원 금액(결제 완료된 주문합계) : <fmt:formatNumber value="${total.price }" pattern="#,###" /> 원</p>
-				<table class="comm-tbl type2"><!-- 신청목록게시판은 한페이지에 게시물 최대 10개 노출 -->
+				<table class="comm-tbl type2">
 					<colgroup>
 						<col width="15%">
 						<col width="10%">

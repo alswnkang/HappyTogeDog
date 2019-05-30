@@ -6,6 +6,7 @@
 		<div class="modal-inner">
 			<div class="voluntary-bottom-inner">
 				<form action="/voluntaryApply?no=${vr.no }" method="post">
+					<input type="hidden" name="possiblePerson" value="${vr.person }"> <!-- 봉사 가능 인원수 -->
 					<table class="comm-tbl"><!-- 봉사활동 신청은 회원 전용 -->
 						<colgroup>
 							<col width="20%">
