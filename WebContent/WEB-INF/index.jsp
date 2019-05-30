@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
 	<script type="text/javascript" src="/js/main.js"></script><!-- main.js -->
-	<jsp:forward page="/main" />
 	<%-- Wrap --%>
 	<section id="wrap">
 		<!-- 메인 비주얼 -->
 		<section id="mainVisual">
-			메인 비주얼 자리
+			메인 비주얼 자리입니다
 		</section>
 		<!-- 메인 컨텐츠 영역 -->
 		<section id="mainContainer">
@@ -249,6 +248,22 @@
 						<h2 class="main-comm-tit type2">후원하기</h2>
 						<div class="main-sponse-box">
 							<ul class="main-sponse-list clearfix"><!-- 후원 게시물은 최소 2개가 노출됩니다.(최신순) -->
+								
+								<c:forEach items="${prdList }" var="prd">
+								
+									<li>
+										<a href="/viewProduct?code=${prd.prdCode }" class="clearfix">
+											<div class="img-thum">
+												<span style="background:url('/img/${prd.prdImg}') no-repeat center center; background-size:cover;"></span>
+											</div>
+											<div class="txt-thum">
+												<h3>${prd.prdName}</h3>
+												<p>후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.</p>
+											</div>
+										</a>
+									</li>
+								</c:forEach>
+								<!--  
 								<li>
 									<a href="" class="clearfix">
 										<div class="img-thum">
@@ -260,17 +275,7 @@
 										</div>
 									</a>
 								</li>
-								<li>
-									<a href="" class="clearfix">
-										<div class="img-thum">
-											<span style="background:url('/img/no_detail_img.gif') no-repeat center center; background-size:cover;"></span>
-										</div>
-										<div class="txt-thum">
-											<h3>후원상품 명이 들어갑니다.</h3>
-											<p>후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.</p>
-										</div>
-									</a>
-								</li>
+								-->
 							</ul>
 						</div>
 					</div>

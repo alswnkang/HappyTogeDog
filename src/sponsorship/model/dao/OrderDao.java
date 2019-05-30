@@ -162,7 +162,7 @@ public class OrderDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		System.out.println(makeQuery(search));
+
 		String sql = "select count(*) as cnt from sponsorship where 1=1 "+makeQuery(search);
 		
 		pstmt = conn.prepareStatement(sql);

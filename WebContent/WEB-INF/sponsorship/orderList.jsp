@@ -16,10 +16,10 @@
 			<!-- 검색박스 -->
 		 		<div class="board-search-box order-search">
 		 			<form action="/orderList" method="post" name="search">
-		 				<input type="hidden" name="reqPage">
-			 			<input name="startDay" class="datepicker search-word" value="${search.startDay }"> ~ <input name="endDay" class="datepicker search-word" value="${search.endDay }">
+		 				<input type="hidden" name="reqPage" value="${reqPage }">
+			 			<input type="search" name="startDay" class="datepicker search-word" value="${search.startDay }"> ~ <input type="search" name="endDay" class="datepicker search-word" value="${search.endDay }">
 			 			<br><br>
-			 			<select name="status">
+			 			<select name="status" data-val="${search.status }">
 			 				<option value="">---주문상태---</option>
 							<option value="0">주문 완료</option>
 							<option value="1">결제 완료</option>
@@ -27,13 +27,14 @@
 							<option value="3">배송 완료</option>
 						</select>
 			 			<br><br>
+			 			<input type="hidden" name="method" value="${search.payMethod }">
 			 			<label><input type="radio" name="payMethod" value="card"> 신용카드</label>
 						<label><input type="radio" name="payMethod" value="trans"> 실시간 계좌이체</label>
 						<label><input type="radio" name="payMethod" value="vbank"> 가상계좌</label>
 						<label><input type="radio" name="payMethod" value="account"> 무통장입금</label>
 						<label><input type="radio" name="payMethod" value="phone"> 휴대폰</label>
 						<br><br>
-						<select name="searchType">
+						<select name="searchType" data-val="${search.searchType }">
 							<option value="no">주문번호</option>
 							<option value="name">주문자명</option>
 						</select>

@@ -17,8 +17,8 @@
 		<div class="order-form">
 			<div class="order-product">
 				<ul class="clear-float">
-					<li><img src="/img/76896814691427225_1127979769.jpg" width="150" onclick="location.href='/viewProduct'"></li>
-					<li id="prdName">상품명</li>
+					<li><img src="/img/${prd.prdImg }" width="150" onclick="location.href='/viewProduct?code=${prd.prdCode }'"></li>
+					<li id="prdName">${prd.prdName }</li>
 					<li>${amount} 개</li>
 					<li><fmt:formatNumber value="${price}" pattern="#,###" /> 원</li>
 				</ul>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <jsp:include page="/WEB-INF/common/header.jsp" />
 <link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -12,17 +13,19 @@
 		<div class="product clear-float">
 			<div class="product-top clear-float">
 				<div class="product-img">
-					<img src="/img/76896814691427225_1127979769.jpg">
+					<img src="/img/${prd.prdImg }">
 				</div>
 				<div class="product-info">
 					<form action="/order" method="post" onsubmit="return check();">
+						<input type="hidden" name="chkPrice" value="${prd.prdPrice}">
+						<input type="hidden" name="prdCode" value="${prd.prdCode}">
 						<div class="info">
-							<p>상품명</p>
+							<p>${prd.prdName }</p>
 							<p>상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.
 								상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.
 								상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.
 							</p>
-							<p>최소 후원금액 개당 10,000원</p>
+							<p>최소 후원금액 개당 <fmt:formatNumber value="${prd.prdPrice}" pattern="#,###" /> 원</p>
 							<p>수량 : <input type="text" name="amount" class="num"> 개<br></p>
 							<p>금액 : <input type="text" name="price" class="num"> 원<br></p>
 							<p><button type="submit" class="order-btn">후원하기</button></p>
