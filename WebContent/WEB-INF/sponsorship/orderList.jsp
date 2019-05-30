@@ -40,10 +40,11 @@
 						</select>
 						<input placeholder="검색어를 입력해주세요." type="search" name="searchVal" class="search-word" value="${search.searchVal }">
 						<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
+						&nbsp;<button type="button" onclick="location.href='/orderList'" class="bbs-search-btn" title="검색">초기화</button>
 					</form>
 				</div>
 				<p class="total">총 주문 수 : ${total.count } / 총 후원 금액(결제 완료된 주문합계) : <fmt:formatNumber value="${total.price }" pattern="#,###" /> 원</p>
-				<table class="comm-tbl type2"><!-- 신청목록게시판은 한페이지에 게시물 최대 10개 노출 -->
+				<table class="comm-tbl type2">
 					<colgroup>
 						<col width="15%">
 						<col width="10%">

@@ -26,7 +26,7 @@
 			
 			<form id="orderForm">
 				<input type="hidden" name="orderNo">
-				<input type="hidden" name="productName" value="에코백">
+				<input type="hidden" name="productName" value="${prd.prdName }">
 				<div class="order">
 					<p class="main-comm-tit">주문자 정보</p>
 					<table>
@@ -73,8 +73,8 @@
 							<td>배송지 주소</td>
 							<td style="height: 200px;">
 								<input type="text" name="post" class="post" onclick="getAddr(this.form);" value="${sessionScope.member.post }" readonly><br><br>
-								<input type="text" name="address" class="address" onclick="getAddr(this.form);" value="${sessionScope.member.address }" readonly><br><br>
-								<input type="text" name="address2" class="address" placeholder="상세 주소를 입력하세요">
+								<input type="text" name="address" class="address" onclick="getAddr(this.form);" value="${fn:split(sessionScope.member.address,'//')[0] }" readonly><br><br>
+								<input type="text" name="address2" class="address" placeholder="상세 주소를 입력하세요" value="${fn:split(sessionScope.member.address,'//')[1] }">
 							</td>
 						</tr>
 						<tr>

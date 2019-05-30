@@ -109,9 +109,8 @@ public class orderServlet extends HttpServlet {
 		}else if(action.equals("orderIng")) {
 			String root = getServletContext().getRealPath("/");//절대경로
 			String saveDirectory = root+"upload";
-			//int maxSize = 10*1024*1024;
 			MultipartRequest mRequest = new MultipartRequest(request, saveDirectory, "utf-8");
-					//request, saveDirectory,maxSize,"utf-8",new DefaultFileRenamePolicy());
+
 			String no = mRequest.getParameter("orderNo");
 			String id = mRequest.getParameter("id");
 			String name = mRequest.getParameter("name");
