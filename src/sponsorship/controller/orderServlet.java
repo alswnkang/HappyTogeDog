@@ -18,6 +18,7 @@ import sponsorship.model.service.OrderService;
 import sponsorship.model.vo.OrderInfoVO;
 import sponsorship.model.vo.OrderListVO;
 import sponsorship.model.vo.OrderUpdate;
+import sponsorship.model.vo.ProductVO;
 import sponsorship.model.vo.SearchVO;
 import sponsorship.model.vo.TotalOrder;
 
@@ -36,12 +37,21 @@ public class orderServlet extends HttpServlet {
 		String[] url = request.getRequestURL().toString().split("/");
 		String action = url[url.length-1];
 		
+		ArrayList<ProductVO> prdList = new ArrayList<ProductVO>();
+		prdList.add(new ProductVO("0", "에코에코에코백", "76896814691427225_1127979769.jpg", "20000"));
+		prdList.add(new ProductVO("1", "배찌뱃지뻇지", "39066105050978558_-1615663619.jpg", "10000"));
+		prdList.add(new ProductVO("2", "달력달력달력", "prd_img01.jpg", "15000"));
+		
 
 		if(action.equals("sponsorship")) {	
+			request.setAttribute("prdList", prdList);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/productList.jsp");
 			rd.forward(request, response);
 			
-		}else if(action.equals("viewProduct")) {	
+		}else if(action.equals("viewProduct")) {
+			int prdCode = Integer.parseInt(request.getParameter("code"));
+			
+			request.setAttribute("prd", prdList.get(prdCode));
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/productDetail.jsp");
 			rd.forward(request, response);
 		
@@ -63,7 +73,7 @@ public class orderServlet extends HttpServlet {
 				reqPage = 1;
 			}
 			String startDay = request.getParameter("startDay");
-			String endDay = request.getParameter("startDay");
+			String endDay = request.getParameter("endDay");
 			String status = request.getParameter("status");
 			String payMethod = request.getParameter("payMethod");
 			String searchType = request.getParameter("searchType");
@@ -71,9 +81,12 @@ public class orderServlet extends HttpServlet {
 			
 			SearchVO search = new SearchVO(reqPage, startDay, endDay, status, payMethod, searchType, searchVal);
 			try {
-				TotalOrder total = new OrderService().totalOrder(search);
+				request.setAttribute("reqPage", reqPage);
 				request.setAttribute("search", search);
+				
+				TotalOrder total = new OrderService().totalOrder(search);
 				request.setAttribute("total", total);
+				
 				OrderListVO orderList = new OrderService().selectOrder(search);
 				request.setAttribute("orderList", orderList);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/orderList.jsp");
@@ -83,20 +96,21 @@ public class orderServlet extends HttpServlet {
 			}			
 			
 		}else if(action.equals("order")) {
+			int prdCode = Integer.parseInt(request.getParameter("prdCode"));
 			String amount = request.getParameter("amount");
 			String price = request.getParameter("price");
 
 			request.setAttribute("amount", amount);
 			request.setAttribute("price", price);
+			request.setAttribute("prd", prdList.get(prdCode));
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/orderForm.jsp");
 			rd.forward(request, response);
 			
 		}else if(action.equals("orderIng")) {
 			String root = getServletContext().getRealPath("/");//절대경로
 			String saveDirectory = root+"upload";
-			//int maxSize = 10*1024*1024;
 			MultipartRequest mRequest = new MultipartRequest(request, saveDirectory, "utf-8");
-					//request, saveDirectory,maxSize,"utf-8",new DefaultFileRenamePolicy());
+
 			String no = mRequest.getParameter("orderNo");
 			String id = mRequest.getParameter("id");
 			String name = mRequest.getParameter("name");
