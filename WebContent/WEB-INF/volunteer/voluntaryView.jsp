@@ -57,11 +57,13 @@
 					</tr>
 				</table>
 				<div class="common-tbl-btn-group" style="text-align:right;">
-					<c:if test="${not empty member && member.memberLevel == 0 }">
-						<button type="button" class="btn-style1" onclick="javascript:layerLoad('/voluntaryApplyForm?no=${vr.no}');">신청하기</button><!-- 신청 마감시 버튼 변경->신청 마감 누르면 alert('신청이 마감되었습니다.') -->
-					</c:if>
-					<c:if test="${empty member && member.memberLevel != 1 }">
-						<button type="button" id="applyCheckBtn" class="btn-style1">신청하기</button><!-- 신청 마감시 버튼 변경->신청 마감 누르면 alert('신청이 마감되었습니다.') -->
+					<c:if test="${vr.status eq '모집중' }">
+						<c:if test="${not empty member && member.memberLevel == 0 }">
+							<button type="button" class="btn-style1" onclick="javascript:layerLoad('/voluntaryApplyForm?no=${vr.no}');">신청하기</button><!-- 신청 마감시 버튼 변경->신청 마감 누르면 alert('신청이 마감되었습니다.') -->
+						</c:if>
+						<c:if test="${empty member && member.memberLevel != 1 }">
+							<button type="button" id="applyCheckBtn" class="btn-style1">신청하기</button><!-- 신청 마감시 버튼 변경->신청 마감 누르면 alert('신청이 마감되었습니다.') -->
+						</c:if>
 					</c:if>
 					<button type="button" class="btn-style2" onclick="location.href='/volunteerList'">목록으로</button>
 					<c:if test="${sessionScope.member.code == vr.code}">

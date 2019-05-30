@@ -1,6 +1,7 @@
 package siBoard.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import siBoard.model.boardService.BoardService;
 import siBoard.model.boardVo.Board;
+import siBoard.model.boardVo.BoardViewData;
+import siBoardComment.model.boardCommentService.BoardCommentService;
+import siBoardComment.model.boardCommentVo.BoardComment;
 
 /**
  * Servlet implementation class SiPreBoardViewServlet
@@ -33,11 +37,9 @@ public class SiPreBoardViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		//댓글부분 추가적인 처리 필요.
-		
-		Board b = new BoardService().boardView(boardNo);
+		BoardViewData vd = new BoardService().boardView(boardNo);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/board/siPreBoardView.jsp");
-		request.setAttribute("board", b);
+		request.setAttribute("vd", vd);
 		rd.forward(request, response);
 	}
 

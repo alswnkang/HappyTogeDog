@@ -4,7 +4,8 @@ import java.sql.Date;
 
 public class VoluntaryApplyBoard {
 
-	private int no;				//번호
+	private int applyNo;		//신청 글 번호	
+	private int no;			//공고번호
 	private String code;		//보호소 코드
 	private String name;		//보호소 이름
 	private String id;			//신청자 아이디
@@ -18,10 +19,12 @@ public class VoluntaryApplyBoard {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 
-	public VoluntaryApplyBoard(int no, String code, String name, String id, String phone, int person, String volunDate,
-			String volunTime, Date enrollDate) {
+	public VoluntaryApplyBoard(int applyNo, int no, String code, String name, String id, String phone, int person,
+			String volunDate, String volunTime, Date enrollDate) {
 		super();
+		this.applyNo = applyNo;
 		this.no = no;
 		this.code = code;
 		this.name = name;
@@ -32,79 +35,108 @@ public class VoluntaryApplyBoard {
 		this.volunTime = volunTime;
 		this.enrollDate = enrollDate;
 	}
+
+
+	public int getApplyNo() {
+		return applyNo;
+	}
+
+
+	public void setApplyNo(int applyNo) {
+		this.applyNo = applyNo;
+	}
+
 
 	public int getNo() {
 		return no;
 	}
 
+
 	public void setNo(int no) {
 		this.no = no;
 	}
+
 
 	public String getCode() {
 		return code;
 	}
 
+
 	public void setCode(String code) {
 		this.code = code;
 	}
+
 
 	public String getName() {
 		return name;
 	}
 
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 
 	public String getId() {
 		return id;
 	}
 
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 
 	public String getPhone() {
 		return phone;
 	}
 
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
 
 	public int getPerson() {
 		return person;
 	}
 
+
 	public void setPerson(int person) {
 		this.person = person;
 	}
+
 
 	public String getVolunDate() {
 		return volunDate;
 	}
 
+
 	public void setVolunDate(String volunDate) {
 		this.volunDate = volunDate;
 	}
+
 
 	public String getVolunTime() {
 		return volunTime;
 	}
 
+
 	public void setVolunTime(String volunTime) {
 		this.volunTime = volunTime;
 	}
-	
+
+
 	public Date getEnrollDate() {
 		return enrollDate;
 	}
 
+
 	public void setEnrollDate(Date enrollDate) {
 		this.enrollDate = enrollDate;
 	}
-	
+
+
 	// 시간 :: 시작 시간
 	public String getStartTime() {
 		return volunTime.split(",")[0];

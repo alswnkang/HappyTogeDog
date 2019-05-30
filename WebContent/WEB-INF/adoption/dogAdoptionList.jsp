@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <link rel="stylesheet" type="text/css" href="/css/content.css">
+<link rel="stylesheet" type="text/css" href="/css/adoption_bk.css">	<!-- 셀렉트박스 디자인하기 -->
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
@@ -14,7 +15,7 @@
 <section id="content-wrapper">
 	<div class="area">
 		<h2 class="comm-content-tit">입양하기</h2>
-		<ul class="main-adopt-review-list clearfix"><!-- 입양후기는 최소/최대 8개가 노출됩니다. -->
+		<ul class="main-adopt-review-list clearfix">
 			<c:forEach items="${sdpd.list }" var="m" varStatus="i">
 				<li>
 					<form action="/dogInfo" method="post" name="form_${i.count}">
@@ -32,15 +33,16 @@
 						<input type="hidden" name="specialMark" value="${m.specialMark }">
 						<input type="hidden" name="neuterYn" value="${m.neuterYn }">
 						<input type="hidden" name="filename" value="${m.filename }">
-						<button type="submit" style="display:none;"></button>
 						<a onclick="javascript:form_${i.count}.submit();">		<!-- 보호소명 보내기 -->
 							<div class="img-thum">
-							<span style="background:url('${m.filename }') no-repeat center center; background-size:cover;"></span>
+								<span style="background:url('${m.filename }') no-repeat center center; background-size:cover;"></span>
 							</div>
 							<div class="txt-thum">
-							
-							<p>보호소명  : ${m.careNm }, 품종 : ${m.kindCd }</p><br>
-							<p>성별 :${m.sexCd }
+								<span style="line-height:18px;font-size:14px;">
+									보호소명  : ${m.careNm }<br>
+								 	품종 : ${fn:split(m.kindCd,']')[1]}<br>
+									성별 : ${m.sex}
+								</span>
 							</div>
 						</a>
 					</form>

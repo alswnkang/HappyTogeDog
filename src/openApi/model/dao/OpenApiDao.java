@@ -173,7 +173,8 @@ public class OpenApiDao {
 						cc.setDistrict(getTagValue("orgCd", eElement));
 						cc.setDistrictName(getTagValue("orgdownNm", eElement));
 					
-						System.out.println("체크 구군청 for문 안");
+						System.out.print(cc.getDistrict());
+						System.out.println(cc.getDistrictName());
 					
 						list.add(cc);
 					}	// for end
@@ -224,9 +225,9 @@ public class OpenApiDao {
 						cc.setCareNm(getTagValue("careNm", eElement));
 						cc.setCareRegNo(getTagValue("careRegNo", eElement));
 					
-						System.out.println("여기들어왔나요?");
-						System.out.println(getTagValue("careNm", eElement));
-					
+						
+						System.out.print(getTagValue("careNm", eElement));
+						System.out.println(getTagValue("careRegNo", eElement));
 						list.add(cc);
 					}	// for end
 				}	// if end

@@ -31,12 +31,12 @@
 						</tr>
 					</thead>
 					<tbody>
-			 			<c:forEach items="${list }" var="b">
+			 			<c:forEach items="${list }" var="b" varStatus="i">
 							<tr>
-								<td>${b.boardRnum}</td>
+								<td>${i.count}</td>
 								<td><a href="/siPreBoardView?boardNo=${b.boardNo }">${b.boardTitle }</a></td>
 								<!-- name 값을 넘겨주도록 설정필요 -->
-								<td>${b.boardName }</td>
+								<td>${b.boardId }</td>
 								<td>${b.boardDate }</td>
 								<td>${b.boardCount }</td>
 							</tr>

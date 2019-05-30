@@ -111,7 +111,6 @@ $(function(){
 			$(this).addClass("on");
 		}
 	});
-
 });
 </script>	
 

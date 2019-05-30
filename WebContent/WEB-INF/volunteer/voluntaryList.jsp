@@ -61,6 +61,7 @@ $(function(){
 								<td class="name">${volunRegister.name}</td>
 								<td>${volunRegister.enrollDate }</td><!-- ${volunRegister.status } -->
 								<td>
+									<!-- ${volunRegister.applyNum } --> <!-- 신청한 인원 -->
 									<c:if test="${volunRegister.status eq '모집중' }">
 										<span class="volun-status ing">${volunRegister.status }</span>
 									</c:if>

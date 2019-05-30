@@ -176,9 +176,9 @@ public class DogList {
 	}
 	// 성별 문자열로 가져오기
 	public String getSex() {
-		if(sexCd=="M") {
+		if(sexCd.equals("M")) {
 			return "수컷";
-		}else if(sexCd =="F") {
+		}else if(sexCd.equals("F")){
 			return "암컷";
 		}else {
 			return "미상";
@@ -186,9 +186,9 @@ public class DogList {
 	}
 	//중성화 여부 문자열로 가져오기
 	public String getNeuter() {
-		if(neuterYn =="Y") {
+		if(neuterYn.equals("Y")) {
 			return "O";
-		}else if(neuterYn =="N") {
+		}else if(neuterYn.equals("N")) {
 			return "X";
 		}else {
 			return "모름";

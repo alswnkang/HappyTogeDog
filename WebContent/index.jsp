@@ -4,6 +4,7 @@
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
 	<script type="text/javascript" src="/js/main.js"></script><!-- main.js -->
+	<jsp:forward page="/main" />
 	<%-- Wrap --%>
 	<section id="wrap">
 		<!-- 메인 비주얼 -->

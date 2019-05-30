@@ -201,8 +201,8 @@
 		$("#caretext").text($("#care").val());
 
 		$('#name').val($('#care option:selected').text());
+
 	});
-	
 
 	
 	$("#areasel").click(function(){

@@ -8,20 +8,23 @@
 <%-- Content --%>
 <section id="content-wrapper">
 	<div class="area">
+		<h2 class="comm-content-tit">Q & A</h2>
 		<div class="qna-view">
 			<table class="comm-tbl">
 				<tr>
-					<td>제목</td><td>비밀글 입니다</td>
+					<td>제목</td><td>${qna.boardTitle }</td>
 				</tr>
 				<tr>
-					<td>작성자</td><td>${orderInfo.name }</td>
+					<td>작성자</td><td>${qna.boardName }</td>
 				</tr>
 				<tr>
-					<td>내용</td><td>불량품이에요 바꿔주세요불량품이에요 바꿔주세요불량품이에요 바꿔주세요불량품이에요 바꿔주세요불량품이에요 바꿔주세요불량품이에요 바꿔주세요불량품이에요 바꿔주세요</td>
+					<td>내용</td><td>${qna.boardContent }</td>
 				</tr>
-				<tr>
-					<td>파일첨부</td><td>${orderInfo.name }</td>
-				</tr>
+				<c:if test="${not empty qna.boardFilename }">
+					<tr>
+						<td>파일첨부</td><td>${qna.boardFilename }</td>
+					</tr>
+				</c:if>
 			</table>
 			<c:if test="${sessionScope.member.id ne 'admin' }">
 				<textarea rows="" cols=""></textarea>
