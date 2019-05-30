@@ -4,6 +4,9 @@
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
 	<script type="text/javascript" src="/js/main.js"></script><!-- main.js -->
+	<style>
+		#subVisual{display:none;}
+	</style>
 	<%-- Wrap --%>
 	<section id="wrap">
 		<!-- 메인 비주얼 -->
