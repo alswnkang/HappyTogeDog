@@ -105,7 +105,9 @@
 <script>
     function sample4_execDaumPostcode() {
         new daum.Postcode({
+        	
             oncomplete: function(data) {
+            	
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
                 // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
@@ -146,7 +148,19 @@
                     guideTextBox.innerHTML = '';
                     guideTextBox.style.display = 'none';
                 }
-            }
+            },
+ 		theme : {
+ 			bgColor: "#FFFFFF", //바탕 배경색
+ 		   searchBgColor: "#FE431E", //검색창 배경색
+ 		   //contentBgColor: "", //본문 배경색(검색결과,결과없음,첫화면,검색서제스트)
+ 		   pageBgColor: "#FE431E", //페이지 배경색
+ 		   textColor: "#000000", //기본 글자색
+ 		   queryTextColor: "#FFFFFF", //검색창 글자색
+ 		   postcodeTextColor: "#FE431E", //우편번호 글자색
+ 		   emphTextColor: "#059DEB", //강조 글자색
+ 		   outlineColor: "#9F9F9F" //테두리
+ 		}
+ 		
         }).open();
     }
 </script>
@@ -187,7 +201,7 @@
 		$("#caretext").text($("#care").val());
 
 		$('#name').val($('#care option:selected').text());
-
+	});
 	
 
 	
@@ -365,7 +379,7 @@
 				return false;
 			}
 		}
-		
+	
 	</script>
 </body>
 	<jsp:include page="/WEB-INF/common/footer.jsp" />
