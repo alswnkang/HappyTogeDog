@@ -114,3 +114,8 @@
 			</div>
 		</div>
 	</header>
+	
+	<!-- 서브 비주얼 -->
+	<div id="subVisual">
+		
+	</div>

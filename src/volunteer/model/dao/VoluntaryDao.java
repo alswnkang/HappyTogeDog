@@ -18,7 +18,7 @@ public class VoluntaryDao {
 	public int insertVoluntaryRegister(Connection conn, VoluntaryRegister vr) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String query = "insert into volunteer_register values(volunteer_register_seq.nextval,?,?,?,?,?,0,?,?,?,sysdate)";
+		String query = "insert into volunteer_register values(volunteer_register_seq.nextval,?,?,?,?,?,?,0,?,?,sysdate)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
