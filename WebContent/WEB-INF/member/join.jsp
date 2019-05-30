@@ -26,8 +26,7 @@
 				<p id="p_checkPw" style="display:none">비밀번호 입력양식 확인</p>
 				비밀번호 확인 : <input type="password" name="pw_re" id="pw_re"><br>
 				<p id="p_checkPw_re" style="display:none">비밀번호가 일치하지 않습니다</p>
-				
-				이름 : <input type="text" name="name" id="name"><br>
+				<p id="p_name">이름 : <input type="text" name="name" id="name"></p><br>
 				전화번호 : <input type="text" name="phone" id="phone"><br>
 				우편번호 : <input type="text" id="post" placeholder="우편번호" name="post">
 				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
@@ -71,7 +70,7 @@
 				
 				<h1>레벨 : ${level }</h1>
 			</div>
-			
+			<c:if test="${level == 1}">
 			시 선택 : 
 			<select name="city" id="city">
 				<option>도시선택</option>
@@ -91,12 +90,10 @@
 			</select>
 			<input type="button" id="caresel" value="확인"><br>
 			<div id="caretext"></div>
-			<input type="hidden" id="careNm" name="careNm" >
 			
+			</c:if>
 			<input type="submit" value="회원가입" id="sub">
 			<input type="reset" value="취소" id="reset">
-			
-			
 		</form>
 		
 	
@@ -188,9 +185,9 @@
 	
 	$("#caresel").click(function(){
 		$("#caretext").text($("#care").val());
-		$("#careNm").text($("#care").text());
-		
-	});
+
+		$('#name').val($('#care option:selected').text());
+
 	
 
 	
@@ -253,6 +250,7 @@
 				$('#p_code').css('display','block');		//level이 0보다 클때 block
 				$('#h_title2').css('display','block');		//level이 0보다 클때 block
 				$('#h_title1').css('display','none');		//level이 0보다 클때 none
+				$('#p_name').css('display','none');
 			}else if(level == 0){
 				$('#selectTime').css('display','none');		//level이 0일때 none
 			}

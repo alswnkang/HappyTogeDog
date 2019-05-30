@@ -53,6 +53,13 @@ public class BoardService {
 	}
 	public Board boardView(int boardNo) {
 		Connection conn = JDBCTemplete.getConnection();
+		int result = new BoardDao().boardCount(conn, boardNo);
+		//카운트를 증가 시키기위해 Dao에 update를 하나 추가
+		if(result>0) {
+			JDBCTemplete.commit(conn);
+		}else {
+			JDBCTemplete.rollback(conn);
+		}
 		Board b = new BoardDao().boardView(conn, boardNo);
 		JDBCTemplete.close(conn);
 		return b;

@@ -34,3 +34,9 @@ $(function(){
 	
 	
 });
+
+function list(reqPage){
+	
+	$('input[name=reqPage]').val(reqPage);
+	search.submit();
+}

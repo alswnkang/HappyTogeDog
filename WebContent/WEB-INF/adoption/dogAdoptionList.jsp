@@ -40,7 +40,7 @@
 							<div class="txt-thum">
 							
 							<p>보호소명  : ${m.careNm }, 품종 : ${m.kindCd }</p><br>
-							<p>성별 :${m.sexCd }
+							<p>성별 :${m.sex }
 							</div>
 						</a>
 					</form>
