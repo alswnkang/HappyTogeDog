@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <link rel="stylesheet" type="text/css" href="/css/content.css">
+<link rel="stylesheet" type="text/css" href="/css/adoption_bk.css">	<!-- 셀렉트박스 디자인하기 -->
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
@@ -14,7 +15,7 @@
 <section id="content-wrapper">
 	<div class="area">
 		<h2 class="comm-content-tit">입양하기</h2>
-		<ul class="main-adopt-review-list clearfix"><!-- 입양후기는 최소/최대 8개가 노출됩니다. -->
+		<ul class="main-adopt-review-list clearfix">
 			<c:forEach items="${sdpd.list }" var="m" varStatus="i">
 				<li>
 					<form action="/dogInfo" method="post" name="form_${i.count}">

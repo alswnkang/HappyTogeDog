@@ -35,3 +35,6 @@
 .dog-info-bottom-inner{padding-top:50px;}
 .dog-info-left{float:left; width:45%;}
 .dog-info-right{float:right; width:52%;}
+
+/* 셀렉트박스 */
+.#### select{padding:7px; border:1px solid #ddd; border-radius:4px; width:90%;}

@@ -48,7 +48,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<form action="/siPreBoardSearch" method="get">
+				<form action="/siPreBoardSearch" method="post">
 					<div class="board-search-box">
 						<select name="searchWord">
 							<option value="boardName">작성자</option>
