@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import siBoard.model.boardVo.Board;
+import siBoardComment.model.boardCommentVo.BoardComment;
 import siTemplete.JDBCTemplete;
 
 public class BoardDao {
@@ -230,7 +231,7 @@ public class BoardDao {
 		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from board where board_name = ?";
+		String query = "select * from board where board_id = ?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, searchKeyword);
@@ -293,6 +294,36 @@ public class BoardDao {
 		}finally {
 			JDBCTemplete.close(rset);
 			JDBCTemplete.close(pstmt);
+		}
+		return list;
+	}	
+	public ArrayList<BoardComment> commentAll(Connection conn){
+		ArrayList<BoardComment> list = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		String query = "select * from board_comment where board_comment_type=1";
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			list = new ArrayList<BoardComment>();
+			while(rset.next()) {
+				BoardComment bc = new BoardComment();
+				bc.setBoardCommentNo(rset.getInt("board_comment_no"));
+				bc.setBoardCommentType(rset.getInt("board_comment_type"));
+				bc.setBoardCommentId(rset.getString("board_comment_id"));
+				bc.setBoardCommentName(rset.getString("board_comment_name"));
+				bc.setBoardCommentContent(rset.getString("board_comment_content"));
+				bc.setBoardRef(rset.getInt("board_ref"));
+				bc.setBoardCommentRef(rset.getInt("board_comment_ref"));
+				bc.setBoardCommentDate(rset.getDate("board_comment_date"));
+				list.add(bc);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(rset);
+			JDBCTemplete.close(stmt);
 		}
 		return list;
 	}
