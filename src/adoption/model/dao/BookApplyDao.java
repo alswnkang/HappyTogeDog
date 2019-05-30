@@ -20,6 +20,7 @@ import org.w3c.dom.NodeList;
 import adoption.model.vo.BookApply;
 import adoption.model.vo.DogList;
 import common.JDBCTemplate;
+import openApi.Sting;
 
 public class BookApplyDao {
 	private Properties prop = new Properties();
@@ -116,7 +117,15 @@ public class BookApplyDao {
 
 				// 파싱할 tag
 				NodeList nList = doc.getElementsByTagName("item");
+				Node node1 = doc.getElementsByTagName("totalCount").item(0);
 				// System.out.println("파싱할 리스트 수 : "+ nList.getLength());
+				/*
+				 * NodeList nlList = eElement.getElementsByTagName(tag).item(0).getChildNodes();
+		Node nValue = (Node) nlList.item(0);
+		if (nValue == null)
+			return null;
+		return nValue.getNodeValue();*/
+				
 				int count = 0;
 				list = new ArrayList<DogList>();
 				for (int temp = 0; temp < nList.getLength(); temp++) {
@@ -150,6 +159,7 @@ public class BookApplyDao {
 					} // for end
 				} // if end
 				System.out.println("page number : " + reqPage);
+				
 				break;
 			} // while end
 		} catch (Exception e) {
