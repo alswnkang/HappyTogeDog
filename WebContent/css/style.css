@@ -49,11 +49,12 @@
 
 
 .product .order-btn, .pay .order-btn, .order-success .order-btn, .find-order .order-btn{
-	width: 190px;
-	height: 80px;
+	width: 220px;
+	height: 75px;
 	background-color: rgba(254,67,30);
 	color: white;
 	font-size: 20px;
+	border-radius:5px;
 }
 
 .product .tab > a {
@@ -92,51 +93,28 @@
 }
 
 
-/* orderForm.jsp */
+/* 주문서 작성 :: orderForm.jsp */
+.order-form{padding:30px 0;}
+.order-form .order-product-tbl th, .order-form .order-product-tbl td{border-left:0; border-right:0; color:#2d2d2d;}
+.order-form .order-product-tbl th{background:#f8f8f8; font-size:17px; padding:13px 10px;}
+.order-form .order-product-tbl td{font-size:16px; font-weight:500;}
+.order-form .order-product-tbl tr:hover td{background:#fff;}
 
-.order-form .order-product {
-	padding: 30px 0;
-	border-top: 1px solid lightgray;
-	border-bottom: 1px solid lightgray;
-}
+.order-form .order {margin:70px 0;}
+.order-form .delivery{margin-bottom:70px;}
+.order-form .necessary{text-align:right; margin-bottom:10px;}
+.order-form .star{color:rgba(254,67,30); font-size:15px;}
+.order-form .delivery-check{font-size:16px;}
 
-.order-form .order-product ul li {
-	float: left;
-	width: 25%;
-	height: 150px;
-	line-height: 150px;
-	font-size: 17px;
-	text-align: center;
-}
-
-.order-form form {width: 80%;margin: 0 auto;}
-.order-form input {
-	width: 250px;
-	height: 40px;
-	font-size: 17px;
-}
-.order-form p {font-weight: bold;}
-
-.order-form table {width: 100%;}
-.order-form table tr:first-child {border-top: 1px solid lightgray;}
-.order-form table td {
-	height: 80px;
-	font-size: 17px;
-	border-bottom: 1px solid lightgray;
-}
-.order-form table td:first-child {text-align: center;width: 30%;}
-
+.order-form .order-tbl td.pay{font-size:15px;}
+.order-form .order-tbl td.pay-final{text-align:right; font-size:18px;}
+.order-form .order-tbl td.pay-final #total{font-size:22px; font-weight:600;}
 .order-form input.num {text-align: center;}
-.order-form .order {margin: 100px 0;}
 .order-form select.phone {height: 45px;font-size: 17px;text-align: center;}
-.order-form .phone {width: 73px;}
-.order-form .post {width: 80px;}
-.order-form .address {width: 400px;}
-.order-form .memo {width: 600px;}
 .order-form input[type=radio] {
-	width: 20px;
-	height: 20px;
-	vertical-align: middle;
+	width: 15px;
+	height: 15px;
+	margin-top:0;
 }
 
 
