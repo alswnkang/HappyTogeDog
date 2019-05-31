@@ -56,10 +56,12 @@ public class SiPreBoardSearchServlet extends HttpServlet {
 		}catch(NumberFormatException e) {
 			reqPage = 1;
 		}
+		System.out.println(reqPage);
 		String searchType = request.getParameter("searchWord");
+		System.out.println(searchType);
 		String searchKeyword = request.getParameter("keyword");
+		System.out.println(searchKeyword);
 		BoardPageData bp = new BoardService().boardSearch(reqPage,searchType,searchKeyword);
-		// 여기서 검색부터 다시 해야됨
 		String view = "";
 		if(bp.getList().size()>0){
 			request.setAttribute("bp", bp);

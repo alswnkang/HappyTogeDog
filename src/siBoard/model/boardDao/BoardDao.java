@@ -213,41 +213,6 @@ public class BoardDao {
 		}
 		return result;
 	}
-//	public ArrayList<Board> boardSearchName(Connection conn,String searchKeyword){
-//		ArrayList<Board> list = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		String query = "select * from board where board_id = ?";
-//		try {
-//			pstmt = conn.prepareStatement(query);
-//			pstmt.setString(1, searchKeyword);
-//			rset = pstmt.executeQuery();
-//			list = new ArrayList<Board>();
-//			while(rset.next()) {
-//				Board b = new Board();
-//				b.setBoardNo(rset.getInt("board_no"));
-//				b.setBoardType(rset.getInt("board_Type"));
-//				b.setBoardId(rset.getString("board_id"));
-//				b.setBoardName(rset.getString("board_Name"));
-//				b.setBoardTitle(rset.getString("board_title"));
-//				b.setBoardContent(rset.getString("board_content"));
-//				b.setBoardFilename(rset.getString("board_filename"));
-//				b.setBoardFilepath(rset.getString("board_filepath"));
-//				b.setBoardDate(rset.getDate("board_date"));
-//				b.setBoardCount(rset.getInt("board_count"));
-//				b.setBoardSecret(rset.getInt("board_secret"));
-//				b.setBoardPw(rset.getString("board_pw"));
-//				list.add(b);
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}finally {
-//			JDBCTemplete.close(rset);
-//			JDBCTemplete.close(pstmt);
-//		}
-//		return list;
-//	}
 	public ArrayList<Board> boardSearchName(Connection conn,String searchKeyword,int start,int end){
 		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;
@@ -328,7 +293,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
-		String query = "select count(*) as cnt from board where board_title=?";
+		String query = "select count(*) as cnt from board where board_title like ?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, "%"+searchKeyword+"%");
@@ -349,7 +314,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
-		String query = "select count(*) as cnt from board where board_name=?";
+		String query = "select count(*) as cnt from board where board_id=?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, searchKeyword);
@@ -366,41 +331,6 @@ public class BoardDao {
 		}
 		return result;
 	}
-//	public ArrayList<Board> boardSearchTitle(Connection conn,String searchKeyword){
-//		ArrayList<Board> list = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		String query = "select * from board where board_Title like ?";
-//		try {
-//			pstmt = conn.prepareStatement(query);
-//			pstmt.setString(1, "%"+searchKeyword+"%");
-//			rset = pstmt.executeQuery();
-//			list = new ArrayList<Board>();
-//			while(rset.next()) {
-//				Board b = new Board();
-//				b.setBoardNo(rset.getInt("board_no"));
-//				b.setBoardType(rset.getInt("board_type"));
-//				b.setBoardId(rset.getString("board_id"));
-//				b.setBoardName(rset.getString("board_Name"));
-//				b.setBoardTitle(rset.getString("board_title"));
-//				b.setBoardContent(rset.getString("board_content"));
-//				b.setBoardFilename(rset.getString("board_filename"));
-//				b.setBoardFilepath(rset.getString("board_filepath"));
-//				b.setBoardDate(rset.getDate("board_date"));
-//				b.setBoardCount(rset.getInt("board_count"));
-//				b.setBoardSecret(rset.getInt("board_secret"));
-//				b.setBoardPw(rset.getString("board_pw"));
-//				list.add(b);
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}finally {
-//			JDBCTemplete.close(rset);
-//			JDBCTemplete.close(pstmt);
-//		}
-//		return list;
-//	}	
 	public ArrayList<BoardComment> commentAll(Connection conn){
 		ArrayList<BoardComment> list = null;
 		Statement stmt = null;

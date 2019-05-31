@@ -101,47 +101,54 @@ public class BoardService {
 		//검색 후 페이징 처리가 제대로 안되서 수정 필요
 		Connection conn = JDBCTemplete.getConnection();
 		int numPerPage = 10;
-		int totalCount = new BoardDao().totalCount(conn);
+		int totalCount = 0;
+		//Session에 저장된게 id값이라 일단 회원 id로 로직처리(name으로 변경해야됨)
+		if(searchType.equals("boardName")) {
+			totalCount = new BoardDao().totalSearchNameCount(conn,searchKeyword);
+			System.out.println(totalCount);
+		}else if(searchType.equals("boardTitle")) {
+			totalCount = new BoardDao().totalSearchTitleCount(conn,searchKeyword);
+			System.out.println(totalCount);
+		}
+		System.out.println(totalCount);
 		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
 		int start = (reqPage-1)*numPerPage+1;
 		int end = reqPage*numPerPage;
 		ArrayList<Board> list = new ArrayList<Board>();
 		if(searchType.equals("boardName")) {
 			list = new BoardDao().boardSearchName(conn,searchKeyword,start,end);
+			for(int i=0; i<list.size(); i++) {
+				System.out.println(list.get(i).getBoardId());
+			}
 		}else if(searchType.equals("boardTitle")) {
 			list = new BoardDao().boardSearchTitle(conn,searchKeyword,start,end);
+			for(int i=0; i<list.size(); i++) {
+				System.out.println(list.get(i).getBoardTitle());
+			}
 		}
 		String pageNavi = "";
 		int pageNaviSize = 10;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		if(pageNo!=1) {
-			pageNavi+="<a href='/siPreBoard?reqPage="+(pageNo-1)+"'>이전</a>";
+			pageNavi+="<a href='/siPreBoardSearch?reqPage="+(pageNo-1)+"&searchWord="+searchType+"&keyword="+searchKeyword+"'>이전</a>";
+			System.out.println(pageNavi);
 		}
 		int i = 1;
 		while(!(i++>pageNaviSize || pageNo>totalPage)) {
 			if(reqPage==pageNo) {
 				pageNavi+="<span>"+pageNo+"</span>";
 			}else {
-				pageNavi+="<a href='/siPreBoard?reqPage="+pageNo+"'>"+pageNo+"</a>";
+				pageNavi+="<a href='/siPreBoardSearch?reqPage="+pageNo+"&searchWord="+searchType+"&keyword="+searchKeyword+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
+			System.out.println(pageNavi);
 		}
 		if(pageNo<=totalPage) {
-			pageNavi+="<a href='/siPreBoard?reqPage="+pageNo+"'>다음</a>";
+			pageNavi+="<a href='/siPreBoardSearch?reqPage="+pageNo+"&searchWord="+searchType+"&keyword="+searchKeyword+"'>다음</a>";
+			System.out.println(pageNavi);
 		}
 		JDBCTemplete.close(conn);
 		BoardPageData bp = new BoardPageData(list,pageNavi);
 		return bp;
 	}
-//	public ArrayList<Board> boardSearch(String searchType, String searchKeyword){
-//		Connection conn = JDBCTemplete.getConnection();
-//		ArrayList<Board> list = new ArrayList<Board>();
-//		if(searchType.equals("boardName")) {
-//			list = new BoardDao().boardSearchName(conn,searchKeyword);
-//		}else if(searchType.equals("boardTitle")) {
-//			list = new BoardDao().boardSearchTitle(conn,searchKeyword);
-//		}
-//		JDBCTemplete.close(conn);
-//		return list;
-//	}
 }
