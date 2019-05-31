@@ -38,6 +38,14 @@
 .comm-tbl.type2 th{text-align:center; font-size:16px; border-top:2px solid rgba(254,67,30);}
 .comm-tbl.type2 td{color:#2b2b2b; font-size:14px; text-align:center;}
 .comm-tbl.type2 tr:hover td{background-color:rgba(254,67,30,0.05);}
+/* 주문 */
+.comm-tbl.order-tbl th{font-size:16px; background:#f8f8f8;}
+.comm-tbl.order-tbl input[type='text'], .comm-tbl.order-tbl input[type='password'], .comm-tbl.order-tbl input[type='file'],
+.comm-tbl.order-tbl select{height:28px; font-size:15px;}
+.comm-tbl.order-tbl input[type='text'].middle, .comm-tbl.order-tbl input[type='password'].middle, 
+.comm-tbl.order-tbl input[type='file'].middle, .comm-tbl.order-tbl select.middle{width:50%;}
+.comm-tbl.order-tbl input[type='text'].short, .comm-tbl.order-tbl input[type='password'].middle, 
+.comm-tbl.order-tbl input[type='file'].short, .comm-tbl.order-tbl select.short{width:20%;}
 
 .common-tbl-btn-group{padding-top:30px; text-align:center;}
 .common-tbl-btn-group > button{width:130px; height:50px; border-radius:5px; font-size:17px; color:#fff; margin:0 10px;}

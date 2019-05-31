@@ -15,70 +15,100 @@
 	<div class="area">
 		<p class="main-comm-tit">주문서 작성</p>
 		<div class="order-form">
-			<div class="order-product">
-				<ul class="clear-float">
-					<li><img src="/img/${prd.prdImg }" width="150" onclick="location.href='/viewProduct?code=${prd.prdCode }'"></li>
-					<li id="prdName">${prd.prdName }</li>
-					<li>${amount} 개</li>
-					<li><fmt:formatNumber value="${price}" pattern="#,###" /> 원</li>
-				</ul>
+			<div class="order-product-box">
+				<table class="order-product-tbl comm-tbl type2">
+					<colgroup>
+						<col width="25%"/>
+						<col width="25%"/>
+						<col width="25%"/>
+						<col width="25%"/>
+					</colgroup>
+					<tr>
+						<th>상품</th>
+						<th>상품 이름</th>
+						<th>수량</th>
+						<th>금액</th>
+					</tr>
+					<tr>
+						<td><img src="/img/${prd.prdImg }" width="150" onclick="location.href='/viewProduct?code=${prd.prdCode }'"></td>
+						<td id="prdName">${prd.prdName }</td>
+						<td>${amount} 개</td>
+						<td><fmt:formatNumber value="${price}" pattern="#,###" /> 원</td>
+					</tr>
+				</table>
 			</div>
+			
 			
 			<form id="orderForm">
 				<input type="hidden" name="orderNo">
 				<input type="hidden" name="productName" value="${prd.prdName }">
 				<div class="order">
 					<p class="main-comm-tit">주문자 정보</p>
-					<table>
+					<p class="necessary"><b>*</b> 는 필수입력항목입니다. </p>
+					<table class="comm-tbl view order-tbl">
+						<colgroup>
+							<col width="15%"/>
+							<col width="/"/>
+						</colgroup>
 						<tr>
-							<td>이름</td><td><input type="hidden" name="id" value="${sessionScope.member.id }"><input type="text" name="name" value="${sessionScope.member.name }"></td>
+							<th>이름 <b class="star">*</b></th>
+							<td><input type="hidden" name="id" value="${sessionScope.member.id }"><input type="text" class="middle" name="name" value="${sessionScope.member.name }"></td>
 						</tr>
 						<tr>
-							<td>연락처</td>
+							<th>연락처 <b class="star">*</b></th>
 							<td>
 								<c:set var="phone" value="${fn:split(sessionScope.member.phone,'-') }" />
-								<select name="phone1" class="phone">
+								<select name="phone1" class="phone short">
 									<option value="010">010</option>
 									<option value="011">011</option>
 								</select>
-								 - <input type="text" name="phone2" class="phone num" maxlength="4" value="${fn:split(sessionScope.member.phone,'-')[1] }"> 
-								 - <input type="text" name="phone3" class="phone num" maxlength="4" value="${fn:split(sessionScope.member.phone,'-')[2] }">
+								 - <input type="text" name="phone2" class="phone num short" maxlength="4" value="${fn:split(sessionScope.member.phone,'-')[1] }"> 
+								 - <input type="text" name="phone3" class="phone num short" maxlength="4" value="${fn:split(sessionScope.member.phone,'-')[2] }">
 							</td>
 						</tr>
 						<tr>
-							<td>이메일</td><td><input type="text" name="email" value="${sessionScope.member.email }"></td>
+							<th>이메일 <b class="star">*</b></th>
+							<td><input type="text" class="middle" name="email" value="${sessionScope.member.email }"></td>
 						</tr>
 					</table>
 				</div>
 				
 				<div class="delivery">
 					<p class="main-comm-tit">배송지 정보</p>
-					<p><input type="checkbox">주문자 정보와 동일</p>
-					<table>
+					<div class="clearfix">
+						<p class="necessary fr"><b class="star">*</b>는 필수입력항목입니다. </p>
+						<p class="delivery-check fl"><label><input type="checkbox" id="chk"> 주문자 정보와 동일</label></p>
+					</div>
+					<table class="comm-tbl view order-tbl">
+						<colgroup>
+							<col width="15%"/>
+							<col width="/"/>
+						</colgroup>
 						<tr>
-							<td>이름</td><td><input type="text" name="receiveName"></td>
+							<th>이름 <b class="star">*</b></th>
+							<td><input type="text" class="middle" name="receiveName"></td>
 						</tr>
 						<tr>
-							<td>연락처</td>
+							<th>연락처 <b class="star">*</b></th>
 							<td>
-								<select name="receivePhone1" class="phone">
+								<select name="receivePhone1" class="short phone">
 									<option value="010">010</option>
 									<option value="011">011</option>
 								</select>
-								 - <input type="text" name="receivePhone2" class="phone num" maxlength="4"> 
-								 - <input type="text" name="receivePhone3" class="phone num" maxlength="4">
+								 - <input type="text" name="receivePhone2" class="phone num short" maxlength="4"> 
+								 - <input type="text" name="receivePhone3" class="phone num short" maxlength="4">
 							</td>
 						</tr>
 						<tr>
-							<td>배송지 주소</td>
-							<td style="height: 200px;">
-								<input type="text" name="post" class="post" onclick="getAddr(this.form);" value="${sessionScope.member.post }" readonly><br><br>
+							<th>배송지 주소 <b class="star">*</b></th>
+							<td>
+								<input type="text" name="post" class="post short" onclick="getAddr(this.form);" value="${sessionScope.member.post }" readonly><br><br>
 								<input type="text" name="address" class="address" onclick="getAddr(this.form);" value="${fn:split(sessionScope.member.address,'//')[0] }" readonly><br><br>
 								<input type="text" name="address2" class="address" placeholder="상세 주소를 입력하세요" value="${fn:split(sessionScope.member.address,'//')[1] }">
 							</td>
 						</tr>
 						<tr>
-							<td>배송 메모</td>
+							<th>배송 메모</th>
 							<td>
 								<input type="text" name="memo" class="memo">
 							</td>
@@ -88,13 +118,17 @@
 				
 				<div class="pay">
 					<p class="main-comm-tit">결제 정보</p>
-					<table>
+					<table class="comm-tbl view order-tbl">
+						<colgroup>
+							<col width="15%"/>
+							<col width="/"/>
+						</colgroup>
 						<tr>
-							<td>결제 수단</td>
-							<td>
-								<label><input type="radio" name="payMethod" value="card" checked> 신용카드</label>
-								<label><input type="radio" name="payMethod" value="trans"> 실시간 계좌이체</label>
-								<label><input type="radio" name="payMethod" value="vbank"> 가상계좌</label>
+							<th>결제 수단</th>
+							<td class="pay">
+								<label><input type="radio" name="payMethod" value="card" checked> 신용카드</label>&nbsp;&nbsp;
+								<label><input type="radio" name="payMethod" value="trans"> 실시간 계좌이체</label>&nbsp;&nbsp;
+								<label><input type="radio" name="payMethod" value="vbank"> 가상계좌</label>&nbsp;&nbsp;
 								<!-- <label><input type="radio" name="payMethod" value="account"> 무통장입금</label> -->
 								<label><input type="radio" name="payMethod" value="phone"> 휴대폰</label>
 								<input type="hidden" name="vbankName">
@@ -104,7 +138,11 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2" style="text-align: right;"><input type="hidden" name="amount" value="${amount}"><input type="hidden" name="pay" value="${price}">총<span id="total"><fmt:formatNumber value="${price}" pattern="#,###" /></span>원 <button class="order-btn">결제하기</button></td>
+							<td colspan="2" class="pay-final">
+								<input type="hidden" name="amount" value="${amount}">
+								<input type="hidden" name="pay" value="${price}">총 <span id="total"><fmt:formatNumber value="${price}" pattern="#,###" /></span> 원 &nbsp;&nbsp;
+								<button class="order-btn">결제하기</button>
+							</td>
 						</tr>
 					</table>
 				</div>

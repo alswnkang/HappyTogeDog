@@ -9,9 +9,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 	<style>
+		
 		.main{
 		/*	border : 1px solid red;		*/ 
-			height : 1100px;
+			height : 1200px;
 			background-color: #FFFFFF;
 			padding-left: 100px;
 			padding-right: 100px;
@@ -65,10 +66,13 @@
 		ul{
 			padding-bottom: 10px;
 		}
-		h1{
+		.h1{
 			font-size: 30px;
 			padding-top: 20px;
-			padding-bottom: 10px;
+			padding-bottom: 15px;
+		}
+		span{
+			color : #5cc2e4;
 		}
 	</style>
 </head>
@@ -80,7 +84,7 @@
 			<form action="/member/selectJoin.jsp" method="post" onsubmit="return check()">
 			<div class="common-tbl-box">
 				<div class="main">
-					<h1>사이트 이용약관</h1>
+					<h1 class="h1"><span>(필수)</span>사이트 이용약관</h1>
 					<div class="main2" style="font-size:120%">
 						<h3>[제 1장 총칙]</h3>
 						<h4>제 1조 목적</h4>
@@ -226,8 +230,8 @@
 					</div>
 					<p style="padding-top:10px"><input type="checkbox" id="chk1"><label for="chk1">이용약관에 동의합니다.</label></p>
 					<br>
-					<br>
-					<h1>개인정보의 수집 및 이용 안내</h1>
+					
+					<h1 class="h1"><span>(필수)</span>개인정보의 수집 및 이용 안내</h1>
 					<div id="mid">
 						<div id="t_mid1" class="t_mid" style="background-color:#fe431e; color:#ffffff;">
 							<h2>수집하는 개인정보의 항목</h2>
@@ -290,7 +294,7 @@
 					<p style="padding-top:10px"><input type="checkbox" id="chk2"><label for="chk2">개인정보 수집 및 이용에 동의합니다.<br>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;개인정보 수집 및 이용 동의에 거부할 수 있습니다. 단 동의 거부 시 회원가입이 제한됩니다.</label></p>
 					<br><br>
-					<h1>개인정보의 수집 및 이용 안내</h1>
+					<h1 class="h1"><span>(선택)</span>개인정보의 수집 및 이용 안내</h1>
 					<table class="comm-tbl type2">
 						<thead>
 							<tr>

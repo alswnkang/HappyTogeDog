@@ -15,21 +15,6 @@ import siBoardComment.model.boardCommentVo.BoardComment;
 import siTemplete.JDBCTemplete;
 
 public class BoardCommentDao {
-	private Properties prop = new Properties();
-	public BoardCommentDao() {
-			String fileName = BoardCommentDao.class.getResource("/siSql/boardComment/boardCommentQuery.properties").getPath();
-			System.out.println(fileName);
-			try {
-				prop.load(new FileReader(fileName));
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
 	public int commentInsert(Connection conn, BoardComment bc) {
 		PreparedStatement pstmt = null;
 		int result = 0;

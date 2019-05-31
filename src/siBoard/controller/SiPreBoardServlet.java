@@ -36,6 +36,7 @@ public class SiPreBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");	
 		int reqPage;
 		try {
 			reqPage = Integer.parseInt(request.getParameter("reqPage"));
