@@ -42,7 +42,7 @@
 					<ul class="header-util-box clearfix">
 						<%if(m == null){%>
 						<li><a href="/member/login.jsp">Login</a></li>
-						<li><a href="/member/selectJoin.jsp">JOIN</a></li>
+						<li><a href="/member/terms.jsp">JOIN</a></li>
 						<%}else{ %>
 						<!-- 로그인 후 -->
 						<li><a href="/logout">Logout</a></li>

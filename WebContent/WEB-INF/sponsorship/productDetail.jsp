@@ -11,7 +11,7 @@
 <section id="content-wrapper">
 	<div class="area">
 		<div class="product clear-float">
-			<div class="product-top clear-float">
+			<div class="product-top clearfix">
 				<div class="product-img">
 					<img src="/img/${prd.prdImg }">
 				</div>
@@ -19,22 +19,23 @@
 					<form action="/order" method="post" onsubmit="return check();">
 						<input type="hidden" name="chkPrice" value="${prd.prdPrice}">
 						<input type="hidden" name="prdCode" value="${prd.prdCode}">
-						<div class="info">
-							<p>${prd.prdName }</p>
-							<p>상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.
+						<div class="info-inner">
+							<h2 class="title">${prd.prdName }</h2>
+							<p class="detail">상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.
 								상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.
 								상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.
 							</p>
-							<p>최소 후원금액 개당 <fmt:formatNumber value="${prd.prdPrice}" pattern="#,###" /> 원</p>
-							<p>수량 : <input type="text" name="amount" class="num"> 개<br></p>
-							<p>금액 : <input type="text" name="price" class="num"> 원<br></p>
-							<p><button type="submit" class="order-btn">후원하기</button></p>
+							<p class="price">최소 후원금액 개당  <b><fmt:formatNumber value="${prd.prdPrice}" pattern="#,###" /> 원</b></p>
+							<p class="option">수량<input type="text" name="amount" class="num"> 개</p>
+							<p class="option">금액<input type="text" name="price" class="num"> 원</p>
+							<p class="price type2"><span>총 수량  <b>0 개</b></span> / &nbsp;&nbsp;<span>총 금액 <b>20,000 원</b></span></p>
+							<p class="order-btn-box"><button type="submit" class="order-btn">후원하기</button></p>
 						</div>
 					</form>
 				</div>	
 			</div>
 			
-			<div class="tab">
+			<div class="tab clearfix">
 				<a href="#detail">상세설명</a>
 				<a href="#qna">Q&A</a>
 			</div>

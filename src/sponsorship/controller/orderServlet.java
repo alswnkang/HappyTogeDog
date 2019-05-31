@@ -23,7 +23,7 @@ import sponsorship.model.vo.SearchVO;
 import sponsorship.model.vo.TotalOrder;
 
 @WebServlet(name = "order", urlPatterns = { "/sponsorship", "/viewProduct", "/order", "/orderIng",
-		"/orderEnd", "/findOrder", "/myOrder", "/qnaList", "/qnaView", "/orderList", "/orderView",
+		"/orderEnd", "/findOrder", "/myOrder", "/orderList", "/orderView",
 		"/updateOrder", "/updateStatus"})
 public class orderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -55,17 +55,8 @@ public class orderServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/productDetail.jsp");
 			rd.forward(request, response);
 		
-		}else if(action.equals("qnaList")){
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/qnaList.jsp");
-			rd.forward(request, response);
-			
-		}else if(action.equals("qnaView")){
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/qnaView.jsp");
-			rd.forward(request, response);
-			
 		}else if(action.equals("orderList")){
 			
-			//현재 페이지 값 설정
 			int reqPage;
 			try {
 				reqPage = Integer.parseInt(request.getParameter("reqPage"));
@@ -81,7 +72,6 @@ public class orderServlet extends HttpServlet {
 			
 			SearchVO search = new SearchVO(reqPage, startDay, endDay, status, payMethod, searchType, searchVal);
 			try {
-				request.setAttribute("reqPage", reqPage);
 				request.setAttribute("search", search);
 				
 				TotalOrder total = new OrderService().totalOrder(search);
