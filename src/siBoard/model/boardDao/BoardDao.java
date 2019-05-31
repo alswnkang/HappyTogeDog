@@ -135,7 +135,7 @@ public class BoardDao {
 				b.setBoardCount(rset.getInt("board_count"));
 				b.setBoardSecret(rset.getInt("board_secret"));
 				b.setBoardPw(rset.getString("board_pw"));
-				b.setBoardPrdCode(rset.getString("boardPrdCode"));
+				b.setBoardPrdCode(rset.getString("board_PrdCode"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
