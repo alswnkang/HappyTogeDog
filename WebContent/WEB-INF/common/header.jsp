@@ -29,6 +29,7 @@
 <!-- 슬라이드 CSS & Jquery -->
 <link rel="stylesheet" type="text/css" href="/css/plugin/slick.css">
 <script src="/js/plugin/slick.js"></script>
+
 </head>
 <body>
 	<header id="header">
@@ -46,7 +47,13 @@
 						<%}else{ %>
 						<!-- 로그인 후 -->
 						<li><a href="/logout">Logout</a></li>
-						<li><a href="/myPage?id=<%= m.getId() %>">MyPage</a></li>
+						<li class="mypage">
+							<a href="#">MyPage</a>
+							<div class="mypage-box">
+								<p><a href="/myPage?id=<%= m.getId() %>">회원정보<br/>수정/탈퇴</a></p>
+								<p><a href="/totalMyPage">MyPage</a></p>
+							</div>
+						</li>
 						<%} %>
 					</ul>
 				</div>
@@ -103,7 +110,7 @@
 							<a href="">커뮤니티</a>
 							<div class="gnb-2dep">
 								<ul>
-									<li><a href="">공지사항</a></li>
+									<li><a href="/siNotice">공지사항</a></li>
 									<li><a href="">입양후기</a></li>
 									<li><a href="/siPreBoard">자유게시판</a></li>
 								</ul>

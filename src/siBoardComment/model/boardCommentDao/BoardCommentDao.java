@@ -18,13 +18,14 @@ public class BoardCommentDao {
 	public int commentInsert(Connection conn, BoardComment bc) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into board_comment values(board_comment_seq.nextval,?,?,null,?,?,null,sysdate)";
+		String query = "insert into board_comment values(board_comment_seq.nextval,?,?,?,?,?,null,sysdate)";
 		try {
 			pstmt= conn.prepareStatement(query);
 			pstmt.setInt(1, bc.getBoardCommentType());
 			pstmt.setString(2, bc.getBoardCommentId());
-			pstmt.setString(3, bc.getBoardCommentContent());
-			pstmt.setInt(4, bc.getBoardRef());
+			pstmt.setString(3, bc.getBoardCommentName());
+			pstmt.setString(4, bc.getBoardCommentContent());
+			pstmt.setInt(5, bc.getBoardRef());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
