@@ -139,5 +139,17 @@
 .find-shelter-right-box .map > a.loc15 .loc-name{background:url(/img/map_txt_3.png) no-repeat; left:-65px;}
 .find-shelter-right-box .map > a .loc-name > span{font-weight:normal; color:#7f7f7f;}
 
+/* ****************** 마이 페이지 ********************** */
+.mypage-tit{font-size:18px; line-height:24px; color:#333; font-weight:400;}
+.mypage-tit > b{font-size:20px; font-weight:600;}
+.mypage-box{text-align:center; padding:50px 0;}
+.mypage-box > li{display:inline-block; vertical-align:top; width:320px; border:1px solid #ddd; margin:0 20px 30px 20px;}
+.mypage-box > li > a{display:block; padding:15px;}
+.mypage-box > li > a .img-thum{margin-bottom:20px;}
+.mypage-box > li > a .img-thum > span{}
+.mypage-box > li > a .img-thum > span img{max-width:130px; margin:0 auto;}
+.mypage-box > li > a .txt-thum{}
+.mypage-box > li > a .txt-thum h4{font-size:18px; color:#333; font-weight:500; margin-bottom:10px;}
+.mypage-box > li > a .txt-thum p{font-size:13px; line-height:16px; color:#888;}
 
 
