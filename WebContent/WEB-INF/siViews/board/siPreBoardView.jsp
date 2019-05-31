@@ -56,7 +56,7 @@
 						</c:if>
 					</table>
 				</form>
-				<form id="cmtUpdateForm" action="/siBoardCommentUpdate" method="post">
+				<form id="cmtUpdateForm" action="/siPreBoardCommentUpdate" method="post">
 					<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
 					<input type="hidden" name="boardNo" value="${vd.b.boardNo }"/>
 					<table class="comm-tbl view">
@@ -76,11 +76,11 @@
 										<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
 											<button type="button">수정</button>
 											/
-											<a href="/siBoardCommentDelete">삭제</a>
+											<a href="/siPreBoardCommentDelete?boardCommentNo=${list.boardCommentNo }&boardNo=${vd.b.boardNo }">삭제</a>
 										</c:if>
 										<c:if test="${sessionScope.member.id!=list.boardCommentId && sessionScope.member.id eq 'admin' }">
 										<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
-											<a href="/siBoardCommentDelete">삭제</a>
+											<a href="/siPreBoardCommentDelete?boardCommentNo=${list.boardCommentNo }&boardNo=${vd.b.boardNo }">삭제</a>
 										</c:if>
 									</td>
 								</tr>

@@ -14,14 +14,14 @@ import siBoardComment.model.boardCommentService.BoardCommentService;
 /**
  * Servlet implementation class SiBoardCommentUpdateServlet
  */
-@WebServlet(name = "SiBoardCommentUpdate", urlPatterns = { "/siBoardCommentUpdate" })
-public class SiBoardCommentUpdateServlet extends HttpServlet {
+@WebServlet(name = "SiPreBoardCommentUpdate", urlPatterns = { "/siPreBoardCommentUpdate" })
+public class SiPreBoardCommentUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SiBoardCommentUpdateServlet() {
+    public SiPreBoardCommentUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

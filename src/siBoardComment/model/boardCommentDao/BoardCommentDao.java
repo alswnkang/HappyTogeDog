@@ -51,7 +51,22 @@ public class BoardCommentDao {
 		}finally {
 			JDBCTemplete.close(pstmt);
 		}
-		System.out.println(result);
+		return result;
+	}	
+	public int commentDelete(Connection conn,int boardCommentNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "delete board_comment where board_comment_no = ?";
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, boardCommentNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(pstmt);
+		}
 		return result;
 	}
 }
