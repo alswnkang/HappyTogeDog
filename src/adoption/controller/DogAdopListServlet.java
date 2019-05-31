@@ -38,11 +38,14 @@ public class DogAdopListServlet extends HttpServlet {
 		}catch(NumberFormatException e) {
 			reqPage=1;
 		}
-		boolean b= true;
 		SearchDogPageData sdpd = new SearchDogPageData();
+		boolean b= true;
+		int i=0;
 		while(b) {
+			i++;
 			sdpd = new BookApplyService().dogList(reqPage);
-			if(sdpd.getList().size()==12) { //12개의 리스트를답을때까지 반복
+			int totalCount = Integer.parseInt(sdpd.getList().get(0).getOrgNm());	//totalCount
+			if(sdpd.getList().size()==12 || sdpd.getList().size()==totalCount%12) { //12개의 리스트를담거나 마지막페이지의 개수일때까지 반복문 실행
 				b=false;
 			}
 		}

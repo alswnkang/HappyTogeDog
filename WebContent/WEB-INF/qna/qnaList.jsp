@@ -42,12 +42,10 @@
 							</td>
 							<td>
 								<p class="volun-tit">
-									<c:if test="${qna.boardSecret eq 0 }">
-										<a href="/qnaView?boardNo=${qna.boardNo }">${qna.boardTitle }</a>
-									</c:if>
-									<c:if test="${qna.boardSecret eq 1 }">
-										<a href="/checkPw?boardNo=${qna.boardNo }">비밀글 입니다.</a>
-									</c:if>
+									<a href="/qnaView?boardNo=${qna.boardNo }">
+										${qna.boardTitle }
+										<c:if test="${qna.boardSecret eq 1 }"></c:if>
+									</a>
 								</p>
 							</td>
 							<td>${qna.boardName }</td>	

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <link rel="stylesheet" type="text/css" href="/css/adoption_bk.css">	<!-- css -->
 <!-- Header -->
@@ -20,23 +22,23 @@
 					</colgroup>
 					<tr>
 						<th>보호소명</th>
-						<td><input type="text" name="careNm" value="${careNm}" readonly> </td>
+						<td><input type="hidden" name="careNm" value="${careNm}" readonly>${careNm} </td>
 					</tr>
 					<tr>
 						<th>보호소 주소</th>
-						<td><input type="text" name="careAddr" value="${careAddr }" readonly></td>	
+						<td><input type="hidden" name="careAddr" value="${careAddr }" readonly>${careAddr }</td>	
 					</tr>
 					<tr>
 						<th>보호소 전화번호</th>
-						<td><input type="text" name="careTel" value="${careTel }" readonly></td>	
+						<td><input type="hidden" name="careTel" value="${careTel }" readonly>${careTel }</td>	
 					</tr>
 					<tr>
 						<th>보호소 이용가능 시간</th>
-						<td><input type="text" name="possibleTime" value="${careTime }" readonly></td>	
+						<td><input type="hidden" name="possibleTime" value="${careTime }" readonly>${careTime }</td>	
 					</tr>
 					<tr>
 						<th>신청자 이름</th>
-						<td><input type="text" name="name" value="${sessionScope.member.name}" readonly></td>
+						<td><input type="hidden" name="name" value="${sessionScope.member.name}" readonly>${sessionScope.member.name}</td>
 					</tr>
 					<!-- <tr>
 						<th>신청자 아이디</th>
@@ -87,8 +89,10 @@
 						<th>방문 시간</th>
 						<td>
 							<select name="visitTime">
-								<option value="0710">7시~10시</option>
-								<!-- 보호소  방문가능시간 데이터 받아와서 option값 정하기 -->
+								<c:forEach var="i" begin="${fn:substring(careTime,0,2)}" step="1" end="${fn:substring(careTime,4,6)-1}"><%-- ${fn:substring(careTime,0,2)}시~ --%><%-- ${fn:substring(time,3,)} --%>
+									<option value="${i}시~${i+1}시">${i}시~${i+1}시</option>
+									<!-- 보호소  방문가능시간 데이터 받아와서 option값 정하기 -->
+								</c:forEach>
 							</select>
 						</td>
 					</tr>
@@ -100,7 +104,9 @@
 		</div>
 	</div>
 </section>	
+<script>
 	
+</script>
 	
 <!-- Footer -->
 <jsp:include page="/WEB-INF/common/footer.jsp" />

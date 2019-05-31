@@ -37,8 +37,7 @@
 						<td>${fn:substring(ba.visitDate,0,4)}년  
 							${fn:substring(ba.visitDate,5,7)}월  
 							${fn:substring(ba.visitDate,8,10)}일  
-							${fn:substring(ba.visitTime,0,2)}시 ~ 
-							${fn:substring(ba.visitTime,2,4)}시 
+							${ba.visitTime}
 						</td>	<!-- 날짜 시간 결과 확인하기 -->
 					</tr>
 					<tr>

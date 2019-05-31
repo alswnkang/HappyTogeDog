@@ -104,4 +104,34 @@ public class QnaDao {
 		return qna;
 	}
 
+	public QnaVO checkPw(Connection conn, int boardNo, String boardPw) throws SQLException {
+		QnaVO qna = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = "select * from board where board_no=? and board_pw=?";
+		
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, boardNo);
+		pstmt.setString(2, boardPw);
+		rset = pstmt.executeQuery();
+		if(rset.next()) {
+			qna = new QnaVO();
+			qna.setBoardNo(rset.getInt("board_no"));
+			qna.setBoardId(rset.getString("board_id"));
+			qna.setBoardName(rset.getString("board_name"));
+			qna.setBoardTitle(rset.getString("board_title"));
+			qna.setBoardContent(rset.getString("board_content"));
+			qna.setBoardFilename(rset.getString("board_filename"));
+			qna.setBoardFilepath(rset.getString("board_filepath"));
+			qna.setBoardDate(rset.getDate("board_date"));
+			qna.setBoardCount(rset.getInt("board_count"));
+			qna.setBoardSecret(rset.getInt("board_secret"));
+			qna.setBoardPrdcode(rset.getString("board_prdcode"));
+			
+		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
+		return qna;
+	}
+
 }
