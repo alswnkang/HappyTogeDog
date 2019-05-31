@@ -30,7 +30,6 @@ public class VisitReservationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		HttpSession session = request.getSession(false);
 		String careNm = request.getParameter("careNm");				//보호소명 받기
 		String careAddr = request.getParameter("careAddr");			//보호소주소
 		String careTel = request.getParameter("careTel");			//보호소 전화번호

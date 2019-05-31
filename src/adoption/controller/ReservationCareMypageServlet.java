@@ -15,30 +15,19 @@ import adoption.model.service.BookApplyService;
 import adoption.model.vo.BookApplyPageData;
 import member.model.vo.Member;
 
-
-/**
- * Servlet implementation class ReservationMypageServlet
- */
-@WebServlet(name = "ReservationMypage", urlPatterns = { "/reservationMypage" })
-public class ReservationMypageServlet extends HttpServlet {
+@WebServlet(name = "ReservationCareMypage", urlPatterns = { "/reservationCareMypage" })
+public class ReservationCareMypageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ReservationMypageServlet() {
+    public ReservationCareMypageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession(false);
-		String id = ((Member)session.getAttribute("member")).getId();
+		String code = ((Member)session.getAttribute("member")).getCode();
 		int reqPage;
+		String startDay = request.getParameter("startDay");
+		String endDay = request.getParameter("endDay");
 		try {
 			reqPage = Integer.parseInt(request.getParameter("reqPage"));
 		}catch(NumberFormatException e) {
@@ -46,19 +35,19 @@ public class ReservationMypageServlet extends HttpServlet {
 		}
 		BookApplyPageData bp;
 		try {
-			bp = new BookApplyService().selectList(reqPage,id);
+			request.setAttribute("start", startDay);
+			request.setAttribute("end", endDay);
+			bp = new BookApplyService().reservationCareMypage(reqPage, code, startDay, endDay);
 			request.setAttribute("bp", bp);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/reservationMypage.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/careMypage.jsp");
 			rd.forward(request, response);
 		} catch (SQLException e) {
-			RequestDispatcher rd = request.getRequestDispatcher("/error/sqlerror.jsp");
-			rd.forward(request, response);
+			e.printStackTrace();
+			/*RequestDispatcher rd = request.getRequestDispatcher("/error/sqlerror.jsp");
+			rd.forward(request, response);*/
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

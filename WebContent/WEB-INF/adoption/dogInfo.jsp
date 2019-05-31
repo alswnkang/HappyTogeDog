@@ -98,7 +98,6 @@
 <script>
 	//방문예약 신청시 회원,비회원 구분하여 알림창띄워주기
 		function login(){
-		alert("뭐야");
 		if(confirm("로그인이 필요한페이지 입니다. \n로그인 하시겠습니까?")){
 			location.href='/member/login.jsp';
 		}
