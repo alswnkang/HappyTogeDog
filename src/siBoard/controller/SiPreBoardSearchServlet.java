@@ -33,14 +33,38 @@ public class SiPreBoardSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");		
+//		request.setCharacterEncoding("utf-8");		
+//		String searchType = request.getParameter("searchWord");
+//		String searchKeyword = request.getParameter("keyword");
+//		ArrayList<Board> list = new BoardService().boardSearch(searchType,searchKeyword);
+//		// 여기서 검색부터 다시 해야됨
+//		String view = "";
+//		if(list.size()>0){
+//			request.setAttribute("list", list);
+//			view = "/WEB-INF/siViews/board/siPreBoardSearchList.jsp";
+//		}else {
+//			request.setAttribute("msg", "일치하는 정보가 없습니다.");
+//			request.setAttribute("loc", "/siPreBoard");
+//			view = "/WEB-INF/siViews/common/siMsg.jsp";
+//		}
+//		RequestDispatcher rd = request.getRequestDispatcher(view);
+//		rd.forward(request, response);
+		request.setCharacterEncoding("utf-8");	
+		int reqPage;
+		try {
+			reqPage = Integer.parseInt(request.getParameter("reqPage"));
+		}catch(NumberFormatException e) {
+			reqPage = 1;
+		}
+		System.out.println(reqPage);
 		String searchType = request.getParameter("searchWord");
+		System.out.println(searchType);
 		String searchKeyword = request.getParameter("keyword");
-		ArrayList<Board> list = new BoardService().boardSearch(searchType,searchKeyword);
-		// 여기서 검색부터 다시 해야됨
+		System.out.println(searchKeyword);
+		BoardPageData bp = new BoardService().boardSearch(reqPage,searchType,searchKeyword);
 		String view = "";
-		if(list.size()>0){
-			request.setAttribute("list", list);
+		if(bp.getList().size()>0){
+			request.setAttribute("bp", bp);
 			view = "/WEB-INF/siViews/board/siPreBoardSearchList.jsp";
 		}else {
 			request.setAttribute("msg", "일치하는 정보가 없습니다.");
