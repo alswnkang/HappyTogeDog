@@ -62,6 +62,7 @@ public class BoardDao {
 				b.setBoardCount(rset.getInt("board_count"));
 				b.setBoardSecret(rset.getInt("board_secret"));
 				b.setBoardPw(rset.getString("board_pw"));
+				b.setBoardPrdCode(rset.getString("board_prdCode"));
 				list.add(b);
 			}
 		} catch (SQLException e) {
@@ -76,7 +77,7 @@ public class BoardDao {
 	public int boardInsert(Connection conn, Board b) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into board values(board_seq.nextval,?,?,?,?,?,?,?,sysdate,0,0,null)";
+		String query = "insert into board values(board_seq.nextval,?,?,?,?,?,?,?,sysdate,0,0,null,null)";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, b.getBoardType());
@@ -134,6 +135,7 @@ public class BoardDao {
 				b.setBoardCount(rset.getInt("board_count"));
 				b.setBoardSecret(rset.getInt("board_secret"));
 				b.setBoardPw(rset.getString("board_pw"));
+				b.setBoardPrdCode(rset.getString("boardPrdCode"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -187,6 +189,7 @@ public class BoardDao {
 				b.setBoardCount(rset.getInt("board_count"));
 				b.setBoardSecret(rset.getInt("board_secret"));
 				b.setBoardPw(rset.getString("board_pw"));
+				b.setBoardPrdCode(rset.getString("board_prdCode"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -217,7 +220,7 @@ public class BoardDao {
 		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM board where board_id = ? ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM board where board_name = ? ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, searchKeyword);
@@ -240,6 +243,7 @@ public class BoardDao {
 				b.setBoardCount(rset.getInt("board_count"));
 				b.setBoardSecret(rset.getInt("board_secret"));
 				b.setBoardPw(rset.getString("board_pw"));
+				b.setBoardPrdCode(rset.getString("board_prdCode"));
 				list.add(b);
 			}
 		} catch (SQLException e) {
@@ -278,6 +282,7 @@ public class BoardDao {
 				b.setBoardCount(rset.getInt("board_count"));
 				b.setBoardSecret(rset.getInt("board_secret"));
 				b.setBoardPw(rset.getString("board_pw"));
+				b.setBoardPrdCode(rset.getString("board_prdCode"));
 				list.add(b);
 			}
 		} catch (SQLException e) {
@@ -314,7 +319,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
-		String query = "select count(*) as cnt from board where board_id=?";
+		String query = "select count(*) as cnt from board where board_name=?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, searchKeyword);

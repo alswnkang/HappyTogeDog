@@ -35,9 +35,10 @@ public class SiPreBoardCommentInsertServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		int boardCommentType = Integer.parseInt(request.getParameter("boardType"));
 		String boardCommentId = request.getParameter("memberId");
+		String boardCommentName = request.getParameter("memberName");
 		String boardCommentContent = request.getParameter("boardCommentContent");
 		int boardRef = Integer.parseInt(request.getParameter("boardNo"));
-		BoardComment bc = new BoardComment(0, boardCommentType, boardCommentId, null, boardCommentContent, boardRef, 0, null);
+		BoardComment bc = new BoardComment(0, boardCommentType, boardCommentId, boardCommentName, boardCommentContent, boardRef, 0, null);
 		int result = new BoardCommentService().commentInsert(bc);
 		if(result>0) {
 			request.setAttribute("msg", "댓글등록성공");
