@@ -167,6 +167,14 @@ public class VoluntaryService {
 		return currentPerson;
 	}
 
+	// 마이페이지 :: 일반회원 봉사활동 신청내역
+	public ArrayList<VoluntaryApplyBoard> myVoluntaryList(String id) {
+		Connection conn = JDBCTemplate.getCon();
+		ArrayList<VoluntaryApplyBoard> list = new VoluntaryDao().myVoluntaryList(conn, id);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
 	
 
 	

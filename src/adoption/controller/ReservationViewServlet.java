@@ -12,21 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import adoption.model.service.BookApplyService;
-import adoption.model.vo.BookApplyPageData;
+import adoption.model.vo.BookApply;
 import member.model.vo.Member;
 
-
 /**
- * Servlet implementation class ReservationMypageServlet
+ * Servlet implementation class ReservationViewServlet
  */
-@WebServlet(name = "ReservationMypage", urlPatterns = { "/reservationMypage" })
-public class ReservationMypageServlet extends HttpServlet {
+@WebServlet(name = "ReservationView", urlPatterns = { "/reservationView" })
+public class ReservationViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReservationMypageServlet() {
+    public ReservationViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,25 +34,22 @@ public class ReservationMypageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession(false);
-		String id = ((Member)session.getAttribute("member")).getId();
-		int reqPage;
+		String code = ((Member)session.getAttribute("member")).getCode();
+		int no = Integer.parseInt(request.getParameter("no"));
+		String start = request.getParameter("startDay");
+		String end = request.getParameter("endDay");
 		try {
-			reqPage = Integer.parseInt(request.getParameter("reqPage"));
-		}catch(NumberFormatException e) {
-			reqPage=1;
-		}
-		BookApplyPageData bp;
-		try {
-			bp = new BookApplyService().selectList(reqPage,id);
-			request.setAttribute("bp", bp);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/reservationMypage.jsp");
+			BookApply ba = new BookApplyService().viewOne(no,start,end,code);
+			request.setAttribute("ba", ba);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/careReservationView.jsp");
 			rd.forward(request, response);
 		} catch (SQLException e) {
-			RequestDispatcher rd = request.getRequestDispatcher("/error/sqlerror.jsp");
-			rd.forward(request, response);
+			e.printStackTrace();
+			/*RequestDispatcher rd = request.getRequestDispatcher("/error/sqlError.jsp");
+			rd.forward(request, response);*/
 		}
+		
 	}
 
 	/**

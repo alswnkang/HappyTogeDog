@@ -51,7 +51,7 @@
 							<a href="#">MyPage</a>
 							<div class="mypage-box">
 								<p><a href="/myPage?id=<%= m.getId() %>">회원정보<br/>수정/탈퇴</a></p>
-								<p><a href="">MyPage</a></p>
+								<p><a href="/totalMyPage">MyPage</a></p>
 							</div>
 						</li>
 						<%} %>

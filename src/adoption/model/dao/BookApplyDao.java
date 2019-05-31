@@ -225,6 +225,162 @@ public class BookApplyDao {
 		}
 		return careTime;
 	}
+
+	public int reservationCareCount(Connection conn, String code,String startDay, String endDay) throws SQLException {
+		System.out.println("갯수 구하기Dao");
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String sql="";
+		if(startDay!=null && startDay!=""){
+			sql += " and visit_date>'"+startDay+"'";
+		}
+		if(endDay!=null && endDay!=""){
+			sql += " and TO_CHAR(visit_date,'yyyy-mm-dd')<='"+endDay+"'";
+		}
+		String query = "select count(*) as cnt from book_apply where code=?"+sql;
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, code);
+		rset=pstmt.executeQuery();
+		if(rset.next()) {
+			result = rset.getInt("cnt");
+		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
+		return result;
+	}
+	
+	//보호소에서 방문예약 신청내역 리스트 보기
+	public ArrayList<BookApply> reservationCareList(Connection conn, int start, int end, String code, String startDay, String endDay) throws SQLException {
+		System.out.println("리스트구하기 Dao");
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		ArrayList<BookApply> list = new ArrayList<BookApply>();
+		String sql="";
+		if(startDay!=null && startDay!=""){
+			sql += " and visit_date>'"+startDay+"'";
+		}
+		if(endDay!=null && endDay!=""){
+			sql += " and TO_CHAR(visit_date,'yyyy-mm-dd')<='"+endDay+"'";
+		}
+		String query = "select * from (select ROWNUM as rNum,b.* from (select * from book_apply order by 1 desc) b) where rnum BETWEEN ? and ? and code=?"+sql;
+//		String query = "select * from (select ROWNUM as rNum,b.* from (select * from book_apply order by 1 desc) b) where rnum BETWEEN ? and ? and code=?";
+		pstmt = conn.prepareStatement(query);
+		pstmt.setInt(1, start);
+		pstmt.setInt(2, end);
+		pstmt.setString(3, code);
+		rset = pstmt.executeQuery();
+		while(rset.next()) {
+			BookApply ba = new BookApply();
+			ba.setNo(rset.getInt("rnum"));
+			ba.setId(rset.getString("id"));
+			ba.setName(rset.getString("name"));
+			ba.setPhone(rset.getString("phone"));
+			ba.setVisitDate(rset.getDate("visit_date"));
+			ba.setVisitTime(rset.getString("visit_time"));
+			ba.setApplyDate(rset.getDate("apply_date"));
+			ba.setStatus(rset.getInt("status"));
+			list.add(ba);
+		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
+		return list;
+	}
+
+	public BookApply viewOne(Connection conn, int no, String startDay, String endDay, String code) throws SQLException {
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		String sql="";
+		if(startDay!=null && startDay!=""){
+			sql += " and visit_date>'"+startDay+"'";
+		}
+		if(endDay!=null && endDay!=""){
+			sql += " and TO_CHAR(visit_date,'yyyy-mm-dd')<='"+endDay+"'";
+		}
+		System.out.println(no);
+		System.out.println(code);
+		String query = "select * from (select ROWNUM as rNum,b.* from (select * from book_apply order by 1 desc) b) where code=? and rnum=?"+sql;
+//		String query = "select * from (select ROWNUM as rNum,b.* from (select * from book_apply order by 1 desc) b) where rnum BETWEEN ? and ? and code=?";
+		pstmt = conn.prepareStatement(query);
+		System.out.println("dao"+query);
+		pstmt.setString(1, code);
+		pstmt.setInt(2, no);
+		rset = pstmt.executeQuery();
+		BookApply ba = null;
+		if(rset.next()) {
+			ba = new BookApply();
+			ba.setNo(rset.getInt("rnum"));
+			ba.setId(rset.getString("id"));
+			ba.setName(rset.getString("name"));
+			ba.setPhone(rset.getString("phone"));
+			ba.setVisitDate(rset.getDate("visit_date"));
+			ba.setVisitTime(rset.getString("visit_time"));
+			ba.setApplyDate(rset.getDate("apply_date"));
+			ba.setStatus(rset.getInt("status"));
+			ba.setYard(rset.getString("yard"));
+			ba.setAnimal(rset.getString("animal"));
+			ba.setFamily(rset.getString("family"));
+			ba.setExperience(rset.getString("experience"));
+			ba.setAvgTime(rset.getString("avg_time"));
+		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
+		return ba;
+	}
+
+	/*public int selectDateCount(Connection conn, String startDay, String endDay, String code) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = "select count(*) as cnt from book_apply where visit_date between to_date(?,'yyyy-mm-dd') and to_date(?,'yyyy-mm-dd') and code=?";
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, startDay);
+		pstmt.setString(2, endDay);
+		pstmt.setString(3, code);
+		rset=pstmt.executeQuery();
+		if(rset.next()) {
+			result = rset.getInt("cnt");
+		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
+		return result;
+	}
+
+	public ArrayList<BookApply> selectDateList(Connection conn, int start, int end, String startDay, String endDay,String code) throws SQLException {
+		System.out.println("리스트구하기 Dao");
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		ArrayList<BookApply> list = new ArrayList<BookApply>();
+		String sql="";
+		if(startDay!=null && startDay!=""){
+			sql += " and visit_date>'"+startDay+"'";
+		}
+		if(endDay!=null && endDay!=""){
+			sql += " and TO_CHAR(spon_date,'yyyy-mm-dd')<='"+endDay+"'";
+		}
+		String query = "select * from (select ROWNUM as rNum,b.* from (select * from book_apply order by 1 desc) b) wherernum BETWEEN ? and ? and code=?"+sql;
+		pstmt = conn.prepareStatement(query);
+		pstmt.setInt(1, start);
+		pstmt.setInt(2, end);
+		pstmt.setString(3, code);
+		rset = pstmt.executeQuery();
+		while(rset.next()) {
+			BookApply ba = new BookApply();
+			ba.setNo(rset.getInt("rnum"));
+			ba.setId(rset.getString("id"));
+			ba.setName(rset.getString("name"));
+			ba.setPhone(rset.getString("phone"));
+			ba.setVisitDate(rset.getDate("visit_date"));
+			
+			ba.setVisitTime(rset.getString("visit_time"));
+			ba.setApplyDate(rset.getDate("apply_date"));
+			ba.setStatus(rset.getInt("status"));
+			list.add(ba);
+		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
+		return list;
+	}*/
 	
 	
 	

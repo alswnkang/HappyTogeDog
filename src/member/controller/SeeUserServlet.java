@@ -1,4 +1,4 @@
-package adoption.controller;
+package member.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -11,22 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import adoption.model.service.BookApplyService;
-import adoption.model.vo.BookApplyPageData;
+import member.model.Service.MemberService;
 import member.model.vo.Member;
-
+import member.model.vo.MemberPageData;
 
 /**
- * Servlet implementation class ReservationMypageServlet
+ * Servlet implementation class SeeUserServlet
  */
-@WebServlet(name = "ReservationMypage", urlPatterns = { "/reservationMypage" })
-public class ReservationMypageServlet extends HttpServlet {
+@WebServlet(name = "SeeUser", urlPatterns = { "/seeUser" })
+public class SeeUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReservationMypageServlet() {
+    public SeeUserServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,25 +34,34 @@ public class ReservationMypageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setCharacterEncoding("utf-8");
+		int user = Integer.parseInt(request.getParameter("user"));
+		System.out.println(user);
 		HttpSession session = request.getSession(false);
 		String id = ((Member)session.getAttribute("member")).getId();
 		int reqPage;
 		try {
 			reqPage = Integer.parseInt(request.getParameter("reqPage"));
 		}catch(NumberFormatException e) {
-			reqPage=1;
+			reqPage = 1;
 		}
-		BookApplyPageData bp;
 		try {
-			bp = new BookApplyService().selectList(reqPage,id);
-			request.setAttribute("bp", bp);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/reservationMypage.jsp");
-			rd.forward(request, response);
+			if(id.equals("admin")) {
+				MemberPageData pd = new MemberService().seeUser(reqPage,user);
+				request.setAttribute("pd", pd);
+				request.setAttribute("user", user);
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/adminPage.jsp");
+				rd.forward(request, response);
+			}else {
+				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+		}		
 		} catch (SQLException e) {
-			RequestDispatcher rd = request.getRequestDispatcher("/error/sqlerror.jsp");
-			rd.forward(request, response);
+			System.out.println("sql문 오류임");
 		}
+		
 	}
 
 	/**

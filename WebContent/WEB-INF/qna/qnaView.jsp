@@ -19,18 +19,23 @@
 					<td>작성자</td><td>${qna.boardName }</td>
 				</tr>
 				<tr>
-					<td>내용</td><td>${qna.boardContent }${qna.boardId }</td>
+					<td>내용</td><td>${qna.boardContent }</td>
 				</tr>
 				<c:if test="${not empty qna.boardFilename }">
 					<tr>
 						<td>파일첨부</td><td>${qna.boardFilename }</td>
 					</tr>
 				</c:if>
-				<c:if test="${sessionScope.member.id ne 'admin' }">
+				<c:if test="${not empty comment.boardCommentContent }">
+					<tr>
+						<td>답변</td><td>${comment.boardCommentContent }</td>
+					</tr>
+				</c:if>
+				<c:if test="${empty comment.boardCommentContent }">
 					<tr><td colspan="2">
-						<form>
-							<input type="hidden" name="" value="">
-							<textarea name="commentContent" rows="3"></textarea>
+						<form action="insertComment" method="post">
+							<input type="hidden" name="boardRef" value="${qna.boardNo }">
+							<textarea name="boardCommentContent" rows="3"></textarea>
 							<button type="submit" class="commentRegi">등록</button>
 						</form>
 					</td></tr>
@@ -43,6 +48,10 @@
 						<button class="btn-style1 sm">수정</button>
 						<button class="btn-style2 sm">삭제</button>
 					</c:if>
+				</c:if>
+				<c:if test="${empty sessionScope.member}">
+					<button class="btn-style1 sm">수정</button>
+					<button class="btn-style2 sm">삭제</button>
 				</c:if>
 				<button class="btn-style3" onclick="location.href='/qnaList'">목록으로</button>
 			</div>

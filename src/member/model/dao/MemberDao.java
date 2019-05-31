@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -208,9 +209,189 @@ public class MemberDao {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	public ArrayList<Member> selectList(int start,int end) throws SQLException{
+		Connection conn = JDBCTemplate.getCon();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		ArrayList<Member> list = new ArrayList<Member>();
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where not member_level='2' order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+		pstmt = conn.prepareStatement(query);
+		pstmt.setInt(1, start);
+		pstmt.setInt(2, end);
+		rset = pstmt.executeQuery();
+		while(rset.next()) {
+			m = new Member();
+			m.setId(rset.getString("id"));
+			m.setPw(rset.getString("pw"));
+			m.setCode(rset.getString("code"));
+			m.setName(rset.getString("name"));
+			m.setPhone(rset.getString("phone"));
+			m.setPost(rset.getString("post"));
+			m.setAddress(rset.getString("address"));
+			m.setPossibleTime(rset.getString("possible_time"));
+			m.setEmail(rset.getString("email"));
+			m.setMemberLevel(rset.getInt("member_level"));
+			list.add(m);
+		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+	public int totalCount() throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		Statement stmt = null;
+		ResultSet rset = null;
+		String query = "select count(*) cnt from member where not member_level='2'";
+		int result = 0;
+		stmt = conn.createStatement();
+		rset = stmt.executeQuery(query);
+		if(rset.next()) {
+		result = rset.getInt("cnt");
+		}
+		JDBCTemplate.close(stmt);
+		JDBCTemplate.close(rset);
+		return result;
+	}
 	
-	
-	
+	public ArrayList<Member> searchUser(int start,int end,int select,String search) throws SQLException{
+		Connection conn = JDBCTemplate.getCon();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		String query= "";
+		ArrayList<Member> list = new ArrayList<Member>();
+		if(select == 1) {
+			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where id=? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+		}else if(select == 2) {
+			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where name=? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+		}else if(select == 3) {
+			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where code=? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+		}
+		
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, search);
+		pstmt.setInt(2, start);
+		pstmt.setInt(3, end);
+		rset = pstmt.executeQuery();
+		while(rset.next()) {
+			m = new Member();
+			m.setId(rset.getString("id"));
+			m.setPw(rset.getString("pw"));
+			m.setCode(rset.getString("code"));
+			m.setName(rset.getString("name"));
+			m.setPhone(rset.getString("phone"));
+			m.setPost(rset.getString("post"));
+			m.setAddress(rset.getString("address"));
+			m.setPossibleTime(rset.getString("possible_time"));
+			m.setEmail(rset.getString("email"));
+			m.setMemberLevel(rset.getInt("member_level"));
+			list.add(m);
+		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+	public int searchCount(int select,String search) throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = "";
+		if(select == 1) {
+			query = "select count(*) cnt from member where id=?";
+		}else if(select == 2) {
+			query = "select count(*) cnt from member where name=?";
+		}else if(select == 3) {
+			query = "select count(*) cnt from member where code=?";
+		}
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, search);
+		rset = pstmt.executeQuery();
+		if(rset.next()) {
+		result = rset.getInt("cnt");
+		}
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rset);
+		return result;
+	}
+	public ArrayList<Member> seeUser(int start,int end,int user) throws SQLException{
+		Connection conn = JDBCTemplate.getCon();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		String query= "";
+		ArrayList<Member> list = new ArrayList<Member>();
+		if(user == 0) {
+			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+		}else if(user == 1) {
+			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+		}else if(user == 2) {
+			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where not member_level=? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+		}
+		
+		pstmt = conn.prepareStatement(query);
+		pstmt.setInt(1, user);
+		pstmt.setInt(2, start);
+		pstmt.setInt(3, end);
+		rset = pstmt.executeQuery();
+		while(rset.next()) {
+			m = new Member();
+			m.setId(rset.getString("id"));
+			m.setPw(rset.getString("pw"));
+			m.setCode(rset.getString("code"));
+			m.setName(rset.getString("name"));
+			m.setPhone(rset.getString("phone"));
+			m.setPost(rset.getString("post"));
+			m.setAddress(rset.getString("address"));
+			m.setPossibleTime(rset.getString("possible_time"));
+			m.setEmail(rset.getString("email"));
+			m.setMemberLevel(rset.getInt("member_level"));
+			list.add(m);
+		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+	public int seeUserCount(int user) throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = "";
+		if(user == 0) {
+			query = "select count(*) cnt from member where member_level = ?";
+		}else if(user == 1) {
+			query = "select count(*) cnt from member where member_level = ?";
+		}else if(user == 2) {
+			query = "select count(*) cnt from member where not member_level = ?";
+		}
+		pstmt = conn.prepareStatement(query);
+		pstmt.setInt(1, user);
+		rset = pstmt.executeQuery();
+		if(rset.next()) {
+		result = rset.getInt("cnt");
+		}
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rset);
+		return result;
+	}
+	public int emailOverlap(String email) throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "select * from member where email = ?";
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, email);
+		result = pstmt.executeUpdate();
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(conn);
+		return result;
+		
+	}
 	
 	
 }
