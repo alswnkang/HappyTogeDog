@@ -4,19 +4,26 @@
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
+<script type="text/javascript" src="/js/qna.js"></script>
+<c:if test="${not empty msg }">
+	<script>alert('${msg}');</script>
+</c:if>
+<c:if test="${not empty loc }">
+	<script>location.href='${loc}';</script>
+</c:if>
 
 <%-- Content --%>
 <section id="content-wrapper">
 	<div class="area">
 		<h2 class="comm-content-tit">Q & A</h2>
 		<div class="qna-view">
-			<form action="/checkPw" method="post" onsubmit="return check(this.form);">
+			<form action="/checkPw" method="post" onsubmit="return check(this);">
 				<input type="hidden" name="boardNo" value="${boardNo }">
 				<table class="comm-tbl">
 					<tr>
 						<td>비밀번호</td>
 						<td>
-							<input type="text" name="boardPw">
+							<input type="password" name="boardPw">
 						</td>
 					</tr>
 				</table>
@@ -29,11 +36,5 @@
 	</div>
 </section>
 
-<script>
-	function check(){
-		console.log(f);
-		return false;
-	}
-</script>
 <%-- Footer --%>
 <jsp:include page="/WEB-INF/common/footer.jsp" />

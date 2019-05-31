@@ -20,7 +20,7 @@ public class QnaService {
 
 		total = new QnaDao().totalCount(conn,search);
 		
-		int pageNum = 5;//한 페이지에 출력할 게시물 개수
+		int pageNum = 10;//한 페이지에 출력할 게시물 개수
 		int totalPage = (total%pageNum==0)?(total/pageNum):(total/pageNum)+1;
 		
 		
@@ -59,6 +59,13 @@ public class QnaService {
 	public QnaVO selectQna(int boardNo) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
 		QnaVO qna = new QnaDao().selectQna(conn, boardNo);
+		JDBCTemplate.close(conn);
+		return qna;
+	}
+
+	public QnaVO checkPw(int boardNo, String boardPw) throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		QnaVO qna = new QnaDao().checkPw(conn, boardNo, boardPw);
 		JDBCTemplate.close(conn);
 		return qna;
 	}
