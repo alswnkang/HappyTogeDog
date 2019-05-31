@@ -40,8 +40,16 @@ body { background-color:#fff; }
 /* header :: 부가 메뉴 */
 .header-util{position:relative; z-index:100; float:right;}
 .header-util-box{}
-.header-util-box > li{float:left; padding:15px 10px;}
-.header-util-box > li a{display:block; line-height:40px; text-align:center; color:#fff; font-weight:500;}
+.header-util-box > li{float:left; padding:15px;}
+.header-util-box > li.mypage{position:relative;}
+.header-util-box > li > a{display:block; font-size:15px; line-height:40px; text-align:center; color:#fff; font-weight:500;}
+.header-util-box > li .mypage-box{position:absolute; top:55px; left:50%; min-width:72px; margin-left:-46px; text-align:center; background:#fff; padding:10px; border:2px solid #ddd; display:none;}
+.header-util-box > li .mypage-box.show{display:block;}
+.header-util-box > li .mypage-box p{position:relative; padding:0 5px;}
+.header-util-box > li .mypage-box p:before{position:absolute; top:8px; left:0; content:""; display:inline-block; width:3px; height:3px; background:rgba(254,67,30); border-radius:3px;}
+.header-util-box > li .mypage-box p:first-child{margin-bottom:7px;}
+.header-util-box > li .mypage-box p > a{display:block; font-size:14px; line-height:18px; color:#2d2d2d;}
+.header-util-box > li .mypage-box p:hover > a{font-weight:500;}
 
 /* ****************** GNB ********************** */
 #gnbBg{display:none; position:absolute; left:0; top:70px; width:100%; height:200px; background:#f5f5f5; z-index:98;}

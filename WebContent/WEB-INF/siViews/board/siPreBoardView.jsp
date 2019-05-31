@@ -41,13 +41,14 @@
 				</table>
 				<form action="/siPreBoardCommentInsert" method="post">
 					<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
+					<input type="hidden" name="memberName" value="${sessionScope.member.name }"/>
 					<input type="hidden" name="boardNo" value="${vd.b.boardNo }"/>
 					<input type="hidden" name="boardType" value="1"/>
 					<table class="comm-tbl view">
 						<c:if test="${not empty sessionScope.member.id }">
 						<!-- 로그인을 안하면 댓글리스트만 조회가능, 등록칸이 보이지 않도록 설정 -->
 							<tr>
-								<td colspan="3" style="text-align:center">
+								<td colspan="4" style="text-align:center">
 									댓글입력 <input type="text" name="boardCommentContent" value=""/>
 									<button type="submit">등록</button>
 								</td>
@@ -57,9 +58,17 @@
 							<c:if test="${list.boardRef == vd.b.boardNo}">
 							<!-- 해당 게시글에 입력된 댓글만 출력되도록 -->
 								<tr>
-									<td>${list.boardCommentId }</td>
-									<td>${list.boardCommentContent }</td>
-									<td>${list.boardCommentDate }</td>
+									<td width="20%">${list.boardCommentName }(${list.boardCommentId })</td>
+									<td width="65%">${list.boardCommentContent }</td>
+									<td width="10%">
+										${list.boardCommentDate }<br/>
+										<c:if test="${sessionScope.member.id==list.boardCommentId || sessionScope.member.id eq 'admin' }">
+										<!-- 댓글 등록한 회원과 관리자만 수정/삭제가 가능하도록 -->
+											<a href="/siBoardCommentUpdate" class="btn-style3">수정</a>
+											/
+											<a href="/siBoardCommentDelete" class="btn-style3">삭제</a>
+										</c:if>
+									</td>
 								</tr>
 							</c:if>
 						</c:forEach>

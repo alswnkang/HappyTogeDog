@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
 <script type="text/javascript" src="/js/qna.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/qna.css">
 
 <%-- Content --%>
 <section id="content-wrapper">
@@ -44,16 +47,22 @@
 								<p class="volun-tit">
 									<a href="/qnaView?boardNo=${qna.boardNo }">
 										${qna.boardTitle }
-										<c:if test="${qna.boardSecret eq 1 }"></c:if>
+										<c:if test="${qna.boardSecret eq 1 }"><img src="/img/lock.png"></c:if>
+										<c:set var="today"><fmt:formatDate value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd" /></c:set>
+										<c:if test="${qna.boardDate eq today }"><img src="/img/new.png"></c:if>
 									</a>
 								</p>
 							</td>
-							<td>${qna.boardName }</td>	
+							<td>${fn:substring(qna.boardName,0,2) }*</td>	
 							<td>${qna.boardDate }</td>						
 						</tr>
 						</c:forEach>
 					</tbody>
 				</table>
+				
+				<div class="common-tbl-btn-group" style="text-align: right;">
+					<button class="btn-style1 sm" onclick="location.href='/regiQna'">작성</button>
+				</div>
 				<!-- paging -->
 				<div class="paging">
 		 			${qnaList.pageNavi }

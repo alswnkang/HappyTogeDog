@@ -27,3 +27,19 @@ function check(f){
 	return true;
 	
 }
+
+
+function chkSubmit(f){
+	if(f.boardTitle.value == ''){
+		alert('제목을 입력해주세요');
+		f.boardTitle.focus();
+		return false;
+	}
+	if(f.boardName.value == ''){
+		alert('작성자명을 입력해주세요');
+		f.boardName.focus();
+		return false;
+	}
+	return true;
+	
+}
