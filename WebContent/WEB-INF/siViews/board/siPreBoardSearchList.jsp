@@ -36,7 +36,7 @@
 								<td>${list.boardRnum}</td>
 								<td><a href="/siPreBoardView?boardNo=${list.boardNo }">${list.boardTitle }</a></td>
 								<!-- name 값을 넘겨주도록 설정필요 -->
-								<td>${list.boardId }</td>
+								<td>${list.boardName }(${list.boardId })</td>
 								<td>${list.boardDate }</td>
 								<td>${list.boardCount }</td>
 							</tr>

@@ -16,13 +16,14 @@ public class Board {
 	private int boardCount;
 	private int boardSecret;
 	private String boardPw;
+	private String boardPrdCode;
 	public Board() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Board(int boardRnum, int boardNo, int boardType, String boardId, String boardName, String boardTitle,
 			String boardContent, String boardFilename, String boardFilepath, Date boardDate, int boardCount,
-			int boardSecret, String boardPw) {
+			int boardSecret, String boardPw, String boardPrdCode) {
 		super();
 		this.boardRnum = boardRnum;
 		this.boardNo = boardNo;
@@ -37,6 +38,7 @@ public class Board {
 		this.boardCount = boardCount;
 		this.boardSecret = boardSecret;
 		this.boardPw = boardPw;
+		this.boardPrdCode = boardPrdCode;
 	}
 	public int getBoardRnum() {
 		return boardRnum;
@@ -115,6 +117,12 @@ public class Board {
 	}
 	public void setBoardPw(String boardPw) {
 		this.boardPw = boardPw;
+	}
+	public String getBoardPrdCode() {
+		return boardPrdCode;
+	}
+	public void setBoardPrdCode(String boardPrdCode) {
+		this.boardPrdCode = boardPrdCode;
 	}
 	
 }
