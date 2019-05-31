@@ -104,9 +104,7 @@
 		</div>
 	</div>
 </section>	
-<script>
-	
-</script>
+
 	
 <!-- Footer -->
 <jsp:include page="/WEB-INF/common/footer.jsp" />

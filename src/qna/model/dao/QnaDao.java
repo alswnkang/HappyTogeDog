@@ -134,4 +134,24 @@ public class QnaDao {
 		return qna;
 	}
 
+	public int insertQna(Connection conn,QnaVO qna) throws SQLException {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = "insert into board values(board_seq.nextval,?,?,?,?,?,?,?,sysdate,0,?,?,?) ";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, qna.getBoardType());
+		pstmt.setString(2, qna.getBoardId());
+		pstmt.setString(3, qna.getBoardName());
+		pstmt.setString(4, qna.getBoardTitle());
+		pstmt.setString(5, qna.getBoardContent());
+		pstmt.setString(6, qna.getBoardFilename());
+		pstmt.setString(7, qna.getBoardFilepath());
+		pstmt.setInt(8, qna.getBoardSecret());
+		pstmt.setString(9, qna.getBoardPw());
+		pstmt.setString(10, qna.getBoardPrdcode());
+		result = pstmt.executeUpdate();
+		JDBCTemplate.close(pstmt);
+		return result;
+	}
+
 }

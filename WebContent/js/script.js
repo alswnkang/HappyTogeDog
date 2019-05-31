@@ -34,9 +34,17 @@ function getAddr(f){
     }).open();
 }
 
+/* 숫자 형식 */
+function addComma(num) {
+	var regexp = /\B(?=(\d{3})+(?!\d))/g;
+	return num.toString().replace(regexp, ',');
+}
+
 /* 숫자만 입력 */
 $(function(){
-	
+	var chkPrice = $('input[name=chkPrice]').val();
+	//$('input[name=amount].num').val(1);
+	//$('input[name=price].num').val(chkPrice);
 	$('input[type=text].num').keyup(function(){
 		var num = $(this).val();
 		var check = /^[0-9]*$/;
@@ -45,4 +53,16 @@ $(function(){
 			$(this).val('');
 		}
 	});
+	
+	$('input[name=amount].num').keyup(function(){
+		
+		$('#limitPrice').text(addComma($(this).val()*chkPrice));
+		$('#realAmount').text(addComma($(this).val()));
+	});
+	
+	$('input[name=price].num').keyup(function(){
+		$('#realPrice').text(addComma($(this).val()));
+	});
+	
+	
 });

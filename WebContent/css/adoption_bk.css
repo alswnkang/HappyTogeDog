@@ -36,5 +36,15 @@
 .dog-info-left{float:left; width:45%;}
 .dog-info-right{float:right; width:52%;}
 
-/* 셀렉트박스 */
-.#### select{padding:7px; border:1px solid #ddd; border-radius:4px; width:90%;}
+/* 유기견 리스트 페이지 */
+.send-dogInfo{cursor:pointer;}
+.search-select{width:100%;margin-bottom:10px;}
+.search-select select{border:1px solid #ddd; border-radius:4px; width:15%;height:35px; font-size:15px;}
+.bbs-search-btn{border-radius:4px;margin:0px; border:0; min-width:40px; padding:0 5px; height:35px; margin-left:3px; background:#333; color:#fff; cursor:pointer; vertical-align:top; font-size:14px;}
+
+/* 보호소 마이 페이지 */
+.search-selectDate{width:100%;margin-bottom:10px;}
+.search-selectDate .search-word{padding:7px; border:1px solid #ddd; border-radius:4px;}
+.search-selectDate .bbs-search-btn2{border-radius:4px;margin:0px; border:0; min-width:40px; padding:0 5px; height:35px; margin-left:3px; background:#333; color:#fff; cursor:pointer; vertical-align:top; font-size:14px;}
+
+
