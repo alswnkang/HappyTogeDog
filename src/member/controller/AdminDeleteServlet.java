@@ -9,23 +9,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import member.model.Service.MemberService;
-import member.model.vo.Member;
-import member.model.vo.MemberPageData;
 
 /**
- * Servlet implementation class SearchUserServlet
+ * Servlet implementation class AdminDeleteServlet
  */
-@WebServlet(name = "SearchUser", urlPatterns = { "/searchUser" })
-public class SearchUserServlet extends HttpServlet {
+@WebServlet(name = "AdminDelete", urlPatterns = { "/adminDelete" })
+public class AdminDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchUserServlet() {
+    public AdminDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,28 +34,19 @@ public class SearchUserServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setCharacterEncoding("utf-8");
-		HttpSession session = request.getSession(false);
-		String id = ((Member)session.getAttribute("member")).getId();
-		int select = Integer.parseInt(request.getParameter("select"));
-		String search = request.getParameter("search");
-		int reqPage;
+		String id = request.getParameter("id");
 		try {
-			reqPage = Integer.parseInt(request.getParameter("reqPage"));
-		}catch(NumberFormatException e) {
-			reqPage = 1;
-		}
-		try {
-			if(id.equals("admin")) {
-				MemberPageData pd = new MemberService().searchUser(reqPage,select,search);
-				request.setAttribute("pd", pd);
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/adminPage.jsp");
+			int result = new MemberService().delete(id);
+			if(result>0) {
+				RequestDispatcher rd = request.getRequestDispatcher("adminPage");
 				rd.forward(request, response);
 			}else {
-				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/adminPage");
 				rd.forward(request, response);
-		}		
+			}
 		} catch (SQLException e) {
-			System.out.println("sql문 오류임");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}

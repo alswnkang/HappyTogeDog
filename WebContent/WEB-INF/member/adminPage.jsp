@@ -31,6 +31,7 @@
 				<th>주소</th>
 				<th>EMAIL</th>
 				<th>회원등급</th>
+				<th>관리</th>
 			</tr>
 			<c:forEach items="${pd.list }" var = "m">
 				<tr>
@@ -42,6 +43,7 @@
 				<td>${m.address }</td>
 				<td>${m.email }</td>
 				<td>${m.user }</td>
+				<td><button onclick="location.href='/adminDelete?id=${m.id}'">탈퇴</button></td>
 				</tr>
 			</c:forEach>
 		</table>
