@@ -70,4 +70,16 @@ public class QnaService {
 		return qna;
 	}
 
+	public int insertQna(QnaVO qna) throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		int result = new QnaDao().insertQna(conn,qna);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
 }
