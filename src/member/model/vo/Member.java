@@ -97,5 +97,16 @@ public class Member {
 		String endTime = possibleTime.substring(4, 7);
 		return endTime;
 	}
+	public String getUser() {
+		int num = this.memberLevel;
+		String user = "";
+		if(num == 0){
+			user = "일반회원";
+		}else if(num ==1){
+			user = "보호소 회원";
+		}
+		return user;
+	}
+	
 	
 }
