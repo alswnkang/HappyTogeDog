@@ -25,10 +25,10 @@
 								상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.
 								상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.
 							</p>
-							<p class="price">최소 후원금액 개당  <b><fmt:formatNumber value="${prd.prdPrice}" pattern="#,###" /> 원</b></p>
-							<p class="option">수량<input type="text" name="amount" class="num"> 개</p>
+							<p class="price">최소 후원금액 : <b><span id="limitPrice"><fmt:formatNumber value="${prd.prdPrice}" pattern="#,###" /></span> 원</b></p>
+							<p class="option">수량<input type="text" name="amount" class="num" value="1"> 개</p>
 							<p class="option">금액<input type="text" name="price" class="num"> 원</p>
-							<p class="price type2"><span>총 수량  <b>0 개</b></span> / &nbsp;&nbsp;<span>총 금액 <b>20,000 원</b></span></p>
+							<p class="price type2"><span>총 수량  <b><span id="realAmount">0</span> 개</b></span> / &nbsp;&nbsp;<span>총 금액 <b><span id="realPrice">0</span> 원</b></span></p>
 							<p class="order-btn-box"><button type="submit" class="order-btn">후원하기</button></p>
 						</div>
 					</form>
