@@ -1,21 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<jsp:include page="/WEB-INF/common/header.jsp" />
-	<h1>로그인임</h1>
-	<form action="/login" method="post">
-	<div>
-	아이디 : <input type="text" name="id"><br>
-	비밀번호 : <input type="password" name="pw"><br>
-	<input type="submit" value="확인">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%-- Header --%>
+<jsp:include page="/WEB-INF/common/header.jsp" />
+
+<%-- Content --%>
+<section id="content-wrapper">
+	<div class="area">
+		<h2 class="comm-content-tit">로그인</h2>
+		<div id="loginBox" class="common-tbl-box" style="padding-bottom:50px;"><!-- class="common-tbl-box" id는 바꿔서 복붙 -->
+			<form action="/login" method="post">
+				<div class="login-inner clearfix">
+					<div class="login-tbl-box">
+						<table class="comm-tbl login-tbl">
+							<colgroup>
+								<col width="20%">
+								<col width="">
+							</colgroup>
+							<tr>
+								<th>아이디</th>
+								<td><input type="text" name="id"></td>
+							</tr>
+							<tr>
+								<th>비밀번호</th>
+								<td><input type="password" name="pw"></td>
+							</tr>
+						</table>
+					</div>
+					<div class="login-btn-box">
+						<button type="submit" class="login-btn">LOGIN</button>
+					</div>
+				</div>
+			</form>
+			<div class="login-util-box">
+				<span><a href="">아이디 찾기</a></span>/
+				<span><a href="">비밀번호 찾기</a></span>/
+				<span><a href="/member/terms.jsp">회원가입</a></span>
+			</div>
+		</div>
 	</div>
-	</form>
+</section>
 	
-</body>
-</html>
+<%-- Footer --%>
+<jsp:include page="/WEB-INF/common/footer.jsp" />

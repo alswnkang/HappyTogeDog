@@ -15,6 +15,21 @@
 <section id="content-wrapper">
 	<div class="area">
 		<h2 class="comm-content-tit">입양하기</h2>
+		<div class="search-select">
+			<select name="city">
+				<option>시</option>
+			</select>
+			<select name="gun">
+				<option>군구</option>
+			</select>
+			<select name="kindCd">
+				<option>품종</option>
+			</select>
+			<select name="neuter">
+				<option>중성화여부</option>
+			</select>
+			<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
+		</div>
 		<ul class="main-adopt-review-list clearfix">
 			<c:forEach items="${sdpd.list }" var="m" varStatus="i">
 				<li>
@@ -33,7 +48,7 @@
 						<input type="hidden" name="specialMark" value="${m.specialMark }">
 						<input type="hidden" name="neuterYn" value="${m.neuterYn }">
 						<input type="hidden" name="filename" value="${m.filename }">
-						<a onclick="javascript:form_${i.count}.submit();">		<!-- 보호소명 보내기 -->
+						<a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo">		<!-- 보호소명 보내기 -->
 							<div class="img-thum">
 								<span style="background:url('${m.filename }') no-repeat center center; background-size:cover;"></span>
 							</div>

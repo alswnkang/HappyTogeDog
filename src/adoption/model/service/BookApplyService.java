@@ -98,5 +98,92 @@ public class BookApplyService {
 		return careTime;
 	}
 	
+	//보호소가 방문예약 신청내역 확인
+	public BookApplyPageData reservationCareMypage(int reqPage, String code, String startDay, String endDay) throws SQLException {
+		System.out.println("service왔다");
+		Connection conn = JDBCTemplate.getCon();
+		ArrayList<BookApply> list = new ArrayList<BookApply>();
+		int numPerPage = 3;
+		int totalCount = new BookApplyDao().reservationCareCount(conn,code, startDay, endDay);
+		System.out.println("totalCount : "+totalCount);
+		System.out.println(totalCount);
+		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
+		int start = (reqPage-1)*numPerPage+1;
+		int end = reqPage*numPerPage;
+		list = new BookApplyDao().reservationCareList(conn, start, end, code, startDay, endDay);
+		System.out.println("리스트 구해옴");
+		String pageNavi ="";
+		int pageNaviSize = 3;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
+		
+		if(pageNo!=1) {
+			/*pageNavi += "<a class='paging-arrow prev-arrow' href='/reservationMypage?reqPage=1'><<</a>";*/
+			pageNavi += "<a class='paging-arrow prev-arrow' href='/reservationCareMypage?reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
+		}
+		int i = 1;
+		while(!(i++>pageNaviSize||pageNo>totalPage)) {
+			if(reqPage==pageNo) {
+				pageNavi += "<span class='cur'>"+pageNo+"</span>";
+			}else {
+				pageNavi +="<a href='/reservationCareMypage?reqPage="+pageNo+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<a class='paging-arrow next-arrow' href='/reservationCareMypage?reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
+			/*pageNavi += "<a class='paging-arrow next-arrow' href='/reservationMypage?reqPage="+totalPage+"'>>></a>";*/
+		}
+		JDBCTemplate.close(conn);
+		BookApplyPageData bp = new BookApplyPageData(list, pageNavi);
+		return bp;
+	}
+	/*public BookApplyPageData selectDate(int reqPage, String startDay, String endDay, String code) throws SQLException {
+		System.out.println("service왔다");
+		Connection conn = JDBCTemplate.getCon();
+		ArrayList<BookApply> list = new ArrayList<BookApply>();
+		int numPerPage = 3;
+		int totalCount = new BookApplyDao().selectDateCount(conn,startDay, endDay, code);
+		System.out.println("totalCount : "+totalCount);
+		System.out.println(totalCount);
+		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
+		int start = (reqPage-1)*numPerPage+1;
+		int end = reqPage*numPerPage;
+		list = new BookApplyDao().selectDateList(conn, start, end, startDay, endDay, code);
+		System.out.println("리스트 구해옴");
+		String pageNavi ="";
+		int pageNaviSize = 3;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
+		
+		if(pageNo!=1) {
+			pageNavi += "<a class='paging-arrow prev-arrow' href='/reservationCareMypage?reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
+		}
+		int i = 1;
+		while(!(i++>pageNaviSize||pageNo>totalPage)) {
+			if(reqPage==pageNo) {
+				pageNavi += "<span class='cur'>"+pageNo+"</span>";
+			}else {
+				pageNavi +="<a href='/reservationCareMypage?reqPage="+pageNo+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<a class='paging-arrow next-arrow' href='/reservationCareMypage?reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
+		}
+		JDBCTemplate.close(conn);
+		BookApplyPageData bp = new BookApplyPageData(list, pageNavi);
+		return bp;
+	}*/
+	public BookApply viewOne(int no, String startDay, String endDay, String code) throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		System.out.println(no);
+		System.out.println(startDay);
+		System.out.println(endDay);
+		System.out.println(code);
+		BookApply b = new BookApplyDao().viewOne(conn ,no ,startDay, endDay, code);
+		System.out.println(b);
+		JDBCTemplate.close(conn);
+		return b;
+	}
+	
 	
 }

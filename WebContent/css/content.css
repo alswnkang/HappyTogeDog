@@ -47,6 +47,7 @@
 .comm-tbl.order-tbl input[type='text'].short, .comm-tbl.order-tbl input[type='password'].middle, 
 .comm-tbl.order-tbl input[type='file'].short, .comm-tbl.order-tbl select.short{width:20%;}
 
+
 .common-tbl-btn-group{padding-top:30px; text-align:center;}
 .common-tbl-btn-group > button{width:130px; height:50px; border-radius:5px; font-size:17px; color:#fff; margin:0 10px;}
 .common-tbl-btn-group > button.btn-style1{background-color:rgba(254,67,30);}
@@ -152,4 +153,13 @@
 .mypage-box > li > a .txt-thum h4{font-size:18px; color:#333; font-weight:500; margin-bottom:10px;}
 .mypage-box > li > a .txt-thum p{font-size:13px; line-height:16px; color:#888;}
 
-
+/* ****************** 로그인 ********************** */
+.login-inner{max-width:65%; margin:0 auto 30px;}
+.login-inner .login-tbl-box{float:left; width:72%;}
+.login-inner .login-tbl-box .login-tbl{max-width:none;}
+.comm-tbl.login-tbl th, .comm-tbl.login-tbl td{border-left:0; border-right:0;}
+.login-inner .login-btn-box{float:right; width:23%;}
+.login-inner .login-btn-box .login-btn{display:block; width:100%; height:134px; color:#fff; font-size:20px; border-radius:5px; background-color:rgba(254,67,30);}
+.login-util-box{text-align:center;}
+.login-util-box > span{display:inline-block; vertical-align:middle; margin:0 15px;}
+.login-util-box > span a{display:inline-block; padding:5px; font-size:16px; line-height:20px; color:#2d2d2d;}
