@@ -38,6 +38,14 @@
 .comm-tbl.type2 th{text-align:center; font-size:16px; border-top:2px solid rgba(254,67,30);}
 .comm-tbl.type2 td{color:#2b2b2b; font-size:14px; text-align:center;}
 .comm-tbl.type2 tr:hover td{background-color:rgba(254,67,30,0.05);}
+/* 주문 */
+.comm-tbl.order-tbl th{font-size:16px; background:#f8f8f8;}
+.comm-tbl.order-tbl input[type='text'], .comm-tbl.order-tbl input[type='password'], .comm-tbl.order-tbl input[type='file'],
+.comm-tbl.order-tbl select{height:28px; font-size:15px;}
+.comm-tbl.order-tbl input[type='text'].middle, .comm-tbl.order-tbl input[type='password'].middle, 
+.comm-tbl.order-tbl input[type='file'].middle, .comm-tbl.order-tbl select.middle{width:50%;}
+.comm-tbl.order-tbl input[type='text'].short, .comm-tbl.order-tbl input[type='password'].middle, 
+.comm-tbl.order-tbl input[type='file'].short, .comm-tbl.order-tbl select.short{width:20%;}
 
 .common-tbl-btn-group{padding-top:30px; text-align:center;}
 .common-tbl-btn-group > button{width:130px; height:50px; border-radius:5px; font-size:17px; color:#fff; margin:0 10px;}
@@ -131,5 +139,17 @@
 .find-shelter-right-box .map > a.loc15 .loc-name{background:url(/img/map_txt_3.png) no-repeat; left:-65px;}
 .find-shelter-right-box .map > a .loc-name > span{font-weight:normal; color:#7f7f7f;}
 
+/* ****************** 마이 페이지 ********************** */
+.mypage-tit{font-size:18px; line-height:24px; color:#333; font-weight:400;}
+.mypage-tit > b{font-size:20px; font-weight:600;}
+.mypage-box{text-align:center; padding:50px 0;}
+.mypage-box > li{display:inline-block; vertical-align:top; width:320px; border:1px solid #ddd; margin:0 20px 30px 20px;}
+.mypage-box > li > a{display:block; padding:15px;}
+.mypage-box > li > a .img-thum{margin-bottom:20px;}
+.mypage-box > li > a .img-thum > span{}
+.mypage-box > li > a .img-thum > span img{max-width:130px; margin:0 auto;}
+.mypage-box > li > a .txt-thum{}
+.mypage-box > li > a .txt-thum h4{font-size:18px; color:#333; font-weight:500; margin-bottom:10px;}
+.mypage-box > li > a .txt-thum p{font-size:13px; line-height:16px; color:#888;}
 
 

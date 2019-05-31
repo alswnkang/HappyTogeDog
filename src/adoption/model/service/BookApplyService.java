@@ -66,6 +66,7 @@ public class BookApplyService {
 		//기간을 어떻게 잡아줘야할까?
 		ArrayList<DogList> list= new BookApplyDao().dogList(reqPage);
 //		System.out.println(list.get(0).getSexCd());
+		int totalCount = Integer.parseInt(list.get(0).getOrgNm());		//totalCount
 		String pageNavi ="";
 		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/5)*5+1;
@@ -73,7 +74,7 @@ public class BookApplyService {
 			pageNavi += "<a class='paging-arrow prev-arrow' href='/dogAdopList?reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
 		}
 		int i = 1;
-		while(!(i++>pageNaviSize||pageNo>100)) {		//pageNo>100 : totalPage를 구하는 방법 생각해보기
+		while(!(i++>pageNaviSize||pageNo>totalCount)) {	
 			if(reqPage==pageNo) {
 				pageNavi += "<span class='cur'>"+pageNo+"</span>";
 			}else {
@@ -81,7 +82,7 @@ public class BookApplyService {
 			}
 			pageNo++;
 		}
-		if(pageNo <= 100) {		//pageN<=100 : totalPage를 구하는 방법 생각해보기
+		if(pageNo <= totalCount) {
 			pageNavi += "<a class='paging-arrow next-arrow' href='/dogAdopList?reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
 			
 		}

@@ -31,14 +31,14 @@
 						</tr>
 					</thead>
 					<tbody>
-			 			<c:forEach items="${list }" var="b" varStatus="i">
+			 			<c:forEach items="${bp.list }" var="list">
 							<tr>
-								<td>${i.count}</td>
-								<td><a href="/siPreBoardView?boardNo=${b.boardNo }">${b.boardTitle }</a></td>
+								<td>${list.boardRnum}</td>
+								<td><a href="/siPreBoardView?boardNo=${list.boardNo }">${list.boardTitle }</a></td>
 								<!-- name 값을 넘겨주도록 설정필요 -->
-								<td>${b.boardId }</td>
-								<td>${b.boardDate }</td>
-								<td>${b.boardCount }</td>
+								<td>${list.boardName }(${list.boardId })</td>
+								<td>${list.boardDate }</td>
+								<td>${list.boardCount }</td>
 							</tr>
 						</c:forEach>
 						<tr>
@@ -56,7 +56,9 @@
 						</select>
 						<input type="text" name="keyword">
 						<button type="submit" class="bbs-search-btn">검색</button>
-						<button type="button" class="bbs-search-btn" style="float:right;" onclick="location.href='/siViews/board/siPreBoardInsert.jsp'">글쓰기</button>
+						<c:if test="${not empty sessionScope.member.id }">
+							<button type="button" class="bbs-search-btn" style="float:right;" onclick="location.href='/siViews/board/siPreBoardInsert.jsp'">글쓰기</button>
+						</c:if>
 					</div>
 				</form>
 			</div>

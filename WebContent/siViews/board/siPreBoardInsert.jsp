@@ -18,6 +18,7 @@
 					<!-- 자유게시판 구분번호인 1을 submit -->
 					<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
 					<!-- 등록한 사람의 아이디 정보를 전달 -->
+					<input type="hidden" name="memberName" value="${sessionScope.member.name }"/>
 					<table class="comm-tbl">
 						<colgroup>
 							<col width="28%">

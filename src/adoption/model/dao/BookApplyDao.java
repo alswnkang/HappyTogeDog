@@ -111,27 +111,45 @@ public class BookApplyDao {
 				//지영이 서비스키 : aLiSUfKw3hrZNSZrqXuG6iJtNr0ufMlgmB8Y%2Fh93hFuOk5E%2Brl8bd8mxxl%2Fcga%2B6i2CP7lD5%2BGBnLYmmVm%2BkFw%3D%3D
 				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
-				Document doc = dBuilder.parse(url);
+				Document doc;
+				NodeList nList2;
+				while(true) {	//null이 나올경우 오류발생하기 때문에 not null일 때까지 반목문실행
+					doc = dBuilder.parse(url);
+					
+					// root tag
+					doc.getDocumentElement().normalize();
+					System.out.println("Root element :" + doc.getDocumentElement().getNodeName()); // XML의 최상위 tag값 가져오기
+					
+					//총 유기견 마리수 구하기(totalCount)
+					nList2 = doc.getElementsByTagName("body");
+					System.out.println(nList2.item(0));
+					System.out.println(nList2);
+					if(nList2.item(0) !=null) {
+						break;
+					}
+				}
+				/*Document doc = dBuilder.parse(url);
+				System.out.println("doc : " + doc);
+				System.out.println("toString : "+doc.toString());
+				
 				// root tag
 				doc.getDocumentElement().normalize();
 				System.out.println("Root element :" + doc.getDocumentElement().getNodeName()); // XML의 최상위 tag값 가져오기
 				
 				//총 유기견 마리수 구하기(totalCount)
-				/*NodeList nList2 = doc.getElementsByTagName("body");
-				Node nNode2 = nList2.item(0);
-				Element eElement2 = (Element) nNode2;
-				System.out.println(getTagValue("totalCount",eElement2));*/
+				NodeList nList2 = doc.getElementsByTagName("body");
+				System.out.println(nList2);*/
 				
+				Node nNode2 = nList2.item(0);
+//				System.out.println(nList2.item(0));
+				Element eElement2 = (Element) nNode2;
+//				System.out.println(eElement2);
+				System.out.println(getTagValue("totalCount",eElement2));
+				String totalCount = getTagValue("totalCount",eElement2);
 				// 파싱할 tag
 				NodeList nList = doc.getElementsByTagName("item");
-				Node node1 = doc.getElementsByTagName("totalCount").item(0);
+//				Node node1 = doc.getElementsByTagName("totalCount").item(0);
 				// System.out.println("파싱할 리스트 수 : "+ nList.getLength());
-				/*
-				 * NodeList nlList = eElement.getElementsByTagName(tag).item(0).getChildNodes();
-		Node nValue = (Node) nlList.item(0);
-		if (nValue == null)
-			return null;
-		return nValue.getNodeValue();*/
 				
 				int count = 0;
 				list = new ArrayList<DogList>();
@@ -153,7 +171,7 @@ public class BookApplyDao {
 						dl.setKindCd(getTagValue("kindCd", eElement));
 						dl.setNoticeEdt(getTagValue("noticeEdt", eElement));
 						dl.setNoticeNo(getTagValue("noticeNo", eElement));
-						dl.setOrgNm(getTagValue("orgNm", eElement));
+						dl.setOrgNm(totalCount);		//관할기관대신 총 갯수 전달
 						dl.setSexCd(getTagValue("sexCd", eElement));
 						dl.setSpecialMark(getTagValue("specialMark", eElement));
 						dl.setWeight(getTagValue("weight", eElement));
@@ -176,6 +194,8 @@ public class BookApplyDao {
 	}
 
 	private static String getTagValue(String tag, Element eElement) {
+		//System.out.println(eElement.getElementsByTagName(tag));		
+//		System.out.println(eElement.getElementsByTagName(tag).item(0).toString());
 		NodeList nlList = eElement.getElementsByTagName(tag).item(0).getChildNodes();
 		Node nValue = (Node) nlList.item(0);
 		if (nValue == null)

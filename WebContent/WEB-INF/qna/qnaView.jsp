@@ -4,6 +4,7 @@
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
+<link rel="stylesheet" type="text/css" href="/css/qna.css">
 
 <%-- Content --%>
 <section id="content-wrapper">
@@ -18,19 +19,35 @@
 					<td>작성자</td><td>${qna.boardName }</td>
 				</tr>
 				<tr>
-					<td>내용</td><td>${qna.boardContent }</td>
+					<td>내용</td><td>${qna.boardContent }${qna.boardId }</td>
 				</tr>
 				<c:if test="${not empty qna.boardFilename }">
 					<tr>
 						<td>파일첨부</td><td>${qna.boardFilename }</td>
 					</tr>
 				</c:if>
+				<c:if test="${sessionScope.member.id ne 'admin' }">
+					<tr><td colspan="2">
+						<form>
+							<input type="hidden" name="" value="">
+							<textarea name="commentContent" rows="3"></textarea>
+							<button type="submit" class="commentRegi">등록</button>
+						</form>
+					</td></tr>
+				</c:if>
 			</table>
-			<c:if test="${sessionScope.member.id ne 'admin' }">
-				<textarea rows="" cols=""></textarea>
-				<button class="order-btn">댓글작성..</button>
-			</c:if>
+			
+			<div class="common-tbl-btn-group">
+				<c:if test="${not empty sessionScope.member}">
+					<c:if test="${sessionScope.member.id eq qna.boardId }">
+						<button class="btn-style1 sm">수정</button>
+						<button class="btn-style2 sm">삭제</button>
+					</c:if>
+				</c:if>
+				<button class="btn-style3" onclick="location.href='/qnaList'">목록으로</button>
+			</div>
 		</div>
+		
 		
 	</div>
 </section>

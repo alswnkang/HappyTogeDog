@@ -97,15 +97,50 @@ public class BoardService {
 		JDBCTemplete.close(conn);
 		return result;
 	}
-	public ArrayList<Board> boardSearch(String searchType, String searchKeyword){
+	public BoardPageData boardSearch(int reqPage, String searchType, String searchKeyword){
 		Connection conn = JDBCTemplete.getConnection();
+		int numPerPage = 10;
+		int totalCount = 0;
+		if(searchType.equals("boardName")) {
+			totalCount = new BoardDao().totalSearchNameCount(conn,searchKeyword);
+		}else if(searchType.equals("boardTitle")) {
+			totalCount = new BoardDao().totalSearchTitleCount(conn,searchKeyword);
+		}
+		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
+		int start = (reqPage-1)*numPerPage+1;
+		int end = reqPage*numPerPage;
 		ArrayList<Board> list = new ArrayList<Board>();
 		if(searchType.equals("boardName")) {
-			list = new BoardDao().boardSearchName(conn,searchKeyword);
+			list = new BoardDao().boardSearchName(conn,searchKeyword,start,end);
+			for(int i=0; i<list.size(); i++) {
+				System.out.println(list.get(i).getBoardId());
+			}
 		}else if(searchType.equals("boardTitle")) {
-			list = new BoardDao().boardSearchTitle(conn,searchKeyword);
+			list = new BoardDao().boardSearchTitle(conn,searchKeyword,start,end);
+			for(int i=0; i<list.size(); i++) {
+				System.out.println(list.get(i).getBoardTitle());
+			}
+		}
+		String pageNavi = "";
+		int pageNaviSize = 10;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
+		if(pageNo!=1) {
+			pageNavi+="<a href='/siPreBoardSearch?reqPage="+(pageNo-1)+"&searchWord="+searchType+"&keyword="+searchKeyword+"'>이전</a>";
+		}
+		int i = 1;
+		while(!(i++>pageNaviSize || pageNo>totalPage)) {
+			if(reqPage==pageNo) {
+				pageNavi+="<span>"+pageNo+"</span>";
+			}else {
+				pageNavi+="<a href='/siPreBoardSearch?reqPage="+pageNo+"&searchWord="+searchType+"&keyword="+searchKeyword+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
+		if(pageNo<=totalPage) {
+			pageNavi+="<a href='/siPreBoardSearch?reqPage="+pageNo+"&searchWord="+searchType+"&keyword="+searchKeyword+"'>다음</a>";
 		}
 		JDBCTemplete.close(conn);
-		return list;
+		BoardPageData bp = new BoardPageData(list,pageNavi);
+		return bp;
 	}
 }

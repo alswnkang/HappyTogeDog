@@ -15,31 +15,17 @@ import siBoardComment.model.boardCommentVo.BoardComment;
 import siTemplete.JDBCTemplete;
 
 public class BoardCommentDao {
-	private Properties prop = new Properties();
-	public BoardCommentDao() {
-			String fileName = BoardCommentDao.class.getResource("/siSql/boardComment/boardCommentQuery.properties").getPath();
-			System.out.println(fileName);
-			try {
-				prop.load(new FileReader(fileName));
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
 	public int commentInsert(Connection conn, BoardComment bc) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into board_comment values(board_comment_seq.nextval,?,?,null,?,?,null,sysdate)";
+		String query = "insert into board_comment values(board_comment_seq.nextval,?,?,?,?,?,null,sysdate)";
 		try {
 			pstmt= conn.prepareStatement(query);
 			pstmt.setInt(1, bc.getBoardCommentType());
 			pstmt.setString(2, bc.getBoardCommentId());
-			pstmt.setString(3, bc.getBoardCommentContent());
-			pstmt.setInt(4, bc.getBoardRef());
+			pstmt.setString(3, bc.getBoardCommentName());
+			pstmt.setString(4, bc.getBoardCommentContent());
+			pstmt.setInt(5, bc.getBoardRef());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
