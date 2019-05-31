@@ -35,4 +35,9 @@ $(document).ready(function(){
 		
 	}
 	
+	//MyPage
+	$(".header-util-box > li.mypage").children("a").click(function(){
+		$(this).siblings(".mypage-box").toggleClass("show");
+	});
+	
 });
