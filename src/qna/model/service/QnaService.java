@@ -20,17 +20,17 @@ public class QnaService {
 
 		total = new QnaDao().totalCount(conn,search);
 		
-		int pageNum = 10;//한 페이지에 출력할 게시물 개수
+		int pageNum = 10;
 		int totalPage = (total%pageNum==0)?(total/pageNum):(total/pageNum)+1;
 		
 		
-		int start = (reqPage*pageNum-pageNum)+1;//시작 번호
+		int start = (reqPage*pageNum-pageNum)+1;
 		int end  = reqPage*pageNum;
 		ArrayList<QnaVO> qnainfoList = null;
 
 		qnainfoList = new QnaDao().selectQna(conn,start,end,search);
 		
-		int totalNavi = 5;//노출시킬 네비 버튼 개수
+		int totalNavi = 5;
 		String pageNavi = "";
 		
 		int pageNo = ((reqPage-1)/totalNavi)*totalNavi+1;
@@ -55,6 +55,16 @@ public class QnaService {
 		JDBCTemplate.close(conn);
 		return qnaList;
 	}
+	
+	/* 상품 상세페이지에 노출될 Q&A리스트 */
+	public ArrayList<QnaVO> selectQna(int start, int end, SearchVO search) throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		ArrayList<QnaVO> qnainfoList = new QnaDao().selectQna(conn,start,end,search);
+		JDBCTemplate.close(conn);
+		return qnainfoList;
+	}
+	
+	
 
 	public QnaVO selectQna(int boardNo) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
@@ -81,5 +91,9 @@ public class QnaService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+
+
+
+	
 
 }

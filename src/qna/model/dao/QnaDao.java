@@ -19,6 +19,9 @@ public class QnaDao {
 		if(search.getSearchVal()!=null && search.getSearchVal()!=""){
 			query += " and "+search.getSearchType()+" like '%"+search.getSearchVal()+"%'";
 		}
+		if(search.getPrdCode()!=null && search.getPrdCode()!=""){
+			query += " and board_prdcode='"+search.getPrdCode()+"'";
+		}
 		return query;
 	}
 	

@@ -50,7 +50,7 @@ public class QnaServlet extends HttpServlet {
 			}
 			String searchType = request.getParameter("searchType");
 			String searchVal = request.getParameter("searchVal");
-			SearchVO search = new SearchVO(reqPage, null, null, null, null, searchType, searchVal);
+			SearchVO search = new SearchVO(reqPage, null, null, null, null, searchType, searchVal,null);
 			
 			try {
 				QnaListVO qnaList = new QnaService().selectQna(search);
@@ -70,9 +70,7 @@ public class QnaServlet extends HttpServlet {
 			}catch(Exception e){
 				request.setAttribute("msg", "잘못된 접근입니다.");
 				request.setAttribute("loc", "/qnaList");
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/qna/passwordPage.jsp");
-				rd.forward(request, response);
-
+				request.getRequestDispatcher("/WEB-INF/qna/passwordPage.jsp").forward(request, response);
 				return;
 			}
 			
@@ -83,6 +81,8 @@ public class QnaServlet extends HttpServlet {
 					if(member==null) {//로그인 안되어있으면
 						response.sendRedirect("/checkPw?boardNo="+boardNo);//비밀번호 체크로 보내버리기
 						return;
+					}else if(member.getMemberLevel()==2){
+						//관리자는 모든 글 조회 가능
 					}else if(!member.getId().equals(qna.getBoardId())) {//로그인 상태인데 자신이 쓴 글 아니어도 비밀번호 체크로 보내기
 						response.sendRedirect("/checkPw?boardNo="+boardNo);
 						return;
@@ -135,6 +135,8 @@ public class QnaServlet extends HttpServlet {
 
 			
 		}else if(action.equals("regiQna")) {
+			String prdCode = request.getParameter("prdCode");
+			request.setAttribute("prdCode", prdCode);
 			request.getRequestDispatcher("/WEB-INF/qna/qnaRegister.jsp").forward(request, response);
 			
 		}else if(action.equals("insertQna")) {
