@@ -154,7 +154,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="">
+					<a href="/orderList">
 						<div class="img-thum">
 							<span><img src="/img/mypage_icon07.png"></span>
 						</div>

@@ -90,9 +90,6 @@
 									<li><a href="/sponsorship">후원하기</a></li>
 									<li><a href="/qnaList">Q&A</a></li>
 									<li><a href="/findOrder.jsp">주문조회</a></li>
-									<c:if test="${sessionScope.member.memberLevel eq 2 }">
-										<li><a href="/orderList">주문관리</a></li>
-									</c:if>
 								</ul>
 							</div>
 						</li>
