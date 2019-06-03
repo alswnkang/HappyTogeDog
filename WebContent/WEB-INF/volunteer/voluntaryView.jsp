@@ -71,6 +71,37 @@
 						<button type="button" id="deleteBtn" class="btn-style3">삭제</button>
 					</c:if>
 				</div>
+				
+				<c:if test="${sessionScope.member.code == vr.code }">
+					<h3 class="sub-title">해당 공고에 봉사활동을 신청한 회원 목록</h3>
+					<table class="comm-tbl type2">
+						<thead>
+							<tr>
+								<th>신청자 ID</th>
+								<th>신청자 전화번호</th>
+								<th>신청 인원 수</th>
+								<th>신청일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:if test="${not empty list }">
+								<c:forEach items="${list }" var="personList" varStatus="i">
+									<tr>
+										<td>${personList.id }</td>
+										<td>${personList.phone }</td>
+										<td>${personList.person }</td>
+										<td>${personList.enrollDate }</td>
+									</tr>
+								</c:forEach>
+							</c:if>
+							<c:if test="${empty list }">
+								<tr>
+									<td colspan="4"><p class="none">신청자가 없습니다.</p></td>
+								</tr>
+							</c:if>
+						</tbody>
+					</table>
+				</c:if>
 			</div>
 			<!-- 봉사활동 신청 폼 --><!-- 봉사활동 신청은 회원 전용 -->
 			<!-- <div class="voluntary-bottom-box">

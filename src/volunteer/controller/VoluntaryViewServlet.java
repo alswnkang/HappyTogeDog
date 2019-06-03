@@ -1,6 +1,7 @@
 package volunteer.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import volunteer.model.service.VoluntaryService;
+import volunteer.model.vo.VoluntaryApplyBoard;
 import volunteer.model.vo.VoluntaryRegister;
 
 /**
@@ -36,6 +38,8 @@ public class VoluntaryViewServlet extends HttpServlet {
 		String view="";
 		if(vr != null) {
 			request.setAttribute("vr", vr);
+			ArrayList<VoluntaryApplyBoard> list = new VoluntaryService().VoluntaryApplyPerson(no);
+			request.setAttribute("list", list);
 			view = "/WEB-INF/volunteer/voluntaryView.jsp";
 		}else {
 			request.setAttribute("msg", "해당 봉사활동 신청 공고가 존재하지 않습니다.");

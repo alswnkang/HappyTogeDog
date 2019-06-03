@@ -2,7 +2,7 @@
 
 /* ****************** 공통 컨텐츠 클래스 ********************** */
 #content-wrapper{padding:100px 0;}
-.comm-content-tit{position:relative; font-size:26px; color:#2b2b2b; lett-spacing:-0.5px; text-align:center; font-weight:500; padding:20px 0; margin-bottom:50px;}
+.comm-content-tit{position:relative; font-size:26px; color:#2b2b2b; text-align:center; font-weight:500; padding:20px 0; margin-bottom:50px;}
 .comm-content-tit:after{display:block; content:""; width:50px; height:4px; background-color:rgba(254,67,30); position:absolute; bottom:0; left:50%; margin-left:-30px;}
 
 /* 공통 :: PAGING */
@@ -75,6 +75,10 @@
 .volun-view-sub-tit > span b{color:#333; font-weight:500;}
 .voluntary-bottom-box{padding:30px 0;}
 .voluntary-bottom-inner{padding:50px 0; background-color:#f5f5f5;}
+
+/* 해당 공고에 봉사활동 신청한 사람 목록 */
+.sub-title{font-size:20px; color:#2b2b2b; font-weight:500; padding:20px 0; margin-bottom:30px; position:relative;}
+.sub-title:after{display:block; content:""; width:35px; height:3px; background:rgba(254,67,30); position:absolute; bottom:0; left:0;}
 
 /* ****************** MODAL LAYERPOPUP ********************** */
 /* modal layer */
