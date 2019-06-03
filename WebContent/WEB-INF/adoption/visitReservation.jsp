@@ -82,14 +82,14 @@
 					<tr>
 						<th>방문 날짜</th>
 						<td>
-							<input type="text" id="datepicker" name="visitDate">
+							<input type="text" id="datepicker" name="visitDate" class="visitDate">
 						</td>
 					</tr>
 					<tr>
 						<th>방문 시간</th>
 						<td>
-							<select name="visitTime">
-								<c:forEach var="i" begin="${fn:substring(careTime,0,2)}" step="1" end="${fn:substring(careTime,4,6)-1}"><%-- ${fn:substring(careTime,0,2)}시~ --%><%-- ${fn:substring(time,3,)} --%>
+							<select name="visitTime" id="select-visitTime">
+								<c:forEach var="i" begin="${fn:substring(careTime,0,2)}" step="1" end="${fn:substring(careTime,4,6)-1}">
 									<option value="${i}시~${i+1}시">${i}시~${i+1}시</option>
 									<!-- 보호소  방문가능시간 데이터 받아와서 option값 정하기 -->
 								</c:forEach>
@@ -104,7 +104,50 @@
 		</div>
 	</div>
 </section>	
-
+	
+<script>
+/* 방문날짜 선택에 따른 방문가능 시간 구해오기 */
+function getTime(){
+	var date = $(".visitDate").val();
+	if(date==''){
+		var d = new Date();
+		/* console.log(d.format('yyyy-MM-dd'));
+		date = d.format('yyyy-MM-dd'); */
+		date = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+	}
+	console.log(date);
+	var careNm ='${careNm}';
+	$.ajax({
+		url: "/getPossibleTime",
+		type:"post",
+		data : {visitDate:date, careNm:careNm},
+		success : function(data){
+			alert(data);
+			$('#select-visitTime option').each(function(){
+				$(this).prop("disabled",false);
+			});
+			console.log(data.length);
+			for(var i=0;i<data.length;i++){
+				var time = data[i];
+				console.log(time);
+				$("#select-visitTime option[value='"+time+"']").prop("disabled",true);
+			}
+			console.log(data.length);
+		},
+		error : function(){
+			console.log("실패다아아아");
+			alert("실패");
+		}
+	});	/* ajax종료 */
+}/* getTime() 종료 */
+	
+	getTime();
+		
+	$(".visitDate").change(function(){
+		alert("불러와지냐");
+		getTime();
+	});
+</script>
 	
 <!-- Footer -->
 <jsp:include page="/WEB-INF/common/footer.jsp" />

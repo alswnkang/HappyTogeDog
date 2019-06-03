@@ -25,6 +25,7 @@ public class ReservationCareMypageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		String code = ((Member)session.getAttribute("member")).getCode();
+		System.out.println(code);
 		int reqPage;
 		String startDay = request.getParameter("startDay");
 		String endDay = request.getParameter("endDay");
@@ -35,6 +36,7 @@ public class ReservationCareMypageServlet extends HttpServlet {
 		}
 		BookApplyPageData bp;
 		try {
+			request.setAttribute("reqPage", reqPage);
 			request.setAttribute("start", startDay);
 			request.setAttribute("end", endDay);
 			bp = new BookApplyService().reservationCareMypage(reqPage, code, startDay, endDay);

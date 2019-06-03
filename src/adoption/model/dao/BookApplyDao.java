@@ -1,13 +1,10 @@
 package adoption.model.dao;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -22,22 +19,12 @@ import adoption.model.vo.DogList;
 import common.JDBCTemplate;
 
 public class BookApplyDao {
-	private Properties prop = new Properties();
-	public BookApplyDao() {
-		String fileName = BookApplyDao.class.getResource("/adoption/sql/bookApply2.properties").getPath();
-		try {
-			prop.load(new FileReader(fileName));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
-	//방문예약 신청
+	//일반회원 방문예약 신청
 	public int reservation(Connection conn, BookApply ba) throws SQLException {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = prop.getProperty("bookApply");
+		String query = "insert into book_apply values (book_apply_seq.nextval,?,?,?,?,to_date(?,'yyyy-mm-dd'),?,sysdate,0,?,?,?,?,?)";
 		pstmt = conn.prepareStatement(query);
 		pstmt.setString(1, ba.getCode());
 		pstmt.setString(2,  ba.getId());
@@ -54,47 +41,61 @@ public class BookApplyDao {
 		JDBCTemplate.close(pstmt);
 		return result;
 	}
-	//방문예약 신청 내역 갯수 구하기
-	public int reservationCount(Connection conn,String id) throws SQLException {
+	//일반회원 방문예약 신청 내역 갯수 구하기
+	public int reservationCount(Connection conn,String id){
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
-		String query = prop.getProperty("reservationCount");
-		pstmt = conn.prepareStatement(query);
-		pstmt.setString(1, id);
-		rset=pstmt.executeQuery();
-		if(rset.next()) {
-			result = rset.getInt("cnt");
+		String query = "select count(*) as cnt from book_apply Join member using(code) where book_apply.id=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, id);
+			rset=pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
 		}
-		JDBCTemplate.close(rset);
-		JDBCTemplate.close(pstmt);
 		return result;
 	}
-	//방문예약 신청 내역 정보 가져오기
-	public ArrayList<BookApply> selectList(Connection conn, int start, int end, String id) throws SQLException{
+	//일반회원 방문예약 신청 내역 정보 가져오기
+	public ArrayList<BookApply> selectList(Connection conn, int start, int end, String id){
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
 		ArrayList<BookApply> list = new ArrayList<BookApply>();
-		String query = prop.getProperty("selectList");
-		pstmt = conn.prepareStatement(query);
-		pstmt.setString(1, id);
-		pstmt.setInt(2, start);
-		pstmt.setInt(3, end);
-		rset = pstmt.executeQuery();
-		while(rset.next()) {
-			BookApply ba = new BookApply();
-			ba.setNo(rset.getInt("rnum"));
-			ba.setCode(rset.getString("careNm"));	//보호소 코드에 보호소 이름 넣기
-			/*ba.setId(rset.getString("id"));
+		String query = "select * from (select rownum as rnum, b.* from (select ba.no, m.name careNm, ba.id, ba.name, ba.visit_date, ba.visit_time, ba.apply_date, ba.status from ((select * from book_apply order by 1 desc)ba) Join member m Using(code) where ba.id=?) b) where rnum BETWEEN ? and ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				BookApply ba = new BookApply();
+				ba.setRnum(rset.getInt("rnum"));
+				ba.setNo(rset.getInt("no"));
+				ba.setCode(rset.getString("careNm"));	//보호소 코드에 보호소 이름 넣기
+				/*ba.setId(rset.getString("id"));
 			ba.setName(rset.getString("name"));*/
-			ba.setVisitDate(rset.getDate("visit_date"));
-			ba.setVisitTime(rset.getString("visit_time"));
-			ba.setApplyDate(rset.getDate("apply_date"));
-			ba.setStatus(rset.getInt("status"));
-			list.add(ba);
+				ba.setVisitDate(rset.getDate("visit_date"));
+				ba.setVisitTime(rset.getString("visit_time"));
+				ba.setApplyDate(rset.getDate("apply_date"));
+				ba.setStatus(rset.getInt("status"));
+				list.add(ba);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
 		}
-		JDBCTemplate.close(rset);
-		JDBCTemplate.close(pstmt);
 		return list;
 	}
 	
@@ -122,8 +123,8 @@ public class BookApplyDao {
 					
 					//총 유기견 마리수 구하기(totalCount)
 					nList2 = doc.getElementsByTagName("body");
-					System.out.println(nList2.item(0));
-					System.out.println(nList2);
+//					System.out.println(nList2.item(0));
+//					System.out.println(nList2);
 					if(nList2.item(0) !=null) {
 						break;
 					}
@@ -144,7 +145,7 @@ public class BookApplyDao {
 //				System.out.println(nList2.item(0));
 				Element eElement2 = (Element) nNode2;
 //				System.out.println(eElement2);
-				System.out.println(getTagValue("totalCount",eElement2));
+				System.out.println("API에서 totalCount: "+getTagValue("totalCount",eElement2));
 				String totalCount = getTagValue("totalCount",eElement2);
 				// 파싱할 tag
 				NodeList nList = doc.getElementsByTagName("item");
@@ -184,7 +185,6 @@ public class BookApplyDao {
 					} // for end
 				} // if end
 				System.out.println("page number : " + reqPage);
-				
 				break;
 			} // while end
 		} catch (Exception e) {
@@ -208,7 +208,7 @@ public class BookApplyDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String careTime="";
-		String query = prop.getProperty("careTime");
+		String query = "select possible_time from member where name=?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, careNm);
@@ -225,9 +225,11 @@ public class BookApplyDao {
 		}
 		return careTime;
 	}
-
+	
+	//보호소 회원 방문예약리스트 갯수 구하기
 	public int reservationCareCount(Connection conn, String code,String startDay, String endDay) throws SQLException {
 		System.out.println("갯수 구하기Dao");
+		System.out.println(code);
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
@@ -272,7 +274,8 @@ public class BookApplyDao {
 		rset = pstmt.executeQuery();
 		while(rset.next()) {
 			BookApply ba = new BookApply();
-			ba.setNo(rset.getInt("rnum"));
+			ba.setRnum(rset.getInt("rnum"));
+			ba.setNo(rset.getInt("no"));
 			ba.setId(rset.getString("id"));
 			ba.setName(rset.getString("name"));
 			ba.setPhone(rset.getString("phone"));
@@ -286,30 +289,22 @@ public class BookApplyDao {
 		JDBCTemplate.close(pstmt);
 		return list;
 	}
-
-	public BookApply viewOne(Connection conn, int no, String startDay, String endDay, String code) throws SQLException {
+	
+	
+	//보호소회원이 방문예약 리스트 내용 확인
+	public BookApply viewOne(Connection conn, int no) throws SQLException {
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
-		String sql="";
-		if(startDay!=null && startDay!=""){
-			sql += " and visit_date>'"+startDay+"'";
-		}
-		if(endDay!=null && endDay!=""){
-			sql += " and TO_CHAR(visit_date,'yyyy-mm-dd')<='"+endDay+"'";
-		}
-		System.out.println(no);
-		System.out.println(code);
-		String query = "select * from (select ROWNUM as rNum,b.* from (select * from book_apply order by 1 desc) b) where code=? and rnum=?"+sql;
-//		String query = "select * from (select ROWNUM as rNum,b.* from (select * from book_apply order by 1 desc) b) where rnum BETWEEN ? and ? and code=?";
+		System.out.println("리스트 내용 no(DAO) : "+no);
+		String query = "select * from (select ROWNUM as rNum,b.* from (select * from book_apply order by 1 desc) b) where no=?";
 		pstmt = conn.prepareStatement(query);
-		System.out.println("dao"+query);
-		pstmt.setString(1, code);
-		pstmt.setInt(2, no);
+		pstmt.setInt(1, no);
 		rset = pstmt.executeQuery();
 		BookApply ba = null;
 		if(rset.next()) {
 			ba = new BookApply();
-			ba.setNo(rset.getInt("rnum"));
+			ba.setRnum(rset.getInt("rnum"));
+			ba.setNo(rset.getInt("no"));
 			ba.setId(rset.getString("id"));
 			ba.setName(rset.getString("name"));
 			ba.setPhone(rset.getString("phone"));
@@ -326,6 +321,51 @@ public class BookApplyDao {
 		JDBCTemplate.close(rset);
 		JDBCTemplate.close(pstmt);
 		return ba;
+	}
+	
+	//보호소 회원이 상태 업데이트
+	public int updateStatus(Connection conn, int status, int no) {
+		PreparedStatement pstmt =null;
+		int result=0;
+		String query = "update book_apply set status=? where no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, status);
+			pstmt.setInt(2, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	
+	//예약된 방문 시간 구해오기
+	public ArrayList<String> possibleTime(Connection conn, String visitDate, String careNm) {
+		System.out.println("2Dao");
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		ArrayList<String> list = new ArrayList<String>();
+		String query = "select visit_time from book_apply join member using(code) where visit_date=? and member.name=? and status!=2";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, visitDate);
+			pstmt.setString(2, careNm);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(rset.getString("visit_time"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
 	}
 
 	/*public int selectDateCount(Connection conn, String startDay, String endDay, String code) throws SQLException {
