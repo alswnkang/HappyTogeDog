@@ -58,7 +58,7 @@ public class SiPreBoardInsertServlet extends HttpServlet {
 		//insert가 작동하는지 확인용 / 로그인 정보와 연동 필요
 		int result = new BoardService().boardInsert(b);
 		String view = "";
-		if(result>0 && (b.getBoardType()==0 || b.getBoardType()==1 || b.getBoardType()==2)) {//자유게시판에서 글쓰기해야만 작성되도록
+		if(result>0 && b.getBoardType()==1) {//자유게시판에서 글쓰기해야만 작성되도록
 			request.setAttribute("msg", "게시글이 등록되었습니다.");
 			request.setAttribute("loc", "/siPreBoard");
 			view = "/WEB-INF/siViews/common/siMsg.jsp";
