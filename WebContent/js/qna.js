@@ -9,13 +9,17 @@ $(function(){
 	});
 	
 });
+function view(boardNo){
+	$('input[name=boardNo]').val(boardNo);
+	moveView.submit();
+}
 
 /* 페이지 이동 */
 function list(reqPage){
-	
 	$('input[name=reqPage]').val(reqPage);
 	search.submit();
 }
+
 
 /* 비밀번호 입력 체크 */
 function check(f){
