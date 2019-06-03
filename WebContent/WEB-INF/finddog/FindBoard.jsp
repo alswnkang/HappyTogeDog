@@ -2,6 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<jsp:include page="/WEB-INF/common/header.jsp" />
+<%-- Content --%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <link rel="stylesheet" type="text/css" href="/css/content.css">
 <link rel="stylesheet" type="text/css" href="/css/findMydog_DJ.css">
 
@@ -13,11 +19,11 @@
 <%-- Content --%>
 <section id="content-wrapper">
 	<div class="area">
-		<h2 class="comm-content-tit">입양하기</h2>
+		<h2 class="comm-content-tit">강아지를 찾습니다</h2>
 		<ul class="main-adopt-review-list clearfix"><!-- 입양후기는 최소/최대 8개가 노출됩니다. -->
 			<c:forEach items="${sdpd.list }" var="m" varStatus="i">
 				<li>
-					<a href="/takeDogDetail">
+					<a href="#">
 						<div class="img-thum">
 						<span style="background:url('${m.filename }') no-repeat center center; background-size:cover;"></span>
 						</div>
@@ -30,6 +36,8 @@
 				</li>
 			</c:forEach>
 		</ul>
+		
+		
 		
 		<!-- paging -->
 		<div class="paging">${sdpd.pageNavi }</div>
@@ -49,19 +57,8 @@
 			</form>
 		</div>
 	</div>
+	
+	
 </section>
 
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<%--footer --%>
-	<jsp:include page="/WEB-INF/common/footer.jsp" />
+<jsp:include page="/WEB-INF/common/footer.jsp" />

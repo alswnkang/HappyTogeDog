@@ -1,0 +1,88 @@
+package finddog.controller;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import finddog.model.service.SearchDogService;
+import finddog.model.vo.Kind;
+import openApi.model.dao.OpenApiDao;
+import openApi.model.vo.cityCode;
+
+/**
+ * Servlet implementation class searchDogAllServlet
+ */
+@WebServlet(name = "searchDogAll", urlPatterns = { "/searchDogAll" })
+public class SearchDogAllServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public SearchDogAllServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
+		
+		ArrayList<String> mlist = new ArrayList<>();
+		ArrayList<String> ylist = new ArrayList<>();
+		ArrayList<String> dlist = new ArrayList<>();
+		ArrayList<cityCode> city=null;	
+		ArrayList<Kind> kind = new ArrayList<>();
+		
+		city=new OpenApiDao().getCityCode();
+		
+		
+		for(int i=0;i<10;i++) {
+			ylist.add((2010+i)+"년");
+		}
+		for(int i=0;i<30;i++) {
+			dlist.add((1+i)+"일");
+		}
+		for(int i=1;i<13;i++) {
+			mlist.add((i)+"월");
+		}
+		
+		try {
+			kind= new SearchDogService().getKindCode();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		request.setAttribute("mList", mlist);
+		request.setAttribute("yList", ylist);
+		request.setAttribute("dList", dlist);
+		request.setAttribute("kind", kind);
+		request.setAttribute("city", city);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/searchTemplet.jsp");
+		rd.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

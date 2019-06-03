@@ -19,4 +19,26 @@ public class BoardCommentService {
 		JDBCTemplete.close(conn);
 		return result;
 	}
+	public int commentUpdate(String memberId,String boardCommentContent,int boardCommentNo) {
+		Connection conn = JDBCTemplete.getConnection();
+		int result = new BoardCommentDao().commentUpdate(conn,memberId,boardCommentContent,boardCommentNo);
+		if(result>0) {
+			JDBCTemplete.commit(conn);
+		}else {
+			JDBCTemplete.rollback(conn);
+		}
+		JDBCTemplete.close(conn);
+		return result;
+	}
+	public int commentDelete(int boardCommentNo) {
+		Connection conn = JDBCTemplete.getConnection();
+		int result = new BoardCommentDao().commentDelete(conn,boardCommentNo);
+		if(result>0) {
+			JDBCTemplete.commit(conn);
+		}else {
+			JDBCTemplete.rollback(conn);
+		}
+		JDBCTemplete.close(conn);
+		return result;
+	}
 }

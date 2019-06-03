@@ -32,6 +32,13 @@
 						</tr>
 					</thead>
 					<tbody>
+						<c:if test="${empty qnaList.qnainfoList }">
+							<tr>
+								<td colspan="5">
+									<p class="none">게시물이 없습니다.</p>
+								</td>
+							</tr>
+						</c:if>
 						<c:forEach items="${qnaList.qnainfoList}" var="qna">
 							<tr>
 							<td>${qna.boardRnum }</td>

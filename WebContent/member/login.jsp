@@ -16,7 +16,7 @@
 						<table class="comm-tbl login-tbl">
 							<colgroup>
 								<col width="20%">
-								<col width="">
+								<col width="/">
 							</colgroup>
 							<tr>
 								<th>아이디</th>

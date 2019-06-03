@@ -44,7 +44,7 @@
 					<input type="hidden" name="memberName" value="${sessionScope.member.name }"/>
 					<input type="hidden" name="boardNo" value="${vd.b.boardNo }"/>
 					<input type="hidden" name="boardType" value="1"/>
-					<table class="comm-tbl view">
+					<table class="comm-tbl view" id="commentTb">
 						<c:if test="${not empty sessionScope.member.id }">
 						<!-- 로그인을 안하면 댓글리스트만 조회가능, 등록칸이 보이지 않도록 설정 -->
 							<tr>
@@ -54,19 +54,33 @@
 								</td>
 							</tr>
 						</c:if>
+					</table>
+				</form>
+				<form id="cmtUpdateForm" action="/siPreBoardCommentUpdate" method="post">
+					<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
+					<input type="hidden" name="boardNo" value="${vd.b.boardNo }"/>
+					<table class="comm-tbl view">
 						<c:forEach items="${vd.list }" var="list">
 							<c:if test="${list.boardRef == vd.b.boardNo}">
+								<input type="hidden" name="boardCommentNo" value="${list.boardCommentNo }"/>
 							<!-- 해당 게시글에 입력된 댓글만 출력되도록 -->
 								<tr>
 									<td width="20%">${list.boardCommentName }(${list.boardCommentId })</td>
-									<td width="65%">${list.boardCommentContent }</td>
+									<td width="65%">
+										<span>${list.boardCommentContent }</span>
+										<input type="text" value="${list.boardCommentContent }" name="boardCommentContent" style="display:none;"/>
+									</td>
 									<td width="10%">
 										${list.boardCommentDate }<br/>
-										<c:if test="${sessionScope.member.id==list.boardCommentId || sessionScope.member.id eq 'admin' }">
-										<!-- 댓글 등록한 회원과 관리자만 수정/삭제가 가능하도록 -->
-											<a href="/siBoardCommentUpdate" class="btn-style3">수정</a>
+										<c:if test="${sessionScope.member.id==list.boardCommentId }">
+										<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
+											<button type="button">수정</button>
 											/
-											<a href="/siBoardCommentDelete" class="btn-style3">삭제</a>
+											<a href="/siPreBoardCommentDelete?boardCommentNo=${list.boardCommentNo }&boardNo=${vd.b.boardNo }">삭제</a>
+										</c:if>
+										<c:if test="${sessionScope.member.id!=list.boardCommentId && sessionScope.member.id eq 'admin' }">
+										<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
+											<a href="/siPreBoardCommentDelete?boardCommentNo=${list.boardCommentNo }&boardNo=${vd.b.boardNo }">삭제</a>
 										</c:if>
 									</td>
 								</tr>
@@ -89,5 +103,20 @@
 		</div>
 	</section>
 </body>
+<script>
+	$(document).ready(function(){
+		$('button').eq(1).click(function(){
+			$(this).parent().prev().children().eq(0).hide();
+			$(this).parent().prev().children().eq(1).show();
+			$(this).html('등록').attr("id","cmtUpdate");
+			$("#cmtUpdate").click(function(){
+				$(this).parent().prev().children().eq(0).show();
+				$(this).parent().prev().children().eq(1).hide();
+				$(this).html('수정').removeAttr("id");
+				$('#cmtUpdateForm').submit();
+			});
+		});
+	});
+</script>
 <jsp:include page="/WEB-INF/common/footer.jsp" />
 </html>

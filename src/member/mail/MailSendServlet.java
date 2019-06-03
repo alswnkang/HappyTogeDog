@@ -3,6 +3,7 @@ package member.mail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
@@ -20,6 +21,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import member.model.Service.MemberService;
 
 /**
  * Servlet implementation class MailSendServlet
@@ -46,13 +49,16 @@ public class MailSendServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		String email = request.getParameter("send_email");
 		int level = Integer.parseInt(request.getParameter("send_level"));
+		try {
+			int result = new MemberService().emailOverlap(email);
+			System.out.println("이메일"+result);
+			if(result > 0){
+				
+			}else {
 		System.out.println("이메일서블릿"+level);
 		Random random = new Random();
 		int num = random.nextInt(899999)+100001;
-		
 		System.out.println(num);
-		
-		
 		Properties prop = System.getProperties();
 		prop.put("mail.smtp.starttls.enable", "true");				//로그인시 TLS를 사용할 것인지 설정
 		prop.put("mail.smtp.host", "smtp.naver.com");				// 이메일 발송을 처리해줄 SMTP서버
@@ -87,6 +93,11 @@ public class MailSendServlet extends HttpServlet {
 		request.setAttribute("level", level);
 		RequestDispatcher rd = request.getRequestDispatcher("/member/emailSend.jsp");
 		rd.forward(request, response);
+			}
+			
+		} catch (SQLException e1) {
+			System.out.println("이메일 sql 오류");
+		}
 		
 		
 	}

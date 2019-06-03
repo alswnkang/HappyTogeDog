@@ -1,7 +1,7 @@
-package siBoard.controller;
+package member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,23 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import siBoard.model.boardService.BoardService;
-import siBoard.model.boardVo.Board;
-import siBoard.model.boardVo.BoardViewData;
-import siBoardComment.model.boardCommentService.BoardCommentService;
-import siBoardComment.model.boardCommentVo.BoardComment;
+import member.model.Service.MemberService;
 
 /**
- * Servlet implementation class SiPreBoardViewServlet
+ * Servlet implementation class AdminDeleteServlet
  */
-@WebServlet(name = "SiPreBoardView", urlPatterns = { "/siPreBoardView" })
-public class SiPreBoardViewServlet extends HttpServlet {
+@WebServlet(name = "AdminDelete", urlPatterns = { "/adminDelete" })
+public class AdminDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SiPreBoardViewServlet() {
+    public AdminDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,12 +31,24 @@ public class SiPreBoardViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setCharacterEncoding("utf-8");
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/board/siPreBoardView.jsp");
-		BoardViewData vd = new BoardService().boardView(boardNo);
-		request.setAttribute("vd", vd);
-		rd.forward(request, response);
+		String id = request.getParameter("id");
+		try {
+			int result = new MemberService().delete(id);
+			if(result>0) {
+				RequestDispatcher rd = request.getRequestDispatcher("adminPage");
+				rd.forward(request, response);
+			}else {
+				RequestDispatcher rd = request.getRequestDispatcher("/adminPage");
+				rd.forward(request, response);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**

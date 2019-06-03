@@ -1,7 +1,6 @@
-package siBoard.controller;
+package siBoardComment.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,23 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import siBoard.model.boardService.BoardService;
-import siBoard.model.boardVo.Board;
-import siBoard.model.boardVo.BoardViewData;
 import siBoardComment.model.boardCommentService.BoardCommentService;
-import siBoardComment.model.boardCommentVo.BoardComment;
 
 /**
- * Servlet implementation class SiPreBoardViewServlet
+ * Servlet implementation class SiBoardCommentUpdateServlet
  */
-@WebServlet(name = "SiPreBoardView", urlPatterns = { "/siPreBoardView" })
-public class SiPreBoardViewServlet extends HttpServlet {
+@WebServlet(name = "SiPreBoardCommentUpdate", urlPatterns = { "/siPreBoardCommentUpdate" })
+public class SiPreBoardCommentUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SiPreBoardViewServlet() {
+    public SiPreBoardCommentUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,10 +31,21 @@ public class SiPreBoardViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		String memberId = request.getParameter("memberId");
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/board/siPreBoardView.jsp");
-		BoardViewData vd = new BoardService().boardView(boardNo);
-		request.setAttribute("vd", vd);
+		String boardCommentContent = request.getParameter("boardCommentContent");
+		int boardCommentNo = Integer.parseInt(request.getParameter("boardCommentNo"));		
+		int result = new BoardCommentService().commentUpdate(memberId,boardCommentContent,boardCommentNo);
+		String view = "";
+		if(result>0) {
+			request.setAttribute("msg", "댓글 수정 성공");
+			view = "/WEB-INF/siViews/common/siMsg.jsp";
+		}else {
+			request.setAttribute("msg", "댓글 수정 실패");
+			view = "/WEB-INF/siViews/common/siMsg.jsp";
+		}
+		request.setAttribute("loc", "/siPreBoardView?boardNo="+boardNo);
+		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
 	}
 

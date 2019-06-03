@@ -1,6 +1,7 @@
 package adoption.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -10,22 +11,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import adoption.model.dao.FindDogDao;
-import adoption.model.service.FindDogService;
-import adoption.model.vo.DogList;
-import adoption.model.vo.SearchDogPageData;
+import adoption.model.dao.PrintShelterDao;
+import adoption.model.service.PrintShelterService;
+import adoption.model.vo.Shelter;
+import adoption.model.vo.ShelterPageData;
 
 /**
- * Servlet implementation class SearchDogServlet
+ * Servlet implementation class PrintShelterServlet
  */
-@WebServlet(name = "SearchDog", urlPatterns = { "/searchDog" })
-public class SearchDogServlet extends HttpServlet {
+@WebServlet(name = "PrintShelter", urlPatterns = { "/printShelter" })
+public class PrintShelterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchDogServlet() {
+    public PrintShelterServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,26 +36,37 @@ public class SearchDogServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		
-		
+		int city;
 		int page;
 		try {
+			city = Integer.parseInt(request.getParameter("city"));
 			page = Integer.parseInt(request.getParameter("page"));
-		}catch(NumberFormatException e){ // 처음요청시 숫자가 아니므로 1을 줘서 첫페이지로 향하게한다.
-			page = 1;
+		}catch (NumberFormatException e) {
+			// TODO: handle exception
+			city=0;
+			page=1;
 		}
-		boolean b= true;
-		SearchDogPageData sdpd = new SearchDogPageData();
-		while(b) {
-			sdpd = new FindDogService().selectList(page);
-			if(sdpd.getList().size()==12) { //12개의 리스트를답을때까지 반복
-				b=false;
-			}
+		
+		ShelterPageData spd = new ShelterPageData();
+		
+		try {
+			spd = new PrintShelterService().printShelter(city,page);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		request.setAttribute("sdpd", sdpd);   //pagedata저장
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/searchDog.jsp");
+		
+		request.setAttribute("spd", spd);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/findShelter.jsp");
 		rd.forward(request, response);
+		
+		
+		
+	
+		
+		
+		
 	}
 
 	/**

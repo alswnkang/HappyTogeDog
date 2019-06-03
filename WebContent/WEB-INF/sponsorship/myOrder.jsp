@@ -45,9 +45,11 @@
 				<tr>
 					<td>배송지 주소</td><td>( ${orderInfo.post } )<br>${fn:split(orderInfo.address,'//')[0] } ${fn:split(orderInfo.address,'//')[1] }</td>
 				</tr>
-				<tr>
-					<td>배송 메모</td><td>${orderInfo.memo }</td>
-				</tr>
+				<c:if test="${not empty orderInfo.memo }">
+					<tr>
+						<td>배송 메모</td><td>${orderInfo.memo }</td>
+					</tr>
+				</c:if>
 				<c:if test="${not empty orderInfo.deilveryNum }">
 					<tr>
 						<td>운송장 번호</td><td>${orderInfo.deilveryNum } <a href="javascript:window.open('https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?sid1=${orderInfo.deilveryNum }','');">배송조회</a></td>
@@ -83,7 +85,7 @@
 				</tr>
 			</table>
 			<c:if test="${not empty sessionScope.member }">
-				<button class="order-btn">목록으로</button>
+				<button class="order-btn" onclick="location.href='/myOrderList'">목록으로</button>
 			</c:if>
 		</div>
 		

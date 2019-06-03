@@ -90,9 +90,6 @@
 									<li><a href="/sponsorship">후원하기</a></li>
 									<li><a href="/qnaList">Q&A</a></li>
 									<li><a href="/findOrder.jsp">주문조회</a></li>
-									<c:if test="${sessionScope.member.memberLevel eq 2 }">
-										<li><a href="/orderList">주문관리</a></li>
-									</c:if>
 								</ul>
 							</div>
 						</li>
@@ -100,9 +97,9 @@
 							<a href="/findDog">실종유기견찾기</a>
 							<div class="gnb-2dep">
 								<ul>
-									<li><a href="">보호중인 유기견</a></li>
-									<li><a href="">강아지를 찾습니다</a></li>
-									<li><a href="/searchDog">유기견 검색</a></li>
+									<li><a href="/takeBoard">보호중인 유기견</a></li>
+									<li><a href="/findBoard">강아지를 찾습니다</a></li>
+									<li><a href="/searchDogAll">유기견 검색</a></li>
 								</ul>
 							</div>
 						</li>

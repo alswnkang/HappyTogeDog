@@ -18,7 +18,10 @@
 							<th>연락처</th>
 						</tr>
 					</thead>
+					
 					<tbody>
+					
+					
 						<tr>
 							<td>보호소명이 들어갑니다.</td>
 							<td>보호소주소가 들어갑니다.</td>
@@ -54,7 +57,10 @@
 							<td>보호소주소가 들어갑니다.</td>
 							<td>보호소연락처가 들어갑니다.</td>
 						</tr>
+						
+						
 					</tbody>
+					
 				</table>
 				<!-- paging -->
 				<div class="paging">
@@ -79,22 +85,23 @@
 			</div>
 			<div class="find-shelter-right-box">
 				<div class="map">
-					<a href="javascript:;" class="loc01" id="loc01"><p class="loc-name">인천<span id="locCnt01">(1)</span></p></a>
-					<a href="javascript:;" class="loc02" id="loc02"><p class="loc-name">서울<span id="locCnt02">(8)</span></p></a>
-					<a href="javascript:;" class="loc03" id="loc03"><p class="loc-name">경기도<span id="locCnt03">(14)</span></p></a>
-					<a href="javascript:;" class="loc04" id="loc04"><p class="loc-name">강원도<span id="locCnt04">(10)</span></p></a>
-					<a href="javascript:;" class="loc05" id="loc05"><p class="loc-name">충청남도<span id="locCnt05">(8)</span></p></a>
-					<a href="javascript:;" class="loc06" id="loc06"><p class="loc-name">대전<span id="locCnt06">(2)</span></p></a>
-					<a href="javascript:;" class="loc07" id="loc07"><p class="loc-name">충청북도<span id="locCnt07">(3)</span></p></a>
-					<a href="javascript:;" class="loc08" id="loc08"><p class="loc-name">경상북도<span id="locCnt08">(5)</span></p></a>
-					<a href="javascript:;" class="loc09" id="loc09"><p class="loc-name">전라북도<span id="locCnt09">(5)</span></p></a>
-					<a href="javascript:;" class="loc10" id="loc10"><p class="loc-name">광주<span id="locCnt10">(2)</span></p></a>
-					<a href="javascript:;" class="loc11" id="loc11"><p class="loc-name">전라남도<span id="locCnt11">(7)</span></p></a>
-					<a href="javascript:;" class="loc12" id="loc12"><p class="loc-name">경상남도<span id="locCnt12">(6)</span></p></a>
-					<a href="javascript:;" class="loc13" id="loc13"><p class="loc-name">제주도<span id="locCnt13">(3)</span></p></a>
-					<a href="javascript:;" class="loc14" id="loc14"><p class="loc-name">부산<span id="locCnt14">(4)</span></p></a>
-					<a href="javascript:;" class="loc15" id="loc15"><p class="loc-name">대구<span id="locCnt15">(2)</span></p></a>
-					<a href="javascript:;" class="loc16" id="loc16"><p class="loc-name">세종시<span id="locCnt16">(2)</span></p></a>															
+				
+					<a href="/printShelter?city=1" class="loc01" id="loc01"><p class="loc-name">인천<span id="locCnt01">(1)</span></p></a>
+					<a href="/printShelter?city=2" class="loc02" id="loc02"><p class="loc-name">서울<span id="locCnt02">(8)</span></p></a>
+					<a href="/printShelter?city=3" class="loc03" id="loc03"><p class="loc-name">경기도<span id="locCnt03">(14)</span></p></a>
+					<a href="/printShelter?city=4" class="loc04" id="loc04"><p class="loc-name">강원도<span id="locCnt04">(10)</span></p></a>
+					<a href="/printShelter?city=5" class="loc05" id="loc05"><p class="loc-name">충청남도<span id="locCnt05">(8)</span></p></a>
+					<a href="/printShelter?city=6" class="loc06" id="loc06"><p class="loc-name">대전<span id="locCnt06">(2)</span></p></a>
+					<a href="/printShelter?city=7" class="loc07" id="loc07"><p class="loc-name">충청북도<span id="locCnt07">(3)</span></p></a>
+					<a href="/printShelter?city=8" class="loc08" id="loc08"><p class="loc-name">경상북도<span id="locCnt08">(5)</span></p></a>
+					<a href="/printShelter?city=9" class="loc09" id="loc09"><p class="loc-name">전라북도<span id="locCnt09">(5)</span></p></a>
+					<a href="/printShelter?city=10" class="loc10" id="loc10"><p class="loc-name">광주<span id="locCnt10">(2)</span></p></a>
+					<a href="/printShelter?city=11" class="loc11" id="loc11"><p class="loc-name">전라남도<span id="locCnt11">(7)</span></p></a>
+					<a href="/printShelter?city=12" class="loc12" id="loc12"><p class="loc-name">경상남도<span id="locCnt12">(6)</span></p></a>
+					<a href="/printShelter?city=13" class="loc13" id="loc13"><p class="loc-name">제주도<span id="locCnt13">(3)</span></p></a>
+					<a href="/printShelter?city=14" class="loc14" id="loc14"><p class="loc-name">부산<span id="locCnt14">(4)</span></p></a>
+					<a href="/printShelter?city=15" class="loc15" id="loc15"><p class="loc-name">대구<span id="locCnt15">(2)</span></p></a>
+					<a href="/printShelter?city=16" class="loc16" id="loc16"><p class="loc-name">세종시<span id="locCnt16">(2)</span></p></a>															
 				</div>
 			</div>
 		</div>

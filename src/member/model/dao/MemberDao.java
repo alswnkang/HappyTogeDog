@@ -379,5 +379,19 @@ public class MemberDao {
 		JDBCTemplate.close(rset);
 		return result;
 	}
+	public int emailOverlap(String email) throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "select * from member where email = ?";
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, email);
+		result = pstmt.executeUpdate();
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(conn);
+		return result;
+		
+	}
+	
 	
 }

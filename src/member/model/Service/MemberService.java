@@ -43,7 +43,7 @@ public class MemberService {
 	}
 	public MemberPageData selectList(int reqPage) throws SQLException{
 		// 페이지당 게시물 수
-		int numPerPage = 5;
+		int numPerPage = 10;
 		//총 게시물수 구하기
 		int totalCount = new MemberDao().totalCount();
 		
@@ -94,7 +94,7 @@ public class MemberService {
 	
 	public MemberPageData searchUser(int reqPage,int select,String search) throws SQLException{
 		// 페이지당 게시물 수
-		int numPerPage = 5;
+		int numPerPage = 10;
 		//총 게시물수 구하기
 		int totalCount = new MemberDao().searchCount(select,search);
 		
@@ -121,7 +121,7 @@ public class MemberService {
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		//이전 버튼 생성
 		if(pageNo != 1) {
-			pageNavi += "<a class='btn' href='/adminPage?reqPage="+(pageNo-1)+"'>이전</a>";
+			pageNavi += "<a class='btn' href='/searchUser?reqPage="+(pageNo-1)+"&select="+select+"&search="+search+"'>이전</a>";
 			
 			// 페이지 번호 버튼 생성 (1 2 3 4 5)
 		}
@@ -130,13 +130,13 @@ public class MemberService {
 			if(reqPage == pageNo) {
 				pageNavi += "<span class=selectPage>"+pageNo+"</span>";
 			}else {
-				pageNavi += "<a class='btn' href='/adminPage?reqPage="+pageNo+"'>"+pageNo+"</a>";
+				pageNavi += "<a class='btn' href='/searchUser?reqPage="+pageNo+"&select="+select+"&search="+search+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
 		// 다음 버튼 생성
 		if(pageNo <= totalPage) {
-			pageNavi += "<a class='btn' href='/adminPage?reqPage="+pageNo+"'>다음</a>";
+			pageNavi += "<a class='btn' href='/searchUser?reqPage="+pageNo+"&select="+select+"&search="+search+"'>다음</a>";
 		}
 		
 		MemberPageData pd = new MemberPageData(list,pageNavi);
@@ -144,7 +144,7 @@ public class MemberService {
 	}
 	public MemberPageData seeUser(int reqPage,int user) throws SQLException{
 		// 페이지당 게시물 수
-		int numPerPage = 5;
+		int numPerPage = 10;
 		//총 게시물수 구하기
 		int totalCount = new MemberDao().seeUserCount(user);
 		
@@ -171,7 +171,7 @@ public class MemberService {
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		//이전 버튼 생성
 		if(pageNo != 1) {
-			pageNavi += "<a class='btn' href='/adminPage?reqPage="+(pageNo-1)+"'>이전</a>";
+			pageNavi += "<a class='btn' href='/seeUser?reqPage="+(pageNo-1)+"&user="+user+"'>이전</a>";
 			
 			// 페이지 번호 버튼 생성 (1 2 3 4 5)
 		}
@@ -180,17 +180,21 @@ public class MemberService {
 			if(reqPage == pageNo) {
 				pageNavi += "<span class=selectPage>"+pageNo+"</span>";
 			}else {
-				pageNavi += "<a class='btn' href='/adminPage?reqPage="+pageNo+"'>"+pageNo+"</a>";
+				pageNavi += "<a class='btn' href='/seeUser?reqPage="+pageNo+"&user="+user+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
 		// 다음 버튼 생성
 		if(pageNo <= totalPage) {
-			pageNavi += "<a class='btn' href='/adminPage?reqPage="+pageNo+"'>다음</a>";
+			pageNavi += "<a class='btn' href='/seeUser?reqPage="+pageNo+"&user="+user+"'>다음</a>";
 		}
 		
 		MemberPageData pd = new MemberPageData(list,pageNavi);
 		return pd;
+	}
+	public int emailOverlap(String email) throws SQLException {
+		int result = new MemberDao().emailOverlap(email);
+		return result;
 	}
 	
 	

@@ -9,12 +9,12 @@ public class SearchVO {
 	private String payMethod;
 	private String searchType;
 	private String searchVal;
+	private String prdCode;
 	public SearchVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public SearchVO(int reqPage, String startDay, String endDay, String status, String payMethod, String searchType,
-			String searchVal) {
+			String searchVal,String prdCode) {
 		super();
 		this.reqPage = reqPage;
 		this.startDay = startDay;
@@ -23,6 +23,7 @@ public class SearchVO {
 		this.payMethod = payMethod;
 		this.searchType = searchType;
 		this.searchVal = searchVal;
+		this.prdCode = prdCode;
 	}
 	public int getReqPage() {
 		return reqPage;
@@ -65,6 +66,12 @@ public class SearchVO {
 	}
 	public void setSearchVal(String searchVal) {
 		this.searchVal = searchVal;
+	}
+	public String getPrdCode() {
+		return prdCode;
+	}
+	public void setPrdCode(String prdCode) {
+		this.prdCode = prdCode;
 	}
 	
 	
