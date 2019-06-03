@@ -41,7 +41,7 @@ public class DogInfoServlet extends HttpServlet {
 		String specialMark = request.getParameter("specialMark");	//특이사항
 		String neuterYn = request.getParameter("neuterYn");			//중성화여부
 		String filename = request.getParameter("filename");			//이미지 사진
-		System.out.println(sexCd);		//보호소 방문시간 받아오기
+		System.out.println(sexCd);		
 		System.out.println(neuterYn);
 		//보호소 방문가능시간 가져오기
 		String careTime = new BookApplyService().careTime(careNm);

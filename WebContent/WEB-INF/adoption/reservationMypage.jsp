@@ -19,13 +19,10 @@
 				</tr>
 				<c:forEach items="${bp.list }" var="ba">
 					<tr>
-						<td>${ba.no}</td>
+						<td>${ba.rnum}</td>
 						<td>${ba.code }</td>
 						<td>${ba.visitDate }</td>
-						<td>
-							${fn:substring(ba.visitTime,0,2)}시 ~ 
-							${fn:substring(ba.visitTime,2,4)}시 
-						</td>
+						<td>${ba.visitTime}</td>
 						<td>${ba.applyDate }</td>
 						<td>${ba.result }</td>
 					</tr>

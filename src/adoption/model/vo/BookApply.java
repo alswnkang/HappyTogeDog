@@ -3,6 +3,7 @@ package adoption.model.vo;
 import java.sql.Date;
 
 public class BookApply {
+	private int rnum;
 	private int no;				//방문예약신청 넘버
 	private String code;		//보호소 코드
 	private String id;			//신청자 아이디
@@ -22,9 +23,10 @@ public class BookApply {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public BookApply(int no, String code, String id, String name, String phone, Date visitDate, String visitTime,
+	public BookApply(int rnum, int no, String code, String id, String name, String phone, Date visitDate, String visitTime,
 			Date applyDate, int status, String yard, String animal, String family, String experience, String avgTime) {
 		super();
+		this.rnum = rnum;
 		this.no = no;
 		this.code = code;
 		this.id = id;
@@ -40,6 +42,15 @@ public class BookApply {
 		this.experience = experience;
 		this.avgTime = avgTime;
 	}
+	
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+
 	public int getNo() {
 		return no;
 	}

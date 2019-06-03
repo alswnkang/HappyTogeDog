@@ -50,10 +50,15 @@ public class ReservationMypageServlet extends HttpServlet {
 			request.setAttribute("bp", bp);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/reservationMypage.jsp");
 			rd.forward(request, response);
-		} catch (SQLException e) {
-			RequestDispatcher rd = request.getRequestDispatcher("/error/sqlerror.jsp");
-			rd.forward(request, response);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+
+			/*RequestDispatcher rd = request.getRequestDispatcher("/error/sqlerror.jsp");
+			rd.forward(request, response);*/
+		
 	}
 
 	/**
