@@ -5,9 +5,10 @@ import java.sql.Date;
 public class VoluntaryApplyBoard {
 
 	private int applyNo;		//신청 글 번호	
-	private int no;			//공고번호
+	private int no;				//공고번호
 	private String code;		//보호소 코드
 	private String name;		//보호소 이름
+	private String title;		//공고 제목
 	private String id;			//신청자 아이디
 	private String phone;		//신청자 전화번호
 	private int person;			//신청 인원 수
@@ -21,12 +22,13 @@ public class VoluntaryApplyBoard {
 	}
 	
 
-	public VoluntaryApplyBoard(int applyNo, int no, String code, String name, String id, String phone, int person,
+	public VoluntaryApplyBoard(int applyNo, int no, String code, String title, String name, String id, String phone, int person,
 			String volunDate, String volunTime, Date enrollDate) {
 		super();
 		this.applyNo = applyNo;
 		this.no = no;
 		this.code = code;
+		this.title = title;
 		this.name = name;
 		this.id = id;
 		this.phone = phone;
@@ -64,6 +66,15 @@ public class VoluntaryApplyBoard {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 

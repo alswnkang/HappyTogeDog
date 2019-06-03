@@ -35,6 +35,9 @@ public class SearchDogServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		
+		
 		int page;
 		try {
 			page = Integer.parseInt(request.getParameter("page"));

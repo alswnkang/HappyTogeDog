@@ -392,6 +392,42 @@ public class MemberDao {
 		return result;
 		
 	}
-	
+	public Member findUser(String email) throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		String query = "select * from member where email = ?";
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, email);
+		rset = pstmt.executeQuery();
+		if(rset.next()) {
+			m = new Member();
+			m.setId(rset.getString("id"));
+			m.setPw(rset.getString("pw"));
+		}
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(conn);
+		return m;
+	}
+	public int temporaryPassword(String pw,String email) throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "update member set pw=? where email=?";
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, pw);
+		pstmt.setString(2, email);
+		result = pstmt.executeUpdate();
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(conn);
+		return result;
+	}
 	
 }

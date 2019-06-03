@@ -32,14 +32,16 @@
 					</thead>
 					<tbody>
 			 			<c:forEach items="${bp.list }" var="list">
-							<tr>
-								<td>${list.boardRnum}</td>
-								<td><a href="/siPreBoardView?boardNo=${list.boardNo }">${list.boardTitle }</a></td>
-								<!-- name 값을 넘겨주도록 설정필요 -->
-								<td>${list.boardName }(${list.boardId })</td>
-								<td>${list.boardDate }</td>
-								<td>${list.boardCount }</td>
-							</tr>
+			 				<c:if test="${list.boardType==1 }">
+								<tr>
+									<td>${list.boardRnum}</td>
+									<td><a href="/siPreBoardView?boardNo=${list.boardNo }">${list.boardTitle }</a></td>
+									<!-- name 값을 넘겨주도록 설정필요 -->
+									<td>${list.boardName }(${list.boardId })</td>
+									<td>${list.boardDate }</td>
+									<td>${list.boardCount }</td>
+								</tr>
+							</c:if>
 						</c:forEach>
 						<tr>
 							<td colspan="5" style="text-align:center;">

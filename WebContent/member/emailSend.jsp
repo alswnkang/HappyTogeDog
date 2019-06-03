@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -20,16 +20,25 @@
 	</style>
 </head>
 <body>
-	
+	<input type="hidden" id="check" value="${result }">
+	<c:if test="${result == 0 }">
 	<div id="checked-container">
+	
 		인증번호 입력 <input type="text" name="email_num" id="email_num">			<!-- 인증번호 입력받는 곳 -->
 		<input type="text" name="serverNum" id="serverNum" value="${num }">		<!-- 서버 인증번호 -->
 		<input type="button" id="btn" value="확인">
 		<div id="countdown"></div>
+	
 	</div>
+	</c:if>
 	
 	<script>
 		$(document).ready(function(){
+			var check = $('#check').val();
+			if(check>0){
+				alert("중복된 이메일 입니다.");
+				self.close();
+			}else{
 			function countdown( elementId, seconds ){
 				  var element, endTime, hours, mins, msLeft, time;
 
@@ -56,6 +65,8 @@
 
 				countdown('countdown', 10);	 // second base
 			
+			
+			}
 		});
 		
 		$('#btn').click(function(){
