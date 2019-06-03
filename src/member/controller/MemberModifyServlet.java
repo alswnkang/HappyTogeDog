@@ -37,8 +37,11 @@ public class MemberModifyServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String time = request.getParameter("time");
 		String endTime = request.getParameter("endTime");
-		String possibleTime = time+"시~"+endTime+"시";
+		String possibleTime = time+"시 ~"+endTime+"시";
 		int level = Integer.parseInt(request.getParameter("level"));
+		String address = request.getParameter("address");
+		String detailAddress = request.getParameter("detailAddress");
+		String fullAddress = address+" "+detailAddress;
 		System.out.println(possibleTime);
 		Member m = new Member();
 		m.setId(request.getParameter("id"));
@@ -47,7 +50,7 @@ public class MemberModifyServlet extends HttpServlet {
 		m.setName(request.getParameter("name"));
 		m.setPhone(request.getParameter("phone"));
 		m.setPost(request.getParameter("post"));
-		m.setAddress(request.getParameter("address"));
+		m.setAddress(fullAddress);
 		m.setPossibleTime(possibleTime);
 		m.setEmail(request.getParameter("email"));
 		m.setMemberLevel(level);

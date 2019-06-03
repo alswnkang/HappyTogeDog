@@ -196,6 +196,12 @@ public class MemberService {
 		int result = new MemberDao().emailOverlap(email);
 		return result;
 	}
-	
-	
+	public Member findUser(String email) throws SQLException {
+		Member m = new MemberDao().findUser(email);
+		return m;
+	}
+	public int temporaryPassword(String pw,String email) throws SQLException {
+		int result = new MemberDao().temporaryPassword(pw,email);
+		return result;
+	}
 }

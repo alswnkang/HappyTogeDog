@@ -10,6 +10,10 @@ import adoption.model.vo.SearchDogPageData;
 import common.JDBCTemplate;
 import finddog.model.dao.SearchDogDao;
 import finddog.model.vo.Kind;
+import siBoard.model.boardDao.BoardDao;
+import siBoard.model.boardVo.Board;
+import siBoard.model.boardVo.BoardPageData;
+import siTemplete.JDBCTemplete;
 
 public class SearchDogService {
 
@@ -55,6 +59,38 @@ public class SearchDogService {
 		}
 		SearchDogPageData sdpd = new SearchDogPageData(list,pageNavi);
 		return sdpd;
+	}
+
+	public BoardPageData boardAll(int reqPage) {
+		// TODO Auto-generated method stub
+		Connection conn = JDBCTemplete.getConnection();
+		int numPerPage = 10;
+		int totalCount = new SearchDogDao().totalCount(conn);
+		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
+		int start = (reqPage-1)*numPerPage+1;
+		int end = reqPage*numPerPage;
+		ArrayList<Board> list = new SearchDogDao().boardAll(conn,start,end);
+		String pageNavi = "";
+		int pageNaviSize = 10;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
+		if(pageNo!=1) {
+			pageNavi+="<a href='/takeBoard?reqPage="+(pageNo-1)+"'>이전</a>";
+		}
+		int i = 1;
+		while(!(i++>pageNaviSize || pageNo>totalPage)) {
+			if(reqPage==pageNo) {
+				pageNavi+="<span>"+pageNo+"</span>";
+			}else {
+				pageNavi+="<a href='/takeBoard?reqPage="+pageNo+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
+		if(pageNo<=totalPage) {
+			pageNavi+="<a href='/takeBoard?reqPage="+pageNo+"'>다음</a>";
+		}
+		JDBCTemplete.close(conn);
+		BoardPageData bp = new BoardPageData(list,pageNavi);
+		return bp;
 	}
 
 }
