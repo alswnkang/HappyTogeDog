@@ -3,6 +3,7 @@ select * from member;
 insert into member values('admin','1234','admin','관리자','010-1234-1234','','',null,'admin@test.com',2);
 
 select * from sponsorship ;
+select * from board;
 
 
 ALTER TABLE sponsorship ADD(vbank_name varchar2(20)); 

@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
 
+import qna.model.service.QnaService;
+import qna.model.vo.QnaListVO;
+import qna.model.vo.QnaVO;
 import sponsorship.model.service.OrderService;
 import sponsorship.model.vo.OrderInfoVO;
 import sponsorship.model.vo.OrderListVO;
@@ -45,15 +48,28 @@ public class orderServlet extends HttpServlet {
 
 		if(action.equals("sponsorship")) {	
 			request.setAttribute("prdList", prdList);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/productList.jsp");
-			rd.forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/sponsorship/productList.jsp").forward(request, response);
 			
 		}else if(action.equals("viewProduct")) {
-			int prdCode = Integer.parseInt(request.getParameter("code"));
-			
-			request.setAttribute("prd", prdList.get(prdCode));
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/productDetail.jsp");
-			rd.forward(request, response);
+			String code = request.getParameter("code");
+			if(code==null){
+				request.setAttribute("msg", "잘못된 접근입니다.");
+				request.setAttribute("loc", "/sponsorship");
+				request.getRequestDispatcher("/WEB-INF/qna/passwordPage.jsp").forward(request, response);
+				return;
+				
+			}else{
+				int prdCode = Integer.parseInt(code);
+				request.setAttribute("prd", prdList.get(prdCode));		
+				try {
+					ArrayList<QnaVO> qnaList = new QnaService().selectQna(1,5,new SearchVO(0, null, null, null, null, null, null, code));
+					request.setAttribute("qnaList", qnaList);
+				} catch (SQLException e) {
+					System.out.println("SQL에러 ㅠ");
+				}
+				
+				request.getRequestDispatcher("/WEB-INF/sponsorship/productDetail.jsp").forward(request, response);
+			}
 		
 		}else if(action.equals("orderList")){
 			
@@ -70,7 +86,7 @@ public class orderServlet extends HttpServlet {
 			String searchType = request.getParameter("searchType");
 			String searchVal = request.getParameter("searchVal");
 			
-			SearchVO search = new SearchVO(reqPage, startDay, endDay, status, payMethod, searchType, searchVal);
+			SearchVO search = new SearchVO(reqPage, startDay, endDay, status, payMethod, searchType, searchVal,null);
 			try {
 				request.setAttribute("search", search);
 				

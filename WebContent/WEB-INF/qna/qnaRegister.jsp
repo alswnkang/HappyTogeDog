@@ -13,7 +13,7 @@
 		<div id="qnaRegisterBox" class="common-tbl-box"><!-- id는 바꿔서 복붙 -->
 			<form action="/insertQna" method="post" enctype="multipart/form-data" onsubmit="return chkSubmit(this);">
 				<input type="hidden" name="boardType" value="3">
-				<input type="hidden" name="boardPrdcode" value="${param.prdCode }">
+				<input type="hidden" name="boardPrdcode" value="${prdCode }">
 				<table class="comm-tbl">
 					<colgroup>
 						<col width="28%">

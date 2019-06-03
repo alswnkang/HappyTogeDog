@@ -157,10 +157,19 @@
 	$(function() {
 		
 		$('input[type=checkbox]').click(function() {
-			$('input[name=receiveName]').val($('input[name=name]').val());
-			$('input[name=receivePhone1]').val($('input[name=phone1]').val());
-			$('input[name=receivePhone2]').val($('input[name=phone2]').val());
-			$('input[name=receivePhone3]').val($('input[name=phone3]').val());
+			console.log($(this).is(":checked"));
+			if($(this).is(":checked")==true){
+				$('input[name=receiveName]').val($('input[name=name]').val());
+				$('input[name=receivePhone1]').val($('input[name=phone1]').val());
+				$('input[name=receivePhone2]').val($('input[name=phone2]').val());
+				$('input[name=receivePhone3]').val($('input[name=phone3]').val());
+			}else{
+				$('input[name=receiveName]').val('');
+				$('input[name=receivePhone1]').val('');
+				$('input[name=receivePhone2]').val('');
+				$('input[name=receivePhone3]').val('');
+			}
+			
 		});
 
 		$('.pay button').click(function() {
@@ -170,10 +179,65 @@
 			var prdName = $('#prdName').html();
 			var price = $('input[name=pay]').val();
 			var name = $('input[name=name]').val();
-			var email = $('input[name=email]').val();
+			if(name==''){
+				alert('필수입력항목이 누락되었습니다');
+				$('input[name=name]').focus();
+				return false;
+			}
 			var phone = $('input[name=phone1]').val()+'-'+$('input[name=phone2]').val()+'-'+$('input[name=phone3]').val();
+			if($('input[name=phone2]').val()==''){
+				alert('필수입력항목이 누락되었습니다');
+				$('input[name=phone2]').focus();
+				return false;
+			}
+			if($('input[name=phone3]').val()==''){
+				alert('필수입력항목이 누락되었습니다');
+				$('input[name=phone3]').focus();
+				return false;
+			}
+			
+			var email = $('input[name=email]').val();
+			if($('input[name=email]').val()==''){
+				alert('필수입력항목이 누락되었습니다');
+				$('input[name=email]').focus();
+				return false;
+			}
+			
+			if($('input[name=receiveName]').val()==''){
+				alert('필수입력항목이 누락되었습니다');
+				$('input[name=receiveName]').focus();
+				return false;
+			}
+			if($('input[name=receivePhone2]').val()==''){
+				alert('필수입력항목이 누락되었습니다');
+				$('input[name=receivePhone2]').focus();
+				return false;
+			}
+			if($('input[name=receivePhone3]').val()==''){
+				alert('필수입력항목이 누락되었습니다');
+				$('input[name=receivePhone3]').focus();
+				return false;
+			}
+			
 			var post = $('input[name=post]').val();
+			if(post==''){
+				alert('필수입력항목이 누락되었습니다');
+				$('input[name=post]').focus();
+				return false;
+			}
+			
 			var addr = $('input[name=address]').val()+' '+$('input[name=address2]').val();
+			if($('input[name=address]').val()==''){
+				alert('필수입력항목이 누락되었습니다');
+				$('input[name=address]').focus();
+				return false;
+			}
+			if($('input[name=address2]').val()==''){
+				alert('필수입력항목이 누락되었습니다');
+				$('input[name=address2]').focus();
+				return false;
+			}
+			
 			var method = $('input[name=payMethod]:checked').val();
 
 			var d = new Date();

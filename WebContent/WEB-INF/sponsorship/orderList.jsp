@@ -12,12 +12,12 @@
 <section id="content-wrapper">
 	<div class="area">
 		<h2 class="comm-content-tit">주문 관리</h2>
-		<div id="orderListBox" class="common-tbl-box"><!-- id는 바꿔서 복붙 -->
+		<div id="orderListBox" class="common-tbl-box">
 			<!-- 검색박스 -->
 		 		<div class="board-search-box order-search">
 		 			<form action="/orderList" method="post" name="search">
 		 				<input type="hidden" name="reqPage" value="">
-			 			<input type="search" name="startDay" class="datepicker search-word" value="${search.startDay }"> ~ <input type="search" name="endDay" class="datepicker search-word" value="${search.endDay }">
+			 			<input type="search" name="startDay" class="datepicker search-day" value="${search.startDay }"> ~ <input type="search" name="endDay" class="datepicker search-day" value="${search.endDay }">
 			 			<br><br>
 			 			<select name="status" data-val="${search.status }">
 			 				<option value="">---주문상태---</option>
@@ -43,6 +43,7 @@
 						&nbsp;<button type="button" onclick="location.href='/orderList'" class="bbs-search-btn" title="검색">초기화</button>
 					</form>
 				</div>
+				
 				<p class="total">총 주문 수 : ${total.count } / 총 후원 금액(결제 완료된 주문합계) : <fmt:formatNumber value="${total.price }" pattern="#,###" /> 원</p>
 				<table class="comm-tbl type2">
 					<colgroup>
@@ -66,6 +67,13 @@
 						</tr>
 					</thead>
 					<tbody>
+						<c:if test="${empty orderList.orderinfoList }">
+							<tr>
+								<td colspan="7">
+									<p class="none">후원내역이 없습니다.</p>
+								</td>
+							</tr>
+						</c:if>
 						<c:forEach items="${orderList.orderinfoList}" var="order">
 							<tr>
 								<td><a href="/orderView?no=${order.no}">${order.no }</a></td>
