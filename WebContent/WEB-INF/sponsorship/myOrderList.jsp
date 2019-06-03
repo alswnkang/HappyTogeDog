@@ -39,9 +39,9 @@
 					<thead>
 						<tr>
 							<th>주문번호</th>
-							<th>주문자명</th>
+							<!--<th>주문자명</th>-->
 							<th>주문상품</th>
-							<!--  <th>결제수단</th>-->
+							<!--<th>결제수단</th>-->
 							<th>후원금액</th>
 							<th>주문날짜</th>
 							<th>주문상태</th>
@@ -50,7 +50,7 @@
 					<tbody>
 						<c:if test="${empty orderList.orderinfoList }">
 							<tr>
-								<td colspan="6">
+								<td colspan="5">
 									<p class="none">검색 기간내의 후원내역이 없습니다.</p>
 								</td>
 							</tr>
@@ -58,19 +58,23 @@
 						<c:forEach items="${orderList.orderinfoList}" var="order">
 							<tr>
 								<td><a href="/myOrder?no=${order.no}">${order.no }</a></td>
+								<!--
 								<td>
 									${order.name }<br>
 									<c:if test="${not empty order.id}">(${order.id })</c:if>
 									<c:if test="${empty order.id}">(비회원)</c:if>
 								</td>
+								-->
 								<td>${order.productName }</td>
-								<!-- <td>
+								<!-- 
+								<td>
 									<c:if test="${order.payMethod eq 'card'}">신용카드</c:if>
 									<c:if test="${order.payMethod eq 'trans' }">실시간 계좌이체</c:if>
 									<c:if test="${order.payMethod eq 'vbank' }">가상계좌</c:if>
 									<c:if test="${order.payMethod eq 'account' }">무통장입금</c:if>
 									<c:if test="${order.payMethod eq 'phone' }">휴대폰</c:if>
-								</td>	-->
+								</td>	
+								-->
 								<td><fmt:formatNumber value="${order.pay }" pattern="#,###" /> 원</td>	
 								<td>${order.sponDate }</td>
 								<td>
