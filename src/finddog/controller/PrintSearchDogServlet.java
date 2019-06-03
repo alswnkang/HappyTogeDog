@@ -35,20 +35,20 @@ public class PrintSearchDogServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		String kind = request.getParameter("");
-		String cityCode= request.getParameter("");
+		String kind = request.getParameter("kind");
+		String cityCode= request.getParameter("happenCity");
 		
-		String sY=request.getParameter("");
-		String sM=request.getParameter("");
-		String sD=request.getParameter("");
-		String eY=request.getParameter("");
-		String eM=request.getParameter("");
-		String eD=request.getParameter("");
+		String sY=request.getParameter("shappenDateY");
+		String sM=request.getParameter("shappenDateM");
+		String sD=request.getParameter("shappenDateD");
+		String eY=request.getParameter("ehappenDateY");
+		String eM=request.getParameter("ehappenDateM");
+		String eD=request.getParameter("ehappenDateD");
 		
 		
 		String sDay=sY.concat(sM).concat(sD);
 		String eDay=eY.concat(eM).concat(eD);
-		
+		System.out.println(sDay+","+eDay);
 		
 		int page;
 		try {
@@ -60,11 +60,27 @@ public class PrintSearchDogServlet extends HttpServlet {
 		SearchDogPageData sdpd = new SearchDogPageData();
 		while(b) {
 			sdpd = new SearchDogService().selectList(page,sDay,eDay,kind,cityCode);
-			if(sdpd.getList().size()==12) { //12개의 리스트를답을때까지 반복
+			if(sdpd.getList().size()==8) { //12개의 리스트를답을때까지 반복
 				b=false;
 			}
 		}
+		
+		
+		
+		SearchDogPageData sdpd2 = new SearchDogPageData();
+		
+		sdpd2 = new SearchDogService().selectListDB(page, sDay, eDay, kind, cityCode);
+		
+		
+		
+		
+		
+		request.setAttribute("sdpd2", sdpd2);
 		request.setAttribute("sdpd", sdpd);   //pagedata저장
+		
+		
+		
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/searchDog.jsp");
 		rd.forward(request, response);
 		

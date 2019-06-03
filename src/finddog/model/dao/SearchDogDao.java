@@ -33,7 +33,7 @@ public class SearchDogDao {
 		ArrayList<Kind> list = null;
 		Kind k = null;
 		
-		String query ="SELECT * FROM kind";
+		String query ="SELECT * FROM dogkind";
 		ResultSet rset= null;
 		pstmt= conn.prepareStatement(query);
 
@@ -46,8 +46,8 @@ public class SearchDogDao {
 		
 		while(rset.next()) {							
 			k = new Kind();
-			k.setKind(rset.getString(""));
-			k.setCode(rset.getString(""));
+			k.setKind(rset.getString("kind"));
+			k.setCode(rset.getString("code"));
 			
 			list.add(k);
 		}	
@@ -196,6 +196,15 @@ public class SearchDogDao {
 			JDBCTemplete.close(pstmt);
 		}
 		return list;
+	}
+
+	public ArrayList<DogList> getListDB(int page, String sDay, String eDay, String kind, String cityCode) {
+		// TODO Auto-generated method stub
+		//보완 필요
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		return null;
 	}
 
 }
