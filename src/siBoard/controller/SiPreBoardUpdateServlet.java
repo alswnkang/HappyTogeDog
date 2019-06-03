@@ -47,7 +47,7 @@ public class SiPreBoardUpdateServlet extends HttpServlet {
 		String boardContent = mRequest.getParameter("boardContent");		
 		String boardFilename = mRequest.getOriginalFileName("boardFilename");
 		//DefaultFileRenamePlicy 클래스 객체에 의해 파일명이 변경되기 전, 원래의 파일명을 리턴(원본 파일이름 유지)
-		String boardFilepath = mRequest.getFilesystemName("boardFilepath");
+		String boardFilepath = mRequest.getFilesystemName("boardFilename");
 		//insert가 작동하는지 확인용 / 로그인 정보와 연동 필요
 		//기존 파일 경로
 		String boardOldFilename = mRequest.getParameter("boardOldFilename");
@@ -63,6 +63,8 @@ public class SiPreBoardUpdateServlet extends HttpServlet {
 				File deleteFile = new File(saveDirectory+"/"+boardOldFilepath);
 				boolean bool = deleteFile.delete();
 				System.out.println(bool?"삭제성공":"삭제실패");
+				boardOldFilename = boardFilename;
+				boardOldFilename = boardFilepath;
 			}
 		}else {//첨부파일이 없는 경우
 			if(status.equals("stay")) {//새로운 첨부파일이 없고 기존의 파일을 삭제하지 않은 경우
