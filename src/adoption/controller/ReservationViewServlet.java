@@ -37,11 +37,17 @@ public class ReservationViewServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		String code = ((Member)session.getAttribute("member")).getCode();
 		int no = Integer.parseInt(request.getParameter("no"));
-		String start = request.getParameter("startDay");
-		String end = request.getParameter("endDay");
+		String startDay = request.getParameter("startDay");
+		String endDay = request.getParameter("endDay");
+		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
 		try {
-			BookApply ba = new BookApplyService().viewOne(no,start,end,code);
+//			BookApply ba = new BookApplyService().viewOne1(no,start,end,code);
+			BookApply ba = new BookApplyService().viewOne(no);
 			request.setAttribute("ba", ba);
+			request.setAttribute("reqPage", reqPage);
+			request.setAttribute("startDay", startDay);
+			request.setAttribute("endDay", endDay);
+			request.setAttribute("msg", request.getAttribute("msg"));
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/careReservationView.jsp");
 			rd.forward(request, response);
 		} catch (SQLException e) {
@@ -49,7 +55,6 @@ public class ReservationViewServlet extends HttpServlet {
 			/*RequestDispatcher rd = request.getRequestDispatcher("/error/sqlError.jsp");
 			rd.forward(request, response);*/
 		}
-		
 	}
 
 	/**

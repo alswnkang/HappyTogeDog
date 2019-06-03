@@ -51,10 +51,13 @@ public class MailSendServlet extends HttpServlet {
 		int level = Integer.parseInt(request.getParameter("send_level"));
 		try {
 			int result = new MemberService().emailOverlap(email);
-			System.out.println("이메일"+result);
-			if(result > 0){
-				
-			}else {
+			
+		if(result >0 ) {
+			request.setAttribute("result", result);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/member/emailSend.jsp");
+			rd.forward(request, response);
+		}else {
 		System.out.println("이메일서블릿"+level);
 		Random random = new Random();
 		int num = random.nextInt(899999)+100001;
@@ -88,12 +91,12 @@ public class MailSendServlet extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		out.print(num);
-		
+		request.setAttribute("result", result);
 		request.setAttribute("num", num);
 		request.setAttribute("level", level);
 		RequestDispatcher rd = request.getRequestDispatcher("/member/emailSend.jsp");
 		rd.forward(request, response);
-			}
+		}
 			
 		} catch (SQLException e1) {
 			System.out.println("이메일 sql 오류");

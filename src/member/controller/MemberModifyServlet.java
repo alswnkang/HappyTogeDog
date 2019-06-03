@@ -37,7 +37,7 @@ public class MemberModifyServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String time = request.getParameter("time");
 		String endTime = request.getParameter("endTime");
-		String possibleTime = time+"시~"+endTime+"시";
+		String possibleTime = time+"시 ~"+endTime+"시";
 		int level = Integer.parseInt(request.getParameter("level"));
 		System.out.println(possibleTime);
 		Member m = new Member();

@@ -19,7 +19,7 @@
 			<h3 class="mypage-tit">환영합니다! <b>${member.name }</b> 님</h3>
 			<ul class="mypage-box clearfix">
 				<li>
-					<a href="">
+					<a href="/myOrderList">
 						<div class="img-thum">
 							<span><img src="/img/mypage_icon01.png"></span>
 						</div>
@@ -81,7 +81,7 @@
 			<h3 class="mypage-tit">환영합니다! <b>${member.name }</b> 님</h3>
 			<ul class="mypage-box clearfix">
 				<li>
-					<a href="">
+					<a href="/myOrderList">
 						<div class="img-thum">
 							<span><img src="/img/mypage_icon01.png"></span>
 						</div>
@@ -154,7 +154,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="">
+					<a href="/orderList">
 						<div class="img-thum">
 							<span><img src="/img/mypage_icon07.png"></span>
 						</div>

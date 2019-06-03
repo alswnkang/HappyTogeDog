@@ -8,35 +8,27 @@
 <%-- Content --%>
 <section id="content-wrapper">
 	<div class="area">
-		<h2 class="comm-content-tit">로그인</h2>
+		<h2 class="comm-content-tit">아이디 / 비밀번호 찾기</h2>
 		<div id="loginBox" class="common-tbl-box" style="padding-bottom:50px;"><!-- class="common-tbl-box" id는 바꿔서 복붙 -->
-			<form action="/login" method="post">
+			<form action="/findUser" method="post">
 				<div class="login-inner clearfix">
 					<div class="login-tbl-box">
 						<table class="comm-tbl login-tbl">
 							<colgroup>
-								<col width="20%">
+								<col width="30%">
 								<col width="/">
 							</colgroup>
 							<tr>
-								<th>아이디</th>
-								<td><input type="text" name="id"></td>
-							</tr>
-							<tr>
-								<th>비밀번호</th>
-								<td><input type="password" name="pw"></td>
+								<th>이메일 입력</th>
+								<td><input type="text" name="email"></td>
 							</tr>
 						</table>
 					</div>
 					<div class="login-btn-box">
-						<button type="submit" class="login-btn">LOGIN</button>
+						<button type="submit" class="login-btn">찾기</button>
 					</div>
 				</div>
 			</form>
-			<div class="login-util-box">
-				<span><a href="/member/findUser.jsp">아이디/비밀번호 찾기</a></span>/
-				<span><a href="/member/terms.jsp">회원가입</a></span>
-			</div>
 		</div>
 	</div>
 </section>

@@ -1,4 +1,4 @@
-package adoption.controller;
+package finddog.controller;
 
 import java.io.IOException;
 
@@ -10,29 +10,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class FindShelterServlet
+ * Servlet implementation class TakeBoardServlet
  */
-@WebServlet(name = "FindShelter", urlPatterns = { "/findShelter" })
-public class FindShelterServlet extends HttpServlet {
+@WebServlet(name = "TakeBoard", urlPatterns = { "/takeBoard" })
+public class TakeBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FindShelterServlet() {
+    public TakeBoardServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		
-		
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/findShelter.jsp");
+		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/TakeBoard.jsp");
 		rd.forward(request, response);
 	}
 
@@ -40,6 +38,7 @@ public class FindShelterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -26,7 +26,7 @@
 				</tr>
 				<c:forEach items="${bp.list }" var="ba">
 					<tr onclick="view(${ba.no})" class="view">
-						<td>${ba.no}</td>
+						<td>${ba.rnum}</td>
 						<td>${ba.id }</td>
 						<td>${ba.name }</td>
 						<td>${ba.phone }</td>
@@ -45,7 +45,7 @@
 
 <script>
 		function view(no){
-			location.href="/reservationView?no="+no+"&startDay=${start}&endDay=${end}";
+			location.href="/reservationView?no="+no+"&startDay=${start}&endDay=${end}&reqPage=${reqPage}";
 		}
 </script>
 

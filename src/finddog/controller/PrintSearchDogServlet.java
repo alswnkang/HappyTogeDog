@@ -1,7 +1,6 @@
-package adoption.controller;
+package finddog.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,22 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import adoption.model.dao.FindDogDao;
 import adoption.model.service.FindDogService;
-import adoption.model.vo.DogList;
 import adoption.model.vo.SearchDogPageData;
+import finddog.model.service.SearchDogService;
 
 /**
- * Servlet implementation class SearchDogServlet
+ * Servlet implementation class PrintSearchDogServlet
  */
-@WebServlet(name = "SearchDog", urlPatterns = { "/searchDog" })
-public class SearchDogServlet extends HttpServlet {
+@WebServlet(name = "printSearchDog", urlPatterns = { "/printSearchDog" })
+public class PrintSearchDogServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchDogServlet() {
+    public PrintSearchDogServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,6 +35,20 @@ public class SearchDogServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
+		String kind = request.getParameter("");
+		String cityCode= request.getParameter("");
+		
+		String sY=request.getParameter("");
+		String sM=request.getParameter("");
+		String sD=request.getParameter("");
+		String eY=request.getParameter("");
+		String eM=request.getParameter("");
+		String eD=request.getParameter("");
+		
+		
+		String sDay=sY.concat(sM).concat(sD);
+		String eDay=eY.concat(eM).concat(eD);
+		
 		
 		int page;
 		try {
@@ -47,14 +59,17 @@ public class SearchDogServlet extends HttpServlet {
 		boolean b= true;
 		SearchDogPageData sdpd = new SearchDogPageData();
 		while(b) {
-			sdpd = new FindDogService().selectList(page);
+			sdpd = new SearchDogService().selectList(page,sDay,eDay,kind,cityCode);
 			if(sdpd.getList().size()==12) { //12개의 리스트를답을때까지 반복
 				b=false;
 			}
 		}
 		request.setAttribute("sdpd", sdpd);   //pagedata저장
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/searchDog.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/searchDog.jsp");
 		rd.forward(request, response);
+		
+		
+		
 	}
 
 	/**

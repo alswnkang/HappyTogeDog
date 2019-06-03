@@ -54,14 +54,16 @@ $(function(){
 		}
 	});
 	
+	$('#realAmount').text(addComma($('input[name=amount].num').val()));
+	
 	$('input[name=amount].num').keyup(function(){
 		
-		$('#limitPrice').text(addComma($(this).val()*chkPrice));
-		$('#realAmount').text(addComma($(this).val()));
+		$('#limitPrice').text(addComma($(this).val()*chkPrice)+"원 ( "+addComma($(this).val()*1)+" X "+addComma(chkPrice)+" )");
+		$('#realAmount').text(addComma($(this).val()*1));
 	});
 	
 	$('input[name=price].num').keyup(function(){
-		$('#realPrice').text(addComma($(this).val()));
+		$('#realPrice').text(addComma($(this).val()*1));
 	});
 	
 	

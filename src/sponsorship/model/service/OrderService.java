@@ -43,7 +43,7 @@ public class OrderService {
 
 		total = new OrderDao().totalCount(conn,search);
 		
-		int pageNum = 1;//한 페이지에 출력할 게시물 개수
+		int pageNum = 10;//한 페이지에 출력할 게시물 개수
 		int totalPage = (total%pageNum==0)?(total/pageNum):(total/pageNum)+1;
 		
 		
