@@ -52,7 +52,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="">
+					<a href="/myQnaList">
 						<div class="img-thum">
 							<span><img src="/img/mypage_icon04.png"></span>
 						</div>
@@ -114,7 +114,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="">
+					<a href="/myQnaList">
 						<div class="img-thum">
 							<span><img src="/img/mypage_icon04.png"></span>
 						</div>

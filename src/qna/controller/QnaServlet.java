@@ -25,7 +25,7 @@ import qna.model.vo.QnaListVO;
 import qna.model.vo.QnaVO;
 import sponsorship.model.vo.SearchVO;
 
-@WebServlet(name = "Qna", urlPatterns = { "/qnaList", "/qnaView", "/checkPw", "/regiQna", "/insertQna" })
+@WebServlet(name = "Qna", urlPatterns = { "/qnaList", "/qnaView", "/checkPw", "/regiQna", "/insertQna", "/myQnaList" })
 public class QnaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -39,7 +39,8 @@ public class QnaServlet extends HttpServlet {
 		String action = url[url.length-1];
 		HttpSession session = request.getSession(false);
 		Member member = (Member)session.getAttribute("member");
-
+		
+		/* Q&A 게시판 리스트 */
 		if(action.equals("qnaList")){
 			
 			int reqPage;
@@ -55,14 +56,41 @@ public class QnaServlet extends HttpServlet {
 			try {
 				QnaListVO qnaList = new QnaService().selectQna(search);
 				request.setAttribute("qnaList", qnaList);
+				
 				request.setAttribute("search", search);
 				request.getRequestDispatcher("/WEB-INF/qna/qnaList.jsp").forward(request, response);
 				
 			} catch (SQLException e) {
 				System.out.println("SQL에러 ㅠ");
 			}
-			
-			
+		/* 나의 Q&A 게시판 리스트 */	
+		}else if(action.equals("myQnaList")){
+			if(member != null) {
+				int reqPage;
+				try {
+					reqPage = Integer.parseInt(request.getParameter("reqPage"));
+				}catch (Exception e) {
+					reqPage = 1;
+				}
+				//String searchType = request.getParameter("searchType");
+				//String searchVal = request.getParameter("searchVal");
+				SearchVO search = new SearchVO(reqPage, null, null, null, null, "board_id", member.getId(),null);
+				
+				try {
+					QnaListVO qnaList = new QnaService().selectQna(search);
+					request.setAttribute("qnaList", qnaList);
+					request.setAttribute("search", search);
+					request.getRequestDispatcher("/WEB-INF/qna/myQnaList.jsp").forward(request, response);
+					
+				} catch (SQLException e) {
+					System.out.println("SQL에러 ㅠ");
+				}
+		}else {
+			request.setAttribute("msg", "로그인 후 이용해주세요");
+			request.setAttribute("loc", "/member/login.jsp");
+			request.getRequestDispatcher("/WEB-INF/qna/passwordPage.jsp").forward(request, response);
+		}
+		/* Q&A 뷰 페이지 */	
 		}else if(action.equals("qnaView")){
 			int boardNo;
 			try {
@@ -78,18 +106,40 @@ public class QnaServlet extends HttpServlet {
 				QnaVO qna = new QnaService().selectQna(boardNo);
 				if(qna.getBoardSecret()==1) {//비밀글인데
 
-					if(member==null) {//로그인 안되어있으면
-						response.sendRedirect("/checkPw?boardNo="+boardNo);//비밀번호 체크로 보내버리기
-						return;
+					if(member==null) {//로그인 안되어있는 상태에서
+						if(qna.getBoardId()==null) {//비회원이 쓴 글이면
+							response.sendRedirect("/checkPw?boardNo="+boardNo);//비밀번호 체크로 보내버리기
+							return;
+						}else {//회원이 쓴 글이면
+							request.setAttribute("msg", "접근 권한이 없습니다.");
+							request.setAttribute("loc", "/member/login.jsp");//로그인 페이지로 보내기
+							request.getRequestDispatcher("/WEB-INF/qna/passwordPage.jsp").forward(request, response);
+							return;
+						}
 					}else if(member.getMemberLevel()==2){
 						//관리자는 모든 글 조회 가능
-					}else if(!member.getId().equals(qna.getBoardId())) {//로그인 상태인데 자신이 쓴 글 아니어도 비밀번호 체크로 보내기
-						response.sendRedirect("/checkPw?boardNo="+boardNo);
-						return;
+					}else if(!member.getId().equals(qna.getBoardId())) {//로그인 상태에서 자신이 쓴 글 아닌데
+						if(qna.getBoardId()==null) {//비회원이 쓴 글이면
+							response.sendRedirect("/checkPw?boardNo="+boardNo);//비밀번호 체크로 보내기
+							return;
+						}else {//회원이 쓴 글이면
+							request.setAttribute("msg", "접근 권한이 없습니다.");
+							request.setAttribute("loc", "/qnaList");
+							request.getRequestDispatcher("/WEB-INF/qna/passwordPage.jsp").forward(request, response);
+							return;
+						}
+						
 					}
 					
 					//로그인 상태이고, 자신이 쓴글이면 보여주기....
 				}
+
+				request.setAttribute("pageName", request.getParameter("pageName"));
+				String searchType = request.getParameter("searchType");
+				String searchVal = request.getParameter("searchVal");
+				SearchVO search = new SearchVO(Integer.parseInt(request.getParameter("reqPage")), null, null, null, null, searchType, searchVal,null);
+				request.setAttribute("search", search);
+				
 				request.setAttribute("qna", qna);
 				CommentVO comment = new CommentService().selectComment(boardNo);
 				request.setAttribute("comment", comment);
