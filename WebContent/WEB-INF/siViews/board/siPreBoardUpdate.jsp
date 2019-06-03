@@ -43,7 +43,7 @@
 								<c:choose>
 									<c:when test="${not empty board.boardFilepath }">
 										<img class="delFile" src="/siUpload/board/${board.boardFilename }" width="16px">
-										<input type="file" id="boardFilename" style="display:none;">
+										<input type="file" id="boardFilename" name="boardFilename" style="display:none;">
 										<span class="delFile">${board.boardFilename }</span>
 										<button type="button" id="delFileBtn" class="file-del-btn delFile">삭제하기</button>
 										<input type="hidden" name="boardOldFilename" value=${board.boardFilename }>
