@@ -11,9 +11,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 
+import member.model.vo.Member;
 import qna.model.service.QnaService;
 import qna.model.vo.QnaListVO;
 import qna.model.vo.QnaVO;
@@ -26,8 +28,8 @@ import sponsorship.model.vo.SearchVO;
 import sponsorship.model.vo.TotalOrder;
 
 @WebServlet(name = "order", urlPatterns = { "/sponsorship", "/viewProduct", "/order", "/orderIng",
-		"/orderEnd", "/findOrder", "/myOrder", "/orderList", "/orderView",
-		"/updateOrder", "/updateStatus"})
+		"/orderEnd", "/findOrder", "/myOrder", "/orderList", "/myOrderList",
+		"/orderView", "/updateOrder", "/updateStatus"})
 public class orderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -45,6 +47,8 @@ public class orderServlet extends HttpServlet {
 		prdList.add(new ProductVO("1", "배찌뱃지뻇지", "39066105050978558_-1615663619.jpg", "10000"));
 		prdList.add(new ProductVO("2", "달력달력달력", "prd_img01.jpg", "15000"));
 		
+		HttpSession session = request.getSession(false);
+		Member member = (Member)session.getAttribute("member");
 
 		if(action.equals("sponsorship")) {	
 			request.setAttribute("prdList", prdList);
@@ -100,6 +104,43 @@ public class orderServlet extends HttpServlet {
 			} catch (SQLException e) {
 				System.out.println("SQL에러 ㅠ");
 			}			
+			
+		}else if(action.equals("myOrderList")){
+			if(member != null) {
+				int reqPage;
+				try {
+					reqPage = Integer.parseInt(request.getParameter("reqPage"));
+				}catch (Exception e) {
+					reqPage = 1;
+				}
+				String startDay = request.getParameter("startDay");
+				String endDay = request.getParameter("endDay");
+				
+				/* 기본 검색 기간 1개월로 설정 */
+				if(startDay == null) {
+					startDay = "2019-05-03";
+				}
+				if(endDay == null) {
+					endDay = "2019-06-03";
+				}
+				
+				try {
+					SearchVO search = new SearchVO(reqPage, startDay, endDay, null, null, "id", member.getId(),null);
+					request.setAttribute("search", search);
+					
+					OrderListVO orderList = new OrderService().selectOrder(search);
+					request.setAttribute("orderList", orderList);
+					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/myOrderList.jsp");
+					rd.forward(request, response);
+				} catch (SQLException e) {
+					System.out.println("SQL에러 ㅠ");
+				}	
+			}else {
+				request.setAttribute("msg", "로그인 후 이용해주세요");
+				request.setAttribute("loc", "/member/login.jsp");
+				request.getRequestDispatcher("/WEB-INF/qna/passwordPage.jsp").forward(request, response);
+			}
+			
 			
 		}else if(action.equals("order")) {
 			int prdCode = Integer.parseInt(request.getParameter("prdCode"));
