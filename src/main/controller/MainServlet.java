@@ -23,9 +23,10 @@ public class MainServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ArrayList<ProductVO> prdList = new ArrayList<ProductVO>();
-		prdList.add(new ProductVO("0", "에코에코에코백", "76896814691427225_1127979769.jpg", "20000"));
-		prdList.add(new ProductVO("1", "배찌뱃지뻇지", "39066105050978558_-1615663619.jpg", "10000"));
-		prdList.add(new ProductVO("2", "달력달력달력", "prd_img01.jpg", "15000"));
+		prdList.add(new ProductVO("0", "해피투게DOG 후원 에코백", "76896814691427225_1127979769.jpg", "20000","&lt;포인핸드 라이프백&gt; 에는 사람과 동물이 손을 맞잡은 포인핸드의 의미가 담겨있습니다.포인핸드는 굿즈를 통해 일상 속에서 사지않고 입양하는 문화를 알리고, 수익금으로 유기동물 입양을 위한 환경을 만들어가고 있습니다. \r\n" + 
+				"따듯한 봄, 포인핸드 라이프백과 함께하세요."));
+		prdList.add(new ProductVO("1", "해피투게DOG 후원 뱃지 무지개 다리", "39066105050978558_-1615663619.jpg", "10000", "상세설명"));
+		prdList.add(new ProductVO("2", "해피투게DOG 캘린더", "prd_img01.jpg", "15000","상세설명"));
 		
 		request.setAttribute("prdList", prdList);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");

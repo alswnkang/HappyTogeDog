@@ -27,7 +27,7 @@
 							<th>No.</th>
 							<th>답변상태</th>
 							<th>제목</th>
-							<th>작성자</th>
+							<%--<th>작성자</th>--%>
 							<th>작성일</th>
 						</tr>
 					</thead>
@@ -58,7 +58,9 @@
 									</a>
 								</p>
 							</td>
-							<td>${fn:substring(qna.boardName,0,2) }*</td>	
+							<%--
+							<td>${fn:substring(qna.boardName,0,2) }*</td>
+							--%>	
 							<td>${qna.boardDate }</td>						
 						</tr>
 						</c:forEach>
