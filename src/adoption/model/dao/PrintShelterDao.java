@@ -19,33 +19,38 @@ public class PrintShelterDao {
 		// TODO Auto-generated method stub
 		
 		
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt = null;	
+		ResultSet rset= null;
 		
-		
-		
-		ArrayList<Shelter> list = null;
 		Shelter shelter = null;
 		ShelterPageData spd = null;
-		String query ="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from shelter order by name) M) WHERE RNUM BETWEEN ? AND ? and citycode=?";
-		ResultSet rset= null;
+		ArrayList<Shelter> list = null;
+		
+		String query ="SELECT * FROM (SELECT ROWNUM AS RNUM, M.* FROM (select * from shelter where lev=?) M) where RNUM BETWEEN ? AND ?";
+		
+		
 		pstmt= conn.prepareStatement(query);
-		pstmt.setInt(1, start);
-		pstmt.setInt(2, end);
-		pstmt.setInt(3, city);
+		pstmt.setInt(1, city);
+		pstmt.setInt(2, start);
+		pstmt.setInt(3, end);
 		
 		
+		System.out.println(start+""+end+""+city);
 		
 		rset= pstmt.executeQuery();
 		
 		list= new ArrayList<>();
 		spd = new ShelterPageData();
+		
+		System.out.println(query);
+		
 		while(rset.next()) {							
 			shelter = new Shelter();
-			shelter.setAddr(rset.getString("address"));		
+			shelter.setAddr(rset.getString("addr"));		
 			shelter.setName(rset.getString("name"));
 			shelter.setPhone(rset.getString("phone"));
 			list.add(shelter);
-
+			System.out.println("아이씨좀 되자고"+shelter.getName());
 		}	
 			
 		
@@ -63,7 +68,7 @@ public class PrintShelterDao {
 	public int totalCount(Connection conn, int city) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select count(*) cnt from shelter where city_code=?";
+		String query = "select count(*) cnt from shelter where lev=?";
 		
 		
 		int result =0;

@@ -36,17 +36,15 @@ public class PrintShelterServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int city;
+		int city = Integer.parseInt(request.getParameter("city"));
 		int page;
-		try {
-			city = Integer.parseInt(request.getParameter("city"));
+		try {	
 			page = Integer.parseInt(request.getParameter("page"));
 		}catch (NumberFormatException e) {
 			// TODO: handle exception
-			city=0;
 			page=1;
 		}
-		
+		System.out.println(city);
 		ShelterPageData spd = new ShelterPageData();
 		
 		try {
@@ -55,7 +53,7 @@ public class PrintShelterServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		System.out.println(spd.getList().size());
 		request.setAttribute("spd", spd);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/findShelter.jsp");
