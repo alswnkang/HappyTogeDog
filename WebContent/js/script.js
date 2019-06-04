@@ -43,8 +43,7 @@ function addComma(num) {
 /* 숫자만 입력 */
 $(function(){
 	var chkPrice = $('input[name=chkPrice]').val();
-	//$('input[name=amount].num').val(1);
-	//$('input[name=price].num').val(chkPrice);
+
 	$('input[type=text].num').keyup(function(){
 		var num = $(this).val();
 		var check = /^[0-9]*$/;

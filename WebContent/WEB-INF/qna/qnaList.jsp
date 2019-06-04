@@ -60,7 +60,12 @@
 									</a>
 								</p>
 							</td>
-							<td>${fn:substring(qna.boardName,0,2) }*</td>	
+							<td>
+								${fn:substring(qna.boardName,0,2) }* 
+								<c:if test="${not empty qna.boardId}">
+									<br>(${qna.boardId })
+								</c:if>
+							</td>	
 							<td>${qna.boardDate }</td>						
 						</tr>
 						</c:forEach>

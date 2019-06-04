@@ -56,7 +56,7 @@ public class SearchDogAllServlet extends HttpServlet {
 		
 		}
 		for(int i=0;i<31;i++) {
-			dlist.add(1);
+			dlist.add(i);
 		}
 		
 		

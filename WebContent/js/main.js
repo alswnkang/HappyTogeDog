@@ -6,6 +6,51 @@
 
 $(document).ready(function(){
 
+	// 메인에서는 서브비주얼 없애기
+	$("#subVisual").remove();
+	
+	/* *********************** 메인 비주얼 ************************ */
+	// 임의의 영역을 만들어 스크롤바 크기 측정
+	function getScrollBarWidth(){
+		if($(document).height() > $(window).height()){
+			$('body').append('<div id="fakescrollbar" style="width:50px;height:50px;overflow:hidden;position:absolute;top:-200px;left:-200px;"></div>');
+			fakeScrollBar = $('#fakescrollbar');
+			fakeScrollBar.append('<div style="height:100px;">&nbsp;</div>');
+			var w1 = fakeScrollBar.find('div').innerWidth();
+			fakeScrollBar.css('overflow-y', 'scroll');
+			var w2 = $('#fakescrollbar').find('div').html('html is required to init new width.').innerWidth();
+			fakeScrollBar.remove();
+			return (w1-w2);
+		}
+		return 0;
+	}
+
+	// 메인 비주얼 높이값 설정
+	$("#mainVisual.full-height").each(function  () {
+		scrollWidth = getScrollBarWidth();
+		var win_width = $(window).outerWidth() + getScrollBarWidth();
+
+		var visual_height = $(window).height()	- 100;
+		
+		if ( win_width > 800 ) {
+			$("#mainVisual").height(visual_height);
+		}else {
+			$("#mainVisual").css("height","auto");
+		}
+		
+		$(window).resize(function  () {
+			var win_width = $(window).outerWidth() + getScrollBarWidth();
+
+			var visual_height = $(window).height()	- 100;
+
+			if ( win_width > 800 ) {
+				$("#mainVisual").height(visual_height);
+			}else {
+				$("#mainVisual").css("height","auto");
+			}
+		});
+	});
+	
 	/* *********************** 메인 입양 유기견 리스트  ************************ */
 	$('.main-adopt-list').slick({
 		slidesToShow:4,

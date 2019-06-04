@@ -19,6 +19,7 @@
 		<div class="qna-view">
 			<form action="/checkPw" method="post" onsubmit="return check(this);">
 				<input type="hidden" name="boardNo" value="${boardNo }">
+				<input type="hidden" name="checkType" value="${checkType }">
 				<table class="comm-tbl">
 					<tr>
 						<td>비밀번호</td>

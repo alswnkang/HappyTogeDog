@@ -133,17 +133,18 @@ public class SearchDogDao {
 		return nValue.getNodeValue();
 	}
 
-	public int totalCount(Connection conn) {
+	public int totalCount(Connection conn, int type) {
 		// TODO Auto-generated method stub
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		ResultSet rset = null;
 		int result = 0;
 		
-		String query = "select count(*) as cnt from board";
+		String query = "select count(*) as cnt from board where board_type=?";
 		
 		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
+			stmt = conn.prepareStatement(query);
+			stmt.setInt(1, type);
+			rset = stmt.executeQuery();
 			if(rset.next()) {
 				result = rset.getInt("cnt");
 			}
@@ -157,17 +158,115 @@ public class SearchDogDao {
 		return result;
 	}
 
-	public ArrayList<Board> boardAll(Connection conn, int start, int end) {
+
+
+	public ArrayList<DogList> getListDB(int page, String sDay, String eDay, String kind, String cityCode) {
 		// TODO Auto-generated method stub
+		//보완 필요
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
 		
+		return null;
+	}
+
+	public int change(Connection conn) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query ="select*from shelter";
+		int result=0;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery(query);
+			while(rset.next()) {
+				String code=rset.getString("code");
+				String name=rset.getString("name");
+				String phone=rset.getString("phone");
+				String addr=rset.getString("addr");
+				String[] array = addr.split(" ");
+				int city=0;
+				switch (array[0]) {
+				case "서울특별시":
+					city=2;
+					break;
+				case "부산광역시":
+					city=14;
+					break;
+				case "대구광역시":
+					city=15;
+					break;
+				case "대전광역시":
+					city=6;
+					break;
+				case "광주광역시":
+					city=10;
+					break;
+				case "울산광역시":
+					break;
+				case "경기도":
+					city=3;
+					break;
+				case "경상남도":
+					city=12;
+					break;
+				case "경상북도":
+					city=8;
+					break;
+				case "충청남도":
+					city=5;
+					break;
+				case "충청북도":
+					city=7;
+					break;
+				case "전라남도":
+					city=11;
+					break;
+				case "전라북도":
+					city=9;
+					break;
+				case "강원도":
+					city=4;
+					break;	
+				case "세종특별시":
+					city=16;
+					break;	
+				case "인천광역시":
+					city=1;
+					break;	
+				case "제주특별시":
+					city=13;
+					break;	
+				
+				}
+				
+				System.out.println("insert into shelter values('"+code+"','"+name+"','"+phone+"','"+addr+"','"+city+"');");
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(rset);
+			JDBCTemplete.close(pstmt);
+		}
+	
+		
+		
+		return 0;
+	}
+
+	public ArrayList<Board> takeBoard(Connection conn, int start, int end, int type) {
+		// TODO Auto-generated method stub
 		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ? and board_type=?";
 		try {
 			pstmt=conn.prepareStatement(query);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
+			pstmt.setInt(3, type);
 			rset = pstmt.executeQuery();
 			list = new ArrayList<Board>();
 			while(rset.next()) {
@@ -196,15 +295,6 @@ public class SearchDogDao {
 			JDBCTemplete.close(pstmt);
 		}
 		return list;
-	}
-
-	public ArrayList<DogList> getListDB(int page, String sDay, String eDay, String kind, String cityCode) {
-		// TODO Auto-generated method stub
-		//보완 필요
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		return null;
 	}
 
 }

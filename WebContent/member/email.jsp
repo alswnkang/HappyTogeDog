@@ -1,28 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<script type="text/javascript" src="/js/email.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-<body>
-	<jsp:include page="/WEB-INF/common/header.jsp" />
-	<form name="send_emailFrm">								<!-- email.js 로 보낼 폼 -->
-		<input type="hidden" name="send_email">
-		<input type="hidden" name="send_level" value="${level }">
-	</form>
-		<form action="/emailJoin" method="post" onsubmit="return check()">
-		<div>
-			이메일 입력<input type="text" name="email" id="email"><br>
-					레벨<input type="text" name="level" id="level" value="${level }">	<br>					<!-- 가입자 레벨 -->
-					인증완료되면1<input type="text" name="a" id="a" value="0" change="emailChk();">	<br>		<!-- 이메일 인증 완료시 1 미완료시 0 -->
-			<button type="button" onclick="send_email()" id="btn">인증하기</button><br>						<!-- email.js로  -->
-			<input type="submit" value="계속하기" id="btn2">
-		</div>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%-- Header --%>
+<jsp:include page="/WEB-INF/common/header.jsp" />
+
+<script type="text/javascript" src="/js/email.js"></script><!-- email.js -->
+<style>
+	#email{display:inline-block; width:75%; vertical-align:middle;}
+	.comm-tbl td > h3{font-weight:500;}
+</style>
+
+<%-- Content --%>
+<section id="content-wrapper">
+	<div class="area">
+		<h2 class="comm-content-tit">회원가입 Step2</h2>	
+		<form name="send_emailFrm">								<!-- email.js 로 보낼 폼 -->
+			<input type="hidden" name="send_email">
+			<input type="hidden" name="send_level" value="${level }">
 		</form>
+		<form action="/emailJoin" method="post" onsubmit="return check()">
+			<table class="comm-tbl">
+				<colgroup>
+					<col width="20%">
+					<col width="/">
+				</colgroup>
+				<tr>
+					<th>회원 유형</th>
+					<td>
+						<c:if test="${level == 0 }">
+							<h3>일반 회원</h3>
+						</c:if>
+						<c:if test="${level == 1 }">
+							<h3>보호소 회원</h3>
+						</c:if>
+					</td>
+				</tr>
+				<tr>
+					<th>이메일 입력</th>
+					<td>
+						<input type="text" name="email" id="email">
+						<div class="common-tbl-btn-group join-btn-group">
+							<button type="button" onclick="send_email()" id="btn" class="btn-style2 small">인증하기</button> <!-- email.js로  -->
+						</div>
+					</td>
+				</tr>
+			</table>	<!-- email.js로  -->
+				
+				<input type="text" name="level" id="level" value="${level }" style="display:none">	<br>					<!-- 가입자 레벨 -->
+				<input type="text" name="a" id="a" value="0" change="emailChk();" style="display:none">	<br>		<!-- 이메일 인증 완료시 1 미완료시 0 -->
+			
+			<div class="common-tbl-btn-group">
+				<button type="submit" id="btn2" class="btn-style1">계속하기</button>
+			</div>
+		</form>
+	</div>
+</section>
+	
 	<script>
 	
 		function check(){
@@ -33,5 +67,6 @@
 		}
 		
 	</script>
-</body>
-</html>
+	
+<%-- Footer --%>
+<jsp:include page="/WEB-INF/common/footer.jsp" />

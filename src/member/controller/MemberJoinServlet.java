@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import adoption.model.service.PrintShelterService;
 import member.model.Service.MemberService;
 import member.model.vo.Member;
 
@@ -41,33 +42,54 @@ public class MemberJoinServlet extends HttpServlet {
 		String address = request.getParameter("address");
 		String detailAddress = request.getParameter("detailAddress");
 		String fullAddress = address+" "+detailAddress;
+		String city = request.getParameter("careCity");
+		String area = request.getParameter("careArea");
+		String careAddress = city+" "+area;
+		int level = Integer.parseInt(request.getParameter("level"));
+		Member m = new Member();
+		if(level != 0) {
+			m.setAddress(careAddress);
+		}else if(level == 0) {
+			m.setAddress(fullAddress);
+		}
 		System.out.println(fullAddress);
 		System.out.println(possibleTime);
-		Member m = new Member();
 		m.setId(request.getParameter("id"));
 		m.setPw(request.getParameter("pw"));
 		m.setName(request.getParameter("name"));
-		
 		m.setPhone(request.getParameter("phone"));
 		m.setPost(request.getParameter("post"));
-		m.setAddress(fullAddress);
 		m.setPossibleTime(possibleTime);
 		m.setEmail(request.getParameter("email"));
-		m.setMemberLevel(Integer.parseInt(request.getParameter("level")));
+		m.setMemberLevel(level);
 		m.setCode(request.getParameter("care"));
-		
 		System.out.println("memberjoin");
 		System.out.println(m.getMemberLevel());
 		try {
 			int result = new MemberService().memberJoin(m);
+	//		int result2 = new PrintShelterService().addShelter(m);		-- 보호소 찾기DB 수정이 필요함
+			
+			
+			
 			System.out.println(result);
 			if(result > 0) {
-				System.out.println("가입완료");
-				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+				request.setAttribute("msg", "가입 완료");
+				request.setAttribute("loc", "/");
+
+		/*		System.out.println("가입완료");						-- 보호소 찾기DB 수정이 필요함
+				if(result2<0) {
+					System.out.println("보호소 등록은 실패");
+				}else {
+					System.out.println("보호소등록성공");
+				}
+				*/
 				rd.forward(request, response);
 			}else {
-				System.out.println("가입실패");
-				RequestDispatcher rd = request.getRequestDispatcher("/join");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+				request.setAttribute("msg", "가입 실패");
+				request.setAttribute("loc", "/");
 				rd.forward(request, response);
 			}
 		} catch (SQLException e) {

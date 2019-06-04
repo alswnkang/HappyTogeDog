@@ -143,7 +143,7 @@
 			<h3 class="mypage-tit">환영합니다! <b>관리자</b> 님</h3>
 			<ul class="mypage-box clearfix">
 				<li>
-					<a href="">
+					<a href="/adminPage">
 						<div class="img-thum">
 							<span><img src="/img/mypage_icon06.png"></span>
 						</div>

@@ -28,7 +28,9 @@
 						<th>내용</th>
 						<td>
 							<c:if test="${not empty vd.n.noticeFilename }">
-								<img src='/siUpload/notice/${vd.n.noticeFilename }'width="800px"/>
+								<a style="float:right;" href="javascript:fileDownload('${vd.n.noticeFilename }','${vd.n.noticeFilepath }');">${vd.n.noticeFilename }</a>
+								<br/>
+								<img src='/siUpload/notice/${vd.n.noticeFilename }'width="300px"/>
 								<!-- 파일이 있으면 넘겨준 No를 기준으로 게시물의 이름을 불러와서 출력 -->
 								<br/>
 								${vd.n.noticeContent }
@@ -91,7 +93,7 @@
 				</form>
 				<form action="/siNoticeUpdateOriginal?noticeNo=${vd.n.noticeNo }" method="post" enctype="multipart/form-data">
 					<div class="common-tbl-btn-group" style="text-align:right;">
-						<c:if test='${sessionScope.member.id==vd.n.noticeId || sessionScope.member.id eq "admin" }'>
+						<c:if test='${sessionScope.member.id==vd.n.noticeId }'>
 						<!-- 회원 아이디와 글 작성자의 아이디가 같거나 관리자라면 수정/삭제 버튼 생성 -->
 							<button type="submit" class="btn-style3">수정</button>
 							<button type="button" id="noticeDelBtn" class="btn-style3">삭제</button>
@@ -125,10 +127,16 @@
 	$(document).ready(function(){
 		$('#noticeDelBtn').click(function(){
 			if(confirm("게시글을 삭제하시겠습니까?")){
-				location.href="/siNoticeDelete?noticeNo="+${vd.n.noticeNo };
+				location.href = '/siNoticeDelete?noticeNo='+${vd.n.noticeNo };
 			}
 		});
 	});
+	function fileDownload(noticeFilename,noticeFilepath){
+		var url = "/siNoticeFileDownload";
+		var encFilename = encodeURIComponent(noticeFilename);
+		var encFilepath = encodeURIComponent(noticeFilepath);
+		location.href=url+'?filename='+encFilename+"&filepath="+encFilename;
+	}
 </script>
 <jsp:include page="/WEB-INF/common/footer.jsp" />
 </html>

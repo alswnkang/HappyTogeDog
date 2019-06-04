@@ -27,14 +27,14 @@
 							<th>No.</th>
 							<th>답변상태</th>
 							<th>제목</th>
-							<th>작성자</th>
+							<%--<th>작성자</th>--%>
 							<th>작성일</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:if test="${empty qnaList.qnainfoList }">
 							<tr>
-								<td colspan="5">
+								<td colspan="4">
 									<p class="none">게시물이 없습니다.</p>
 								</td>
 							</tr>
@@ -55,13 +55,12 @@
 									<!-- <a href="/qnaView?boardNo=${qna.boardNo }">-->
 									<a href="javascript:view(${qna.boardNo });">
 										${qna.boardTitle }
-										<c:if test="${qna.boardSecret eq 1 }"><img src="/img/lock.png"></c:if>
-										<c:set var="today"><fmt:formatDate value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd" /></c:set>
-										<c:if test="${qna.boardDate eq today }"><img src="/img/new.png"></c:if>
 									</a>
 								</p>
 							</td>
-							<td>${fn:substring(qna.boardName,0,2) }*</td>	
+							<%--
+							<td>${fn:substring(qna.boardName,0,2) }*</td>
+							--%>	
 							<td>${qna.boardDate }</td>						
 						</tr>
 						</c:forEach>
@@ -76,8 +75,10 @@
 		 			${qnaList.pageNavi }
 		 		</div>
 		 		<form action="/qnaView" method="post" name="moveView">
-		 			<input type="hidden" name="reqPage" class="view" value="${reqPage}">
+		 			<input type="hidden" name="reqPage" class="view" value="${search.reqPage}">
 		 			<input type="hidden" name="boardNo">
+		 			<input type="hidden" name="searchType" value="${search.searchType }">
+		 			<input type="hidden" name="searchVal" value="${search.searchVal }">
 		 			<input type="hidden" name="pageName" value="/myQnaList">
 		 		</form>
 		 		<!-- 검색박스 -->

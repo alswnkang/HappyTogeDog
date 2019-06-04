@@ -52,8 +52,8 @@
 							</tr>
 						</c:if>
 						<c:forEach items="${orderList.orderinfoList}" var="order">
-							<tr>
-								<td><a href="/myOrder?no=${order.no}">${order.no }</a></td>
+							<tr onclick="location.href='/myOrder?no=${order.no}'" style="cursor:pointer;">
+								<td>${order.no }</td>
 								<td>${order.productName }</td>
 								<td><fmt:formatNumber value="${order.pay }" pattern="#,###" /> 원</td>	
 								<td>${order.sponDate }</td>

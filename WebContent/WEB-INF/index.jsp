@@ -1,17 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
+
 	<script type="text/javascript" src="/js/main.js"></script><!-- main.js -->
 	<style>
 		#subVisual{display:none;}
 	</style>
+	
 	<%-- Wrap --%>
 	<section id="wrap">
 		<!-- 메인 비주얼 -->
-		<section id="mainVisual">
-			메인 비주얼 자리입니다
+		<section id="mainVisual" class="full-height">
+			<div id="background-video" class="background-video">
+				<div id="video_area">
+					<video type="video/mp4" autoplay loop controls muted>
+						<source src="/img/mainVideo04.mp4" type="video/mp4">
+					</video>
+				</div>
+			</div>
 		</section>
 		<!-- 메인 컨텐츠 영역 -->
 		<section id="mainContainer">
@@ -211,7 +220,20 @@
 								</div>
 								<div id="B-con02" class="tab-con">
 									<ul class="main-board-list"><!-- 봉사활동  게시물은 최소 5개, 최대 5개가 노출됩니다.(최신순) -->
-										<li>
+										<c:forEach items="${volunList }" var="volunList">
+											<li>
+												<a href="/voluntaryView?no=${volunList.no }" class="clearfix">
+													<p>${volunList.title }</p>
+													<span>${volunList.enrollDate }</span>
+												</a>
+											</li>
+										</c:forEach>
+										<c:if test="${fn:length(volunList) == 0 }">
+											<li class="none">
+												<p class="none">등록된 봉사활동 신청 공고가 없습니다.</p>
+											</li>
+										</c:if>
+										<!-- <li>
 											<a href="" class="clearfix">
 												<p>봉사활동 제목이 들어갑니다아ㅏㅏㅏㅏㅏㅏ봉사활동 제목이 들어갑니다아 들어갑니다아ㅏㅏㅏㅏㅏㅏ</p>
 												<span>2019-05-23</span>
@@ -240,7 +262,7 @@
 												<p>봉사활동 제목이 들어갑니다아ㅏㅏㅏㅏㅏㅏ봉사활동 제목이 들어갑니다아 들어갑니다아ㅏㅏㅏㅏㅏㅏ</p>
 												<span>2019-05-23</span>
 											</a>
-										</li>
+										</li> -->
 									</ul>
 								</div>
 							</div>
@@ -261,24 +283,11 @@
 											</div>
 											<div class="txt-thum">
 												<h3>${prd.prdName}</h3>
-												<p>후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.</p>
+												<p>${prd.prdCon}</p>
 											</div>
 										</a>
 									</li>
 								</c:forEach>
-								<!--  
-								<li>
-									<a href="" class="clearfix">
-										<div class="img-thum">
-											<span style="background:url('/img/no_detail_img.gif') no-repeat center center; background-size:cover;"></span>
-										</div>
-										<div class="txt-thum">
-											<h3>후원상품 명이 들어갑니다.</h3>
-											<p>후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.</p>
-										</div>
-									</a>
-								</li>
-								-->
 							</ul>
 						</div>
 					</div>
