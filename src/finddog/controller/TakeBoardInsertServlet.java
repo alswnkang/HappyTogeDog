@@ -17,16 +17,16 @@ import openApi.model.dao.OpenApiDao;
 import openApi.model.vo.cityCode;
 
 /**
- * Servlet implementation class searchDogAllServlet
+ * Servlet implementation class TakeBoardInsertServlet
  */
-@WebServlet(name = "searchDogAll", urlPatterns = { "/searchDogAll" })
-public class SearchDogAllServlet extends HttpServlet {
+@WebServlet(name = "TakeBoardInsert", urlPatterns = { "/takeBoardInsert" })
+public class TakeBoardInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchDogAllServlet() {
+    public TakeBoardInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,7 +36,6 @@ public class SearchDogAllServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
 		
 		ArrayList<Integer> mlist = new ArrayList<>();
 		ArrayList<Integer> ylist = new ArrayList<>();
@@ -76,8 +75,9 @@ public class SearchDogAllServlet extends HttpServlet {
 		request.setAttribute("kind", kind);
 		request.setAttribute("city", city);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/searchTemplet.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/TakeBoardInsert.jsp");
 		rd.forward(request, response);
+		
 	}
 
 	/**
