@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import siAdoptionBoard.model.adoptionBoardService.AdoptionBoardService;
 import siAdoptionBoard.model.adoptionBoardVo.AdoptionBoardViewData;
-import siAdoptionBoardComment.model.adoptionBoardCommentVo.AdoptionBoardCommentPageData;
 
 /**
  * Servlet implementation class SiPreBoardViewServlet
@@ -32,15 +31,9 @@ public class SiAdoptionBoardViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		int reqPage;
-		try {
-			reqPage = Integer.parseInt(request.getParameter("reqPage"));
-		}catch(NumberFormatException e) {
-			reqPage = 1;
-		}
 		int adoptionBoardNo = Integer.parseInt(request.getParameter("adoptionBoardNo"));
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/adoptionBoard/siAdoptionBoardView.jsp");
-		AdoptionBoardCommentPageData vd = new AdoptionBoardService().adoptionBoardView(adoptionBoardNo,reqPage);
+		AdoptionBoardViewData vd = new AdoptionBoardService().adoptionBoardView(adoptionBoardNo);
 		request.setAttribute("vd", vd);
 		rd.forward(request, response);
 	}
