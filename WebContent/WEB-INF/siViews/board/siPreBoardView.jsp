@@ -126,6 +126,13 @@
 			});
 		});
 	});
+	$(document).ready(function(){	//게시글 삭제 확인
+		$('#boardDelBtn').click(function(){
+			if(confirm("게시글을 삭제하시겠습니까?")){
+				location.href = '/siPreBoardDelete?boardNo='+${vd.b.boardNo };
+			}
+		});
+	});
 </script>
 <jsp:include page="/WEB-INF/common/footer.jsp" />
 </html>
