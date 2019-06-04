@@ -6,8 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<jsp:include page="/WEB-INF/common/header.jsp" />
 </head>
+<jsp:include page="/WEB-INF/common/header.jsp" />
 <body>
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
@@ -31,36 +31,33 @@
 						</tr>
 					</thead>
 					<tbody>
-			 			<c:forEach items="${np.list }" var="list">
-							<c:if test="${list.noticeType == 0 }">
-								<tr>
-									<td>${list.noticeRnum}</td>
-									<td><a href="/siNoticeView?noticeNo=${list.noticeNo }">${list.noticeTitle }</a></td>
-									<!-- name 값을 넘겨주도록 설정필요 -->
-									<td>${list.noticeName }(${list.noticeId })</td>
-									<td>${list.noticeDate }</td>
-									<td>${list.noticeCount }</td>
-								</tr>
-							</c:if>
+			 			<c:forEach items="${ap.list }" var="list">
+							<tr>
+								<td>${list.adoptionBoardRnum}</td>
+								<td><a href="/siAdoptionBoardView?adoptionBoardNo=${list.adoptionBoardNo }">${list.adoptionBoardTitle }</a></td>
+								<!-- name 값을 넘겨주도록 설정필요 -->
+								<td>${list.adoptionBoardName }(${list.adoptionBoardId })</td>
+								<td>${list.adoptionBoardDate }</td>
+								<td>${list.adoptionBoardCount }</td>
+							</tr>
 						</c:forEach>
 						<tr>
 							<td colspan="5" style="text-align:center;">
-								<div>${np.pageNavi }</div>
+								<div>${ap.pageNavi }</div>
 							</td>
 						</tr>
 					</tbody>
 				</table>
-				<form action="/siNoticeSearch" method="post">
+				<form action="/siAdoptionBoardSearch" method="get">
 					<div class="board-search-box">
 						<select name="searchWord">
-							<option value="noticeName">작성자</option>
-							<option value="noticeTitle">글 제목</option>
+							<option value="adoptionBoardName">작성자</option>
+							<option value="adoptionBoardTitle">글 제목</option>
 						</select>
 						<input type="text" name="keyword">
 						<button type="submit" class="bbs-search-btn">검색</button>
 						<c:if test="${not empty sessionScope.member.id && sessionScope.member.id eq 'admin' }">
-						<!-- 로그인이 되어있고 관리자일 경우 글쓰기버튼 활성화 -->
-							<button type="button" class="bbs-search-btn" style="float:right;" onclick="location.href='/siViews/notice/siNoticeInsert.jsp'">글쓰기</button>
+							<button type="button" class="bbs-search-btn" style="float:right;" onclick="location.href='/siViews/adoptionBoard/siAdoptionBoardInsert.jsp'">글쓰기</button>
 						</c:if>
 					</div>
 				</form>

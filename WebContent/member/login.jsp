@@ -34,7 +34,7 @@
 				</div>
 			</form>
 			<div class="login-util-box">
-				<span><a href="/member/findUser.jsp">아이디/비밀번호 찾기</a></span>/
+				<span><a href="/member/findUser.jsp">아이디/비밀번호 찾기</a></span>|
 				<span><a href="/member/terms.jsp">회원가입</a></span>
 			</div>
 		</div>

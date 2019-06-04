@@ -12,19 +12,17 @@
 		<div id="loginBox" class="common-tbl-box" style="padding-bottom:50px;"><!-- class="common-tbl-box" id는 바꿔서 복붙 -->
 			<form action="/findUser" method="post">
 				<div class="login-inner clearfix">
-					<div class="login-tbl-box">
-						<table class="comm-tbl login-tbl">
-							<colgroup>
-								<col width="30%">
-								<col width="/">
-							</colgroup>
-							<tr>
-								<th>이메일 입력</th>
-								<td><input type="text" name="email"></td>
-							</tr>
-						</table>
-					</div>
-					<div class="login-btn-box">
+					<table class="comm-tbl login-tbl">
+						<colgroup>
+							<col width="30%">
+							<col width="/">
+						</colgroup>
+						<tr>
+							<th>이메일 입력</th>
+							<td><input type="text" name="email"></td>
+						</tr>
+					</table>
+					<div class="login-btn-box type2">
 						<button type="submit" class="login-btn">찾기</button>
 					</div>
 				</div>

@@ -108,7 +108,7 @@
 							<div class="gnb-2dep">
 								<ul>
 									<li><a href="/siNotice">공지사항</a></li>
-									<li><a href="">입양후기</a></li>
+									<li><a href="/siAdoptionBoard">입양후기</a></li>
 									<li><a href="/siPreBoard">자유게시판</a></li>
 								</ul>
 							</div>

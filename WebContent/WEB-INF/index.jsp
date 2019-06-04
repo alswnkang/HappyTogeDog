@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
 	<script type="text/javascript" src="/js/main.js"></script><!-- main.js -->
@@ -211,7 +212,20 @@
 								</div>
 								<div id="B-con02" class="tab-con">
 									<ul class="main-board-list"><!-- 봉사활동  게시물은 최소 5개, 최대 5개가 노출됩니다.(최신순) -->
-										<li>
+										<c:forEach items="${volunList }" var="volunList">
+											<li>
+												<a href="/voluntaryView?no=${volunList.no }" class="clearfix">
+													<p>${volunList.title }</p>
+													<span>${volunList.enrollDate }</span>
+												</a>
+											</li>
+										</c:forEach>
+										<c:if test="${fn:length(volunList) == 0 }">
+											<li class="none">
+												<p class="none">등록된 봉사활동 신청 공고가 없습니다.</p>
+											</li>
+										</c:if>
+										<!-- <li>
 											<a href="" class="clearfix">
 												<p>봉사활동 제목이 들어갑니다아ㅏㅏㅏㅏㅏㅏ봉사활동 제목이 들어갑니다아 들어갑니다아ㅏㅏㅏㅏㅏㅏ</p>
 												<span>2019-05-23</span>
@@ -240,7 +254,7 @@
 												<p>봉사활동 제목이 들어갑니다아ㅏㅏㅏㅏㅏㅏ봉사활동 제목이 들어갑니다아 들어갑니다아ㅏㅏㅏㅏㅏㅏ</p>
 												<span>2019-05-23</span>
 											</a>
-										</li>
+										</li> -->
 									</ul>
 								</div>
 							</div>
