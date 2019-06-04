@@ -133,7 +133,10 @@ public class BoardDao {
 				b.setBoardCount(rset.getInt("board_count"));
 				b.setBoardSecret(rset.getInt("board_secret"));
 				b.setBoardPw(rset.getString("board_pw"));
-				b.setBoardPrdCode(rset.getString("board_PrdCode"));
+				b.setBoardPrdCode(rset.getString("board_PrdCode"));	
+				b.setHappenCity(rset.getString("happen_city"));
+				b.setHappenDate(rset.getString("happen_date"));
+				b.setDogKind(rset.getString("dog_kind"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

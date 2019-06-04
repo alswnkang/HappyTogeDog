@@ -61,37 +61,6 @@ public class SearchDogService {
 		return sdpd;
 	}
 
-	public BoardPageData boardAll(int reqPage) {
-		// TODO Auto-generated method stub
-		Connection conn = JDBCTemplete.getConnection();
-		int numPerPage = 10;
-		int totalCount = new SearchDogDao().totalCount(conn);
-		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
-		int start = (reqPage-1)*numPerPage+1;
-		int end = reqPage*numPerPage;
-		ArrayList<Board> list = new SearchDogDao().boardAll(conn,start,end);
-		String pageNavi = "";
-		int pageNaviSize = 10;
-		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
-		if(pageNo!=1) {
-			pageNavi+="<a href='/takeBoard?reqPage="+(pageNo-1)+"'>이전</a>";
-		}
-		int i = 1;
-		while(!(i++>pageNaviSize || pageNo>totalPage)) {
-			if(reqPage==pageNo) {
-				pageNavi+="<span>"+pageNo+"</span>";
-			}else {
-				pageNavi+="<a href='/takeBoard?reqPage="+pageNo+"'>"+pageNo+"</a>";
-			}
-			pageNo++;
-		}
-		if(pageNo<=totalPage) {
-			pageNavi+="<a href='/takeBoard?reqPage="+pageNo+"'>다음</a>";
-		}
-		JDBCTemplete.close(conn);
-		BoardPageData bp = new BoardPageData(list,pageNavi);
-		return bp;
-	}
 
 	public SearchDogPageData selectListDB(int page, String sDay, String eDay, String kind, String cityCode) {
 		// TODO Auto-generated method stub
@@ -137,6 +106,38 @@ public class SearchDogService {
 		int result = new SearchDogDao().change(conn);
 		
 		return 0;
+	}
+
+	public BoardPageData takeBoard(int reqPage, int type) {
+		// TODO Auto-generated method stub
+		Connection conn = JDBCTemplete.getConnection();
+		int numPerPage = 10;
+		int totalCount = new SearchDogDao().totalCount(conn,type);
+		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
+		int start = (reqPage-1)*numPerPage+1;
+		int end = reqPage*numPerPage;
+		ArrayList<Board> list = new SearchDogDao().takeBoard(conn,start,end,type);
+		String pageNavi = "";
+		int pageNaviSize = 10;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
+		if(pageNo!=1) {
+			pageNavi+="<a href='/takeBoard?reqPage="+(pageNo-1)+"'>이전</a>";
+		}
+		int i = 1;
+		while(!(i++>pageNaviSize || pageNo>totalPage)) {
+			if(reqPage==pageNo) {
+				pageNavi+="<span>"+pageNo+"</span>";
+			}else {
+				pageNavi+="<a href='/takeBoard?reqPage="+pageNo+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
+		if(pageNo<=totalPage) {
+			pageNavi+="<a href='/takeBoard?reqPage="+pageNo+"'>다음</a>";
+		}
+		JDBCTemplete.close(conn);
+		BoardPageData bp = new BoardPageData(list,pageNavi);
+		return bp;
 	}
 
 }

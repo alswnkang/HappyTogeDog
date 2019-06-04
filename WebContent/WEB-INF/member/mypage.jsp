@@ -106,9 +106,6 @@
 					</c:if>
 					
 				</table><br>
-				<c:if test="${m.memberLevel == 2}">
-				<button type="button" onclick="location.href='/adminPage'">관리자페이지</button>
-				</c:if>
 				<c:if test="${m.memberLevel < 2}">
 				<button type="button" onclick="location.href='/delete?id=${m.id}'">탈퇴하기</button>
 				</c:if>
