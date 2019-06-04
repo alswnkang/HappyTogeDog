@@ -48,7 +48,7 @@ public class VoluntaryApplyServlet extends HttpServlet {
 		String volunTime = volunTime1+","+volunTime2; //봉사 시간
 		int person = Integer.parseInt(request.getParameter("person")); //봉사 신청 인원 수
 		
-		VoluntaryApplyBoard vab = new VoluntaryApplyBoard(0, no, code, name, id, phone, person, volunDate, volunTime, null);
+		VoluntaryApplyBoard vab = new VoluntaryApplyBoard(0, no, code, name, null, id, phone, person, volunDate, volunTime, null);
 		int result = new VoluntaryService().voluntaryApply(vab, possiblePerson);
 		
 		if(result > 0) {

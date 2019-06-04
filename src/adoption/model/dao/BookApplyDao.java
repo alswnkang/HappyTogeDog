@@ -265,12 +265,12 @@ public class BookApplyDao {
 		if(endDay!=null && endDay!=""){
 			sql += " and TO_CHAR(visit_date,'yyyy-mm-dd')<='"+endDay+"'";
 		}
-		String query = "select * from (select ROWNUM as rNum,b.* from (select * from book_apply order by 1 desc) b) where rnum BETWEEN ? and ? and code=?"+sql;
+		String query = "select * from (select ROWNUM as rNum,b.* from (select * from book_apply where code=? order by 1 desc) b) where rnum BETWEEN ? and ?"+sql;
 //		String query = "select * from (select ROWNUM as rNum,b.* from (select * from book_apply order by 1 desc) b) where rnum BETWEEN ? and ? and code=?";
 		pstmt = conn.prepareStatement(query);
-		pstmt.setInt(1, start);
-		pstmt.setInt(2, end);
-		pstmt.setString(3, code);
+		pstmt.setString(1, code);
+		pstmt.setInt(2, start);
+		pstmt.setInt(3, end);
 		rset = pstmt.executeQuery();
 		while(rset.next()) {
 			BookApply ba = new BookApply();
@@ -366,6 +366,44 @@ public class BookApplyDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return list;
+	}
+	public BookApply myViewOne(Connection conn, int no, String id) {
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		System.out.println("리스트 내용 no(DAO) : "+no);
+		String query = "select * from (select rownum as rnum, b.* from (select ba.no, m.name careNm, ba.id, ba.name, ba.phone, ba.visit_date, ba.visit_time, ba.apply_date, ba.status,ba.yard, ba.animal,ba.family,ba.experience, ba.avg_time from ((select * from book_apply order by 1 desc)ba) Join member m Using(code) where ba.id=?) b) where no=?";
+		BookApply ba = null;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, no);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				ba = new BookApply();
+				ba.setRnum(rset.getInt("rnum"));
+				ba.setNo(rset.getInt("no"));
+				ba.setCode(rset.getString("careNm"));	//보호소이름 코드에 저장하기
+				ba.setId(rset.getString("id"));
+				ba.setName(rset.getString("name"));
+				ba.setPhone(rset.getString("phone"));
+				ba.setVisitDate(rset.getDate("visit_date"));
+				ba.setVisitTime(rset.getString("visit_time"));
+				ba.setApplyDate(rset.getDate("apply_date"));
+				ba.setStatus(rset.getInt("status"));
+				ba.setYard(rset.getString("yard"));
+				ba.setAnimal(rset.getString("animal"));
+				ba.setFamily(rset.getString("family"));
+				ba.setExperience(rset.getString("experience"));
+				ba.setAvgTime(rset.getString("avg_time"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return ba;
 	}
 
 	/*public int selectDateCount(Connection conn, String startDay, String endDay, String code) throws SQLException {
