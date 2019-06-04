@@ -1,25 +1,27 @@
 package finddog.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import finddog.model.service.SearchDogService;
+
 /**
- * Servlet implementation class FindBoardServlet
+ * Servlet implementation class TesttestServlet
  */
-@WebServlet(name = "FindBoard", urlPatterns = { "/findBoard" })
-public class FindBoardServlet extends HttpServlet {
+@WebServlet(name = "Testtest", urlPatterns = { "/testtest" })
+public class TesttestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FindBoardServlet() {
+    public TesttestServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,9 +31,8 @@ public class FindBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/FindBoard.jsp");
-		rd.forward(request, response);
+		
+		int result=new SearchDogService().change();
 		
 	}
 
