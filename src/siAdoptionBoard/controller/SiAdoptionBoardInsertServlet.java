@@ -52,8 +52,8 @@ public class SiAdoptionBoardInsertServlet extends HttpServlet {
 		String adoptionBoardContent = mRequest.getParameter("adoptionBoardContent");		
 		String adoptionBoardFilename = mRequest.getOriginalFileName("adoptionBoardFilename");
 		//DefaultFileRenamePlicy 클래스 객체에 의해 파일명이 변경되기 전, 원래의 파일명을 리턴(원본 파일이름 유지)
-		String adoptionBoardFilepath = mRequest.getFilesystemName("adoptionBoardFilepath");
-		AdoptionBoard a = new AdoptionBoard(0,0, adoptionBoardType, adoptionBoardId, adoptionBoardName, adoptionBoardTitle, adoptionBoardContent, adoptionBoardFilename, adoptionBoardFilepath, null, 0, 0, null,null);
+		String adoptionBoardFilepath = mRequest.getFilesystemName("adoptionBoardFilename");
+		AdoptionBoard a = new AdoptionBoard(0,0, adoptionBoardType, adoptionBoardId, adoptionBoardName, adoptionBoardTitle, adoptionBoardContent, adoptionBoardFilename, adoptionBoardFilepath, null, 0, 0, null,null,null,null,null);
 		//insert가 작동하는지 확인용 / 로그인 정보와 연동 필요
 		int result = new AdoptionBoardService().adoptionBoardInsert(a);
 		String view = "";

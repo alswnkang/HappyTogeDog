@@ -28,7 +28,9 @@
 						<th>내용</th>
 						<td>
 							<c:if test="${not empty vd.b.boardFilename }">
-								<img src='/siUpload/board/${vd.b.boardFilename }'width="800px"/>
+								<a style="float:right;" href="javascript:fileDownload('${vd.b.boardFilename }','${vd.b.boardFilepath }')">${vd.b.boardFilename }</a>
+								<br/>
+								<img src='/siUpload/board/${vd.b.boardFilename }'width="300px"/>
 								<!-- 파일이 있으면 넘겨준 No를 기준으로 게시물의 이름을 불러와서 출력 -->
 								<br/>
 								${vd.b.boardContent }
@@ -133,6 +135,12 @@
 			}
 		});
 	});
+	function fileDownload(boardFilename,boardFilepath){
+		var url = "/siPreBoardFileDownload";
+		var encFilename = encodeURIComponent(boardFilename);
+		var encFilepath = encodeURIComponent(boardFilepath);
+		location.href=url+'?filename='+encFilename+'&filepath='+encFilename;
+	}
 </script>
 <jsp:include page="/WEB-INF/common/footer.jsp" />
 </html>

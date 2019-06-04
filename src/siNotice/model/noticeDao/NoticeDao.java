@@ -47,22 +47,25 @@ public class NoticeDao {
 			rset = pstmt.executeQuery();
 			list = new ArrayList<Notice>();
 			while(rset.next()) {
-				Notice b = new Notice();
-				b.setNoticeRnum(rset.getInt("rnum"));
-				b.setNoticeNo(rset.getInt("board_no"));
-				b.setNoticeType(rset.getInt("board_Type"));
-				b.setNoticeId(rset.getString("board_id"));
-				b.setNoticeName(rset.getString("board_Name"));
-				b.setNoticeTitle(rset.getString("board_title"));
-				b.setNoticeContent(rset.getString("board_content"));
-				b.setNoticeFilename(rset.getString("board_filename"));
-				b.setNoticeFilepath(rset.getString("board_filepath"));
-				b.setNoticeDate(rset.getDate("board_date"));
-				b.setNoticeCount(rset.getInt("board_count"));
-				b.setNoticeSecret(rset.getInt("board_secret"));
-				b.setNoticePw(rset.getString("board_pw"));
-				b.setNoticePrdCode(rset.getString("board_prdCode"));
-				list.add(b);
+				Notice n = new Notice();
+				n.setNoticeRnum(rset.getInt("rnum"));
+				n.setNoticeNo(rset.getInt("board_no"));
+				n.setNoticeType(rset.getInt("board_Type"));
+				n.setNoticeId(rset.getString("board_id"));
+				n.setNoticeName(rset.getString("board_Name"));
+				n.setNoticeTitle(rset.getString("board_title"));
+				n.setNoticeContent(rset.getString("board_content"));
+				n.setNoticeFilename(rset.getString("board_filename"));
+				n.setNoticeFilepath(rset.getString("board_filepath"));
+				n.setNoticeDate(rset.getDate("board_date"));
+				n.setNoticeCount(rset.getInt("board_count"));
+				n.setNoticeSecret(rset.getInt("board_secret"));
+				n.setNoticePw(rset.getString("board_pw"));
+				n.setNoticePrdCode(rset.getString("board_prdCode"));
+				n.setDogKind(rset.getString("dog_kind"));
+				n.setHappenCity(rset.getString("happen_City"));
+				n.setHappenDate(rset.getString("happen_date"));
+				list.add(n);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -76,7 +79,7 @@ public class NoticeDao {
 	public int noticeInsert(Connection conn, Notice n) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into board values(board_seq.nextval,?,?,?,?,?,?,?,sysdate,0,0,null,null)";
+		String query = "insert into board values(board_seq.nextval,?,?,?,?,?,?,?,sysdate,0,0,null,null,null,null,null)";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, n.getNoticeType());
@@ -135,6 +138,9 @@ public class NoticeDao {
 				n.setNoticeSecret(rset.getInt("board_secret"));
 				n.setNoticePw(rset.getString("board_pw"));
 				n.setNoticePrdCode(rset.getString("board_PrdCode"));
+				n.setDogKind(rset.getString("dog_kind"));
+				n.setHappenCity(rset.getString("happen_City"));
+				n.setHappenDate(rset.getString("happen_date"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -189,6 +195,9 @@ public class NoticeDao {
 				n.setNoticeSecret(rset.getInt("board_secret"));
 				n.setNoticePw(rset.getString("board_pw"));
 				n.setNoticePrdCode(rset.getString("board_prdCode"));
+				n.setDogKind(rset.getString("dog_kind"));
+				n.setHappenCity(rset.getString("happen_City"));
+				n.setHappenDate(rset.getString("happen_date"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -243,6 +252,9 @@ public class NoticeDao {
 				n.setNoticeSecret(rset.getInt("board_secret"));
 				n.setNoticePw(rset.getString("board_pw"));
 				n.setNoticePrdCode(rset.getString("board_prdCode"));
+				n.setDogKind(rset.getString("dog_kind"));
+				n.setHappenCity(rset.getString("happen_City"));
+				n.setHappenDate(rset.getString("happen_date"));
 				list.add(n);
 			}
 		} catch (SQLException e) {
@@ -282,6 +294,9 @@ public class NoticeDao {
 				n.setNoticeSecret(rset.getInt("board_secret"));
 				n.setNoticePw(rset.getString("board_pw"));
 				n.setNoticePrdCode(rset.getString("board_prdCode"));
+				n.setDogKind(rset.getString("dog_kind"));
+				n.setHappenCity(rset.getString("happen_City"));
+				n.setHappenDate(rset.getString("happen_date"));
 				list.add(n);
 			}
 		} catch (SQLException e) {

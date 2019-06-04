@@ -17,13 +17,17 @@ public class Notice {
 		private int noticeSecret;
 		private String noticePw;
 		private String noticePrdCode;
+		private String dogKind;
+		private String happenCity;
+		private String happenDate;
 		public Notice() {
 			super();
 			// TODO Auto-generated constructor stub
 		}
 		public Notice(int noticeRnum, int noticeNo, int noticeType, String noticeId, String noticeName,
 				String noticeTitle, String noticeContent, String noticeFilename, String noticeFilepath, Date noticeDate,
-				int noticeCount, int noticeSecret, String noticePw, String noticePrdCode) {
+				int noticeCount, int noticeSecret, String noticePw, String noticePrdCode, String dogKind,
+				String happenCity, String happenDate) {
 			super();
 			this.noticeRnum = noticeRnum;
 			this.noticeNo = noticeNo;
@@ -39,6 +43,9 @@ public class Notice {
 			this.noticeSecret = noticeSecret;
 			this.noticePw = noticePw;
 			this.noticePrdCode = noticePrdCode;
+			this.dogKind = dogKind;
+			this.happenCity = happenCity;
+			this.happenDate = happenDate;
 		}
 		public int getNoticeRnum() {
 			return noticeRnum;
@@ -123,6 +130,24 @@ public class Notice {
 		}
 		public void setNoticePrdCode(String noticePrdCode) {
 			this.noticePrdCode = noticePrdCode;
+		}
+		public String getDogKind() {
+			return dogKind;
+		}
+		public void setDogKind(String dogKind) {
+			this.dogKind = dogKind;
+		}
+		public String getHappenCity() {
+			return happenCity;
+		}
+		public void setHappenCity(String happenCity) {
+			this.happenCity = happenCity;
+		}
+		public String getHappenDate() {
+			return happenDate;
+		}
+		public void setHappenDate(String happenDate) {
+			this.happenDate = happenDate;
 		}
 		
 }
