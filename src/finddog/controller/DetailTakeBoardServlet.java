@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import siBoard.model.boardDao.BoardDao;
+import siBoard.model.boardService.BoardService;
+import siBoard.model.boardVo.Board;
+import siBoard.model.boardVo.BoardViewData;
+
 /**
  * Servlet implementation class DetailTakeBoardServlet
  */
@@ -31,10 +36,10 @@ public class DetailTakeBoardServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		String no=request.getParameter("boardNo");
-		
-		
-		
+		int no=Integer.parseInt(request.getParameter("boardNo"));
+		BoardViewData bvd  = new BoardService().boardView(no);
+		Board b= bvd.getB();
+		request.setAttribute("b", b);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/DetailTakeBoard.jsp");
 		rd.forward(request, response);

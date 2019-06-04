@@ -7,16 +7,16 @@
 
 <section id="content-wrapper">
 		<div class="area">
-		<h2 class="comm-content-tit">입양하기</h2>
-		<div id="dogInfo" class="common-box">
+		<h2 class="comm-content-tit">글글글</h2>
+		<div id="DetailTake" class="common-box">
 		
-		<!-- 넘길 값들 form태그로 전송하기 -->
+		
 		
 			<div class="common-tbl-btn-group type2">
 			</div>
 			<div class="dog-info-top-inner clearfix">
 				<div class="dog-info-left">
-					<img src="${##}" style="max-width:100%;">
+					<img src="/img/no_detail_img.gif" style="max-width:100%;">
 				</div>
 				<div class="dog-info-right">
 					<table class="comm-tbl">
@@ -24,7 +24,14 @@
 							<col width="25%">
 							<col width="/">
 						</colgroup>
-			
+						<tr>
+							<th>제목</th>
+							<td>${b.boardTitle }</td>
+						</tr>
+						<tr>
+							<th>내용</th>
+							<td>${b.boardContent }</td>
+						</tr>
 					</table>
 				</div>
 			</div>
