@@ -78,7 +78,13 @@ public class SiNoticeUpdateServlet extends HttpServlet {
 			}
 		}
 		int result = new NoticeService().noticeUpdate(noticeNo, noticeTitle, noticeContent, noticeFilename, noticeFilepath);
-		RequestDispatcher rd = request.getRequestDispatcher("/siNoticeView?noticeNo="+noticeNo);
+		String view = "";
+		if(result>0) {
+			view = "/WEB-INF/siViews/common/siMsg.jsp";
+			request.setAttribute("msg", "게시글 수정이 완료되었습니다.");
+			request.setAttribute("loc", "/siNoticeView?noticeNo="+noticeNo);
+		}
+		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
 	}
 

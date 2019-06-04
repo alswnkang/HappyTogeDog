@@ -50,7 +50,7 @@ public class SiNoticeInsertServlet extends HttpServlet {
 		//회원의 로그인 정보를 가져와서 boardId에 대입
 		String noticeName = mRequest.getParameter("memberName");
 		String noticeTitle = mRequest.getParameter("noticeTitle");
-		String noticeContent = mRequest.getParameter("noticeContent");		
+		String noticeContent = mRequest.getParameter("noticeContent");
 		String noticeFilename = mRequest.getOriginalFileName("noticeFilename");
 		//DefaultFileRenamePlicy 클래스 객체에 의해 파일명이 변경되기 전, 원래의 파일명을 리턴(원본 파일이름 유지)
 		String noticeFilepath = mRequest.getFilesystemName("noticeFilepath");

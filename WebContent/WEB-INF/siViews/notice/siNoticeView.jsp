@@ -91,7 +91,7 @@
 				</form>
 				<form action="/siNoticeUpdateOriginal?noticeNo=${vd.n.noticeNo }" method="post" enctype="multipart/form-data">
 					<div class="common-tbl-btn-group" style="text-align:right;">
-						<c:if test='${sessionScope.member.id==vd.n.noticeId || sessionScope.member.id eq "admin" }'>
+						<c:if test='${sessionScope.member.id==vd.n.noticeId }'>
 						<!-- 회원 아이디와 글 작성자의 아이디가 같거나 관리자라면 수정/삭제 버튼 생성 -->
 							<button type="submit" class="btn-style3">수정</button>
 							<button type="button" id="noticeDelBtn" class="btn-style3">삭제</button>
@@ -125,7 +125,7 @@
 	$(document).ready(function(){
 		$('#noticeDelBtn').click(function(){
 			if(confirm("게시글을 삭제하시겠습니까?")){
-				location.href="/siNoticeDelete?noticeNo="+${vd.n.noticeNo };
+				location.href = '/siNoticeDelete?noticeNo='+${vd.n.noticeNo };
 			}
 		});
 	});

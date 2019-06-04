@@ -59,7 +59,7 @@
 						<input type="text" name="keyword">
 						<button type="submit" class="bbs-search-btn">검색</button>
 						<c:if test="${not empty sessionScope.member.id && sessionScope.member.id eq 'admin' }">
-						<!-- 로그인이 되있어야 글쓰기버튼 활성화 -->
+						<!-- 로그인이 되어있고 관리자일 경우 글쓰기버튼 활성화 -->
 							<button type="button" class="bbs-search-btn" style="float:right;" onclick="location.href='/siViews/notice/siNoticeInsert.jsp'">글쓰기</button>
 						</c:if>
 					</div>

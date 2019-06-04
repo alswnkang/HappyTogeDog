@@ -142,4 +142,17 @@ public class BoardService {
 		BoardPageData bp = new BoardPageData(list,pageNavi);
 		return bp;
 	}
+
+	public int takeBoardInsert(Board b) {
+		// TODO Auto-generated method stub
+		Connection conn = JDBCTemplete.getConnection();
+		int result = new BoardDao().boardInsert(conn, b);
+		if(result>0 && b.getBoardType()==3 ) {
+			JDBCTemplete.commit(conn);
+		}else {
+			JDBCTemplete.rollback(conn);
+		}
+		JDBCTemplete.close(conn);
+		return result;
+	}
 }

@@ -32,6 +32,7 @@ public class FindBoardServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/FindBoard.jsp");
 		rd.forward(request, response);
+		
 	}
 
 	/**

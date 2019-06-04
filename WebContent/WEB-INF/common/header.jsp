@@ -94,7 +94,7 @@
 							</div>
 						</li>
 						<li class="gnb04">
-							<a href="/findDog">실종유기견찾기</a>
+							<a href="/testtest">실종유기견찾기</a>
 							<div class="gnb-2dep">
 								<ul>
 									<li><a href="/takeBoard">보호중인 유기견</a></li>
@@ -108,7 +108,7 @@
 							<div class="gnb-2dep">
 								<ul>
 									<li><a href="/siNotice">공지사항</a></li>
-									<li><a href="">입양후기</a></li>
+									<li><a href="/siAdoptionBoard">입양후기</a></li>
 									<li><a href="/siPreBoard">자유게시판</a></li>
 								</ul>
 							</div>

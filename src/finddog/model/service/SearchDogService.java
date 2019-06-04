@@ -130,4 +130,13 @@ public class SearchDogService {
 		
 	}
 
+	public int change() {
+		// TODO Auto-generated method stub
+		Connection conn =JDBCTemplate.getCon();
+		
+		int result = new SearchDogDao().change(conn);
+		
+		return 0;
+	}
+
 }
