@@ -12,12 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import adoption.model.service.BookApplyService;
 
 /**
- * Servlet implementation class UpdateStatusServlet
+ * Servlet implementation class CareUpdateStatusServlet
  */
-@WebServlet(name = "UpdateStatus", urlPatterns = { "/careUpdateStatus" })
-public class UpdateStatusServlet extends HttpServlet {
+@WebServlet(name = "CareUpdateStatus", urlPatterns = { "/careUpdateStatus" })
+public class CareUpdateStatusServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    public UpdateStatusServlet() {
+    
+    public CareUpdateStatusServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -47,9 +48,11 @@ public class UpdateStatusServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/reservationView");
 			rd.forward(request, response);
 		}
-		
-		
 	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

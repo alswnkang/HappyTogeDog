@@ -26,23 +26,34 @@
 				<input type="hidden" name="careAddr" value="${dl.careAddr}">
 			</c:if>
 			<input type="hidden" name="careTel" value="${dl.careTel }">
-			<input type="hidden" name="careTime" value="${careTime}">
+			<input type="hidden" name="careTime" value="${careList[1]}">	<!-- 보호소 방문 가능시간 -->
+			<input type="hidden" name="code" value="${careList[0]}">		<!-- 보호소 코드 -->
 		</form>
 		
+		<script>
+			$(document).ready(function(){
+				$('.common-tbl-btn-group > button').css('display','none');
+				if(${not empty sessionScope.member}){	/* 회원일때 */
+					/* 일반회원, 관리자이고 회원가입한 보호소의 유기견일때 */
+					if(${(sessionScope.member.memberLevel eq 0 || sessionScope.member.memberLevel eq 2) && (not empty careList)}){ 
+						$(".common-tbl-btn-group > #info-btn1").css('display','inline-block');
+					}
+					//보호소 회원일때 버튼 안보이게
+				}else{	//회원이 아닐때
+					//회원가입한 보호소 회원의 유기견일때
+					if(${not empty careList}){
+						$(".common-tbl-btn-group > #info-btn2").css('display','inline-block');
+					}
+					//회원가입 안한 보호소 회원의 유기견일때 버튼 안보이게
+				}
+			});
+		</script>
+		
 			<div class="common-tbl-btn-group type2">
-				<c:if test="${(not empty sessionScope.member) && sessionScope.member.memberLevel eq 0}">	
-					<button type="button" class="btn-style10" onclick="javascript:sendToApplyFrom.submit();">보호소 방문예약</button>
-					<!-- onclick="location.href='/reservation?보호소명,주소,전화번호,코드넘겨주기 -->
-				</c:if>
-				<!-- 로그인 안했을 경우 alert창 띄워주고 login창으로 이동 -->
-				<c:if test="${empty sessionScope.member}">	
-					<button type="button" class="btn-style10" onclick="login();">보호소 방문예약</button>
-					<!-- onclick="location.href='/reservation?보호소명,주소,전화번호,코드넘겨주기 -->
-				</c:if>
-				<!-- 보호소 회원일 경우 버튼 안보이게 -->
-				<c:if test="${sessionScope.member.memberLevel eq 1}">	
-					<button type="button" class="btn-style10" style="display:none;">보호소 방문예약</button>
-				</c:if>
+				<button type="button" class="btn-style10" onclick="javascript:sendToApplyFrom.submit();" id="info-btn1">보호소 방문예약</button>
+				<button type="button" class="btn-style10" onclick="login();" id="info-btn2">보호소 방문예약</button>	
+				<button type="button" class="btn-style10" id="info-btn3">보호소 방문예약</button>
+				<button type="button" class="btn-style10" id="info-btn4">보호소 방문예약</button>	
 			</div>
 			<div class="dog-info-top-inner clearfix">
 				<div class="dog-info-left">
@@ -68,7 +79,7 @@
 						</tr>
 						<tr>
 							<th>보호소 <br>방문가능 시간</th>
-							<td>${careTime}</td>
+							<td>${careList[1]}</td>
 						</tr>
 						<tr>
 							<th>품종</th>

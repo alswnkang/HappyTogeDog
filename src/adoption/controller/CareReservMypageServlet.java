@@ -12,47 +12,44 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import adoption.model.service.BookApplyService;
-import adoption.model.vo.BookApply;
+import adoption.model.vo.BookApplyPageData;
 import member.model.vo.Member;
 
 /**
- * Servlet implementation class ReservationViewServlet
+ * Servlet implementation class CareReservMypageServlet
  */
-@WebServlet(name = "ReservationView", urlPatterns = { "/reservationView" })
-public class ReservationViewServlet extends HttpServlet {
+@WebServlet(name = "CareReservMypage", urlPatterns = { "/reservationCareMypage" })
+public class CareReservMypageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ReservationViewServlet() {
+    
+    public CareReservMypageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		String code = ((Member)session.getAttribute("member")).getCode();
-		int no = Integer.parseInt(request.getParameter("no"));
+		System.out.println(code);
+		int reqPage;
 		String startDay = request.getParameter("startDay");
 		String endDay = request.getParameter("endDay");
-		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
 		try {
-//			BookApply ba = new BookApplyService().viewOne1(no,start,end,code);
-			BookApply ba = new BookApplyService().viewOne(no);
-			request.setAttribute("ba", ba);
+			reqPage = Integer.parseInt(request.getParameter("reqPage"));
+		}catch(NumberFormatException e) {
+			reqPage=1;
+		}
+		BookApplyPageData bp;
+		try {
 			request.setAttribute("reqPage", reqPage);
-			request.setAttribute("startDay", startDay);
-			request.setAttribute("endDay", endDay);
-			request.setAttribute("msg", request.getAttribute("msg"));
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/careReservationView.jsp");
+			request.setAttribute("start", startDay);
+			request.setAttribute("end", endDay);
+			bp = new BookApplyService().reservationCareMypage(reqPage, code, startDay, endDay);
+			request.setAttribute("bp", bp);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/careMypage.jsp");
 			rd.forward(request, response);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			/*RequestDispatcher rd = request.getRequestDispatcher("/error/sqlError.jsp");
+			/*RequestDispatcher rd = request.getRequestDispatcher("/error/sqlerror.jsp");
 			rd.forward(request, response);*/
 		}
 	}

@@ -23,6 +23,7 @@
 
 /* ****************** dogInfo.jsp 폼 ********************** */
 .common-box{padding:70px 50px;background-color:#f5f5f5;}
+.common-tbl-btn-group.type2 > button{display:none;}
 
 .view-detail{text-align:center;}
 
@@ -37,6 +38,7 @@
 .dog-info-right{float:right; width:52%;}
 
 /* 유기견 리스트 페이지 */
+select{text-align:center;}
 .send-dogInfo{cursor:pointer;}
 .search-select{width:100%;margin-bottom:10px;}
 .search-select select{border:1px solid #ddd; border-radius:4px; width:15%;height:35px; font-size:15px;}
@@ -46,5 +48,4 @@
 .search-selectDate{width:100%;margin-bottom:10px;}
 .search-selectDate .search-word{padding:7px; border:1px solid #ddd; border-radius:4px;}
 .search-selectDate .bbs-search-btn2{border-radius:4px;margin:0px; border:0; min-width:40px; padding:0 5px; height:35px; margin-left:3px; background:#333; color:#fff; cursor:pointer; vertical-align:top; font-size:14px;}
-
 

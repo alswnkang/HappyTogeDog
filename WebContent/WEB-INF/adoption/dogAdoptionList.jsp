@@ -9,27 +9,39 @@
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
 <script src="http://code.jquery.com/jquery-3.4.0.min.js"></script><!-- jQuery 선언 -->
-	
+
 
 <%-- Content --%>
 <section id="content-wrapper">
 	<div class="area">
 		<h2 class="comm-content-tit">입양하기</h2>
-		<div class="search-select">
-			<select name="city">
-				<option>시</option>
-			</select>
-			<select name="gun">
-				<option>군구</option>
-			</select>
-			<select name="kindCd">
-				<option>품종</option>
-			</select>
-			<select name="neuter">
-				<option>중성화여부</option>
-			</select>
-			<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
-		</div>
+		<form action="/dogAdopList" method="post">
+			<div class="search-select">
+				<select name="city" id="city" data-city="${cityCode}">
+					<option value="">== 도시 선택 ==</option>
+				</select>
+				<select name="gun" id="gun" data-gun="${gun}">
+					<option value="">== 지역구 선택 ==</option>
+				</select>
+				<select name="dogsize" id="dogsize" data-size="${dogsize}">
+					<option value="">== 크기 분류 ==</option>
+					<option value="소">소형견</option>
+					<option value="중">중형견</option>
+					<option value="대">대형견</option>
+					<option value="기타">기타</option>
+				</select>
+				<select name="kindCd" id="kindCd" data-kind="${kindCd}">
+					<option value="">== 품종 선택 ==</option>
+				</select>
+				<select name="neuterYn" id="neuterYn" data-neuter="${neuterYn}">
+					<option value="">== 중성화여부 ==</option>
+					<option value="Y">했음</option>
+					<option value="N">안했음</option>
+					<option value="U">미상</option>
+				</select>
+				<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
+			</div>
+		</form>
 		<ul class="main-adopt-review-list clearfix">
 			<c:forEach items="${sdpd.list }" var="m" varStatus="i">
 				<li>
@@ -65,26 +77,130 @@
 			</c:forEach>
 		</ul>
 		
-		
 		<!-- paging -->
 		<div class="paging">${sdpd.pageNavi}</div>
-		
-		<div id="searchDog" class="common-tbl-box"><!-- id는 바꿔서 복붙 -->
-			<!-- search -->
-			<form action="" method="post">
-		 		<!-- 검색박스 -->
-		 		<div class="board-search-box">
-					<select name="search_item"><!-- option 세부항목은 각자 알아서 넣으시면 됩니다. -->
-						<option value="subject">지역</option>
-						<option value="content">품종</option>
-					</select>
-					<input placeholder="검색어를 입력해주세요." type="search" name="search_order" class="search-word" value="">
-					<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
-				</div>
-			</form>
-		</div>
 	</div>
 </section>
+
+<script>
+	$(document).ready(function(){
+		/* 페이지 로딩되면 도시 가져오기 */
+		getCity();	
+		
+		/* 도시코드 도시이름 가져오는 코드 */
+		function getCity(){
+			$.ajax({
+				url:"/getCityCode",
+				success : function(data){
+					var $select = $("#city");
+					$select.find("option").remove();
+					$select.append("<option value=''>== 도시 선택 ==</option>");
+					
+					for(var i=0;i<data.length;i++){
+						var cityName = data[i].cityName;
+						var cityCode = data[i].cityCode;
+						$select.append("<option value='"+cityCode+"'>"+cityName+"</option>");
+					}
+					/* 검색후 도시 고정 */
+					var city = $('select[name=city]').data('city');
+					$('select[name=city]').children('option').each(function(){
+						if(city == $(this).val()){
+							$(this).prop("selected",true);
+						}
+					});
+					/* 검색후 시에 따른 군고정과 군 리스트 가져오기 */
+					getGun();
+				},
+				error : function(){
+					console.log("못가져왔다");
+				}
+			});
+		}
+		/* 도시 변경하면 지역구 리스트 가져오기 */
+		$("#city").change(function(){
+			getGun();
+		});
+	
+		/* 도시에 따른 지역구 코드, 지역구명 가져오기 */
+		function getGun(){
+			var cityCode = $("#city").val();
+			console.log(cityCode);
+			$.ajax({
+				url:"/areaCode",
+				data : {value:cityCode},
+				success : function(data){
+					var $select = $("#gun");
+					$select.find("option").remove();
+					$select.append("<option value=''>== 지역구 선택 ==</option>");
+						
+					for(var i=0;i<data.length;i++){
+						var gunName = data[i].districtName;
+						var gunCode = data[i].district;;
+						$select.append("<option value='"+gunCode+"'>"+gunName+"</option>");
+					}
+					/* 검색후 지역구 고정 */
+					var city = $('select[name=gun]').data('gun');
+					$('select[name=gun]').children('option').each(function(){
+						if(city == $(this).val()){
+							$(this).prop("selected",true);
+						}
+					});
+				},
+				error : function(){
+					console.log("못가져옴");
+				}
+			});
+		}
+		/* 검색후 강아지크기 고정 */
+		var size = $('select[name=dogsize]').data('size');
+		$('select[name=dogsize]').children('option').each(function(){
+			if(size == $(this).val()){
+				$(this).prop("selected",true);
+			}
+		});
+		/* 강아지 크기 변경하면 품종 리스트 가져오기 */
+		$("#dogsize").change(function(){
+			getKind();
+		});
+		getKind();
+		//강아지 크기 선택시 해당하는 품종 가져오기
+		function getKind(){
+			var dogsize = $("#dogsize").val();
+			$.ajax({
+				url: "/getKind",
+				data: {dogsize:dogsize},
+				success : function(data){
+					var $select = $("#kindCd");
+					$select.find("option").remove();
+					$select.append("<option value=''>== 품종 선택 ==</option>");
+					for(var i=0;i<data.length;i++){
+						var kind = data[i].kind;
+						var code = data[i].code;;
+						$select.append("<option value='"+code+"'>"+kind+"</option>");
+					}
+					/* 검색후 품종 고정 */
+					var kind = $('select[name=kindCd]').data('kind');
+					$('select[name=kindCd]').children('option').each(function(){
+						if(kind == $(this).val()){
+							$(this).prop("selected",true);
+						}
+					});
+				},
+				error : function(){
+					console.log("데이터 가져오지 못함");
+				}
+			});
+		}
+		/* 검색후 중성화여부 고정 */
+		var neuter = $('select[name=neuterYn]').data('neuter');
+		$('select[name=neuterYn]').children('option').each(function(){
+			if(kind == $(this).val()){
+				$(this).prop("selected",true);
+			}
+		});
+		
+	});
+</script>
 	
 <%--footer --%>
 <jsp:include page="/WEB-INF/common/footer.jsp" />
