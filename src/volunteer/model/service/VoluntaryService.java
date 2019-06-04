@@ -1,11 +1,13 @@
 package volunteer.model.service;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import volunteer.model.dao.VoluntaryDao;
 import volunteer.model.vo.VoluntaryApplyBoard;
+import volunteer.model.vo.VoluntaryApplyData;
 import volunteer.model.vo.VoluntaryListData;
 import volunteer.model.vo.VoluntaryRegister;
 
@@ -168,12 +170,92 @@ public class VoluntaryService {
 	}
 
 	// 마이페이지 :: 일반회원 봉사활동 신청내역
-	public ArrayList<VoluntaryApplyBoard> myVoluntaryList(String id) {
+	public VoluntaryApplyData myVoluntaryList(int reqPage, String id) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
-		ArrayList<VoluntaryApplyBoard> list = new VoluntaryDao().myVoluntaryList(conn, id);
+		int numPerPage = 10;
+		int totalCount = new VoluntaryDao().totalMyApplyCount(conn, id);
+		int totalPage = (totalCount%numPerPage == 0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
+		int start = (reqPage-1)*numPerPage+1;
+		int end = reqPage+numPerPage;
+		ArrayList<VoluntaryApplyBoard> list = new VoluntaryDao().myVoluntaryList(conn,id,start,end);
+		String pageNavi = "";
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
+		if(pageNo != 1) {
+			pageNavi += "<a class='paging-arrow prev-arrow' href='/voluntaryApplyList?reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
+		}
+		
+		int i = 1;
+		while( !(i++>pageNaviSize || pageNo>totalPage) ) {
+			if(reqPage == pageNo) {
+				pageNavi += "<span class='cur'>"+pageNo+"</span>";
+			}else {
+				pageNavi += "<a class='' href='/voluntaryApplyList?reqPage="+pageNo+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<a class='paging-arrow next-arrrow' href='/voluntaryApplyList?reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
+		}
+		
+		VoluntaryApplyData vad = new VoluntaryApplyData(list, pageNavi);
+		
+		JDBCTemplate.close(conn);
+		
+		return vad;
+	}
+
+	// 마이페이지 :: 보호소회원 봉사활동 공고등록내역
+	public VoluntaryListData voluntaryList(int reqPage, String id) throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		
+		int numPerPage = 10;
+		int totalCount = new VoluntaryDao().totalCount(conn, id);
+		int totalPage = (totalCount%numPerPage == 0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
+		int start = (reqPage-1)*numPerPage+1;
+		int end = reqPage*numPerPage;
+		ArrayList<VoluntaryRegister> list = new VoluntaryDao().voluntaryList(conn,id,start,end);
+		String pageNavi = "";
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
+		if(pageNo != 1) {
+			pageNavi += "<a class='paging-arrow prev-arrow' href='/volunteerMyList?id="+id+"&reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
+		}
+		
+		int i = 1;
+		while( !(i++>pageNaviSize || pageNo>totalPage) ) {
+			if(reqPage == pageNo) {
+				pageNavi += "<span class='cur'>"+pageNo+"</span>";
+			}else {
+				pageNavi += "<a class='' href='/volunteerMyList?id="+id+"&reqPage="+pageNo+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<a class='paging-arrow next-arrrow' href='/volunteerMyList?id="+id+"&reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
+		}
+		
+		VoluntaryListData vld = new VoluntaryListData(list, pageNavi);
+		
+		JDBCTemplate.close(conn);
+		
+		return vld;
+	}
+
+	//해당공고에 신청한 사람들 목록
+	public ArrayList<VoluntaryApplyBoard> VoluntaryApplyPerson(int no) {
+		Connection conn = JDBCTemplate.getCon();
+		ArrayList<VoluntaryApplyBoard> list = new VoluntaryDao().VoluntaryApplyPerson(conn, no);
 		JDBCTemplate.close(conn);
 		return list;
 	}
+
+	
+	
+	
+
+	
+	
 
 	
 

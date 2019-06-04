@@ -7,7 +7,6 @@ import siBoard.model.boardDao.BoardDao;
 import siBoard.model.boardVo.Board;
 import siBoard.model.boardVo.BoardPageData;
 import siBoard.model.boardVo.BoardViewData;
-import siBoardComment.model.boardCommentDao.BoardCommentDao;
 import siBoardComment.model.boardCommentVo.BoardComment;
 import siTemplete.JDBCTemplete;
 
@@ -46,7 +45,7 @@ public class BoardService {
 	public int boardInsert(Board b) {
 		Connection conn = JDBCTemplete.getConnection();
 		int result = new BoardDao().boardInsert(conn, b);
-		if(result>0 && (b.getBoardType()==0 || b.getBoardType()==1 || b.getBoardType()==2)) {
+		if(result>0 && b.getBoardType()==1 ) {
 			JDBCTemplete.commit(conn);
 		}else {
 			JDBCTemplete.rollback(conn);

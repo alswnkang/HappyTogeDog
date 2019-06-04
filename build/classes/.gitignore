@@ -1,3 +1,8 @@
+
+/siNotice/
+/siBoard/
+/siNoticeComment/
+
 /adoption/
 /common/
 /finddog/
@@ -6,8 +11,9 @@
 /mypage/
 /openApi/
 /qna/
-/siBoard/
+
 /siBoardComment/
 /siTemplete/
 /sponsorship/
 /volunteer/
+

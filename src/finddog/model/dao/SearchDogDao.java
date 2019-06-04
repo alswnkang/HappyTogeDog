@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -17,6 +18,8 @@ import org.w3c.dom.NodeList;
 import adoption.model.vo.DogList;
 import common.JDBCTemplate;
 import finddog.model.vo.Kind;
+import siBoard.model.boardVo.Board;
+import siTemplete.JDBCTemplete;
 
 public class SearchDogDao {
 
@@ -30,7 +33,7 @@ public class SearchDogDao {
 		ArrayList<Kind> list = null;
 		Kind k = null;
 		
-		String query ="SELECT * FROM kind";
+		String query ="SELECT * FROM dogkind";
 		ResultSet rset= null;
 		pstmt= conn.prepareStatement(query);
 
@@ -43,8 +46,8 @@ public class SearchDogDao {
 		
 		while(rset.next()) {							
 			k = new Kind();
-			k.setKind(rset.getString(""));
-			k.setCode(rset.getString(""));
+			k.setKind(rset.getString("kind"));
+			k.setCode(rset.getString("code"));
 			
 			list.add(k);
 		}	
@@ -128,6 +131,80 @@ public class SearchDogDao {
 		if (nValue == null)
 			return null;
 		return nValue.getNodeValue();
+	}
+
+	public int totalCount(Connection conn) {
+		// TODO Auto-generated method stub
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = "select count(*) as cnt from board";
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			if(rset.next()) {
+				result = rset.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(rset);
+			JDBCTemplete.close(stmt);
+		}
+		return result;
+	}
+
+	public ArrayList<Board> boardAll(Connection conn, int start, int end) {
+		// TODO Auto-generated method stub
+		
+		ArrayList<Board> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			rset = pstmt.executeQuery();
+			list = new ArrayList<Board>();
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBoardRnum(rset.getInt("rnum"));
+				b.setBoardNo(rset.getInt("board_no"));
+				b.setBoardType(rset.getInt("board_Type"));
+				b.setBoardId(rset.getString("board_id"));
+				b.setBoardName(rset.getString("board_Name"));
+				b.setBoardTitle(rset.getString("board_title"));
+				b.setBoardContent(rset.getString("board_content"));
+				b.setBoardFilename(rset.getString("board_filename"));
+				b.setBoardFilepath(rset.getString("board_filepath"));
+				b.setBoardDate(rset.getDate("board_date"));
+				b.setBoardCount(rset.getInt("board_count"));
+				b.setBoardSecret(rset.getInt("board_secret"));
+				b.setBoardPw(rset.getString("board_pw"));
+				b.setBoardPrdCode(rset.getString("board_prdCode"));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(rset);
+			JDBCTemplete.close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<DogList> getListDB(int page, String sDay, String eDay, String kind, String cityCode) {
+		// TODO Auto-generated method stub
+		//보완 필요
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		return null;
 	}
 
 }

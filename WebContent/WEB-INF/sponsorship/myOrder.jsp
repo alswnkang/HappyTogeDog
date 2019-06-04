@@ -10,9 +10,9 @@
 <%-- Content --%>
 <section id="content-wrapper">
 	<div class="area">
-		<div class="order-view">
+		<div class="">
 			<p class="main-comm-tit">주문 상세</p>
-			<table class="comm-tbl">
+			<table class="comm-tbl order-view">
 				<tr>
 					<td>주문번호</td><td>${orderInfo.no }</td>
 				</tr>
@@ -84,9 +84,11 @@
 					<td>결제 금액</td><td><fmt:formatNumber value="${orderInfo.pay }" pattern="#,###" /> 원</td>
 				</tr>
 			</table>
-			<c:if test="${not empty sessionScope.member }">
-				<button class="order-btn" onclick="location.href='/myOrderList'">목록으로</button>
-			</c:if>
+			<div class="common-tbl-btn-group">
+				<c:if test="${not empty sessionScope.member }">
+					<button class="btn-style2" onclick="location.href='/myOrderList'">목록으로</button>
+				</c:if>
+			</div>
 		</div>
 		
 	</div>

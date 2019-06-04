@@ -5,6 +5,7 @@
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
 <link rel="stylesheet" type="text/css" href="/css/qna.css">
+<script type="text/javascript" src="/js/qna.js"></script>
 
 <%-- Content --%>
 <section id="content-wrapper">
@@ -55,8 +56,13 @@
 			<div class="common-tbl-btn-group">
 					<button class="btn-style1 sm">수정</button>
 					<button class="btn-style2 sm">삭제</button>
-				<button class="btn-style3" onclick="location.href='/qnaList'">목록으로</button>
+				<button class="btn-style3" onclick="list(${search.reqPage });">목록으로</button>
 			</div>
+			<form action="${pageName}" method="post" name="search">
+		 		<input type="hidden" name="reqPage">
+		 		<input type="hidden" name="searchType" value="${search.searchType }">
+		 		<input type="hidden" name="searchVal" value="${search.searchVal }">
+			</form>
 		</div>
 		
 		

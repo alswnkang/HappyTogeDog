@@ -44,6 +44,8 @@ public class VolunteerListServlet extends HttpServlet {
 		
 		VoluntaryListData vld = new VoluntaryService().voluntaryList(reqPage);
 		request.setAttribute("vld", vld);
+		String pageTitle = "봉사활동 신청";
+		request.setAttribute("pageTitle", pageTitle);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/volunteer/voluntaryList.jsp");
 		rd.forward(request, response);

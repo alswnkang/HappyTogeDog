@@ -78,7 +78,7 @@ public class SiPreBoardUpdateServlet extends HttpServlet {
 			}
 		}
 		int result = new BoardService().boardUpdate(boardNo, boardTitle, boardContent, boardFilename, boardFilepath);
-		RequestDispatcher rd = request.getRequestDispatcher("siPreBoard");
+		RequestDispatcher rd = request.getRequestDispatcher("/siPreBoardView?boardNo="+boardNo);
 		rd.forward(request, response);
 	}
 

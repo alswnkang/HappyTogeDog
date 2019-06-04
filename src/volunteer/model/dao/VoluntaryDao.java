@@ -368,19 +368,142 @@ public class VoluntaryDao {
 		return currentPerson;
 	}
 
-	// 마이페이지 :: 일반회원 봉사활동 신청내역
-	public ArrayList<VoluntaryApplyBoard> myVoluntaryList(Connection conn, String id) {
-		ArrayList<VoluntaryApplyBoard> list = null;
+	// 마이페이지 :: 일반회원 봉사활동 신청내역 :: 총 갯수
+	public int totalMyApplyCount(Connection conn, String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from volunteer_board where id=?";
+		String query = "select count(*) cnt from volunteer_board where id=?";
+		int result = 0;
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, id);
 			rset = pstmt.executeQuery();
-			list = new ArrayList<VoluntaryApplyBoard>();
+			while(rset.next()) {
+				result = rset.getInt("cnt");
+			}
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	
+	// 마이페이지 :: 일반회원 봉사활동 신청내역
+	public ArrayList<VoluntaryApplyBoard> myVoluntaryList(Connection conn, String id, int start, int end) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select * from (select rownum as rnum, vapply.apply_no, vapply.no, vr.code, vr.title, vapply.id, vapply.phone, vbPerson, vbDate, vbTime, vbEnroll_date, m.name from "+
+				"(select apply_no, no, code, id, phone, person as vbPerson, volun_date as vbDate, " + 
+				"volun_time as vbTime, enroll_date as vbEnroll_date from volunteer_board vb where id=?) vapply left join volunteer_register vr on (vapply.no = vr.no) "+
+				"left join member m on (vr.code = m.code)) where rnum between ? and ? order by vbEnroll_date desc";
+		ArrayList<VoluntaryApplyBoard> list = null;
+		
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, id);
+		pstmt.setInt(2, start);
+		pstmt.setInt(3, end);
+		rset = pstmt.executeQuery();
+		list = new ArrayList<VoluntaryApplyBoard>();
+		while(rset.next()) {
+			VoluntaryApplyBoard vab = new VoluntaryApplyBoard();
+			vab.setApplyNo(rset.getInt("apply_no"));
+			vab.setNo(rset.getInt("no"));
+			vab.setCode(rset.getString("code"));
+			vab.setTitle(rset.getString("title"));
+			vab.setId(rset.getString("id"));
+			vab.setPhone(rset.getString("phone"));
+			vab.setPerson(rset.getInt("vbPerson"));
+			vab.setVolunDate(rset.getString("vbDate"));
+			vab.setVolunTime(rset.getString("vbTime"));
+			vab.setEnrollDate(rset.getDate("vbEnroll_date"));
+			vab.setName(rset.getString("name"));
+			list.add(vab);
+		}
+		
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
+		
+		return list;
+	}
+
+	// 마이페이지 :: 보호소회원 봉사활동 공고등록내역 :: 총 갯수
+	public int totalCount(Connection conn, String id) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select count(*) cnt from volunteer_register left join member using(code) where id=?";
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, id);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rset);
+		}
+		
+		return result;
+	}
+
+	// 마이페이지 :: 보호소회원 봉사활동 공고등록내역
+	public ArrayList<VoluntaryRegister> voluntaryList(Connection conn, String id, int start, int end) {
+		ArrayList<VoluntaryRegister> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select * from (select rownum as rnum, v.* from (select * from volunteer_register left join member using(code) where id=? order by no desc) v) where rnum between ? and ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			rset = pstmt.executeQuery();
+			list = new ArrayList<VoluntaryRegister>();
+			
+			while(rset.next()) {
+				VoluntaryRegister vr = new VoluntaryRegister();
+				vr.setNo(rset.getInt("no"));
+				vr.setCode(rset.getString("code"));
+				vr.setName(rset.getString("name"));
+				vr.setTitle(rset.getString("title"));
+				vr.setVolunDate(rset.getString("volun_date"));
+				vr.setVolunTime(rset.getString("volun_time"));
+				vr.setPerson(rset.getInt("person"));
+				vr.setApplyNum(rset.getInt("apply_num"));
+				vr.setEnrollDate(rset.getDate("enroll_date"));
+				list.add(vr);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rset);
+		}
+		
+		return list;
+	}
+
+	//해당공고에 신청한 사람들 목록
+	public ArrayList<VoluntaryApplyBoard> VoluntaryApplyPerson(Connection conn, int no) {
+		ArrayList<VoluntaryApplyBoard> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select * from volunteer_board where no=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			list = new ArrayList<VoluntaryApplyBoard>();
 			while(rset.next()) {
 				VoluntaryApplyBoard vab = new VoluntaryApplyBoard();
 				vab.setApplyNo(rset.getInt("apply_no"));
@@ -400,8 +523,12 @@ public class VoluntaryDao {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}
+		
 		return list;
 	}
+
+	
+	
 	
 
 }

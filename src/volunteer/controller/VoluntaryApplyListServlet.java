@@ -1,6 +1,7 @@
 package volunteer.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -9,9 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import volunteer.model.service.VoluntaryService;
 import volunteer.model.vo.VoluntaryApplyBoard;
+import volunteer.model.vo.VoluntaryApplyData;
 
 /**
  * Servlet implementation class VoluntaryApplyListServlet
@@ -27,16 +30,29 @@ public class VoluntaryApplyListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
-		String id = request.getParameter("id");
-		ArrayList<VoluntaryApplyBoard> list = new VoluntaryService().myVoluntaryList(id);
+		HttpSession session = request.getSession(false);
 		
-		String view="";
-		if(!list.isEmpty()) {
-			request.setAttribute("list", list);
-			view = "/WEB-INF/volunteer/voluntaryApplyList.jsp?id="+list.get(0).getId();
+		String id = request.getParameter("id");
+		session.setAttribute("id", id);
+		
+		int reqPage;
+		try {
+			reqPage = Integer.parseInt(request.getParameter("reqPage"));
+		}catch(NumberFormatException e) {
+			reqPage = 1;
 		}
-		else {
-			request.setAttribute("msg", "해당 봉사활동 신청 공고가 존재하지 않습니다.");
+		
+		VoluntaryApplyData vad;
+		String view = "";
+		try {
+			vad = new VoluntaryService().myVoluntaryList(reqPage, id);
+			request.setAttribute("vad", vad);
+			String pageTitle = "내가 신청한 봉사활동";
+			request.setAttribute("pageTitle", pageTitle);
+			view = "/WEB-INF/volunteer/voluntaryApplyList.jsp";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.setAttribute("msg", "해당 페이지가 존재하지 않습니다.");
 			request.setAttribute("loc", "/totalMyPage");
 			view = "/WEB-INF/common/msg.jsp";
 		}
