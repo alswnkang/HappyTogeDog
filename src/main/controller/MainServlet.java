@@ -33,7 +33,8 @@ public class MainServlet extends HttpServlet {
 		request.setAttribute("prdList", prdList);
 		
 		/* 메인 :: 봉사활동 게시판 공고 노출 */
-		//ArrayList<VoluntaryRegister> volunList = new VoluntaryService().mainVoluntaryList();
+		ArrayList<VoluntaryRegister> volunList = new VoluntaryService().mainVoluntaryList();
+		request.setAttribute("volunList", volunList);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
 		rd.forward(request, response);
