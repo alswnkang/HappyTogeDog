@@ -1,6 +1,13 @@
 package adoption.model.vo;
 
 public class Shelter {
+	private String code;
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
 	private String name;
 	private String phone;
 	private String addr;
@@ -8,11 +15,12 @@ public class Shelter {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Shelter(String name, String phone, String addr) {
+	public Shelter(String name, String phone, String addr,String code) {
 		super();
 		this.name = name;
 		this.phone = phone;
 		this.addr = addr;
+		this.code= code;
 	}
 	public String getName() {
 		return name;

@@ -1,4 +1,4 @@
-package finddog.controller;
+package siAdoptionBoard.controller;
 
 import java.io.IOException;
 
@@ -9,17 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import siAdoptionBoard.model.adoptionBoardService.AdoptionBoardService;
+import siNotice.model.noticeService.NoticeService;
+
 /**
- * Servlet implementation class FindBoardServlet
+ * Servlet implementation class SiPreBoardDeleteServlet
  */
-@WebServlet(name = "FindBoard", urlPatterns = { "/findBoard" })
-public class FindBoardServlet extends HttpServlet {
+@WebServlet(name = "SiAdoptionBoardDelete", urlPatterns = { "/siAdoptionBoardDelete" })
+public class SiAdoptionBoardDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FindBoardServlet() {
+    public SiAdoptionBoardDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,11 +31,15 @@ public class FindBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/FindBoard.jsp");
+		request.setCharacterEncoding("utf-8");
+		int adoptionBoardNo = Integer.parseInt(request.getParameter("adoptionBoardNo"));
+		int result = new AdoptionBoardService().adoptionBoardDelete(adoptionBoardNo);
+		String view = "";
+		if(result>0) {
+			view = "/siAdoptionBoard";
+		}
+		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
-		
 	}
 
 	/**
