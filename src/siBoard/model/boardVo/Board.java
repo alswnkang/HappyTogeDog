@@ -17,13 +17,43 @@ public class Board {
 	private int boardSecret;
 	private String boardPw;
 	private String boardPrdCode;
+	private String dogKind;
+	private String happenCity;
+	private String happenDate;
+	
+	public String getDogKind() {
+		return dogKind;
+	}
+
+	public void setDogKind(String dogKind) {
+		this.dogKind = dogKind;
+	}
+
+	public String getHappenCity() {
+		return happenCity;
+	}
+
+	public void setHappenCity(String happenCity) {
+		this.happenCity = happenCity;
+	}
+
+	public String getHappenDate() {
+		return happenDate;
+	}
+
+	public void setHappenDate(String happenDate) {
+		this.happenDate = happenDate;
+	}
+
 	public Board() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	public Board(int boardRnum, int boardNo, int boardType, String boardId, String boardName, String boardTitle,
 			String boardContent, String boardFilename, String boardFilepath, Date boardDate, int boardCount,
-			int boardSecret, String boardPw, String boardPrdCode) {
+			int boardSecret, String boardPw, String boardPrdCode, String dogKind, String happenCity,
+			String happenDate) {
 		super();
 		this.boardRnum = boardRnum;
 		this.boardNo = boardNo;
@@ -39,7 +69,11 @@ public class Board {
 		this.boardSecret = boardSecret;
 		this.boardPw = boardPw;
 		this.boardPrdCode = boardPrdCode;
+		this.dogKind = dogKind;
+		this.happenCity = happenCity;
+		this.happenDate = happenDate;
 	}
+
 	public int getBoardRnum() {
 		return boardRnum;
 	}

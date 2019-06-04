@@ -9,57 +9,70 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 <body>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	<h1>임시 마이페이지 일반회원,보호소회원</h1>
-	<section>
-		<form action="/memberModify" method="post">
-			<div><input type="hidden" name="level" value="${m.memberLevel }">
-				<table>
+	<jsp:include page="/WEB-INF/common/header.jsp" />
+	<section id="content-wrapper">
+		<form action="/memberModify" method="post" onsubmit="return check()">
+			<div class="area"><input type="hidden" name="level" value="${m.memberLevel }">
+			<h1 class="comm-content-tit">마이 페이지</h1>
+				<table class="comm-tbl type2">
 					<tr>
-						<th>아이디</th>
+						<td>아이디</td>
 						<td><input type="text" name="id" value="${m.id }" readonly></td>
 					</tr>
 					<tr>
-						<th>비밀번호</th>
-						<td><input type="password" name="pw" value="${m.pw }"></td>
+						<td>비밀번호</td>
+						<td><input type="password" id="pw" name="pw" value="${m.pw }" class="modify">
+						<p id="p_checkPw" style="display:none">비밀번호 입력양식 확인</p>
+						</td>
+						
 					</tr>
 					<tr>
-						<th>코드</th>
+						<td>비밀번호 확인</td>
+						<td><input type="password" id="pw_re" name="pw_re" value="${m.pw }" class="modify">
+						<p id="p_checkPw_re" style="display:none">비밀번호가 일치하지 않습니다</p>
+						</td>
+						
+					</tr>
+					<tr>
+						<td>코드</td>
 						<td><input type="text" name="code" value="${m.code }" readonly></td>
 					</tr>
 					<tr>
-						<th>이름</th>
-						<td><input type="text" name="name" value="${m.name }" class="modify"></td>
+						<td>이름</td>
+						<td><input type="text" id="name" name="name" value="${m.name }" class="modify"></td>
 					</tr>
 					<tr>
-						<th>전화번호</th>
-						<td><input type="text" name="phone" value="${m.phone }" class="modify"></td>
+						<td>전화번호</td>
+						<td><input type="text" id="phone" name="phone" value="${m.phone }" class="modify"></td>
 					</tr>
+					<c:if test="${m.memberLevel == 0 }">
 					<tr>
-						<th>우편번호</th>
+						<td>우편번호</td>
 						<td><input type="text" id="post" name="post" value="${m.post }" class="modify">
 						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 						</td>
 					</tr>
 					<tr>
-						<th>주소</th>
+						<td>주소</td>
 						<td><input type="text" id="address" name="address" value="${m.address }" class="modify">
 							<span id="guide" style="color:#999;display:none"></span>
 					<input type="text" id="detailAddress" placeholder="상세주소" name="detailAddress" value="">
 						</td>
 					</tr>
+					</c:if>
 					<tr>
-						<th>이메일</th>
+						<td>이메일</td>
 						<td><input type="text" name="email" value="${m.email }" readonly></td>
 						
 					</tr>
 					
 					<c:if test="${m.memberLevel == 1}">
 					<tr>
-						<th>시간</th>
+						<td>시간</td>
 						<td>
 							<div id="selectTime">
 								<select name="time" id="time">
-									<option id="startTime">${m.startTime }</option>
+									<option id="startTime">${m.startTime }시</option>
 									<option value="08">08시</option>
 									<option value="09">09시</option>
 									<option value="10">10시</option>
@@ -74,7 +87,7 @@
 								</select> 
 								~
 								<select name="endTime" id="endTime">
-									<option id="endTime2">${m.endTime }</option>
+									<option id="endTime2">${m.endTime }시</option>
 									<option value="09">09시</option>
 									<option value="10">10시</option>
 									<option value="11">11시</option>
@@ -205,7 +218,67 @@
 			$("#endTime").mouseover(function(){
 				$('#endTime2').css('display','none');
 			});
+			
+			$('#pw').keyup(function(){
+				var pw = $('#pw').val();
+				var checkPw = /^.*(?=.{8,13})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+				if(checkPw.test(pw)==true){
+					$('#p_checkPw').css('display','none');
+					
+				}else if(checkPw.test(pw)==false){
+					$('#p_checkPw').css('display','block');
+					$('#p_checkPw').css('color','red');
+				}
+			});
+			
+			$('#pw_re').keyup(function(){
+				var pw = $('#pw').val();
+				var pw_re = $('#pw_re').val();
+				if(pw != pw_re){
+					$('#p_checkPw_re').css('display','block');
+					$('#p_checkPw_re').css('color','red');
+				}else{
+					$('#p_checkPw_re').css('display','none');
+				}
+			});
+
 		});
+		function check(){
+			var id_re = /^[a-zA-Z0-9]{4,12}$/;
+			var checkPw = /^.*(?=.{8,13})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+			if($('#pw').val() == ""){
+				alert("비밀번호를 입력해주세요");
+				$('#pw').focus();
+				return false;
+			}
+			if(checkPw.test($('#pw').val())==false){
+				alert("비밀번호 양식이 틀렸습니다");
+				$('#pw').focus();
+				return false;
+			}
+			if($('#name').val() == ""){
+				alert("이름을 입력해주세요");
+				$('#name').focus();
+				return false;
+			}
+			if($('#phone').val() == ""){
+				alert("전화번호를 입력해주세요");
+				$('#phone').focus();
+				return false;
+			}
+			if($('#post').val() == ""){
+				alert("우편번호를 입력해주세요");
+				$('#post').focus();
+				return false;
+			}
+			if($('#address').val() == ""){
+				alert("주소를 입력해주세요");
+				$('#address').focus();
+				return false;
+			}
+		}
+		
+		
 	</script>
 	
 </body>

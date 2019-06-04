@@ -8,13 +8,12 @@ import siAdoptionBoard.model.adoptionBoardVo.AdoptionBoard;
 import siAdoptionBoard.model.adoptionBoardVo.AdoptionBoardPageData;
 import siAdoptionBoard.model.adoptionBoardVo.AdoptionBoardViewData;
 import siAdoptionBoardComment.model.adoptionBoardCommentVo.AdoptionBoardComment;
-import siAdoptionBoardComment.model.adoptionBoardCommentVo.AdoptionBoardCommentPageData;
 import siTemplete.JDBCTemplete;
 
 public class AdoptionBoardService {
 	public AdoptionBoardPageData adoptionBoardAll(int reqPage){
 		Connection conn = JDBCTemplete.getConnection();
-		int numPerPage = 10;
+		int numPerPage = 12;
 		int totalCount = new AdoptionBoardDao().totalCount(conn);
 		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
 		int start = (reqPage-1)*numPerPage+1;
@@ -54,7 +53,7 @@ public class AdoptionBoardService {
 		JDBCTemplete.close(conn);
 		return result;
 	}
-	public AdoptionBoardCommentPageData adoptionBoardView(int adoptionBoardNo,int reqPage) {
+	public AdoptionBoardViewData adoptionBoardView(int adoptionBoardNo) {
 		Connection conn = JDBCTemplete.getConnection();
 		int result = new AdoptionBoardDao().adoptionBoardCount(conn, adoptionBoardNo);
 		//카운트를 증가 시키기위해 Dao에 update를 하나 추가
@@ -64,33 +63,9 @@ public class AdoptionBoardService {
 			JDBCTemplete.rollback(conn);
 		}
 		AdoptionBoard a = new AdoptionBoardDao().adoptionBoardView(conn, adoptionBoardNo);
-		int numPerPage = 10;
-		int totalCount = new AdoptionBoardDao().totalCount(conn);
-		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
-		int start = (reqPage-1)*numPerPage+1;
-		int end = reqPage*numPerPage;
-		ArrayList<AdoptionBoardComment> list = new AdoptionBoardDao().commentAll(conn,start,end);
-		String pageNavi = "";
-		int pageNaviSize = 10;
-		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
-		if(pageNo!=1) {
-			pageNavi+="<a href='/siAdoptionBoard?reqPage="+(pageNo-1)+"'>이전</a>";
-		}
-		int i = 1;
-		while(!(i++>pageNaviSize || pageNo>totalPage)) {
-			if(reqPage==pageNo) {
-				pageNavi+="<span>"+pageNo+"</span>";
-			}else {
-				pageNavi+="<a href='/siAdoptionBoard?reqPage="+pageNo+"'>"+pageNo+"</a>";
-			}
-			pageNo++;
-		}
-		if(pageNo<=totalPage) {
-			pageNavi+="<a href='/siAdoptionBoard?reqPage="+pageNo+"'>다음</a>";
-		}
+		ArrayList<AdoptionBoardComment> list = new AdoptionBoardDao().commentAll(conn);
 		JDBCTemplete.close(conn);
-		AdoptionBoardCommentPageData vd = new AdoptionBoardCommentPageData(list,pageNavi,a);
-		/*AdoptionBoardViewData vd = new AdoptionBoardViewData(list,a);*/
+		AdoptionBoardViewData vd = new AdoptionBoardViewData(list,a);
 		return vd;
 	}
 	public int adoptionBoardUpdate(int adoptionBoardNo, String adoptionBoardTitle, String adoptionBoardContent, String adoptionBoardFilename, String adoptionBoardFilepath) {
@@ -123,7 +98,7 @@ public class AdoptionBoardService {
 	}
 	public AdoptionBoardPageData adoptionBoardSearch(int reqPage, String searchType, String searchKeyword){
 		Connection conn = JDBCTemplete.getConnection();
-		int numPerPage = 10;
+		int numPerPage = 12;
 		int totalCount = 0;
 		if(searchType.equals("adoptionBoardName")) {
 			totalCount = new AdoptionBoardDao().totalSearchNameCount(conn,searchKeyword);

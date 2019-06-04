@@ -38,10 +38,14 @@ public class AdminDeleteServlet extends HttpServlet {
 		try {
 			int result = new MemberService().delete(id);
 			if(result>0) {
-				RequestDispatcher rd = request.getRequestDispatcher("adminPage");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+				request.setAttribute("msg", "탈퇴 완료");
+				request.setAttribute("loc", "/adminPage");
 				rd.forward(request, response);
 			}else {
-				RequestDispatcher rd = request.getRequestDispatcher("/adminPage");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+				request.setAttribute("msg", "탈퇴 실패");
+				request.setAttribute("loc", "/adminPage");
 				rd.forward(request, response);
 			}
 		} catch (SQLException e) {

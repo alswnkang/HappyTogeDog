@@ -11,33 +11,74 @@
 
 <body>
 	<jsp:include page="/WEB-INF/common/header.jsp" />
-	<section>
-		<h1>임시 회원 가입 폼 일반회원,보호소회원</h1>
+	<section id="content-wrapper">
+		
 		<form action="/memberJoin" method="post" onsubmit="return check()">
-			<div>
-				
-				<h1 id="h_title1">일반 회원가입</h1>
-				<h1 id="h_title2" style="display:none">보호소 회원가입</h1>
-				아이디 : <input type="text" name="id" id="id" placeholder = "4~12자리 영/숫자">
-				<input type="button" id="checkId" value="중복체크"><br>
+			<div class="area">
+				<h1 id="h_title1" class="comm-content-tit">일반 회원정보 입력</h1>
+				<h1 id="h_title2" style="display:none" class="comm-content-tit">보호소 회원정보 입력</h1>
+				<table class="comm-tbl type2">
+				<tr>
+				<td>아이디</td>
+				<td><input type="text" name="id" id="id" placeholder = "4~12자리 영/숫자">
 				<p id="p_checkId" style="display:none">아이디 입력양식 확인</p>
+				</td>
+				<td><input type="button" id="checkId" value="중복체크"></td>
+				</tr>
 				
-				비밀번호 : <input type="password" name="pw" id="pw" placeholder = "영/숫자를 포함한 8~13자리"><br>
-				<p id="p_checkPw" style="display:none">비밀번호 입력양식 확인</p>
-				비밀번호 확인 : <input type="password" name="pw_re" id="pw_re"><br>
+				<tr>
+				
+				<td>비밀번호</td>
+				<td><input type="password" name="pw" id="pw" placeholder = "영/숫자를 포함한 8~13자리">
+				<p id="p_checkPw" style="display:none">비밀번호 입력양식 확인</p></td>
+				</tr>
+				
+				<tr>
+				<td>비밀번호 확인</td>
+				<td><input type="password" name="pw_re" id="pw_re">
 				<p id="p_checkPw_re" style="display:none">비밀번호가 일치하지 않습니다</p>
-				<p id="p_name">이름 : <input type="text" name="name" id="name"></p><br>
-				전화번호 : <input type="text" name="phone" id="phone"><br>
-				우편번호 : <input type="text" id="post" placeholder="우편번호" name="post">
-				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-				주소 : <input type="text" id="address" placeholder="도로명주소" name="address">
-					<span id="guide" style="color:#999;display:none"></span>
-					<input type="text" id="detailAddress" placeholder="상세주소" name="detailAddress" value=""><br>
-				EMAIL : <input type="text" name="email" id="email" value="${email }" readonly>
+				</td>
+				</tr>
 				
-				<br>
+				<tr>
+				<td>이름</td>
+				<td><input type="text" name="name" id="name"></td>
+				</tr>
+				
+				<tr>
+				<td>전화번호</td>
+				<td><input type="text" name="phone" id="phone"></td>
+				</tr>
+				
+				<c:if test="${level == 0 }">
+				<tr>
+				<td>우편번호</td>
+				<td><input type="text" id="post" placeholder="우편번호" name="post"></td>
+				<td><input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"></td>
+				</tr>
+				
+				<tr>
+				<td>주소</td>
+				<td><input type="text" id="address" placeholder="도로명주소" name="address">
+					<span id="guide" style="color:#999;display:none"></span>
+					</td>
+				<td><input type="text" id="detailAddress" placeholder="상세주소" name="detailAddress" value=""></td>
+				</tr>
+					
+				</c:if>
+					<input type="hidden" id="careCity" name="careCity" value="">
+					<input type="hidden" id="careArea" name="careArea" value="">
+				<tr>
+				<td>EMAIL</td>
+				<td><input type="text" name="email" id="email" value="${email }" readonly></td>
+				</tr>
+				
 				<input type="hidden" name="level" id="level" value="${level}">
+				<tr>
+				<td>방문시간</td>
+				
 				<div id="selectTime">
+				<td>
 				<select name="time" id="time">
 					<option value="08">08시</option>
 					<option value="09">09시</option>
@@ -49,7 +90,6 @@
 					<option value="15">15시</option>
 					<option value="16">16시</option>
 					<option value="17">17시</option>
-					
 				</select> 
 				~
 				<select name="endTime" id="endTime">
@@ -65,37 +105,51 @@
 					<option value="17">17시</option>
 					<option value="18">18시</option>
 					
-				</select><br>
+				</select>
+				</td>
 				</div>
-				
-				<h1>레벨 : ${level }</h1>
-			</div>
+				</tr>	
+					
 			<c:if test="${level == 1}">
-			시 선택 : 
-			<select name="city" id="city">
+			<tr>
+			<td>시 선택</td> 
+			<td><select name="city" id="city">
 				<option>도시선택</option>
 				<c:forEach items="${list }" var="m" varStatus="i">
 						<option value="${m.cityCode }">${m.cityName }</option>
 				</c:forEach>
 			</select>
-			<input type="button" id="citysel" value="확인"><br>
-			구 선택:
+			</td>
+			</tr>
+			
+			<tr>
+			<td>
+			구 선택
+			</td>
+			<td>
 			<select name="area" id="area">
 				<option>지역구선택</option>
 			</select>
-			<input type="button" id="areasel" value="확인"><br>
-			보호소 선택 :
+			</td>
+			</tr>
+			
+			<tr>
+			<td>
+			보호소 선택 
+			</td>
+			<td>
 			<select name="care" id="care">
 				<option>보호소선택</option>
 			</select>
-			<input type="button" id="caresel" value="확인"><br>
-			<div id="caretext"></div>
-			
+			</td>
+			</tr>
 			</c:if>
+			</table>
 			<input type="submit" value="회원가입" id="sub">
 			<input type="reset" value="취소" id="reset">
+		</div>
+			
 		</form>
-		
 	
 		
 	</section>
@@ -166,7 +220,7 @@
 </script>
 	
 	<script>
-	$("#citysel").click(function(){
+	$("#city").change(function(){
 		var value = $("#city").val();
 		$.ajax({
 			url:"/areaCode",		
@@ -197,15 +251,19 @@
 		
 	});
 	
-	$("#caresel").click(function(){
-		$("#caretext").text($("#care").val());
-
+	$("#care").change(function(){
+		$('#name').text($('#care')).val();
 		$('#name').val($('#care option:selected').text());
-
+	});
+	$("#area").change(function(){
+		$('#careArea').val($('#area option:selected').text());
+	});
+	$("#city").change(function(){
+		$('#careCity').val($('#city option:selected').text());
 	});
 
 	
-	$("#areasel").click(function(){
+	$("#area").change(function(){
 		var citValue = $("#city").val();
 		var areValue =	$("#area").val();
 		$.ajax({
@@ -264,7 +322,7 @@
 				$('#p_code').css('display','block');		//level이 0보다 클때 block
 				$('#h_title2').css('display','block');		//level이 0보다 클때 block
 				$('#h_title1').css('display','none');		//level이 0보다 클때 none
-				$('#p_name').css('display','none');
+				
 			}else if(level == 0){
 				$('#selectTime').css('display','none');		//level이 0일때 none
 			}
@@ -283,7 +341,7 @@
 			
 			$('#pw').keyup(function(){
 				var pw = $('#pw').val();
-				var checkPw = /^[a-zA-Z0-9]{8,13}$/;
+				var checkPw = /^.*(?=.{8,13})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
 				if(checkPw.test(pw)==true){
 					$('#p_checkPw').css('display','none');
 					
