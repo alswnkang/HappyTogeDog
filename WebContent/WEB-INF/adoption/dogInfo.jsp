@@ -30,7 +30,7 @@
 		</form>
 		
 			<div class="common-tbl-btn-group type2">
-				<c:if test="${not empty sessionScope.member}">	
+				<c:if test="${(not empty sessionScope.member) && sessionScope.member.memberLevel eq 0}">	
 					<button type="button" class="btn-style10" onclick="javascript:sendToApplyFrom.submit();">보호소 방문예약</button>
 					<!-- onclick="location.href='/reservation?보호소명,주소,전화번호,코드넘겨주기 -->
 				</c:if>
@@ -38,6 +38,10 @@
 				<c:if test="${empty sessionScope.member}">	
 					<button type="button" class="btn-style10" onclick="login();">보호소 방문예약</button>
 					<!-- onclick="location.href='/reservation?보호소명,주소,전화번호,코드넘겨주기 -->
+				</c:if>
+				<!-- 보호소 회원일 경우 버튼 안보이게 -->
+				<c:if test="${sessionScope.member.memberLevel eq 1}">	
+					<button type="button" class="btn-style10" style="display:none;">보호소 방문예약</button>
 				</c:if>
 			</div>
 			<div class="dog-info-top-inner clearfix">

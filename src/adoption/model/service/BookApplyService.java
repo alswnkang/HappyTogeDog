@@ -32,7 +32,7 @@ public class BookApplyService {
 		}
 		return result;
 	}
-	//마이페이지에 방문예약 신청내역 보여주기
+	//일반회원 마이페이지에 방문예약 신청내역 보여주기
 	public BookApplyPageData selectList(int reqPage,String id){
 		Connection conn = JDBCTemplate.getCon();
 		ArrayList<BookApply> list = new ArrayList<BookApply>();
@@ -173,5 +173,13 @@ public class BookApplyService {
 		}
 		JDBCTemplate.close(conn);
 		return result;	
+	}
+	//일반회원이 방문예약 신청내역 내용 확인
+	public BookApply myViewOne(int no, String id) {
+		Connection conn = JDBCTemplate.getCon();
+		System.out.println("no: "+no);
+		BookApply b = new BookApplyDao().myViewOne(conn ,no, id);
+		JDBCTemplate.close(conn);
+		return b;
 	}
 }
