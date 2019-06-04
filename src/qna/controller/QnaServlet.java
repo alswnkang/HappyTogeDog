@@ -168,6 +168,7 @@ public class QnaServlet extends HttpServlet {
 				try {
 					QnaVO qna = new QnaService().checkPw(boardNo,boardPw);
 					if(qna != null) {
+						request.setAttribute("pageName", "/qnaList");
 						request.setAttribute("qna", qna);
 						request.getRequestDispatcher("/WEB-INF/qna/qnaView.jsp").forward(request, response);
 						
