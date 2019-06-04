@@ -25,6 +25,7 @@ public class CommentServlet extends HttpServlet {
 		String[] url = request.getRequestURL().toString().split("/");
 		String action = url[url.length-1];
 		
+		//TODO 관리자 아닐때 예외처리
 		if(action.equals("insertComment")) {
 			String boardRef = request.getParameter("boardRef");
 			String boardCommentContent = request.getParameter("boardCommentContent").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>");

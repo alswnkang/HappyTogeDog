@@ -12,6 +12,20 @@
 	<div class="area">
 		<h2 class="comm-content-tit">Q & A</h2>
 		<div class="qna-view">
+			<%-- 상품코드가 있으면 해당 상품 연결 --%>
+			<c:if test="${not empty qna.boardPrdcode }">
+				<table class="comm-tbl">
+					<tr>
+						<td>
+							<a href="/viewProduct?code=${qna.boardPrdcode}">
+								<img height="100" src="/img/${prdList[qna.boardPrdcode].prdImg }">
+								${prdList[qna.boardPrdcode].prdName }
+							</a>
+						</td>
+					</tr>
+				</table>
+			</c:if>
+			<br>
 			<table class="comm-tbl">
 				<tr>
 					<td>제목</td><td>${qna.boardTitle }</td>

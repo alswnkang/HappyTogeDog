@@ -34,7 +34,7 @@
 					<tbody>
 						<c:if test="${empty qnaList.qnainfoList }">
 							<tr>
-								<td colspan="5">
+								<td colspan="4">
 									<p class="none">게시물이 없습니다.</p>
 								</td>
 							</tr>

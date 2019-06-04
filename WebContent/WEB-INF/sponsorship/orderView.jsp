@@ -15,6 +15,7 @@
 			<form action="/updateOrder" method="post">
 				<p class="main-comm-tit">주문 상세</p>
 				<table class="comm-tbl">
+					<tr class="tr-title"><td colspan="2">주문 정보</td></tr>
 					<tr>
 						<td>주문번호</td><td>${orderInfo.no }<input type="hidden" name="no" value="${orderInfo.no }"></td>
 					</tr>
@@ -28,6 +29,22 @@
 								<option value="2">배송중</option>
 								<option value="3">배송 완료</option>
 							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>주문상품</td>
+						<td>
+							<c:set var="code" value="" />
+							<c:set var="img" value="no_detail_img.gif" />
+							<c:forEach items="${prdList }" var="prd">
+								<c:if test="${prd.prdName eq orderInfo.productName}">
+									<c:set var="code" value="${prd.prdCode }" />
+									<c:set var="img" value="${prd.prdImg }" />
+								</c:if>
+							</c:forEach>
+							<a href="/viewProduct?code=${code}">
+								<img height="100" src="/img/${img }">${orderInfo.productName }
+							</a>
 						</td>
 					</tr>
 					<tr class="tr-title"><td colspan="2">주문자 정보</td></tr>

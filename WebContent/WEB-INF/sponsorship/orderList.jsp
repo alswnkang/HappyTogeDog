@@ -82,7 +82,17 @@
 									<c:if test="${not empty order.id}">(${order.id })</c:if>
 									<c:if test="${empty order.id}">(비회원)</c:if>
 								</td>
-								<td>${order.productName }</td>
+								<td>
+									<c:set var="code" value="" />
+									<c:forEach items="${prdList }" var="prd">
+										<c:if test="${prd.prdName eq order.productName}">
+											<c:set var="code" value="${prd.prdCode }" />
+										</c:if>
+									</c:forEach>
+									<a href="/viewProduct?code=${code}">
+										${order.productName }
+									</a>
+								</td>
 								<td>
 									<c:if test="${order.payMethod eq 'card'}">신용카드</c:if>
 									<c:if test="${order.payMethod eq 'trans' }">실시간 계좌이체</c:if>
