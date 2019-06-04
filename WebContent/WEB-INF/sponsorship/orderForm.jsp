@@ -157,7 +157,7 @@
 	$(function() {
 		
 		$('input[type=checkbox]').click(function() {
-			console.log($(this).is(":checked"));
+			//console.log($(this).is(":checked"));
 			if($(this).is(":checked")==true){
 				$('input[name=receiveName]').val($('input[name=name]').val());
 				$('input[name=receivePhone1]').val($('input[name=phone1]').val());

@@ -100,6 +100,7 @@ public class QnaDao {
 			qna.setBoardCount(rset.getInt("board_count"));
 			qna.setBoardSecret(rset.getInt("board_secret"));
 			qna.setBoardPrdcode(rset.getString("board_prdcode"));
+			qna.setBoardPw(rset.getString("board_pw"));
 			
 		}
 		JDBCTemplate.close(rset);
@@ -152,6 +153,50 @@ public class QnaDao {
 		pstmt.setInt(8, qna.getBoardSecret());
 		pstmt.setString(9, qna.getBoardPw());
 		pstmt.setString(10, qna.getBoardPrdcode());
+		result = pstmt.executeUpdate();
+		JDBCTemplate.close(pstmt);
+		return result;
+	}
+
+	public int updateQna(Connection conn, QnaVO qna) throws SQLException {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = "";
+		if(qna.getBoardPw()==null) {
+			sql = "update board set board_title=?,board_name=?,board_content=?,board_filename=?,board_filepath=?,board_secret=? where board_no=? and board_pw is null ";
+		}else {
+			sql = "update board set board_title=?,board_name=?,board_content=?,board_filename=?,board_filepath=?,board_secret=? where board_no=? and board_pw=?";
+		}
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, qna.getBoardTitle());
+		pstmt.setString(2, qna.getBoardName());
+		pstmt.setString(3, qna.getBoardContent());
+		pstmt.setString(4, qna.getBoardFilename());
+		pstmt.setString(5, qna.getBoardFilepath());
+		pstmt.setInt(6, qna.getBoardSecret());
+		pstmt.setInt(7, qna.getBoardNo());
+		if(qna.getBoardPw()!=null) {
+			pstmt.setString(8, qna.getBoardPw());
+		}
+		result = pstmt.executeUpdate();
+		JDBCTemplate.close(pstmt);
+		return result;
+	}
+
+	public int deleteQna(Connection conn, int boardNo, String boardPw) throws SQLException {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = "";
+		if(boardPw==null) {
+			sql = "delete from board where board_no=? and board_pw is null ";
+		}else {
+			sql = "delete from board where board_no=? and board_pw=?";
+		}
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, boardNo);
+		if(boardPw != null) {
+			pstmt.setString(2, boardPw);
+		}
 		result = pstmt.executeUpdate();
 		JDBCTemplate.close(pstmt);
 		return result;

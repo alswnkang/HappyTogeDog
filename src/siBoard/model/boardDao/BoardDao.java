@@ -75,7 +75,7 @@ public class BoardDao {
 	public int boardInsert(Connection conn, Board b) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into board values(board_seq.nextval,?,?,?,?,?,?,?,sysdate,0,0,null,null,?,?,?)";
+		String query = "insert into board values(board_seq.nextval,?,?,?,?,?,?,?,sysdate,0,0,null)";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, b.getBoardType());
@@ -85,9 +85,6 @@ public class BoardDao {
 			pstmt.setString(5, b.getBoardContent());
 			pstmt.setString(6, b.getBoardFilename());
 			pstmt.setString(7, b.getBoardFilepath());
-			pstmt.setString(8, b.getDogKind());
-			pstmt.setString(9, b.getHappenCity());
-			pstmt.setString(10, b.getHappenDate());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -366,5 +363,31 @@ public class BoardDao {
 			JDBCTemplete.close(stmt);
 		}
 		return list;
+	}
+	public int takeBoardInsert(Connection conn, Board b) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "insert into board values(board_seq.nextval,?,?,?,?,?,?,?,sysdate,0,0,null,null,?,?,?)";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, b.getBoardType());
+			pstmt.setString(2, b.getBoardId());
+			pstmt.setString(3, b.getBoardName());
+			pstmt.setString(4, b.getBoardTitle());
+			pstmt.setString(5, b.getBoardContent());
+			pstmt.setString(6, b.getBoardFilename());
+			pstmt.setString(7, b.getBoardFilepath());
+			pstmt.setString(8, b.getDogKind());
+			pstmt.setString(9, b.getHappenCity());
+			pstmt.setString(10, b.getHappenDate());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(pstmt);
+		}
+		return result;
 	}
 }

@@ -275,24 +275,11 @@
 											</div>
 											<div class="txt-thum">
 												<h3>${prd.prdName}</h3>
-												<p>후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.</p>
+												<p>${prd.prdCon}</p>
 											</div>
 										</a>
 									</li>
 								</c:forEach>
-								<!--  
-								<li>
-									<a href="" class="clearfix">
-										<div class="img-thum">
-											<span style="background:url('/img/no_detail_img.gif') no-repeat center center; background-size:cover;"></span>
-										</div>
-										<div class="txt-thum">
-											<h3>후원상품 명이 들어갑니다.</h3>
-											<p>후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.후원상품 상세설명이 들어갑니다.</p>
-										</div>
-									</a>
-								</li>
-								-->
 							</ul>
 						</div>
 					</div>

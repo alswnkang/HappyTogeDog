@@ -6,16 +6,17 @@ public class ProductVO {
 	private String prdName;
 	private String prdImg;
 	private String prdPrice;
+	private String prdCon;
 	public ProductVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public ProductVO(String prdCode, String prdName, String prdImg, String prdPrice) {
+	public ProductVO(String prdCode, String prdName, String prdImg, String prdPrice, String prdCon) {
 		super();
 		this.prdCode = prdCode;
 		this.prdName = prdName;
 		this.prdImg = prdImg;
 		this.prdPrice = prdPrice;
+		this.prdCon = prdCon;
 	}
 	public String getPrdCode() {
 		return prdCode;
@@ -41,6 +42,13 @@ public class ProductVO {
 	public void setPrdPrice(String prdPrice) {
 		this.prdPrice = prdPrice;
 	}
+	public String getPrdCon() {
+		return prdCon;
+	}
+	public void setPrdCon(String prdCon) {
+		this.prdCon = prdCon;
+	}
+	
 	
 	
 	

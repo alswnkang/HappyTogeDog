@@ -28,13 +28,13 @@
 						${qna.boardContent }
 					</td>
 				</tr>
-				<!-- 첨부파일 이미지를 내용에 넣을까 다운로드로 할까 고민중
+				<%-- 첨부파일 이미지를 내용에 넣을까 다운로드로 할까 고민중
 				<c:if test="${not empty qna.boardFilename }">
 					<tr>
 						<td>파일첨부</td><td>${qna.boardFilename }</td>
 					</tr>
 				</c:if>
-				-->
+				--%>
 				<c:if test="${not empty comment.boardCommentContent }">
 					<tr>
 						<td>답변</td><td>${comment.boardCommentContent }</td>
@@ -54,8 +54,28 @@
 			</table>
 			
 			<div class="common-tbl-btn-group">
-					<button class="btn-style1 sm">수정</button>
-					<button class="btn-style2 sm">삭제</button>
+				<%-- 비회원이 작성한 글 --%>
+				<c:if test="${empty qna.boardId}">
+					<%-- 답변이 없을 때만 수정 가능 --%>
+					<c:if test="${empty comment.boardCommentContent}">
+						<button class="btn-style1 sm" onclick="location.href='/modifyQna?boardNo=${qna.boardNo }'">수정</button>
+					</c:if>
+					<button class="btn-style2 sm" onclick="location.href='/checkPw?boardNo=${qna.boardNo }&checkType=d'">삭제</button>
+				</c:if>
+				<%-- 회원이 작성한 글 --%>
+				<c:if test="${not empty qna.boardId}">
+					<%-- 로그인 한 상태 --%>
+					<c:if test="${not empty sessionScope.member}">
+						<%-- 내 글일 때만 수정 삭제 버튼 보임 --%>
+						<c:if test="${sessionScope.member.id eq qna.boardId }">
+							<%-- 답변이 없을 때만 수정 가능 --%>
+							<c:if test="${empty comment.boardCommentContent}">
+								<button class="btn-style1 sm" onclick="location.href='/modifyQna?boardNo=${qna.boardNo }'">수정</button>
+							</c:if>
+							<button class="btn-style2 sm" onclick="if(confirm('삭제하시겠습니까?')){location.href='/removeQna?boardNo=${qna.boardNo }';}">삭제</button>
+						</c:if>
+					</c:if>
+				</c:if>
 				<button class="btn-style3" onclick="list(${search.reqPage });">목록으로</button>
 			</div>
 			<form action="${pageName}" method="post" name="search">

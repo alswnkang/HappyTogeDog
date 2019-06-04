@@ -21,7 +21,7 @@
 							<div class="info">
 								<h3>${prd.prdName}</h3>
 								<p class="price">최소 후원금액 <b><fmt:formatNumber value="${prd.prdPrice}" pattern="#,###" /> 원</b></p>
-								<p class="txt">상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.상품설명입니다.</p>
+								<p class="txt">${prd.prdCon}</p>
 							</div>
 						</div>
 					</div>
