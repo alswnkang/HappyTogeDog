@@ -4,59 +4,67 @@
 
 <jsp:include page="/WEB-INF/common/header.jsp" />
 <%-- Content --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<link rel="stylesheet" type="text/css" href="/css/content.css">
-<link rel="stylesheet" type="text/css" href="/css/findMydog_DJ.css">
-
-<%-- Header --%>
-<jsp:include page="/WEB-INF/common/header.jsp" />
-<script src="http://code.jquery.com/jquery-3.4.0.min.js"></script><!-- jQuery 선언 -->
-	
-
-<%-- Content --%>
 <section id="content-wrapper">
-	<div class="area">
-		<h2 class="comm-content-tit">강아지를 찾습니다</h2>
-		<ul class="main-adopt-review-list clearfix"><!-- 입양후기는 최소/최대 8개가 노출됩니다. -->
-			<c:forEach items="${sdpd.list }" var="m" varStatus="i">
-				<li>
-					<a href="#">
-						<div class="img-thum">
-						<span style="background:url('${m.filename }') no-repeat center center; background-size:cover;"></span>
-						</div>
-						<div class="txt-thum">
-						
-						<p>보호소명  : ${m.careNm }, 품종 : ${m.kindCd }</p><br>
-						<p>성별 :${m.sexCd }
-						</div>
-					</a>
-				</li>
-			</c:forEach>
-		</ul>
-		
-		
-		
-		<!-- paging -->
-		<div class="paging">${sdpd.pageNavi }</div>
-		
-		<div id="searchDog" class="common-tbl-box"><!-- id는 바꿔서 복붙 -->
-			<!-- search -->
-			<form action="" method="post">
-		 		<!-- 검색박스 -->
-		 		<div class="board-search-box">
-					<select name="search_item"><!-- option 세부항목은 각자 알아서 넣으시면 됩니다. -->
-						<option value="subject">지역</option>
-						<option value="content">품종</option>
-					</select>
-					<input placeholder="검색어를 입력해주세요." type="search" name="search_order" class="search-word" value="">
-					<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
-				</div>
-			</form>
+		<section name="siSection" id="content-wrapper">
+		<div class="area">
+			<h2 class="comm-content-tit">강아지를 찾습니다</h2>
+			<div class="common-tbl-box">
+				<table class="comm-tbl type2">
+					<colgroup>
+						<col width="5%">
+						<col width="15%">
+						<col width="">
+						<col width="15%">
+						<col width="10%">
+						<col width="7%">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>No.</th>
+							<th>사진</th>
+							<th>게시글 제목</th>
+							<th>작성자</th>
+							<th>날짜/시간</th>
+							<th>조회수</th>
+						</tr>
+					</thead>
+					<tbody>
+			 			<c:forEach items="${bp.list }" var="list">
+							<tr>
+								<td>${list.boardRnum}</td>
+								<td><img src='${list.filename }'></td>
+								<td><a href="/detailViewFind?boardNo=${list.boardNo }">${list.boardTitle }</a></td>
+								<!-- name 값을 넘겨주도록 설정필요 -->
+								<td>${list.boardName }(${list.boardId })</td>
+								<td>${list.boardDate }</td>
+								<td>${list.boardCount }</td>
+							</tr>
+						</c:forEach>
+						<tr>
+							<td colspan="5" style="text-align:center;">
+								<div>${bp.pageNavi }</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<form action="/takeBoardSearch" method="post">
+					<div class="board-search-box">
+						<select name="searchWord">
+							<option value="boardName">작성자</option>
+							<option value="boardTitle">글 제목</option>
+						</select>
+						<input type="text" name="keyword">
+						<button type="submit" class="bbs-search-btn">검색</button>
+						<c:if test="${not empty sessionScope.member.id }">
+						<!-- 로그인이 되있어야 글쓰기버튼 활성화 -->
+							<button type="button" class="bbs-search-btn" style="float:right;" onclick="location.href='/siViews/board/siPreBoardInsert.jsp'">글쓰기</button>
+						</c:if>
+					</div>
+				</form>
+			</div>
 		</div>
-	</div>
+	</section>
 	
 	
 </section>

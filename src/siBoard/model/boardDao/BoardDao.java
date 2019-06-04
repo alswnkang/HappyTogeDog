@@ -1,16 +1,11 @@
 package siBoard.model.boardDao;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Properties;
-
 import siBoard.model.boardVo.Board;
 import siBoardComment.model.boardCommentVo.BoardComment;
 import siTemplete.JDBCTemplete;
@@ -20,12 +15,15 @@ public class BoardDao {
 		Statement stmt = null;
 		ResultSet rset = null;
 		int result = 0;
-		String query = "select count(*) as cnt from board";
+		String query = "select count(*) as cnt from board where board_type = 1";
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
 			if(rset.next()) {
 				result = rset.getInt("cnt");
+				if(result == 0) {
+					result += 1;
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -40,7 +38,7 @@ public class BoardDao {
 		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD where board_Type=1 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
 		try {
 			pstmt=conn.prepareStatement(query);
 			pstmt.setInt(1, start);
@@ -77,7 +75,7 @@ public class BoardDao {
 	public int boardInsert(Connection conn, Board b) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into board values(board_seq.nextval,?,?,?,?,?,?,?,sysdate,0,0,null,null)";
+		String query = "insert into board values(board_seq.nextval,?,?,?,?,?,?,?,sysdate,0,0,null)";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, b.getBoardType());
@@ -220,7 +218,7 @@ public class BoardDao {
 		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM board where board_name = ? ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM board where board_name = ? and board_Type=1 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, searchKeyword);
@@ -259,7 +257,7 @@ public class BoardDao {
 		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM board where board_title like ? ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM board where board_title like ? and board_Type=1 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, "%"+searchKeyword+"%");
@@ -298,7 +296,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
-		String query = "select count(*) as cnt from board where board_title like ?";
+		String query = "select count(*) as cnt from board where board_title like ? and board_Type=1";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, "%"+searchKeyword+"%");
@@ -319,7 +317,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
-		String query = "select count(*) as cnt from board where board_name=?";
+		String query = "select count(*) as cnt from board where board_name=? and board_Type=1";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, searchKeyword);
@@ -340,7 +338,7 @@ public class BoardDao {
 		ArrayList<BoardComment> list = null;
 		Statement stmt = null;
 		ResultSet rset = null;
-		String query = "select * from board_comment where board_comment_type=1";
+		String query = "select * from board_comment where board_comment_type=1 order by board_comment_no";
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
@@ -365,5 +363,31 @@ public class BoardDao {
 			JDBCTemplete.close(stmt);
 		}
 		return list;
+	}
+	public int takeBoardInsert(Connection conn, Board b) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "insert into board values(board_seq.nextval,?,?,?,?,?,?,?,sysdate,0,0,null,null,?,?,?)";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, b.getBoardType());
+			pstmt.setString(2, b.getBoardId());
+			pstmt.setString(3, b.getBoardName());
+			pstmt.setString(4, b.getBoardTitle());
+			pstmt.setString(5, b.getBoardContent());
+			pstmt.setString(6, b.getBoardFilename());
+			pstmt.setString(7, b.getBoardFilepath());
+			pstmt.setString(8, b.getDogKind());
+			pstmt.setString(9, b.getHappenCity());
+			pstmt.setString(10, b.getHappenDate());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(pstmt);
+		}
+		return result;
 	}
 }

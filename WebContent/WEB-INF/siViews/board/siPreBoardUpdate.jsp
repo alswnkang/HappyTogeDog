@@ -20,7 +20,6 @@
 		});
 	</script>
 <body>
-	<!-- 파일 업로드, 제대로 안되서 나중에 손봐야됨 -->
 	<section id="content-wrapper">
 		<div class="area">
 			<h2 class="comm-content-tit">게시글 수정</h2>
@@ -33,7 +32,7 @@
 						</colgroup>
 						<tr>
 							<th>제목</th>
-							<td><input type="text" name="boardTitle" value=${board.boardTitle }></td>
+							<td><input type="text" name="boardTitle" value="${board.boardTitle }"></td>
 						</tr>
 						<tr>
 							<th>파일첨부</th>
@@ -63,7 +62,7 @@
 					</table>
 					<div class="common-tbl-btn-group">
 						<button type="submit" class="btn-style1">수정하기</button>
-						<button type="reset" class="btn-style2">취소</button>
+						<button type="reset" class="btn-style2" onclick="location.href='/siPreBoardView?boardNo=${board.boardNo }'">취소</button>
 					</div>
 				</form>
 			</div>

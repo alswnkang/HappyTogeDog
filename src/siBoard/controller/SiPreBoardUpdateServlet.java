@@ -78,7 +78,13 @@ public class SiPreBoardUpdateServlet extends HttpServlet {
 			}
 		}
 		int result = new BoardService().boardUpdate(boardNo, boardTitle, boardContent, boardFilename, boardFilepath);
-		RequestDispatcher rd = request.getRequestDispatcher("siPreBoard");
+		String view = "";
+		if(result>0) {
+			view = "/WEB-INF/siViews/common/siMsg.jsp";
+			request.setAttribute("msg", "게시글 수정이 완료되었습니다.");
+			request.setAttribute("loc", "/siPreBoardView?boardNo="+boardNo);
+		}
+		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
 	}
 

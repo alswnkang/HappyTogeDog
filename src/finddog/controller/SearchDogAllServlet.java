@@ -38,9 +38,9 @@ public class SearchDogAllServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		
-		ArrayList<String> mlist = new ArrayList<>();
-		ArrayList<String> ylist = new ArrayList<>();
-		ArrayList<String> dlist = new ArrayList<>();
+		ArrayList<Integer> mlist = new ArrayList<>();
+		ArrayList<Integer> ylist = new ArrayList<>();
+		ArrayList<Integer> dlist = new ArrayList<>();
 		ArrayList<cityCode> city=null;	
 		ArrayList<Kind> kind = new ArrayList<>();
 		
@@ -48,14 +48,17 @@ public class SearchDogAllServlet extends HttpServlet {
 		
 		
 		for(int i=0;i<10;i++) {
-			ylist.add((2010+i)+"년");
+			ylist.add(2010+i);
 		}
-		for(int i=0;i<30;i++) {
-			dlist.add((1+i)+"일");
-		}
+		
 		for(int i=1;i<13;i++) {
-			mlist.add((i)+"월");
+			mlist.add(i);
+		
 		}
+		for(int i=0;i<31;i++) {
+			dlist.add(i);
+		}
+		
 		
 		try {
 			kind= new SearchDogService().getKindCode();

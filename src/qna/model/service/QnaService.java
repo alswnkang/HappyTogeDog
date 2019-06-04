@@ -92,6 +92,30 @@ public class QnaService {
 		return result;
 	}
 
+	public int updateQna(QnaVO qna) throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		int result = new QnaDao().updateQna(conn,qna);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	public int deleteQna(int boardNo, String boardPw) throws SQLException {
+		Connection conn = JDBCTemplate.getCon();
+		int result = new QnaDao().deleteQna(conn,boardNo,boardPw);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
 
 
 	

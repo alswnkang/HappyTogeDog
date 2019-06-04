@@ -75,6 +75,8 @@
 										<c:if test="${sessionScope.member.id==list.boardCommentId }">
 										<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
 											<button type="button">수정</button>
+											<button type="text" style="display:none;">/</button>
+											<button type="reset" style="display:none;">취소</button>
 											/
 											<a href="/siPreBoardCommentDelete?boardCommentNo=${list.boardCommentNo }&boardNo=${vd.b.boardNo }">삭제</a>
 										</c:if>
@@ -90,10 +92,12 @@
 				</form>
 				<form action="/siPreBoardUpdateOriginal?boardNo=${vd.b.boardNo }" method="post" enctype="multipart/form-data">
 					<div class="common-tbl-btn-group" style="text-align:right;">
-						<c:if test='${sessionScope.member.id==vd.b.boardId || sessionScope.member.id eq "admin" }'>
+						<c:if test='${sessionScope.member.id==vd.b.boardId }'>
 						<!-- 회원 아이디와 글 작성자의 아이디가 같거나 관리자라면 수정/삭제 버튼 생성 -->
 							<button type="submit" class="btn-style3">수정</button>
-							<button type="button" class="btn-style3" onclick='location.href="/siPreBoardDelete?boardNo=${vd.b.boardNo }"'>삭제</button>
+						</c:if>
+						<c:if test='${sessionScope.member.id==vd.b.boardId || sessionScope.member.id eq "admin" }'>
+							<button type="button" id="boardDelBtn" class="btn-style3">삭제</button>
 							<!-- 게시글 번호를 siPreBoardDelete?boardNo 서블릿에 전달-->
 						</c:if>
 						<button type="button" class="btn-style2" onclick="location.href='/siPreBoard'">목록으로 이동</button>
@@ -109,12 +113,24 @@
 			$(this).parent().prev().children().eq(0).hide();
 			$(this).parent().prev().children().eq(1).show();
 			$(this).html('등록').attr("id","cmtUpdate");
+			$(this).nextAll().show();
+			$('button').next(1).click(function(){
+				location.href='/siPreBoardView?boardNo='+${vd.b.boardNo };
+			});
 			$("#cmtUpdate").click(function(){
 				$(this).parent().prev().children().eq(0).show();
 				$(this).parent().prev().children().eq(1).hide();
+				$(this).nextAll().hide();
 				$(this).html('수정').removeAttr("id");
 				$('#cmtUpdateForm').submit();
 			});
+		});
+	});
+	$(document).ready(function(){	//게시글 삭제 확인
+		$('#boardDelBtn').click(function(){
+			if(confirm("게시글을 삭제하시겠습니까?")){
+				location.href = '/siPreBoardDelete?boardNo='+${vd.b.boardNo };
+			}
 		});
 	});
 </script>

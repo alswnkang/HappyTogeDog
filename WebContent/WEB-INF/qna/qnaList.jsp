@@ -52,7 +52,7 @@
 							</td>
 							<td>
 								<p class="volun-tit">
-									<a href="/qnaView?boardNo=${qna.boardNo }">
+									<a href="javascript:view(${qna.boardNo });">
 										${qna.boardTitle }
 										<c:if test="${qna.boardSecret eq 1 }"><img src="/img/lock.png"></c:if>
 										<c:set var="today"><fmt:formatDate value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd" /></c:set>
@@ -60,7 +60,12 @@
 									</a>
 								</p>
 							</td>
-							<td>${fn:substring(qna.boardName,0,2) }*</td>	
+							<td>
+								${fn:substring(qna.boardName,0,2) }* 
+								<c:if test="${not empty qna.boardId}">
+									<br>(${qna.boardId })
+								</c:if>
+							</td>	
 							<td>${qna.boardDate }</td>						
 						</tr>
 						</c:forEach>
@@ -74,6 +79,13 @@
 				<div class="paging">
 		 			${qnaList.pageNavi }
 		 		</div>
+		 		<form action="/qnaView" method="post" name="moveView">
+		 			<input type="hidden" name="reqPage" class="view" value="${search.reqPage}">
+		 			<input type="hidden" name="boardNo">
+		 			<input type="hidden" name="searchType" value="${search.searchType }">
+		 			<input type="hidden" name="searchVal" value="${search.searchVal }">
+		 			<input type="hidden" name="pageName" value="/qnaList">
+		 		</form>
 		 		<!-- 검색박스 -->
 		 		<div class="board-search-box">
 		 			<form action="/qnaList" method="post" name="search">

@@ -492,6 +492,77 @@ public class VoluntaryDao {
 		return list;
 	}
 
+	//해당공고에 신청한 사람들 목록
+	public ArrayList<VoluntaryApplyBoard> VoluntaryApplyPerson(Connection conn, int no) {
+		ArrayList<VoluntaryApplyBoard> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select * from volunteer_board where no=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			list = new ArrayList<VoluntaryApplyBoard>();
+			while(rset.next()) {
+				VoluntaryApplyBoard vab = new VoluntaryApplyBoard();
+				vab.setApplyNo(rset.getInt("apply_no"));
+				vab.setNo(rset.getInt("no"));
+				vab.setCode(rset.getString("code"));
+				vab.setId(rset.getString("id"));
+				vab.setPhone(rset.getString("phone"));
+				vab.setPerson(rset.getInt("person"));
+				vab.setVolunDate(rset.getString("volun_date"));
+				vab.setVolunTime(rset.getString("volun_time"));
+				vab.setEnrollDate(rset.getDate("enroll_date"));
+				list.add(vab);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
+	}
+
+	/* 메인 :: 봉사활동 게시판 공고 노출 */
+	public ArrayList<VoluntaryRegister> mainVoluntaryList(Connection conn, int start, int end) {
+		ArrayList<VoluntaryRegister> volunList = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select * from (select rownum as rnum, name, volunteer_register.* from volunteer_register left join member on (volunteer_register.code = member.code) order by enroll_date desc) where rnum between ? and ? ";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			rset = pstmt.executeQuery();
+			volunList = new ArrayList<VoluntaryRegister>();
+			
+			while(rset.next()) {
+				VoluntaryRegister vr = new VoluntaryRegister();
+				vr.setNo(rset.getInt("no"));
+				vr.setCode(rset.getString("code"));
+				vr.setName(rset.getString("name"));
+				vr.setTitle(rset.getString("title"));
+				vr.setVolunDate(rset.getString("volun_date"));
+				vr.setVolunTime(rset.getString("volun_time"));
+				vr.setPerson(rset.getInt("person"));
+				vr.setApplyNum(rset.getInt("apply_num"));
+				vr.setEnrollDate(rset.getDate("enroll_date"));
+				volunList.add(vr);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return volunList;
+	}
+
 	
 	
 	

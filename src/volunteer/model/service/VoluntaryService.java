@@ -242,6 +242,28 @@ public class VoluntaryService {
 		return vld;
 	}
 
+	//해당공고에 신청한 사람들 목록
+	public ArrayList<VoluntaryApplyBoard> VoluntaryApplyPerson(int no) {
+		Connection conn = JDBCTemplate.getCon();
+		ArrayList<VoluntaryApplyBoard> list = new VoluntaryDao().VoluntaryApplyPerson(conn, no);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
+	/* 메인 :: 봉사활동 게시판 공고 노출 */
+	public ArrayList<VoluntaryRegister> mainVoluntaryList() {
+		Connection conn = JDBCTemplate.getCon();
+		int start = 1;
+		int end = 5;
+		ArrayList<VoluntaryRegister> volunList = new VoluntaryDao().mainVoluntaryList(conn, start, end);
+		JDBCTemplate.close(conn);
+		return volunList;
+	}
+
+	
+	
+	
+
 	
 	
 

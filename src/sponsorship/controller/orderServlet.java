@@ -43,17 +43,19 @@ public class orderServlet extends HttpServlet {
 		String action = url[url.length-1];
 		
 		ArrayList<ProductVO> prdList = new ArrayList<ProductVO>();
-		prdList.add(new ProductVO("0", "에코에코에코백", "76896814691427225_1127979769.jpg", "20000"));
-		prdList.add(new ProductVO("1", "배찌뱃지뻇지", "39066105050978558_-1615663619.jpg", "10000"));
-		prdList.add(new ProductVO("2", "달력달력달력", "prd_img01.jpg", "15000"));
+		prdList.add(new ProductVO("0", "해피투게DOG 후원 에코백", "76896814691427225_1127979769.jpg", "20000","&lt;포인핸드 라이프백&gt; 에는 사람과 동물이 손을 맞잡은 포인핸드의 의미가 담겨있습니다.포인핸드는 굿즈를 통해 일상 속에서 사지않고 입양하는 문화를 알리고, 수익금으로 유기동물 입양을 위한 환경을 만들어가고 있습니다. \r\n" + 
+				"따듯한 봄, 포인핸드 라이프백과 함께하세요."));
+		prdList.add(new ProductVO("1", "해피투게DOG 후원 뱃지 무지개 다리", "39066105050978558_-1615663619.jpg", "10000", "상세설명"));
+		prdList.add(new ProductVO("2", "해피투게DOG 캘린더", "prd_img01.jpg", "15000","상세설명"));
 		
 		HttpSession session = request.getSession(false);
 		Member member = (Member)session.getAttribute("member");
 
-		if(action.equals("sponsorship")) {	
+		/* 후원상품 리스트 페이지 */
+		if(action.equals("sponsorship")) {
 			request.setAttribute("prdList", prdList);
 			request.getRequestDispatcher("/WEB-INF/sponsorship/productList.jsp").forward(request, response);
-			
+		/* 후원상품 상세 페이지 */
 		}else if(action.equals("viewProduct")) {
 			String code = request.getParameter("code");
 			if(code==null){
@@ -74,9 +76,10 @@ public class orderServlet extends HttpServlet {
 				
 				request.getRequestDispatcher("/WEB-INF/sponsorship/productDetail.jsp").forward(request, response);
 			}
-		
+		/* 주문 관리 리스트 페이지 */
 		}else if(action.equals("orderList")){
 			
+			//TODO 관리자 회원일 때만 조회할 수 있도록 처리하기
 			int reqPage;
 			try {
 				reqPage = Integer.parseInt(request.getParameter("reqPage"));
@@ -104,7 +107,7 @@ public class orderServlet extends HttpServlet {
 			} catch (SQLException e) {
 				System.out.println("SQL에러 ㅠ");
 			}			
-			
+		/* 나의 후원내역 페이지 */
 		}else if(action.equals("myOrderList")){
 			if(member != null) {
 				int reqPage;
@@ -117,6 +120,7 @@ public class orderServlet extends HttpServlet {
 				String endDay = request.getParameter("endDay");
 				
 				/* 기본 검색 기간 1개월로 설정 */
+				//TODO 오늘 날짜 자동으로 들어가게 추가하기
 				if(startDay == null) {
 					startDay = "2019-05-03";
 				}
@@ -141,8 +145,9 @@ public class orderServlet extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/qna/passwordPage.jsp").forward(request, response);
 			}
 			
-			
+		/* 주문서 작성 페이지 */	
 		}else if(action.equals("order")) {
+			//TODO 상품코드 없을때 예외처리하기
 			int prdCode = Integer.parseInt(request.getParameter("prdCode"));
 			String amount = request.getParameter("amount");
 			String price = request.getParameter("price");
@@ -152,8 +157,9 @@ public class orderServlet extends HttpServlet {
 			request.setAttribute("prd", prdList.get(prdCode));
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/orderForm.jsp");
 			rd.forward(request, response);
-			
+		/* 주문등록(AJAX) */
 		}else if(action.equals("orderIng")) {
+			//TODO 예외처리 하기
 			String root = getServletContext().getRealPath("/");//절대경로
 			String saveDirectory = root+"upload";
 			MultipartRequest mRequest = new MultipartRequest(request, saveDirectory, "utf-8");
@@ -191,8 +197,9 @@ public class orderServlet extends HttpServlet {
 				System.out.println("SQL에러 ㅠ");
 			}
 			
-		
+		/* 주문 완료 페이지 */
 		}else if(action.equals("orderEnd")) {
+			//TODO 예외처리 필요
 			String no = request.getParameter("no");
 			
 			try {
@@ -203,7 +210,7 @@ public class orderServlet extends HttpServlet {
 			} catch (SQLException e) {
 				System.out.println("SQL에러 ㅠ");
 			}
-		
+		/* 비회원 주문 조회  */
 		}else if(action.equals("findOrder")) {
 			String no = request.getParameter("no");
 			String phone = request.getParameter("phone");
@@ -219,7 +226,7 @@ public class orderServlet extends HttpServlet {
 			} catch (SQLException e) {
 				System.out.println("SQL에러 ㅠ");
 			}
-			
+		/* 나의 주문내역 상세 페이지 */
 		}else if(action.equals("myOrder")) {
 			String no = request.getParameter("no");
 			
@@ -231,7 +238,7 @@ public class orderServlet extends HttpServlet {
 			} catch (SQLException e) {
 				System.out.println("SQL에러 ㅠ");
 			}
-		
+		/* 주문 관리 상세 페이지*/
 		}else if(action.equals("orderView")) {
 			String no = request.getParameter("no");
 			
@@ -243,7 +250,7 @@ public class orderServlet extends HttpServlet {
 			} catch (SQLException e) {
 				System.out.println("SQL에러 ㅠ");
 			}
-		
+		/* 주문 관리 상세 페이지 - 주문상태 및 운송장 번호 변경 */
 		}else if(action.equals("updateOrder")){
 			String no = request.getParameter("no");
 			String deilveryNum = request.getParameter("deilveryNum");
@@ -261,12 +268,10 @@ public class orderServlet extends HttpServlet {
 			} catch (SQLException e) {
 				System.out.println("SQL에러 ㅠ");
 			}
-			
+		/* 주문관리 리스트 - 주문상태 변경 */
 		}else if(action.equals("updateStatus")){
 			String no = request.getParameter("no");
 			int status = Integer.parseInt(request.getParameter("status"));
-			System.out.println(no);
-			System.out.println(status);
 			OrderUpdate updateInfo = new OrderUpdate(no, null, status);
 			try {
 				int result = new OrderService().updateOrder(updateInfo);

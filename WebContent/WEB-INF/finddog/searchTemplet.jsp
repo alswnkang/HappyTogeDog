@@ -30,53 +30,53 @@
 				<select name="kind"><!-- option 세부항목은 각자 알아서 넣으시면 됩니다. -->
 					<option value="content">품종</option>
 					<c:forEach items="${kind }" var="k">
-						<option>${k.kind }</option>
+						<option value="${k.code }">${k.kind }</option>
 					</c:forEach>
 				</select>
 				<select name="happenCity">
 					<option>도시</option>
 					<c:forEach items="${city }" var="c">
-						<option>${c.cityName }</option>
+						<option value="${c.cityCode }">${c.cityName }</option>
 					</c:forEach>
 				</select>
 				<br>
 				<select name="shappenDateY" style="width:100px;">
 					<option>년</option>
 					<c:forEach items="${yList }" var="y"  varStatus="i">
-						<option>${y }</option>
+						<option value="${y }">${y }</option>
 					</c:forEach>
-				</select>
+				</select>년
 				<select name="shappenDateM" style="width:50px;">
 					<option>월</option>
 					<c:forEach items="${mList }" var="y"  varStatus="i">
-						<option>${y }</option>
+						<option value="${y }">${y }</option>
 					</c:forEach>
-				</select>
-				<select name="shappenDateM" style="width:50px;">
+				</select>월
+				<select name="shappenDateD" style="width:50px;">
 					<option>일</option>
 					<c:forEach items="${dList }" var="y"  varStatus="i">
-						<option>${y }</option>
+						<option value="${y }">${y }</option>
 					</c:forEach>
-				</select>
+				</select>일
 				~
 				<select name="ehappenDateY" style="width:100px;">
 					<option>년</option>
 					<c:forEach items="${yList }" var="y"  varStatus="i">
-						<option>${y }</option>
+						<option value="${y }">${y }</option>
 					</c:forEach>
-				</select>
+				</select>년
 				<select name="ehappenDateM" style="width:50px;">
 					<option>월</option>
 					<c:forEach items="${mList }" var="y"  varStatus="i">
-						<option>${y }</option>
+						<option value="${y }">${y }</option>
 					</c:forEach>
-				</select>
-				<select name="ehappenDateM" style="width:50px;">
+				</select>월
+				<select name="ehappenDateD" style="width:50px;">
 					<option>일</option>
 					<c:forEach items="${dList }" var="y"  varStatus="i">
-						<option>${y }</option>
+						<option value="${y }">${y }</option>
 					</c:forEach>
-				</select>
+				</select>일
 				<br>
 				
 		

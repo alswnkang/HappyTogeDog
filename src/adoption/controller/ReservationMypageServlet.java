@@ -1,7 +1,6 @@
 package adoption.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,18 +21,10 @@ import member.model.vo.Member;
 @WebServlet(name = "ReservationMypage", urlPatterns = { "/reservationMypage" })
 public class ReservationMypageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public ReservationMypageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession(false);
@@ -54,11 +45,8 @@ public class ReservationMypageServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-
 			/*RequestDispatcher rd = request.getRequestDispatcher("/error/sqlerror.jsp");
 			rd.forward(request, response);*/
-		
 	}
 
 	/**

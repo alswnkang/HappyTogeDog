@@ -29,9 +29,7 @@
 				<table class="comm-tbl type2">
 					<colgroup>
 						<col width="15%">
-						<col width="10%">
-						<col width="15%">
-						<col width="15%">
+						<col width="40%">
 						<col width="15%">
 						<col width="15%">
 						<col width="15%">
@@ -39,9 +37,7 @@
 					<thead>
 						<tr>
 							<th>주문번호</th>
-							<!--<th>주문자명</th>-->
 							<th>주문상품</th>
-							<!--<th>결제수단</th>-->
 							<th>후원금액</th>
 							<th>주문날짜</th>
 							<th>주문상태</th>
@@ -56,25 +52,9 @@
 							</tr>
 						</c:if>
 						<c:forEach items="${orderList.orderinfoList}" var="order">
-							<tr>
-								<td><a href="/myOrder?no=${order.no}">${order.no }</a></td>
-								<!--
-								<td>
-									${order.name }<br>
-									<c:if test="${not empty order.id}">(${order.id })</c:if>
-									<c:if test="${empty order.id}">(비회원)</c:if>
-								</td>
-								-->
+							<tr onclick="location.href='/myOrder?no=${order.no}'" style="cursor:pointer;">
+								<td>${order.no }</td>
 								<td>${order.productName }</td>
-								<!-- 
-								<td>
-									<c:if test="${order.payMethod eq 'card'}">신용카드</c:if>
-									<c:if test="${order.payMethod eq 'trans' }">실시간 계좌이체</c:if>
-									<c:if test="${order.payMethod eq 'vbank' }">가상계좌</c:if>
-									<c:if test="${order.payMethod eq 'account' }">무통장입금</c:if>
-									<c:if test="${order.payMethod eq 'phone' }">휴대폰</c:if>
-								</td>	
-								-->
 								<td><fmt:formatNumber value="${order.pay }" pattern="#,###" /> 원</td>	
 								<td>${order.sponDate }</td>
 								<td>

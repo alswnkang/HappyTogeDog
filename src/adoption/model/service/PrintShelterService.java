@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import adoption.model.dao.PrintShelterDao;
 import adoption.model.vo.ShelterPageData;
 import common.JDBCTemplate;
+import member.model.vo.Member;
 
 public class PrintShelterService {
 
@@ -47,6 +48,16 @@ public class PrintShelterService {
 
 		
 		return spd;
+	}
+
+	public int addShelter(Member m) throws SQLException {
+		// TODO Auto-generated method stub
+		Connection conn = JDBCTemplate.getCon();
+		
+		int result=new PrintShelterDao().addShelter(conn, m);
+		
+		
+		return result;
 	}
 
 }
