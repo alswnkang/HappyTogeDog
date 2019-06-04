@@ -133,17 +133,18 @@ public class SearchDogDao {
 		return nValue.getNodeValue();
 	}
 
-	public int totalCount(Connection conn) {
+	public int totalCount(Connection conn, int type) {
 		// TODO Auto-generated method stub
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		ResultSet rset = null;
 		int result = 0;
 		
-		String query = "select count(*) as cnt from board";
+		String query = "select count(*) as cnt from board where board_type=?";
 		
 		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
+			stmt = conn.prepareStatement(query);
+			stmt.setInt(1, type);
+			rset = stmt.executeQuery();
 			if(rset.next()) {
 				result = rset.getInt("cnt");
 			}
@@ -157,46 +158,7 @@ public class SearchDogDao {
 		return result;
 	}
 
-	public ArrayList<Board> boardAll(Connection conn, int start, int end) {
-		// TODO Auto-generated method stub
-		
-		ArrayList<Board> list = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
-		try {
-			pstmt=conn.prepareStatement(query);
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
-			rset = pstmt.executeQuery();
-			list = new ArrayList<Board>();
-			while(rset.next()) {
-				Board b = new Board();
-				b.setBoardRnum(rset.getInt("rnum"));
-				b.setBoardNo(rset.getInt("board_no"));
-				b.setBoardType(rset.getInt("board_Type"));
-				b.setBoardId(rset.getString("board_id"));
-				b.setBoardName(rset.getString("board_Name"));
-				b.setBoardTitle(rset.getString("board_title"));
-				b.setBoardContent(rset.getString("board_content"));
-				b.setBoardFilename(rset.getString("board_filename"));
-				b.setBoardFilepath(rset.getString("board_filepath"));
-				b.setBoardDate(rset.getDate("board_date"));
-				b.setBoardCount(rset.getInt("board_count"));
-				b.setBoardSecret(rset.getInt("board_secret"));
-				b.setBoardPw(rset.getString("board_pw"));
-				b.setBoardPrdCode(rset.getString("board_prdCode"));
-				list.add(b);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplete.close(rset);
-			JDBCTemplete.close(pstmt);
-		}
-		return list;
-	}
+
 
 	public ArrayList<DogList> getListDB(int page, String sDay, String eDay, String kind, String cityCode) {
 		// TODO Auto-generated method stub
@@ -292,6 +254,47 @@ public class SearchDogDao {
 		
 		
 		return 0;
+	}
+
+	public ArrayList<Board> takeBoard(Connection conn, int start, int end, int type) {
+		// TODO Auto-generated method stub
+		ArrayList<Board> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ? and board_type=?";
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			pstmt.setInt(3, type);
+			rset = pstmt.executeQuery();
+			list = new ArrayList<Board>();
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBoardRnum(rset.getInt("rnum"));
+				b.setBoardNo(rset.getInt("board_no"));
+				b.setBoardType(rset.getInt("board_Type"));
+				b.setBoardId(rset.getString("board_id"));
+				b.setBoardName(rset.getString("board_Name"));
+				b.setBoardTitle(rset.getString("board_title"));
+				b.setBoardContent(rset.getString("board_content"));
+				b.setBoardFilename(rset.getString("board_filename"));
+				b.setBoardFilepath(rset.getString("board_filepath"));
+				b.setBoardDate(rset.getDate("board_date"));
+				b.setBoardCount(rset.getInt("board_count"));
+				b.setBoardSecret(rset.getInt("board_secret"));
+				b.setBoardPw(rset.getString("board_pw"));
+				b.setBoardPrdCode(rset.getString("board_prdCode"));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(rset);
+			JDBCTemplete.close(pstmt);
+		}
+		return list;
 	}
 
 }
