@@ -242,6 +242,18 @@ public class VoluntaryService {
 		return vld;
 	}
 
+	//해당공고에 신청한 사람들 목록
+	public ArrayList<VoluntaryApplyBoard> VoluntaryApplyPerson(int no) {
+		Connection conn = JDBCTemplate.getCon();
+		ArrayList<VoluntaryApplyBoard> list = new VoluntaryDao().VoluntaryApplyPerson(conn, no);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
+	
+	
+	
+
 	
 	
 

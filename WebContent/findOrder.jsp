@@ -17,7 +17,7 @@
 					<td>주문번호</td><td><input type="text" name="no" class="num"></td>
 				</tr>
 				<tr>
-					<td>주문자 연락처</td><td><input type="text" name="phone1" class="phone num"> - <input type="text" name="phone2" class="phone num"> - <input type="text" name="phone3" class="phone num"></td>
+					<td>주문자 연락처</td><td><input type="text" name="phone1" class="phone num" maxlength="4"> - <input type="text" name="phone2" class="phone num" maxlength="4"> - <input type="text" name="phone3" class="phone num" maxlength="4"></td>
 				</tr>
 			</table>
 			<button class="order-btn">비회원 주문조회</button>

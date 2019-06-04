@@ -34,12 +34,15 @@
 					</tr>
 				</table>
 			</c:if>
-			<c:if test="${empty orderInfo.id }">
-				<button class="order-btn" onclick="location.href='/findOrder.jsp'">주문 내역 확인</button>
-			</c:if>
-			<c:if test="${not empty orderInfo.id }">
-				<button class="order-btn" onclick="location.href='/myOrder?no=${orderInfo.no}'">주문 내역 확인</button>
-			</c:if>
+			<div class="common-tbl-btn-group">
+				<c:if test="${empty orderInfo.id }">
+					<button class="btn-style1" onclick="location.href='/findOrder.jsp'">주문 내역 확인</button>
+				</c:if>
+				<c:if test="${not empty orderInfo.id }">
+					<button class="btn-style1" onclick="location.href='/myOrder?no=${orderInfo.no}'">주문 내역 확인</button>
+				</c:if>
+			</div>
+			
 		</div>
 		
 	</div>

@@ -6,6 +6,9 @@
 <link rel="stylesheet" type="text/css" href="/css/adoption_bk.css">  <!-- css -->
 <!-- Header -->
 <jsp:include page="/WEB-INF/common/header.jsp" />
+<style>
+	.view{cursor:pointer;}
+</style>
 
 <!-- 보호소 코드 디비에 저장해야하기 때문에 전 페이지에서 받아와야함-->
 <!-- Content -->
@@ -18,7 +21,7 @@
 					<th>No.</th><th>보호소명</th><th>방문 날짜</th><th>방문 시간</th><th>신청 날짜</th><th>신청 상태</th>
 				</tr>
 				<c:forEach items="${bp.list }" var="ba">
-					<tr>
+					<tr onclick="view(${ba.no})" class="view">
 						<td>${ba.rnum}</td>
 						<td>${ba.code }</td>
 						<td>${ba.visitDate }</td>
@@ -33,6 +36,11 @@
 	</div>
 </section>
 
+<script>
+	function view(no){
+		location.href="/reservMyView?no="+no+"&reqPage=${reqPage}";
+	}
+</script>
 
 <!-- Footer -->
 <jsp:include page="/WEB-INF/common/footer.jsp" />
