@@ -7,7 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>임시 회원가입 선택</h1>
+<jsp:include page="/WEB-INF/common/header.jsp" />
+	<section id="content-wrapper">
+	<h1 class="comm-content-tit">마이 페이지</h1>
+	<div class="area">
 	<form action="/join" method="post">
 		<div>
 			<input type="hidden" name="level" value="0">
@@ -20,5 +23,7 @@
 			<button type="submit">보호소회원 가입</button>
 		</div>
 	</form>
+	</div>
+	</section>
 </body>
 </html>
