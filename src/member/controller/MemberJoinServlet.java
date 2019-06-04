@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import adoption.model.service.PrintShelterService;
 import member.model.Service.MemberService;
 import member.model.vo.Member;
 
@@ -60,9 +61,19 @@ public class MemberJoinServlet extends HttpServlet {
 		System.out.println(m.getMemberLevel());
 		try {
 			int result = new MemberService().memberJoin(m);
+			int result2 = new PrintShelterService().addShelter(m);
+			
+			
+			
 			System.out.println(result);
 			if(result > 0) {
 				System.out.println("가입완료");
+				if(result2<0) {
+					System.out.println("보호소 등록은 실패");
+				}else {
+					System.out.println("보호소등록성공");
+				}
+				
 				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 				rd.forward(request, response);
 			}else {

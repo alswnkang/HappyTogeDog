@@ -11,6 +11,7 @@ import java.util.StringTokenizer;
 import adoption.model.vo.Shelter;
 import adoption.model.vo.ShelterPageData;
 import common.JDBCTemplate;
+import member.model.vo.Member;
 
 public class PrintShelterDao {
 
@@ -25,7 +26,7 @@ public class PrintShelterDao {
 		ArrayList<Shelter> list = null;
 		Shelter shelter = null;
 		ShelterPageData spd = null;
-		String query ="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from shelter order by name) M) WHERE RNUM BETWEEN ? AND ?,citycode=?";
+		String query ="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from shelter order by name) M) WHERE RNUM BETWEEN ? AND ? and citycode=?";
 		ResultSet rset= null;
 		pstmt= conn.prepareStatement(query);
 		pstmt.setInt(1, start);
@@ -77,6 +78,22 @@ public class PrintShelterDao {
 		JDBCTemplate.close(rset);
 		JDBCTemplate.close(pstmt);
 		
+		
+		return result;
+	}
+	public int addShelter(Connection conn, Member m) throws SQLException {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		String query = "insert into shelter values(?,?,?,?)";
+		
+		pstmt=conn.prepareStatement(query);
+		pstmt=conn.prepareStatement(query);
+		pstmt.setString(1, m.getCode());
+		pstmt.setString(2, m.getName());
+		pstmt.setString(3, m.getPhone());
+		pstmt.setString(4, m.getAddress());
+		
+		int result=pstmt.executeUpdate();
 		
 		return result;
 	}
