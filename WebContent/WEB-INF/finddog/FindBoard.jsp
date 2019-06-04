@@ -5,8 +5,7 @@
 <jsp:include page="/WEB-INF/common/header.jsp" />
 <%-- Content --%>
 
-<section id="content-wrapper">
-		<section name="siSection" id="content-wrapper">
+<section name="siSection" id="content-wrapper">
 		<div class="area">
 			<h2 class="comm-content-tit">강아지를 찾습니다</h2>
 			<div class="common-tbl-box">
@@ -33,8 +32,8 @@
 			 			<c:forEach items="${bp.list }" var="list">
 							<tr>
 								<td>${list.boardRnum}</td>
-								<td><img src='${list.filename }'></td>
-								<td><a href="/detailViewFind?boardNo=${list.boardNo }">${list.boardTitle }</a></td>
+								<td><img src=''></td>
+								<td><a href="/detailTakeBoard?boardNo=${list.boardNo }">${list.boardTitle }</a></td>
 								<!-- name 값을 넘겨주도록 설정필요 -->
 								<td>${list.boardName }(${list.boardId })</td>
 								<td>${list.boardDate }</td>
@@ -58,15 +57,12 @@
 						<button type="submit" class="bbs-search-btn">검색</button>
 						<c:if test="${not empty sessionScope.member.id }">
 						<!-- 로그인이 되있어야 글쓰기버튼 활성화 -->
-							<button type="button" class="bbs-search-btn" style="float:right;" onclick="location.href='/siViews/board/siPreBoardInsert.jsp'">글쓰기</button>
+							<button type="button" class="bbs-search-btn" style="float:right;" onclick="location.href='/findBoardInsert'">글쓰기</button>
 						</c:if>
 					</div>
 				</form>
 			</div>
 		</div>
-	</section>
-	
-	
 </section>
 
 <jsp:include page="/WEB-INF/common/footer.jsp" />

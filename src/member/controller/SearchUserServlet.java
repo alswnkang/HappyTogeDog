@@ -41,6 +41,7 @@ public class SearchUserServlet extends HttpServlet {
 		String id = ((Member)session.getAttribute("member")).getId();
 		int select = Integer.parseInt(request.getParameter("select"));
 		String search = request.getParameter("search");
+		int user = 2;
 		int reqPage;
 		try {
 			reqPage = Integer.parseInt(request.getParameter("reqPage"));
@@ -51,6 +52,7 @@ public class SearchUserServlet extends HttpServlet {
 			if(id.equals("admin")) {
 				MemberPageData pd = new MemberService().searchUser(reqPage,select,search);
 				request.setAttribute("pd", pd);
+				request.setAttribute("user", user);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/adminPage.jsp");
 				rd.forward(request, response);
 			}else {

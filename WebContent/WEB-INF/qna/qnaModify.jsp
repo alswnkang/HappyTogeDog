@@ -16,6 +16,20 @@
 				<input type="hidden" name="boardType" value="3">
 				<input type="hidden" name="boardNo" value="${qna.boardNo }">
 				<input type="hidden" name="boardPrdcode" value="${qna.boardPrdcode }">
+				<%-- 상품코드가 있으면 해당 상품 연결 --%>
+				<c:if test="${not empty qna.boardPrdcode }">
+					<table class="comm-tbl">
+						<tr>
+							<td>
+								<a href="/viewProduct?code=${prdCode}">
+									<img height="100" src="/img/${prdList[qna.boardPrdcode].prdImg }">
+									${prdList[qna.boardPrdcode].prdName }
+								</a>
+							</td>
+						</tr>
+					</table>
+				</c:if>
+				<br>
 				<table class="comm-tbl">
 					<colgroup>
 						<col width="28%">

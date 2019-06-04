@@ -24,6 +24,7 @@ import qna.model.service.QnaService;
 import qna.model.vo.CommentVO;
 import qna.model.vo.QnaListVO;
 import qna.model.vo.QnaVO;
+import sponsorship.model.vo.ProductVO;
 import sponsorship.model.vo.SearchVO;
 
 @WebServlet(name = "Qna", urlPatterns = { "/qnaList", "/qnaView", "/checkPw", "/regiQna", "/insertQna", "/myQnaList", "/modifyQna", "/updateQna", "/removeQna" })
@@ -38,6 +39,12 @@ public class QnaServlet extends HttpServlet {
 		
 		String[] url = request.getRequestURL().toString().split("/");
 		String action = url[url.length-1];
+		
+		ArrayList<ProductVO> prdList = new ArrayList<ProductVO>();
+		prdList.add(new ProductVO(0));
+		prdList.add(new ProductVO(1));
+		prdList.add(new ProductVO(2));
+		
 		HttpSession session = request.getSession(false);
 		Member member = (Member)session.getAttribute("member");
 		
@@ -64,6 +71,7 @@ public class QnaServlet extends HttpServlet {
 			} catch (SQLException e) {
 				System.out.println("SQL에러 ㅠ");
 			}
+			
 		/* 나의 Q&A 게시판 리스트 */	
 		}else if(action.equals("myQnaList")){
 			if(member != null) {
@@ -86,11 +94,12 @@ public class QnaServlet extends HttpServlet {
 				} catch (SQLException e) {
 					System.out.println("SQL에러 ㅠ");
 				}
-		}else {
-			request.setAttribute("msg", "로그인 후 이용해주세요");
-			request.setAttribute("loc", "/member/login.jsp");
-			request.getRequestDispatcher("/WEB-INF/qna/passwordPage.jsp").forward(request, response);
-		}
+			}else {
+				request.setAttribute("msg", "로그인 후 이용해주세요");
+				request.setAttribute("loc", "/member/login.jsp");
+				request.getRequestDispatcher("/WEB-INF/qna/passwordPage.jsp").forward(request, response);
+			}
+			
 		/* Q&A 뷰 페이지 */	
 		}else if(action.equals("qnaView")){
 			int boardNo;
@@ -149,7 +158,7 @@ public class QnaServlet extends HttpServlet {
 				}
 				SearchVO search = new SearchVO(reqPage, null, null, null, null, searchType, searchVal,null);
 				request.setAttribute("search", search);
-				
+				request.setAttribute("prdList", prdList);
 				request.setAttribute("qna", qna);
 				CommentVO comment = new CommentService().selectComment(boardNo);
 				request.setAttribute("comment", comment);
@@ -157,6 +166,7 @@ public class QnaServlet extends HttpServlet {
 			} catch (SQLException e) {
 				System.out.println("SQL에러 ㅠ");
 			}
+			
 		/* Q&A 비밀번호 체크  페이지 */	
 		}else if(action.equals("checkPw")){
 			int boardNo;
@@ -205,7 +215,9 @@ public class QnaServlet extends HttpServlet {
 		}else if(action.equals("regiQna")) {
 			String prdCode = request.getParameter("prdCode");
 			request.setAttribute("prdCode", prdCode);
+			request.setAttribute("prdList", prdList);
 			request.getRequestDispatcher("/WEB-INF/qna/qnaRegister.jsp").forward(request, response);
+		
 		/* Q&A 등록 */		
 		}else if(action.equals("insertQna")) {
 			if(!ServletFileUpload.isMultipartContent(request)) {
@@ -253,7 +265,6 @@ public class QnaServlet extends HttpServlet {
 			} catch (SQLException e) {
 				System.out.println("SQL에러 ㅠ");
 			}
-
 			
 		/* Q&A 수정 페이지 이동 */		
 		}else if(action.equals("modifyQna")) {
@@ -270,6 +281,7 @@ public class QnaServlet extends HttpServlet {
 			try {
 				QnaVO qna = new QnaService().selectQna(boardNo);
 				request.setAttribute("qna", qna);
+				request.setAttribute("prdList", prdList);
 				request.getRequestDispatcher("/WEB-INF/qna/qnaModify.jsp").forward(request, response);
 			} catch (SQLException e) {
 				System.out.println("SQL에러 ㅠ");
@@ -356,6 +368,7 @@ public class QnaServlet extends HttpServlet {
 			} catch (SQLException e) {
 				System.out.println("SQL에러 ㅠ");
 			}
+			
 		/* Q&A 삭제 */
 		}else if(action.equals("removeQna")){
 			int boardNo;

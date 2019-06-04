@@ -13,6 +13,7 @@
 		<div class="">
 			<p class="main-comm-tit">주문 상세</p>
 			<table class="comm-tbl order-view">
+				<tr class="tr-title"><td colspan="2">주문 정보</td></tr>
 				<tr>
 					<td>주문번호</td><td>${orderInfo.no }</td>
 				</tr>
@@ -23,6 +24,22 @@
 						<c:if test="${orderInfo.status eq 1 }">결제 완료</c:if>
 						<c:if test="${orderInfo.status eq 2 }">배송중</c:if>
 						<c:if test="${orderInfo.status eq 3 }">배송완료</c:if>
+					</td>
+				</tr>
+				<tr>
+					<td>주문상품</td>
+					<td>
+						<c:set var="code" value="" />
+						<c:set var="img" value="no_detail_img.gif" />
+						<c:forEach items="${prdList }" var="prd">
+							<c:if test="${prd.prdName eq orderInfo.productName}">
+								<c:set var="code" value="${prd.prdCode }" />
+								<c:set var="img" value="${prd.prdImg }" />
+							</c:if>
+						</c:forEach>
+						<a href="/viewProduct?code=${code}">
+							<img height="100" src="/img/${img }">${orderInfo.productName }
+						</a>
 					</td>
 				</tr>
 				<tr class="tr-title"><td colspan="2">주문자 정보</td></tr>

@@ -14,6 +14,20 @@
 			<form action="/insertQna" method="post" enctype="multipart/form-data" onsubmit="return chkSubmit(this);">
 				<input type="hidden" name="boardType" value="3">
 				<input type="hidden" name="boardPrdcode" value="${prdCode }">
+				<%-- 상품코드가 있으면 해당 상품 연결 --%>
+				<c:if test="${not empty prdCode }">
+					<table class="comm-tbl">
+						<tr>
+							<td>
+								<a href="/viewProduct?code=${prdCode}">
+									<img height="100" src="/img/${prdList[prdCode].prdImg }">
+									${prdList[prdCode].prdName }
+								</a>
+							</td>
+						</tr>
+					</table>
+				</c:if>
+				<br>
 				<table class="comm-tbl">
 					<colgroup>
 						<col width="28%">
@@ -39,6 +53,7 @@
 							<th>비밀번호</th>
 							<td colspan="2">
 								<input type="password" name="boardPw" value="" required="required">
+								<p class="comment">(※비밀번호는 수정, 삭제시 사용됩니다.)</p>
 							</td>
 						</tr>
 					</c:if>

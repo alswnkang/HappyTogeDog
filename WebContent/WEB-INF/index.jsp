@@ -4,15 +4,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
+
 	<script type="text/javascript" src="/js/main.js"></script><!-- main.js -->
 	<style>
 		#subVisual{display:none;}
 	</style>
+	
 	<%-- Wrap --%>
 	<section id="wrap">
 		<!-- 메인 비주얼 -->
-		<section id="mainVisual">
-			메인 비주얼 자리입니다
+		<section id="mainVisual" class="full-height">
+			<div id="background-video" class="background-video">
+				<div id="video_area">
+					<video type="video/mp4" autoplay loop controls muted>
+						<source src="/img/mainVideo04.mp4" type="video/mp4">
+					</video>
+				</div>
+			</div>
 		</section>
 		<!-- 메인 컨텐츠 영역 -->
 		<section id="mainContainer">
