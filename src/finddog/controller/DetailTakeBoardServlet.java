@@ -34,6 +34,8 @@ public class DetailTakeBoardServlet extends HttpServlet {
 		String no=request.getParameter("boardNo");
 		
 		
+		
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/DetailTakeBoard.jsp");
 		rd.forward(request, response);
 		
