@@ -45,11 +45,14 @@ public class LoginServlet extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("member", m);
 				System.out.println("로그인 성공");
-				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+				request.setAttribute("msg", "로그인 성공");
+				request.setAttribute("loc", "/");
 				rd.forward(request, response);
 			}else {
-				System.out.println("로그인 실패");
-				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+				request.setAttribute("msg", "로그인 실패");
+				request.setAttribute("loc", "/member/login.jsp");
 				rd.forward(request, response);
 			}
 		} catch (SQLException e) {

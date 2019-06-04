@@ -156,7 +156,6 @@
 					</div><!-- //terms-box -->
 					<p class="terms-chk"><input type="checkbox" id="chk1"><label for="chk1">이용약관에 동의합니다.</label></p>
 					
-					
 					<h1 class="terms-tit"><span>(필수)</span>개인정보의 수집 및 이용 안내</h1>
 					<div id="mid" class="terms-tab-list clearfix">
 						<div id="t_mid1" class="t_mid" style="background-color:#fe431e; color:#ffffff;">

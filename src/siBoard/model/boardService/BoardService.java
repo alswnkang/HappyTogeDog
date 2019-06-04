@@ -146,8 +146,21 @@ public class BoardService {
 	public int takeBoardInsert(Board b) {
 		// TODO Auto-generated method stub
 		Connection conn = JDBCTemplete.getConnection();
-		int result = new BoardDao().boardInsert(conn, b);
+		int result = new BoardDao().takeBoardInsert(conn, b);
 		if(result>0 && b.getBoardType()==3 ) {
+			JDBCTemplete.commit(conn);
+		}else {
+			JDBCTemplete.rollback(conn);
+		}
+		JDBCTemplete.close(conn);
+		return result;
+	}
+
+	public int findBoardInsert(Board b) {
+		// TODO Auto-generated method stub
+		Connection conn = JDBCTemplete.getConnection();
+		int result = new BoardDao().takeBoardInsert(conn, b); //게시판 디비는 같음
+		if(result>0 && b.getBoardType()==4 ) {
 			JDBCTemplete.commit(conn);
 		}else {
 			JDBCTemplete.rollback(conn);

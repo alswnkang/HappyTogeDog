@@ -39,7 +39,8 @@ public class TakeBoardServlet extends HttpServlet {
 		}catch(NumberFormatException e) {
 			reqPage = 1;
 		}
-		BoardPageData bp = new SearchDogService().boardAll(reqPage);
+		int type=3;
+		BoardPageData bp = new SearchDogService().takeBoard(reqPage,type);
 		
 		request.setAttribute("bp", bp);	
 	
