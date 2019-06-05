@@ -81,8 +81,6 @@ public class QnaServlet extends HttpServlet {
 				}catch (Exception e) {
 					reqPage = 1;
 				}
-				//String searchType = request.getParameter("searchType");
-				//String searchVal = request.getParameter("searchVal");
 				SearchVO search = new SearchVO(reqPage, null, null, null, null, "board_id", member.getId(),null);
 				
 				try {
@@ -401,6 +399,18 @@ public class QnaServlet extends HttpServlet {
 			}
 			
 		}
+		
+	}
+	
+	
+	public void page(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		
+		String[] url = request.getHeader("REFERER").toString().split("/");
+		String pageName = url[url.length-1];
+
+		request.setAttribute("msg", "잘못된 접근입니다.");
+		request.setAttribute("loc", "/"+pageName);
+		request.getRequestDispatcher("/WEB-INF/qna/passwordPage.jsp").forward(request, response);
 		
 	}
 

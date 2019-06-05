@@ -90,6 +90,7 @@
 									<li><a href="/sponsorship">후원하기</a></li>
 									<li><a href="/qnaList">Q&A</a></li>
 									<li><a href="/findOrder.jsp">주문조회</a></li>
+									<li><a href="/test">test</a></li>
 								</ul>
 							</div>
 						</li>
