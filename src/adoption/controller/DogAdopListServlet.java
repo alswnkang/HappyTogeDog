@@ -55,7 +55,12 @@ public class DogAdopListServlet extends HttpServlet {
 		while(b) {
 			i++;
 			sdpd = new BookApplyService().dogList(reqPage,cityCode,gunCode,dogsize,kindCd,neuterYn);
-			int totalCount = Integer.parseInt(sdpd.getList().get(0).getOrgNm());	//totalCount
+			int totalCount = 0;
+			if(sdpd.getList().size()==0) {
+				totalCount = 0;
+			}else {
+				totalCount = Integer.parseInt(sdpd.getList().get(0).getOrgNm());	//totalCount
+			}
 			if(sdpd.getList().size()==12 || sdpd.getList().size()==totalCount%12) { //12개의 리스트를담거나 마지막페이지의 개수일때까지 반복문 실행
 				b=false;
 			}

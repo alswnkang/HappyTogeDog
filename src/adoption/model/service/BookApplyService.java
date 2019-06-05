@@ -28,17 +28,26 @@ public class BookApplyService {
 		if(neuterYn==null) {
 			neuterYn="";
 		}
+		System.out.println("reqPage : "+reqPage);
 		ArrayList<DogList> list= new BookApplyDao().dogList(reqPage,cityCode,gunCode,kindCd,neuterYn);
+		int numPerPage = 12;
+		int totalCount = 0;
+		//list.get(0).getOrgNm() 비어있을 경우 int로 파싱할때 에러가 생김
+		if(list.isEmpty()) {
+			totalCount = 0;
+		}else {
+			totalCount = Integer.parseInt(list.get(0).getOrgNm());		//totalCount
+		}
+		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
 //		System.out.println(list.get(0).getSexCd());
-		int totalCount = Integer.parseInt(list.get(0).getOrgNm());		//totalCount
 		String pageNavi ="";
 		int pageNaviSize = 5;
-		int pageNo = ((reqPage-1)/5)*5+1;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		if(pageNo!=1) {
 			pageNavi += "<a class='paging-arrow prev-arrow' href='/dogAdopList?city="+cityCode+"&gun="+gunCode+"&dogsize="+dogsize+"&kindCd="+kindCd+"&neuterYn="+neuterYn+"&reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
 		}
 		int i = 1;
-		while(!(i++>pageNaviSize||pageNo>totalCount)) {	
+		while(!(i++>pageNaviSize||pageNo>totalPage)) {	
 			if(reqPage==pageNo) {
 				pageNavi += "<span class='cur'>"+pageNo+"</span>";
 			}else {
@@ -46,7 +55,7 @@ public class BookApplyService {
 			}
 			pageNo++;
 		}
-		if(pageNo <= totalCount) {
+		if(pageNo <= totalPage) {
 			pageNavi += "<a class='paging-arrow next-arrow' href='/dogAdopList?city="+cityCode+"&gun="+gunCode+"&dogsize="+dogsize+"&kindCd="+kindCd+"&neuterYn="+neuterYn+"&reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
 			
 		}
