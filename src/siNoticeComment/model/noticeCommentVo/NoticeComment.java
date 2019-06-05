@@ -11,12 +11,14 @@ public class NoticeComment {
 	private int noticeRef;
 	private int noticeCommentRef;
 	private Date noticeCommentDate;
+	private String noticeCommentDate2;
 	public NoticeComment() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public NoticeComment(int noticeCommentNo, int noticeCommentType, String noticeCommentId, String noticeCommentName,
-			String noticeCommentContent, int noticeRef, int noticeCommentRef, Date noticeCommentDate) {
+			String noticeCommentContent, int noticeRef, int noticeCommentRef, Date noticeCommentDate,
+			String noticeCommentDate2) {
 		super();
 		this.noticeCommentNo = noticeCommentNo;
 		this.noticeCommentType = noticeCommentType;
@@ -26,6 +28,7 @@ public class NoticeComment {
 		this.noticeRef = noticeRef;
 		this.noticeCommentRef = noticeCommentRef;
 		this.noticeCommentDate = noticeCommentDate;
+		this.noticeCommentDate2 = noticeCommentDate2;
 	}
 	public int getNoticeCommentNo() {
 		return noticeCommentNo;
@@ -75,5 +78,11 @@ public class NoticeComment {
 	public void setNoticeCommentDate(Date noticeCommentDate) {
 		this.noticeCommentDate = noticeCommentDate;
 	}
-		
+	public String getNoticeCommentDate2() {
+		return noticeCommentDate2;
+	}
+	public void setNoticeCommentDate2(String noticeCommentDate2) {
+		this.noticeCommentDate2 = noticeCommentDate2;
+	}
+	
 }

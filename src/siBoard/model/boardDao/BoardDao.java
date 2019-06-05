@@ -38,7 +38,7 @@ public class BoardDao {
 		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD where board_Type=1 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
+		String query = "SELECT rnum,board_no,board_type,board_id,board_name,board_title,board_content,board_filename,board_filepath,board_date,to_char(board_date,'yyyy/MM/dd HH:mi') as board_date2,board_count,board_secret,board_pw,board_prdcode,dog_kind,happen_city,happen_date FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD where board_Type=1 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
 		try {
 			pstmt=conn.prepareStatement(query);
 			pstmt.setInt(1, start);
@@ -57,6 +57,7 @@ public class BoardDao {
 				b.setBoardFilename(rset.getString("board_filename"));
 				b.setBoardFilepath(rset.getString("board_filepath"));
 				b.setBoardDate(rset.getDate("board_date"));
+				b.setBoardDate2(rset.getString("board_date2"));
 				b.setBoardCount(rset.getInt("board_count"));
 				b.setBoardSecret(rset.getInt("board_secret"));
 				b.setBoardPw(rset.getString("board_pw"));
@@ -117,7 +118,7 @@ public class BoardDao {
 		Board b = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from board where board_no=?";
+		String query = "select board_no,board_type,board_id,board_name,board_title,board_content,board_filename,board_filepath,board_date,to_char(board_date,'yyyy/MM/dd HH:mi') as board_date2,board_count,board_secret,board_pw,board_prdcode,dog_kind,happen_city,happen_date from board where board_no=?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, boardNo);
@@ -133,6 +134,7 @@ public class BoardDao {
 				b.setBoardFilename(rset.getString("board_filename"));
 				b.setBoardFilepath(rset.getString("board_filepath"));
 				b.setBoardDate(rset.getDate("board_date"));
+				b.setBoardDate2(rset.getString("board_date2"));
 				b.setBoardCount(rset.getInt("board_count"));
 				b.setBoardSecret(rset.getInt("board_secret"));
 				b.setBoardPw(rset.getString("board_pw"));
@@ -227,7 +229,7 @@ public class BoardDao {
 		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM board where board_name = ? and board_Type=1 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
+		String query = "SELECT rnum,board_no,board_type,board_id,board_name,board_title,board_content,board_filename,board_filepath,board_date,to_char(board_date,'yyyy/MM/dd HH:mi') as board_date2,board_count,board_secret,board_pw,board_prdcode,dog_kind,happen_city,happen_date FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM board where board_name = ? and board_Type=1 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, searchKeyword);
@@ -247,6 +249,7 @@ public class BoardDao {
 				b.setBoardFilename(rset.getString("board_filename"));
 				b.setBoardFilepath(rset.getString("board_filepath"));
 				b.setBoardDate(rset.getDate("board_date"));
+				b.setBoardDate2(rset.getString("board_date2"));
 				b.setBoardCount(rset.getInt("board_count"));
 				b.setBoardSecret(rset.getInt("board_secret"));
 				b.setBoardPw(rset.getString("board_pw"));
@@ -269,7 +272,7 @@ public class BoardDao {
 		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM board where board_title like ? and board_Type=1 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
+		String query = "SELECT rnum,board_no,board_type,board_id,board_name,board_title,board_content,board_filename,board_filepath,board_date,to_char(board_date,'yyyy/MM/dd HH:mi') as board_date2,board_count,board_secret,board_pw,board_prdcode,dog_kind,happen_city,happen_date FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM board where board_title like ? and board_Type=1 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, "%"+searchKeyword+"%");
@@ -289,6 +292,7 @@ public class BoardDao {
 				b.setBoardFilename(rset.getString("board_filename"));
 				b.setBoardFilepath(rset.getString("board_filepath"));
 				b.setBoardDate(rset.getDate("board_date"));
+				b.setBoardDate2(rset.getString("board_date2"));
 				b.setBoardCount(rset.getInt("board_count"));
 				b.setBoardSecret(rset.getInt("board_secret"));
 				b.setBoardPw(rset.getString("board_pw"));
@@ -353,7 +357,7 @@ public class BoardDao {
 		ArrayList<BoardComment> list = null;
 		Statement stmt = null;
 		ResultSet rset = null;
-		String query = "select * from board_comment where board_comment_type=1 order by board_comment_no";
+		String query = "select board_comment_no,board_comment_type,board_comment_id,board_comment_name,board_comment_content,board_ref,board_comment_ref,board_comment_date,to_char(board_comment_date,'yyyy/MM/dd HH:mi') as board_comment_date2 from board_comment where board_comment_type=1 order by board_comment_no";
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
@@ -368,6 +372,7 @@ public class BoardDao {
 				bc.setBoardRef(rset.getInt("board_ref"));
 				bc.setBoardCommentRef(rset.getInt("board_comment_ref"));
 				bc.setBoardCommentDate(rset.getDate("board_comment_date"));
+				bc.setBoardCommentDate2(rset.getString("board_comment_date2"));
 				list.add(bc);
 			}
 		} catch (SQLException e) {

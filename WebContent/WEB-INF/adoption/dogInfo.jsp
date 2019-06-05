@@ -136,10 +136,10 @@
 		        query: address
 		    }, function(status, response) {
 		        if (status === naver.maps.Service.Status.ERROR) {
-		            return alert('Something Wrong!');
+		            return console.log('Something Wrong!');
 		        }
 		        if (response.v2.meta.totalCount === 0) {
-		            return alert('totalCount' + response.v2.meta.totalCount);
+		            return console.log('totalCount' + response.v2.meta.totalCount);
 		        }
 		        var htmlAddresses = [],
 		            item = response.v2.addresses[0],

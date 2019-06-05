@@ -38,6 +38,7 @@ public class ReservationMypageServlet extends HttpServlet {
 		BookApplyPageData bp;
 		try {
 			bp = new BookApplyService().selectList(reqPage,id);
+			request.setAttribute("reqPage", reqPage);
 			request.setAttribute("bp", bp);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/reservationMypage.jsp");
 			rd.forward(request, response);

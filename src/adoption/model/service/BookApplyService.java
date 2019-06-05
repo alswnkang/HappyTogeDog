@@ -159,7 +159,19 @@ public class BookApplyService {
 		JDBCTemplate.close(conn);
 		return b;
 	}
-
+	
+	//일반회원이 방문예약 신청 취소
+	public int cancelReservation(int no) {
+		Connection conn = JDBCTemplate.getCon();
+		int result = new BookApplyDao().cancelReservation(conn, no);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
 	/////////////////////////////////////////////////보호소 회원 마이페이지///////////////////////////////////////////////////////////
 	
 	//보호소회원 방문예약 신청내역 리스트 확인
@@ -283,5 +295,6 @@ public class BookApplyService {
 		JDBCTemplate.close(conn);
 		return b;
 	}
+
 
 }

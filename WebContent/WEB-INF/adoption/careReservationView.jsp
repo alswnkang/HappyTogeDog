@@ -22,13 +22,20 @@
 							<col width="/">
 						</colgroup>
 						<tr>
-							<th>방문예약 신청 상태</th>
+							<th>방문예약 승인 여부</th>
 							<td>
-								<select name="status" style="width:30%;" data-val="${ba.status}">
-									<option value="0">대기중</option>
-									<option value="1">승인</option>
-									<option value="2">거절</option>
-								</select>
+								<c:choose>
+									<c:when test="${ba.status ne 0}">
+										${ba.result}
+									</c:when>
+									<c:otherwise>
+										<select name="status" style="width:30%;" data-val="${ba.status}">
+											<option value="0">대기중</option>
+											<option value="1">승인</option>
+											<option value="2">거절</option>
+										</select>
+									</c:otherwise>
+								</c:choose>
 							</td>
 						</tr>
 						<tr>
@@ -37,7 +44,7 @@
 						</tr>
 						<tr>
 							<th>신청자 아이디</th>
-							<td>${ba.id }</td>
+							<td>${ba.id}</td>
 						</tr>
 						<tr>
 							<th>신청자 전화번호</th>
@@ -73,20 +80,25 @@
 							</td>
 						</tr>
 						<tr>
-							<th>방문 날짜</th>
+							<th>방문 날짜/시간</th>
 							<td>
-								${ba.visitDate }
-							</td>
-						</tr>
-						<tr>
-							<th>방문 시간</th>
-							<td>
-								${ba.visitTime }
+								${fn:substring(ba.visitDate,0,4)}년  
+								${fn:substring(ba.visitDate,5,7)}월  
+								${fn:substring(ba.visitDate,8,10)}일  
+							 	 ${ba.visitTime}
 							</td>
 						</tr>
 					</table>
 					<div class="common-tbl-btn-group">
-						<button type="submit" class="btn-style1">수정</button><button type="button" class="btn-style2" onclick="location.href='/reservationCareMypage?startDay=${startDay}&endDay=${endDay}&reqPage=${reqPage}'">목록으로</button>
+						<c:choose>
+							<c:when test="${ba.status eq 2 || ba.status eq 3}">
+								<button type="button" class="btn-style2" onclick="location.href='/reservationCareMypage?startDay=${startDay}&endDay=${endDay}&reqPage=${reqPage}'">목록으로</button>
+							</c:when>
+							<c:otherwise>
+								<button type="submit" class="btn-style1">수정</button>
+						<button type="button" class="btn-style2" onclick="location.href='/reservationCareMypage?startDay=${startDay}&endDay=${endDay}&reqPage=${reqPage}'">목록으로</button>
+							</c:otherwise>
+						</c:choose>
 					</div>
 			</form>
 		</div>
@@ -94,18 +106,15 @@
 </section>
 
 <script>
-$(function(){
-	/* 방문예약 신청상태 값 세팅 */
-	var status = $('select[name=status]').data('val');
-	$('select[name=status]').children('option').each(function(){
-		if(status == $(this).val()){
-			$(this).prop("selected",true);
-		}
+	$(function(){
+		/* 방문예약 신청상태 값 세팅 */
+		var status = $('select[name=status]').data('val');
+		$('select[name=status]').children('option').each(function(){
+			if(status == $(this).val()){
+				$(this).prop("selected",true);
+			}
+		});
 	});
-	
-	/* msg있으면 alert띄워주기 */
-	alert(msg);
-});
 </script>
 	
 <!-- Footer -->

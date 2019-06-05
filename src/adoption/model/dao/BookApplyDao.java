@@ -220,7 +220,7 @@ public class BookApplyDao {
 	public int reservation(Connection conn, BookApply ba) throws SQLException {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into book_apply values (book_apply_seq.nextval,?,?,?,?,to_date(?,'yyyy-mm-dd'),?,sysdate,0,?,?,?,?,?)";
+		String query = "insert into book_apply values (book_apply_seq.nextval,?,?,?,?,?,?,sysdate,0,?,?,?,?,?)";
 		pstmt = conn.prepareStatement(query);
 		pstmt.setString(1, ba.getCode());
 		pstmt.setString(2,  ba.getId());
@@ -361,6 +361,24 @@ public class BookApplyDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return ba;
+	}
+	
+	//일반회원 보호소 방문예약 취소
+	public int cancelReservation(Connection conn, int no) {
+		PreparedStatement pstmt =null;
+		int result=0;
+		String query = "update book_apply set status=3 where no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
 	}
 	
 	///////////////////////////////////////////////보호소 회원 마이페이지/////////////////////////////////////////////////////////
@@ -617,5 +635,6 @@ public class BookApplyDao {
 		System.out.println("preMonth메소드 : "+date.format(cal.getTime()));
 		return date.format(cal.getTime());
 	}
+	
 	
 }

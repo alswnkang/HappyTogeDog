@@ -41,10 +41,18 @@ public class MemberJoinServlet extends HttpServlet {
 		String possibleTime = time+"시~"+endTime+"시";
 		String address = request.getParameter("address");
 		String detailAddress = request.getParameter("detailAddress");
-		String fullAddress = address+" "+detailAddress;
+		String fullAddress = address+"//"+detailAddress;
 		String city = request.getParameter("careCity");
 		String area = request.getParameter("careArea");
 		String careAddress = city+" "+area;
+		String phone1 = request.getParameter("phone1");
+		String phone2 = request.getParameter("phone2");
+		String phone3 = request.getParameter("phone3");
+		String phone = phone1+"-"+phone2+"-"+phone3;
+		System.out.println(phone1);
+		System.out.println(phone2);
+		System.out.println(phone3);
+		System.out.println(phone);
 		int level = Integer.parseInt(request.getParameter("level"));
 		Member m = new Member();
 		if(level != 0) {
@@ -57,7 +65,7 @@ public class MemberJoinServlet extends HttpServlet {
 		m.setId(request.getParameter("id"));
 		m.setPw(request.getParameter("pw"));
 		m.setName(request.getParameter("name"));
-		m.setPhone(request.getParameter("phone"));
+		m.setPhone(phone);
 		m.setPost(request.getParameter("post"));
 		m.setPossibleTime(possibleTime);
 		m.setEmail(request.getParameter("email"));

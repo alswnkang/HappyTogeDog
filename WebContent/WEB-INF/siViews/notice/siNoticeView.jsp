@@ -16,45 +16,55 @@
 				<table class="comm-tbl view">
 					<colgroup>
 						<col width="20%">
-						<col width="/">
+						<col width="3%">
 						<col width="/">
 						<col width="100%">
 					</colgroup>
 					<tr>
-						<th>제목</th>
-						<td>${vd.n.noticeTitle }</td>
+						<th colspan="2" style="text-align:center;">${vd.n.noticeTitle }</th>
 					</tr>
 					<tr>
-						<th>내용</th>
-						<td>
-							<c:if test="${not empty vd.n.noticeFilename }">
+						<td>작성자 : ${vd.n.noticeName }(${vd.n.noticeId })</td>
+						<td>작성일 : ${vd.n.noticeDate2 }</td>
+					</tr>
+					<c:if test="${not empty vd.n.noticeFilename }">
+						<tr>
+							<td colspan="2" style="border-bottom: 0px;">
 								<a style="float:right;" href="javascript:fileDownload('${vd.n.noticeFilename }','${vd.n.noticeFilepath }');">${vd.n.noticeFilename }</a>
 								<br/>
-								<img src='/siUpload/notice/${vd.n.noticeFilename }'width="300px"/>
+								<img src='/siUpload/notice/${vd.n.noticeFilename }'width="500px"/>
 								<!-- 파일이 있으면 넘겨준 No를 기준으로 게시물의 이름을 불러와서 출력 -->
-								<br/>
-								${vd.n.noticeContent }
-							</c:if>
-							<c:if test="${empty vd.n.noticeFilename }">
-								${vd.n.noticeContent }
-							</c:if>
-						</td>
-					</tr>
+							</td>
+						</tr>
+					</c:if>
+					<c:if test="${not empty sessionScope.member.id }">
+						<tr >
+							<td colspan="2" style="border-bottom: 0px;border-top: 0px;"">${vd.n.noticeContent }</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="border-top: 0px;">
+								<button type="button" class="cmtBtn" style="float:right;">댓글</button>
+							</td>
+						</tr>
+					</c:if>
+					<c:if test="${ empty sessionScope.member.id }">
+						<tr>
+							<td colspan="2" style="border-top: 0px;">${vd.n.noticeContent }</td>
+						</tr>
+					</c:if>
 				</table>
 				<form action="/siNoticeCommentInsert" method="post">
 					<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
 					<input type="hidden" name="memberName" value="${sessionScope.member.name }"/>
 					<input type="hidden" name="noticeNo" value="${vd.n.noticeNo }"/>
 					<input type="hidden" name="noticeType" value="0"/>
-					<table class="comm-tbl view" id="commentTb">
-						<c:if test="${not empty sessionScope.member.id }">
-							<tr>
-								<td colspan="4" style="text-align:center">
-									댓글입력 <input type="text" name="noticeCommentContent" value=""/>
-									<button type="submit">등록</button>
-								</td>
-							</tr>
-						</c:if>
+					<table class="comm-tbl view" id="commentTb" style="display:none;">
+						<tr>
+							<td colspan="4" style="text-align:center;">
+								댓글입력 <input type="text" name="noticeCommentContent" value="" maxlength="50"/>
+								<button type="submit">등록</button>
+							</td>
+						</tr>
 					</table>
 				</form>
 				<form id="cmtUpdateForm" action="/siNoticeCommentUpdate" method="post">
@@ -71,8 +81,8 @@
 										<span>${list.noticeCommentContent }</span>
 										<input type="text" value="${list.noticeCommentContent }" name="noticeCommentContent" style="display:none;"/>
 									</td>
-									<td width="10%">
-										${list.noticeCommentDate }<br/>
+									<td width="11%">
+										${list.noticeCommentDate2 }<br/>
 										<c:if test="${sessionScope.member.id==list.noticeCommentId }">
 										<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
 											<button type="button">수정</button>
@@ -106,6 +116,11 @@
 	</section>
 </body>
 <script>
+	$(document).ready(function(){
+		$('.cmtBtn').click(function(){
+			$('#commentTb').show();
+		});
+	});
 	$(document).ready(function(){
 		$('button').eq(1).click(function(){
 			$(this).parent().prev().children().eq(0).hide();

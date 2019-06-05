@@ -16,46 +16,57 @@
 				<table class="comm-tbl view">
 					<colgroup>
 						<col width="20%">
-						<col width="/">
+						<col width="3%">
 						<col width="/">
 						<col width="100%">
 					</colgroup>
 					<tr>
-						<th>제목</th>
-						<td>${vd.b.boardTitle }</td>
+						<th colspan="2" style="text-align:center;">${vd.b.boardTitle }</th>
 					</tr>
 					<tr>
-						<th>내용</th>
-						<td>
-							<c:if test="${not empty vd.b.boardFilename }">
+						<td>작성자 : ${vd.b.boardName }(${vd.b.boardId })</td>
+						<td>작성일 : ${vd.b.boardDate2 }</td>
+					</tr>
+					<c:if test="${not empty vd.b.boardFilename }">
+						<tr>
+							<td colspan="2" style="border-bottom: 0px;">
 								<a style="float:right;" href="javascript:fileDownload('${vd.b.boardFilename }','${vd.b.boardFilepath }')">${vd.b.boardFilename }</a>
 								<br/>
-								<img src='/siUpload/board/${vd.b.boardFilename }'width="300px"/>
+								<img src='/siUpload/board/${vd.b.boardFilename }'width="500px"/>
 								<!-- 파일이 있으면 넘겨준 No를 기준으로 게시물의 이름을 불러와서 출력 -->
-								<br/>
-								${vd.b.boardContent }
-							</c:if>
-							<c:if test="${empty vd.b.boardFilename }">
-								${vd.b.boardContent }
-							</c:if>
-						</td>
-					</tr>
+							</td>
+						</tr>
+					</c:if>
+					<c:if test="${not empty sessionScope.member.id }">
+					<!-- 로그인을 안하면 댓글리스트만 조회가능, 등록칸이 보이지 않도록 설정 -->
+						<tr>
+							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">${vd.b.boardContent }</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="border-top: 0px;">
+								<button type="button" class="cmtBtn" style="float:right;">댓글</button>
+							</td>
+						</tr>
+					</c:if>
+					<c:if test="${empty sessionScope.member.id }">
+					<!-- 로그인을 안하면 댓글리스트만 조회가능, 등록칸이 보이지 않도록 설정 -->
+						<tr>
+							<td colspan="2" style="border-top: 0px;">${vd.b.boardContent }</td>
+						</tr>
+					</c:if>
 				</table>
 				<form action="/siPreBoardCommentInsert" method="post">
 					<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
 					<input type="hidden" name="memberName" value="${sessionScope.member.name }"/>
 					<input type="hidden" name="boardNo" value="${vd.b.boardNo }"/>
 					<input type="hidden" name="boardType" value="1"/>
-					<table class="comm-tbl view" id="commentTb">
-						<c:if test="${not empty sessionScope.member.id }">
-						<!-- 로그인을 안하면 댓글리스트만 조회가능, 등록칸이 보이지 않도록 설정 -->
-							<tr>
-								<td colspan="4" style="text-align:center">
-									댓글입력 <input type="text" name="boardCommentContent" value=""/>
-									<button type="submit">등록</button>
-								</td>
-							</tr>
-						</c:if>
+					<table class="comm-tbl view" id="commentTb" style="display:none;">
+						<tr>
+							<td colspan="4" style="text-align:center">
+								댓글입력 <input type="text" name="boardCommentContent" value=""/>
+								<button type="submit">등록</button>
+							</td>
+						</tr>
 					</table>
 				</form>
 				<form id="cmtUpdateForm" action="/siPreBoardCommentUpdate" method="post">
@@ -64,16 +75,16 @@
 					<table class="comm-tbl view">
 						<c:forEach items="${vd.list }" var="list">
 							<c:if test="${list.boardRef == vd.b.boardNo}">
-								<input type="hidden" name="boardCommentNo" value="${list.boardCommentNo }"/>
 							<!-- 해당 게시글에 입력된 댓글만 출력되도록 -->
+								<input type="hidden" name="boardCommentNo" value="${list.boardCommentNo }"/>
 								<tr>
 									<td width="20%">${list.boardCommentName }(${list.boardCommentId })</td>
 									<td width="65%">
 										<span>${list.boardCommentContent }</span>
 										<input type="text" value="${list.boardCommentContent }" name="boardCommentContent" style="display:none;"/>
 									</td>
-									<td width="10%">
-										${list.boardCommentDate }<br/>
+									<td width="11%">
+										${list.boardCommentDate2 }<br/>
 										<c:if test="${sessionScope.member.id==list.boardCommentId }">
 										<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
 											<button type="button">수정</button>
@@ -110,6 +121,11 @@
 	</section>
 </body>
 <script>
+	$(document).ready(function(){
+		$('.cmtBtn').click(function(){
+			$('#commentTb').show();
+		});
+	});
 	$(document).ready(function(){
 		$('button').eq(1).click(function(){
 			$(this).parent().prev().children().eq(0).hide();

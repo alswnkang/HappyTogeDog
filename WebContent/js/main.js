@@ -34,9 +34,9 @@ $(document).ready(function(){
 		
 		if ( win_width > 800 ) {
 			$("#mainVisual").height(visual_height);
-		}else {
+		}/*else {
 			$("#mainVisual").css("height","auto");
-		}
+		}*/
 		
 		$(window).resize(function  () {
 			var win_width = $(window).outerWidth() + getScrollBarWidth();
@@ -45,9 +45,9 @@ $(document).ready(function(){
 
 			if ( win_width > 800 ) {
 				$("#mainVisual").height(visual_height);
-			}else {
+			}/*else {
 				$("#mainVisual").css("height","auto");
-			}
+			}*/
 		});
 	});
 	

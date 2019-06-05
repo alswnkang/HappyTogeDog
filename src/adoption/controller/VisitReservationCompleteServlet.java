@@ -67,7 +67,8 @@ public class VisitReservationCompleteServlet extends HttpServlet {
 				rd.forward(request, response);
 			}else {
 				request.setAttribute("msg", "오류가 발생하였습니다.");
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/visitReservation.jsp");
+				request.setAttribute("loc", "/WEB-INF/adoption/visitReservation.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
 				rd.forward(request, response);
 			}
 		} catch (SQLException e) {

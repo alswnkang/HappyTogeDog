@@ -18,12 +18,12 @@
 							<col width="/">
 						</colgroup>
 						<tr>
-							<th>방문예약 신청 상태</th>
-							<td>${ba.result }</td>
-						</tr>
-						<tr>
 							<th>보호소명</th>
 							<td>${ba.code }</td>
+						</tr>
+						<tr>
+							<th>방문예약 승인 상태</th>
+							<td>${ba.result }</td>
 						</tr>
 						<tr>
 							<th>마당이 있습니까?</th>
@@ -55,41 +55,43 @@
 							</td>
 						</tr>
 						<tr>
-							<th>방문 날짜</th>
+							<th>방문 날짜/시간</th>
 							<td>
-								${ba.visitDate }
-							</td>
-						</tr>
-						<tr>
-							<th>방문 시간</th>
-							<td>
-								${ba.visitTime }
+								${fn:substring(ba.visitDate,0,4)}년  
+								${fn:substring(ba.visitDate,5,7)}월  
+								${fn:substring(ba.visitDate,8,10)}일  
+								 ${ba.visitTime}
 							</td>
 						</tr>
 						<tr>
 							<th>신청날짜</th>
 							<td>
-								${ba.applyDate }
-							</td>
-						</tr>
-						<tr>
-							<th>신청상태</th>
-							<td>
-								${ba.result }
+								${fn:substring(ba.applyDate,0,4)}년  
+								${fn:substring(ba.applyDate,5,7)}월  
+								${fn:substring(ba.applyDate,8,10)}일  
 							</td>
 						</tr>
 					</table>
 					<div class="common-tbl-btn-group">
-						<button type="button" class="btn-style1" onclick="location.href='/reservationMypage?reqPage=${reqPage}'">목록으로</button>
+						<c:choose>
+							<c:when test="${ba.status eq 2 || ba.status eq 3}">
+								<button type="button" class="btn-style2" onclick="location.href='/reservationMypage?reqPage=${reqPage}'">목록으로</button>
+							</c:when>
+							<c:otherwise>
+								<button type="button" class="btn-style1" id="cancel">신청 취소</button>
+								<button type="button" class="btn-style2" onclick="location.href='/reservationMypage?reqPage=${reqPage}'">목록으로</button>
+							</c:otherwise>
+						</c:choose>
 					</div>
 		</div>
 	</div>
 </section>
+
+<script>
+	$("#cancel").click(function(){
+		location.href="/cancelReservation?no=${no}";
+	});
+</script>
 	
 <!-- Footer -->
 <jsp:include page="/WEB-INF/common/footer.jsp" />
-
-
-
-
-
