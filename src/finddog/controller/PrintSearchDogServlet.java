@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import adoption.model.service.FindDogService;
 import adoption.model.vo.SearchDogPageData;
 import finddog.model.service.SearchDogService;
+import siBoard.model.boardVo.BoardPageData;
 
 /**
  * Servlet implementation class PrintSearchDogServlet
@@ -38,16 +38,11 @@ public class PrintSearchDogServlet extends HttpServlet {
 		String kind = request.getParameter("kind");
 		String cityCode= request.getParameter("happenCity");
 		
-		String sY=request.getParameter("shappenDateY");
-		String sM=request.getParameter("shappenDateM");
-		String sD=request.getParameter("shappenDateD");
-		String eY=request.getParameter("ehappenDateY");
-		String eM=request.getParameter("ehappenDateM");
-		String eD=request.getParameter("ehappenDateD");
+	
 		
 		
-		String sDay=sY.concat(sM).concat(sD);
-		String eDay=eY.concat(eM).concat(eD);
+		String sDay=request.getParameter("startDay").replaceAll("-", "");
+		String eDay=request.getParameter("endDay").replaceAll("-", "");
 		System.out.println(sDay+","+eDay);
 		
 		int page;
@@ -60,14 +55,14 @@ public class PrintSearchDogServlet extends HttpServlet {
 		SearchDogPageData sdpd = new SearchDogPageData();
 		while(b) {
 			sdpd = new SearchDogService().selectList(page,sDay,eDay,kind,cityCode);
-			if(sdpd.getList().size()==8) { //12개의 리스트를답을때까지 반복
+			if(sdpd.getList().size()==8) { //8개의 리스트를답을때까지 반복
 				b=false;
 			}
 		}
 		
 		
 		
-		SearchDogPageData sdpd2 = new SearchDogPageData();
+		BoardPageData sdpd2 = new BoardPageData();
 		
 		sdpd2 = new SearchDogService().selectListDB(page, sDay, eDay, kind, cityCode);
 		

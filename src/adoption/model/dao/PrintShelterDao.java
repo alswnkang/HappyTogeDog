@@ -92,11 +92,14 @@ public class PrintShelterDao {
 		String query = "insert into shelter values(?,?,?,?,?)";
 		
 		pstmt=conn.prepareStatement(query);
-		pstmt=conn.prepareStatement(query);
+		
 		pstmt.setString(1, m.getCode());
 		pstmt.setString(2, m.getName());
 		pstmt.setString(3, m.getPhone());
 		pstmt.setString(4, m.getAddress());
+		
+	
+		
 		
 		int city=0;
 		int result=0;
@@ -162,9 +165,40 @@ public class PrintShelterDao {
 		
 		
 		result=pstmt.executeUpdate();
+		JDBCTemplate.close(pstmt);
+		
 		
 		return result;
 		
 		
+	}
+	public ArrayList<Shelter> getAllList(Connection conn) throws SQLException {
+		// TODO Auto-generated method stub
+		ArrayList<Shelter>list =null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select * from shelter";
+		
+		
+		
+		pstmt= conn.prepareStatement(query);
+		rset = pstmt.executeQuery();
+		list = new ArrayList<>();
+		
+		while(rset.next()) {
+			Shelter s = new Shelter();
+			s.setAddr(rset.getString(""));
+			s.setCode(rset.getString(""));
+			s.setName(rset.getString(""));
+			s.setPhone(rset.getString(""));
+			s.setLevel(rset.getInt(""));
+			
+		}
+		
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
+		
+		
+		return list;
 	}
 }

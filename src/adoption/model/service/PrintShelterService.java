@@ -2,8 +2,10 @@ package adoption.model.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import adoption.model.dao.PrintShelterDao;
+import adoption.model.vo.Shelter;
 import adoption.model.vo.ShelterPageData;
 import common.JDBCTemplate;
 import member.model.vo.Member;
@@ -58,6 +60,16 @@ public class PrintShelterService {
 		
 		
 		return result;
+	}
+
+	public ArrayList<Shelter> getAllList() throws SQLException {
+		// TODO Auto-generated method stub
+		
+		Connection conn = JDBCTemplate.getCon();
+		
+		ArrayList<Shelter> list=new PrintShelterDao().getAllList(conn);
+		
+		return list;
 	}
 
 }
