@@ -188,7 +188,7 @@ public class QnaServlet extends HttpServlet {
 				try {
 					QnaVO qna = new QnaService().checkPw(boardNo,boardPw);
 					if(qna != null) {
-						if(checkType != null) {//삭제일때
+						if(checkType != null&&!checkType.equals("")) {//삭제일때
 							response.sendRedirect("/removeQna?boardNo="+boardNo+"&boardPw="+boardPw);
 							return;
 						}
