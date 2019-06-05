@@ -1,6 +1,7 @@
 package siNotice.model.noticeVo;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class Notice {
 		private int noticeRnum;
@@ -105,6 +106,8 @@ public class Notice {
 			return noticeDate;
 		}
 		public void setNoticeDate(Date noticeDate) {
+			java.util.Date d = new java.util.Date();
+			SimpleDateFormat date0 = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			this.noticeDate = noticeDate;
 		}
 		public int getNoticeCount() {
