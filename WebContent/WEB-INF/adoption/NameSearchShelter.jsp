@@ -20,7 +20,7 @@
 					</thead>
 					
 					<tbody>
-						<c:forEach items="${spd.list }" var="i">
+						<c:forEach items="${list }" var="i">
 							<tr>
 								<td>${i.name }</td>
 								<td>${i.addr }</td>
@@ -30,15 +30,11 @@
 					</tbody>
 					
 				</table>
-				<!-- paging -->
+			
 				
 				
 				
-				<div class="paging">
-				
-					${spd.pageNavi }
-		 		
-		 		</div>
+			
 		 		<!-- 검색박스 -->
 		 		<div class="board-search-box">
 		 			<form action="/nameSearchShelter" method="get">
