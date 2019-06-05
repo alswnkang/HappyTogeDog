@@ -78,6 +78,9 @@
 					</c:if>
 				</p>
 			</div>
+			<p class="common-tbl-btn-group">
+					<button class="btn-style1" onclick="history.back();">목록으로</button>
+				</p>
 			<div id="qna" class="product-bottom">
 				<p class="main-comm-tit">Q&A</p>
 				<table class="comm-tbl type2">

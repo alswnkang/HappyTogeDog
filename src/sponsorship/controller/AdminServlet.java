@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sponsorship.model.service.BackupService;
 import sponsorship.model.service.OrderService;
 import sponsorship.model.vo.OrderInfoVO;
 import sponsorship.model.vo.OrderListVO;
@@ -20,7 +21,7 @@ import sponsorship.model.vo.ProductVO;
 import sponsorship.model.vo.SearchVO;
 import sponsorship.model.vo.TotalOrder;
 
-@WebServlet(name = "Admin", urlPatterns = { "/orderView", "/orderList", "/updateOrder", "/updateStatus" })
+@WebServlet(name = "Admin", urlPatterns = { "/orderView", "/orderList", "/updateOrder", "/updateStatus", "/dataBackup" })
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -124,6 +125,16 @@ public class AdminServlet extends HttpServlet {
 			} catch (SQLException e) {
 				System.out.println("SQL에러 ㅠ");
 			}
+			
+		}else if(action.equals("dataBackup")) {
+			
+			ArrayList<String> insert = new BackupService().backup();
+			String print = "";
+			for (String string : insert) {
+				print += string+"<br>";
+			}
+			request.setAttribute("print", print);
+			request.getRequestDispatcher("/WEB-INF/data.jsp").forward(request, response);
 			
 		}
 	}
