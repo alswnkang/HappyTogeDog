@@ -63,6 +63,9 @@ public class AdoptionBoardDao {
 				a.setAdoptionBoardSecret(rset.getInt("board_secret"));
 				a.setAdoptionBoardPw(rset.getString("board_pw"));
 				a.setAdoptionBoardPrdCode(rset.getString("board_prdCode"));
+				a.setDogKind(rset.getString("dog_kind"));
+				a.setHappenCity(rset.getString("happen_City"));
+				a.setHappenDate(rset.getString("happen_date"));
 				list.add(a);
 			}
 		} catch (SQLException e) {
@@ -77,7 +80,7 @@ public class AdoptionBoardDao {
 	public int adoptionBoardInsert(Connection conn, AdoptionBoard a) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into board values(board_seq.nextval,?,?,?,?,?,?,?,sysdate,0,0,null,null)";
+		String query = "insert into board values(board_seq.nextval,?,?,?,?,?,?,?,sysdate,0,0,null,null,null,null,null)";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, a.getAdoptionBoardType());
@@ -136,6 +139,9 @@ public class AdoptionBoardDao {
 				a.setAdoptionBoardSecret(rset.getInt("board_secret"));
 				a.setAdoptionBoardPw(rset.getString("board_pw"));
 				a.setAdoptionBoardPrdCode(rset.getString("board_PrdCode"));
+				a.setDogKind(rset.getString("dog_kind"));
+				a.setHappenCity(rset.getString("happen_City"));
+				a.setHappenDate(rset.getString("happen_date"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -190,6 +196,9 @@ public class AdoptionBoardDao {
 				a.setAdoptionBoardSecret(rset.getInt("board_secret"));
 				a.setAdoptionBoardPw(rset.getString("board_pw"));
 				a.setAdoptionBoardPrdCode(rset.getString("board_PrdCode"));
+				a.setDogKind(rset.getString("dog_kind"));
+				a.setHappenCity(rset.getString("happen_City"));
+				a.setHappenDate(rset.getString("happen_date"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -244,6 +253,9 @@ public class AdoptionBoardDao {
 				a.setAdoptionBoardSecret(rset.getInt("board_secret"));
 				a.setAdoptionBoardPw(rset.getString("board_pw"));
 				a.setAdoptionBoardPrdCode(rset.getString("board_prdCode"));
+				a.setDogKind(rset.getString("dog_kind"));
+				a.setHappenCity(rset.getString("happen_City"));
+				a.setHappenDate(rset.getString("happen_date"));
 				list.add(a);
 			}
 		} catch (SQLException e) {
@@ -283,6 +295,9 @@ public class AdoptionBoardDao {
 				a.setAdoptionBoardSecret(rset.getInt("board_secret"));
 				a.setAdoptionBoardPw(rset.getString("board_pw"));
 				a.setAdoptionBoardPrdCode(rset.getString("board_prdCode"));
+				a.setDogKind(rset.getString("dog_kind"));
+				a.setHappenCity(rset.getString("happen_City"));
+				a.setHappenDate(rset.getString("happen_date"));
 				list.add(a);
 			}
 		} catch (SQLException e) {

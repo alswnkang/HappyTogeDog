@@ -43,6 +43,7 @@ public class VisitReservationCompleteServlet extends HttpServlet {
 		String phone = ((Member)session.getAttribute("member")).getPhone();
 		BookApply ba = new BookApply();
 		ba.setCode(request.getParameter("code"));
+		System.out.println("보호소코드 : "+request.getParameter("code"));
 		ba.setName(name);	//session에서 가져오기
 		ba.setId(id);		//session에서 가져오기
 		ba.setPhone(phone);	//session에서 가져오기

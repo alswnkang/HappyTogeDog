@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
 
@@ -20,45 +20,13 @@
 					</thead>
 					
 					<tbody>
-					
-					
-						<tr>
-							<td>보호소명이 들어갑니다.</td>
-							<td>보호소주소가 들어갑니다.</td>
-							<td>보호소연락처가 들어갑니다.</td>
-						</tr>
-						<tr>
-							<td>보호소명이 들어갑니다.</td>
-							<td>보호소주소가 들어갑니다.</td>
-							<td>보호소연락처가 들어갑니다.</td>
-						</tr>
-						<tr>
-							<td>보호소명이 들어갑니다.</td>
-							<td>보호소주소가 들어갑니다.</td>
-							<td>보호소연락처가 들어갑니다.</td>
-						</tr>
-						<tr>
-							<td>보호소명이 들어갑니다.</td>
-							<td>보호소주소가 들어갑니다.</td>
-							<td>보호소연락처가 들어갑니다.</td>
-						</tr>
-						<tr>
-							<td>보호소명이 들어갑니다.</td>
-							<td>보호소주소가 들어갑니다.</td>
-							<td>보호소연락처가 들어갑니다.</td>
-						</tr>
-						<tr>
-							<td>보호소명이 들어갑니다.</td>
-							<td>보호소주소가 들어갑니다.</td>
-							<td>보호소연락처가 들어갑니다.</td>
-						</tr>
-						<tr>
-							<td>보호소명이 들어갑니다.</td>
-							<td>보호소주소가 들어갑니다.</td>
-							<td>보호소연락처가 들어갑니다.</td>
-						</tr>
-						
-						
+						<c:forEach items="${spd.list }" var="i">
+							<tr>
+								<td>${i.name }</td>
+								<td>${i.addr }</td>
+								<td>${i.phone }</td>
+							</tr>
+						</c:forEach>	
 					</tbody>
 					
 				</table>

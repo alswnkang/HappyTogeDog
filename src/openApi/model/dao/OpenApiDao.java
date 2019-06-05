@@ -115,25 +115,12 @@ public class OpenApiDao {
 				if(page>3) {
 					break;
 				}
-				
-				
-					
-					
-				
 				}	// while end
 				
 			} catch (Exception e){	
 				e.printStackTrace();
 			}
-			
-		
-		
 			return list;
-		
-		
-		
-		
-		
 		
 	}
 	

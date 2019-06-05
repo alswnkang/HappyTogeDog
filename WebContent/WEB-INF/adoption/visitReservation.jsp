@@ -15,6 +15,7 @@
 		<h2 class="comm-content-tit">보호소 방문 예약</h2>
 		<div id="reservationBox" class="common-tbl-box">
 			<form action="/visitReservationComplete" method="post">
+				<input type="hidden" name="code" value="${code }">	<!-- 보호소 코드받아서 보내기 -->
 				<table class="comm-tbl">
 					<colgroup>
 						<col width="35%">
@@ -89,10 +90,12 @@
 						<th>방문 시간</th>
 						<td>
 							<select name="visitTime" id="select-visitTime">
-								<c:forEach var="i" begin="${fn:substring(careTime,0,2)}" step="1" end="${fn:substring(careTime,4,6)-1}">
-									<option value="${i}시~${i+1}시">${i}시~${i+1}시</option>
-									<!-- 보호소  방문가능시간 데이터 받아와서 option값 정하기 -->
-								</c:forEach>
+								<c:if test="${not empty careTime}">
+									<c:forEach var="i" begin="${fn:substring(careTime,0,2)}" step="1" end="${fn:substring(careTime,4,6)-1}">
+										<option value="${i}시~${i+1}시">${i}시~${i+1}시</option>
+										<!-- 보호소  방문가능시간 데이터 받아와서 option값 정하기 -->
+									</c:forEach>
+								</c:if>
 							</select>
 						</td>
 					</tr>
@@ -122,20 +125,20 @@ function getTime(){
 		type:"post",
 		data : {visitDate:date, careNm:careNm},
 		success : function(data){
-			alert(data);
+			/* alert(data); */
 			$('#select-visitTime option').each(function(){
 				$(this).prop("disabled",false);
 			});
 			console.log(data.length);
 			for(var i=0;i<data.length;i++){
 				var time = data[i];
-				console.log(time);
+				/* console.log(time); */
 				$("#select-visitTime option[value='"+time+"']").prop("disabled",true);
 			}
 			console.log(data.length);
 		},
 		error : function(){
-			console.log("실패다아아아");
+			/* console.log("실패다아아아"); */
 			alert("실패");
 		}
 	});	/* ajax종료 */

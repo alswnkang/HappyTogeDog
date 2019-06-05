@@ -17,6 +17,9 @@ public class AdoptionBoard {
 		private int adoptionBoardSecret;
 		private String adoptionBoardPw;
 		private String adoptionBoardPrdCode;
+		private String dogKind;
+		private String happenCity;
+		private String happenDate;
 		public AdoptionBoard() {
 			super();
 			// TODO Auto-generated constructor stub
@@ -24,7 +27,8 @@ public class AdoptionBoard {
 		public AdoptionBoard(int adoptionBoardRnum, int adoptionBoardNo, int adoptionBoardType, String adoptionBoardId,
 				String adoptionBoardName, String adoptionBoardTitle, String adoptionBoardContent,
 				String adoptionBoardFilename, String adoptionBoardFilepath, Date adoptionBoardDate,
-				int adoptionBoardCount, int adoptionBoardSecret, String adoptionBoardPw, String adoptionBoardPrdCode) {
+				int adoptionBoardCount, int adoptionBoardSecret, String adoptionBoardPw, String adoptionBoardPrdCode,
+				String dogKind, String happenCity, String happenDate) {
 			super();
 			this.adoptionBoardRnum = adoptionBoardRnum;
 			this.adoptionBoardNo = adoptionBoardNo;
@@ -40,6 +44,9 @@ public class AdoptionBoard {
 			this.adoptionBoardSecret = adoptionBoardSecret;
 			this.adoptionBoardPw = adoptionBoardPw;
 			this.adoptionBoardPrdCode = adoptionBoardPrdCode;
+			this.dogKind = dogKind;
+			this.happenCity = happenCity;
+			this.happenDate = happenDate;
 		}
 		public int getAdoptionBoardRnum() {
 			return adoptionBoardRnum;
@@ -125,6 +132,24 @@ public class AdoptionBoard {
 		public void setAdoptionBoardPrdCode(String adoptionBoardPrdCode) {
 			this.adoptionBoardPrdCode = adoptionBoardPrdCode;
 		}
-	
+		public String getDogKind() {
+			return dogKind;
+		}
+		public void setDogKind(String dogKind) {
+			this.dogKind = dogKind;
+		}
+		public String getHappenCity() {
+			return happenCity;
+		}
+		public void setHappenCity(String happenCity) {
+			this.happenCity = happenCity;
+		}
+		public String getHappenDate() {
+			return happenDate;
+		}
+		public void setHappenDate(String happenDate) {
+			this.happenDate = happenDate;
+		}
+		
 }
 	

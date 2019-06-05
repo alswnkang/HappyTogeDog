@@ -36,8 +36,11 @@ public class VisitReservationServlet extends HttpServlet {
 		String careAddr = request.getParameter("careAddr");			//보호소주소
 		String careTel = request.getParameter("careTel");			//보호소 전화번호
 		String careTime = request.getParameter("careTime");			//보호소 방문가능시간
+		String code = request.getParameter("code");					//보호소 코드
+		System.out.println("보호소 코드 : "+ code);
 		System.out.println(careTime);
 		System.out.println(careAddr);
+		request.setAttribute("code", code);
 		request.setAttribute("careNm", careNm);
 		request.setAttribute("careAddr", careAddr);
 		request.setAttribute("careTel", careTel);
