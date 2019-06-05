@@ -13,7 +13,7 @@
 	<section id="content-wrapper">
 		<form action="/memberModify" method="post" onsubmit="return check()">
 			<div class="area"><input type="hidden" name="level" value="${m.memberLevel }">
-			<h1 class="comm-content-tit">마이 페이지</h1>
+			<h1 class="comm-content-tit">회원 정보 수정/탈퇴</h1>
 				<table class="comm-tbl type2">
 					<tr>
 						<td>아이디</td>
@@ -288,7 +288,7 @@
 				return false;
 			}
 			if($('#detailAddress').val() == ""){
-				alert("주소를 입력해주세요");
+				alert("상세주소를 입력해주세요");
 				$('#detailAddress').focus();
 				return false;
 			}
