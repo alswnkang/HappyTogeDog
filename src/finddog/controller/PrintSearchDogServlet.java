@@ -41,8 +41,8 @@ public class PrintSearchDogServlet extends HttpServlet {
 	
 		
 		
-		String sDay=request.getParameter("startDay").replaceAll("-", "");
-		String eDay=request.getParameter("endDay").replaceAll("-", "");
+		String sDay=request.getParameter("startDay");
+		String eDay=request.getParameter("endDay");
 		System.out.println(sDay+","+eDay);
 		int count =0;
 		int page;

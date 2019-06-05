@@ -70,6 +70,7 @@ public class SearchDogService {
 		int type=3;
 		int numPerPage = 4;
 		int totalCount = new SearchDogDao().totalCount(conn,type);
+		System.out.println("totalcount"+totalCount);
 		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
 		int start = (reqPage-1)*numPerPage+1;
 		int end = reqPage*numPerPage;

@@ -72,7 +72,7 @@ public class SearchDogDao {
 				System.out.println(sDay+","+eDay+"진짜이상하네");
 				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde="+sDay+"&endde="+eDay+"&pageNo="
 						+ page
-						+"&kind="+kind+"&upr_cd="+cityCode+"&upkind=417000&numOfRows=8&ServiceKey=TZzGtB8BZdZ0VsTPgpNVa1IQMCBLU9%2FlEriT0S4AFcqcswb4YiOAqJiR7So%2BJMbWd5fB0P6%2B8JQsI7EpN4KKrg%3D%3D";
+						+"&kind="+kind+"&upr_cd="+cityCode+"&upkind=417000&numOfRows=8&ServiceKey=9foRMY8t3j0MRIsmBCTWOiLUVaW4yJivGOtPfYE9x8yYsPcPCkCUZgGm39bZZGdQQc1ZT9MN87KHULUH8aLpMg%3D%3D";
 				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
 				Document doc = dBuilder.parse(url);
@@ -141,7 +141,7 @@ public class SearchDogDao {
 		int result = 0;
 		
 		String query = "select count(*) as cnt from board where board_type=?";
-		
+		System.out.println("여기는 토탈카운트 도착");
 		try {
 			stmt = conn.prepareStatement(query);
 			stmt.setInt(1, type);
@@ -167,7 +167,8 @@ public class SearchDogDao {
 		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ? and board_type=3 and dog_kind=? and happen_city=? and happen_date<?  and happen_date>?";
+		System.out.println("여기는 겟리스트 도착");
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ? and board_type=3 and dog_kind=? and happen_city=? and happen_date>?  and happen_date<=?";
 		try {
 			pstmt=conn.prepareStatement(query);
 			pstmt.setInt(1, start);
@@ -179,6 +180,7 @@ public class SearchDogDao {
 			rset = pstmt.executeQuery();
 			list = new ArrayList<Board>();
 			while(rset.next()) {
+				System.out.println("리스트담았어요");
 				Board b = new Board();
 				b.setBoardRnum(rset.getInt("rnum"));
 				b.setBoardNo(rset.getInt("board_no"));
