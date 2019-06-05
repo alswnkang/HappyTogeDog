@@ -36,7 +36,7 @@ public class SiAdoptionBoardCommentInsertServlet extends HttpServlet {
 		String adoptionBoardCommentName = request.getParameter("memberName");
 		String adoptionBoardCommentContent = request.getParameter("adoptionBoardCommentContent");
 		int adoptionBoardRef = Integer.parseInt(request.getParameter("adoptionBoardNo"));
-		AdoptionBoardComment ac = new AdoptionBoardComment(0, adoptionBoardCommentType, adoptionBoardCommentId, adoptionBoardCommentName, adoptionBoardCommentContent, adoptionBoardRef, 0, null);
+		AdoptionBoardComment ac = new AdoptionBoardComment(0, adoptionBoardCommentType, adoptionBoardCommentId, adoptionBoardCommentName, adoptionBoardCommentContent, adoptionBoardRef, 0,null,null);
 		int result = new AdoptionBoardCommentService().commentInsert(ac);
 		if(result>0) {
 			request.setAttribute("msg", "댓글등록성공");

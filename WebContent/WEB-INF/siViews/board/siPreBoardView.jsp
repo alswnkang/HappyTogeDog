@@ -83,8 +83,8 @@
 										<span>${list.boardCommentContent }</span>
 										<input type="text" value="${list.boardCommentContent }" name="boardCommentContent" style="display:none;"/>
 									</td>
-									<td width="10%">
-										${list.boardCommentDate }<br/>
+									<td width="11%">
+										${list.boardCommentDate2 }<br/>
 										<c:if test="${sessionScope.member.id==list.boardCommentId }">
 										<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
 											<button type="button">수정</button>

@@ -358,7 +358,7 @@ public class NoticeDao {
 		ArrayList<NoticeComment> list = null;
 		Statement stmt = null;
 		ResultSet rset = null;
-		String query = "select * from board_comment where board_comment_type=0 order by board_comment_no";
+		String query = "select board_comment_no,board_comment_type,board_comment_id,board_comment_name,board_comment_content,board_ref,board_comment_ref,board_comment_date,to_char(board_comment_date,'yyyy/MM/dd HH:mi') as board_comment_date2 from board_comment where board_comment_type=0 order by board_comment_no";
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
@@ -373,6 +373,7 @@ public class NoticeDao {
 				nc.setNoticeRef(rset.getInt("board_ref"));
 				nc.setNoticeCommentRef(rset.getInt("board_comment_ref"));
 				nc.setNoticeCommentDate(rset.getDate("board_comment_date"));
+				nc.setNoticeCommentDate2(rset.getString("board_comment_date2"));
 				list.add(nc);
 			}
 		} catch (SQLException e) {

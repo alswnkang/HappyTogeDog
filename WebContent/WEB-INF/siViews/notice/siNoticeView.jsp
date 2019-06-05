@@ -81,8 +81,8 @@
 										<span>${list.noticeCommentContent }</span>
 										<input type="text" value="${list.noticeCommentContent }" name="noticeCommentContent" style="display:none;"/>
 									</td>
-									<td width="10%">
-										${list.noticeCommentDate }<br/>
+									<td width="11%">
+										${list.noticeCommentDate2 }<br/>
 										<c:if test="${sessionScope.member.id==list.noticeCommentId }">
 										<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
 											<button type="button">수정</button>

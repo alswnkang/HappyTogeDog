@@ -114,8 +114,8 @@
 										<span>${list.adoptionBoardCommentContent }</span>
 										<input type="text" value="${list.adoptionBoardCommentContent }" name="adoptionBoardCommentContent" style="display:none;"/>
 									</td>
-									<td width="10%">
-										${list.adoptionBoardCommentDate }<br/>
+									<td width="11%">
+										${list.adoptionBoardCommentDate2 }<br/>
 										<c:if test="${sessionScope.member.id==list.adoptionBoardCommentId }">
 										<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
 											<button type="button">수정</button>
