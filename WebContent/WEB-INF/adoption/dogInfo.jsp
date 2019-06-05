@@ -32,7 +32,7 @@
 		
 		<script>
 			$(document).ready(function(){
-				$('.common-tbl-btn-group > button').css('display','none');
+				$('.common-tbl-btn-group.type2 > button').css('display','none');
 				if(${not empty sessionScope.member}){	/* 회원일때 */
 					/* 일반회원, 관리자이고 회원가입한 보호소의 유기견일때 */
 					if(${(sessionScope.member.memberLevel eq 0 || sessionScope.member.memberLevel eq 2) && (not empty careList)}){ 
@@ -107,15 +107,22 @@
 			<h2 class="comm-content-tit">보호소 위치</h2>
 			<div class="care-location" id="map"></div>
 		</div>
+		<div class="common-tbl-btn-group type20">
+			<button type="button" class="btn-style20" onclick="goBack();">목록으로</button>
+		</div>
 	</div>
 </section>
 
 <script>
 	//방문예약 신청시 회원,비회원 구분하여 알림창띄워주기
-		function login(){
-		if(confirm("로그인이 필요한페이지 입니다. \n로그인 하시겠습니까?")){
-			location.href='/member/login.jsp';
+	function login(){
+	if(confirm("로그인이 필요한페이지 입니다. \n로그인 하시겠습니까?")){
+		location.href='/member/login.jsp';
 		}
+	}
+	//목록으로 버튼 누를 시 뒤로가기
+	function goBack(){
+		window.history.back();
 	}
 
 

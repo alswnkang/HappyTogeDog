@@ -29,7 +29,7 @@ public class SearchDogService {
 
 	public SearchDogPageData selectList(int page, String sDay, String eDay, String kind, String cityCode) {
 		
-		ArrayList<DogList> list= new SearchDogDao().getList(page,sDay,eDay,kind,cityCode);
+		ArrayList<DogList> list= new SearchDogDao().getList(page,sDay.replaceAll("-", ""),eDay.replaceAll("-", ""),kind,cityCode);
 		
 		//네비바 생성
 		String pageNavi="";
@@ -62,42 +62,42 @@ public class SearchDogService {
 	}
 
 
-	public SearchDogPageData selectListDB(int page, String sDay, String eDay, String kind, String cityCode) {
+	public BoardPageData selectListDB(int page, String sDay, String eDay, String kind, String cityCode) {
 		// TODO Auto-generated method stub
-		
-		ArrayList<DogList> list= new SearchDogDao().getListDB(page,sDay,eDay,kind,cityCode);
+		Connection conn=JDBCTemplate.getCon();
+		int reqPage=page;
 		String pageNavi="";
+		int type=3;
+		int numPerPage = 4;
+		int totalCount = new SearchDogDao().totalCount(conn,type);
+		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
+		int start = (reqPage-1)*numPerPage+1;
+		int end = reqPage*numPerPage;
+		ArrayList<Board> list= new SearchDogDao().getListDB(reqPage,sDay,eDay,kind,cityCode,conn,start,end);
 		
-		if(page==1) {   //시작페이지 버튼
-			pageNavi+="<a href='/printSearchDog?page=1'>1</a>";
-			pageNavi+="<a href='/printSearchDog?page=2'>2</a>";
-			pageNavi+="<a href='/printSearchDog?page=3'>3</a>";	
-			pageNavi+="<a href='/printSearchDog?page=4'>4</a>";
-			pageNavi+="<a href='/printSearchDog?page=5'>5</a>";
- 			pageNavi+="<a href='' class='paging-arrow next-arrrow'><img src='/img/right_arrow.png' style='width:30px;height:30px'</a>";
-		}else if(page==2) {  //2번페이지 이후
-			pageNavi+="<a href='' class='paging-arrow next-arrrow'><img src='/img/left_arrow.png' style='width:30px;height:30px'</a>";
-			pageNavi+="<a href='/printSearchDog?page=1'>1</a>";
-			pageNavi+="<a href='/printSearchDog?page=2'>2</a>";
-			pageNavi+="<a href='/printSearchDog?page=3'>3</a>";	
-			pageNavi+="<a href='/printSearchDog?page=4'>4</a>";
-			pageNavi+="<a href='/printSearchDog?page=5'>5</a>";
- 			pageNavi+="<a href='' class='paging-arrow next-arrrow'><img src='/img/right_arrow.png' style='width:30px;height:30px'</a>";
-		}else {
-			pageNavi+="<a href='/printSearchDog?page="+(page-1)+"' class='paging-arrow next-arrrow'><img src='/img/left_arrow.png' style='width:30px;height:30px'</a>";
-			pageNavi+="<a href='/printSearchDog?page="+(page-2)+"'>"+(page-2)+"</a>";
-			pageNavi+="<a href='/printSearchDog?page="+(page-1)+"'>"+(page-1)+"</a>";
-			pageNavi+="<a href='/printSearchDog?page="+page+"'>"+page+"</a>";	
-			pageNavi+="<a href='/printSearchDog?page="+(page+1)+"'>"+(page+1)+"</a>";
-			pageNavi+="<a href='/printSearchDog?page="+(page+2)+"'>"+(page+2)+"</a>";
- 			pageNavi+="<a href='/printSearchDog?page="+(page+1)+"' class='paging-arrow next-arrrow'><img src='/img/right_arrow.png' style='width:30px;height:30px'</a>";		
+		int pageNaviSize = 10;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
+		if(pageNo!=1) {
+			pageNavi+="<a href='/takeBoard?reqPage="+(pageNo-1)+"'>이전</a>";
 		}
-		SearchDogPageData sdpd = new SearchDogPageData(list,pageNavi);
-		
-		
-		return sdpd;
-		
+		int i = 1;
+		while(!(i++>pageNaviSize || pageNo>totalPage)) {
+			if(reqPage==pageNo) {
+				pageNavi+="<span>"+pageNo+"</span>";
+			}else {
+				pageNavi+="<a href='/takeBoard?reqPage="+pageNo+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
+		if(pageNo<=totalPage) {
+			pageNavi+="<a href='/takeBoard?reqPage="+pageNo+"'>다음</a>";
+		}
+		JDBCTemplete.close(conn);
+		BoardPageData bp = new BoardPageData(list,pageNavi);
+		return bp;
 	}
+		
+	
 
 	public int change() {
 		// TODO Auto-generated method stub

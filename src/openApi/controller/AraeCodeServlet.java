@@ -50,13 +50,13 @@ public class AraeCodeServlet extends HttpServlet {
 				b=false;
 			}
 			count++;
-			if(count==30) {
+			if(count==15) {
 				b=false;
 			}
 		}
 	
 		
-		System.out.println("지역 구군청 까지왔음"+list.size());
+		System.out.println("지역 구군청 까지왔음\n 리스트수"+list.size());
 		
 		
 		
