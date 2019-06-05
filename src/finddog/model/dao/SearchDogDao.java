@@ -69,9 +69,10 @@ public class SearchDogDao {
 		try {
 			while (true) {
 				// parsing할 url 지정(API 키 포함해서)
-				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde=20190101&endde=20190524&pageNo="
+				System.out.println(sDay+","+eDay+"진짜이상하네");
+				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde="+sDay+"&endde="+eDay+"&pageNo="
 						+ page
-						+ "&upkind=417000&numOfRows=12&ServiceKey=TZzGtB8BZdZ0VsTPgpNVa1IQMCBLU9%2FlEriT0S4AFcqcswb4YiOAqJiR7So%2BJMbWd5fB0P6%2B8JQsI7EpN4KKrg%3D%3D";
+						+ "&upkind=417000&numOfRows=8&ServiceKey=TZzGtB8BZdZ0VsTPgpNVa1IQMCBLU9%2FlEriT0S4AFcqcswb4YiOAqJiR7So%2BJMbWd5fB0P6%2B8JQsI7EpN4KKrg%3D%3D";
 				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
 				Document doc = dBuilder.parse(url);
@@ -160,13 +161,49 @@ public class SearchDogDao {
 
 
 
-	public ArrayList<DogList> getListDB(int page, String sDay, String eDay, String kind, String cityCode) {
+	public ArrayList<Board> getListDB(int page, String sDay, String eDay, String kind, String cityCode, Connection conn, int start, int end) {
 		// TODO Auto-generated method stub
 		//보완 필요
+		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
-		return null;
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ? and board_type=3 and dog_kind=? and happen_city=? and happen_date<?  and happen_date>?";
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			pstmt.setString(3, kind);
+			pstmt.setString(4, cityCode);
+			pstmt.setString(5, sDay);
+			pstmt.setString(6, eDay);
+			rset = pstmt.executeQuery();
+			list = new ArrayList<Board>();
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBoardRnum(rset.getInt("rnum"));
+				b.setBoardNo(rset.getInt("board_no"));
+				b.setBoardType(rset.getInt("board_Type"));
+				b.setBoardId(rset.getString("board_id"));
+				b.setBoardName(rset.getString("board_Name"));
+				b.setBoardTitle(rset.getString("board_title"));
+				b.setBoardContent(rset.getString("board_content"));
+				b.setBoardFilename(rset.getString("board_filename"));
+				b.setBoardFilepath(rset.getString("board_filepath"));
+				b.setBoardDate(rset.getDate("board_date"));
+				b.setBoardCount(rset.getInt("board_count"));
+				b.setBoardSecret(rset.getInt("board_secret"));
+				b.setBoardPw(rset.getString("board_pw"));
+				b.setBoardPrdCode(rset.getString("board_prdCode"));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(rset);
+			JDBCTemplete.close(pstmt);
+		}
+		return list;
 	}
 
 	public int change(Connection conn) {

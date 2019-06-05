@@ -94,7 +94,7 @@ public class Member {
 		return startTime;
 	}
 	public String getEndTime() {
-		String endTime = possibleTime.substring(5, 7);
+		String endTime = possibleTime.substring(4, 6);
 		return endTime;
 	}
 	public String getUser() {

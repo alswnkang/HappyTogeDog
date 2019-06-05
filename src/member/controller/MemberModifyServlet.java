@@ -37,7 +37,7 @@ public class MemberModifyServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String time = request.getParameter("time");
 		String endTime = request.getParameter("endTime");
-		String possibleTime = time+"시 ~"+endTime+"시";
+		String possibleTime = time+"시~"+endTime+"시";
 		int level = Integer.parseInt(request.getParameter("level"));
 		String address = request.getParameter("address");
 		String detailAddress = request.getParameter("detailAddress");
@@ -58,16 +58,22 @@ public class MemberModifyServlet extends HttpServlet {
 			if(level == 0 ) {
 				int result = new MemberService().memberModify(m);
 				System.out.println("일반회원 수정완료");
-				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+				request.setAttribute("msg", "수정 완료");
+				request.setAttribute("loc", "/");
 				rd.forward(request, response);
 			}else if(level == 1){
 				int result = new MemberService().memberModify2(m);
 				System.out.println("보호소 회원 수정완료");
-				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+				request.setAttribute("msg", "수정 완료");
+				request.setAttribute("loc", "/");
 				rd.forward(request, response);
 			}else {
 				System.out.println("수정실패");
-				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+				request.setAttribute("msg", "수정 실패");
+				request.setAttribute("loc", "/");
 				rd.forward(request, response);
 			}
 			
