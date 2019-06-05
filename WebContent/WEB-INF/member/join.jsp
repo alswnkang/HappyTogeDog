@@ -8,6 +8,7 @@
 <style>
 	.common-tbl-box{padding:70px;}
 	.comm-tbl input[type='text'].middle, .comm-tbl input[type='password'].middle{width:50%;}
+	.comm-tbl select.short{width:30%;}
 	#post{display:inline-block; width:75%; vertical-align:middle;}
 </style>
 
@@ -18,13 +19,14 @@
 		<h1 id="h_title2" style="display:none" class="comm-content-tit">보호소 회원정보 입력</h1>
 		<form action="/memberJoin" method="post" onsubmit="return check()">
 			<div class="common-tbl-box">
+				<p class="necessary join"><b class="star join">*</b> 는 필수입력항목입니다. </p>
 				<table class="comm-tbl view">
 					<colgroup>
 						<col width="20%">
 						<col width="/">
 					</colgroup>
 					<tr>
-						<th>아이디</th>
+						<th>아이디 <b class="star join">*</b></th>
 						<td>
 							<input type="text" name="id" id="id" class="middle" placeholder="4~12자리 영/숫자">
 							<p id="p_checkId" style="display:none">아이디 입력양식을 확인하세요</p>
@@ -34,35 +36,35 @@
 						</td>
 					</tr>
 					<tr>
-						<th>비밀번호</th>
+						<th>비밀번호 <b class="star join">*</b></th>
 						<td>
 							<input type="password" name="pw" id="pw" class="middle" placeholder="영/숫자를 포함한 8~13자리">
 							<p id="p_checkPw" style="display:none">비밀번호 입력양식을 확인하세요</p>
 						</td>
 					</tr>
 					<tr>
-						<th>비밀번호 확인</th>
+						<th>비밀번호 확인 <b class="star join">*</b></th>
 						<td>
 							<input type="password" name="pw_re" id="pw_re" class="middle">
 							<p id="p_checkPw_re" style="display:none">비밀번호가 일치하지 않습니다</p>
 						</td>
 					</tr>
 					<tr>
-						<th>이름</th>
+						<th>이름 <b class="star join">*</b></th>
 						<td><input type="text" name="name" id="name"></td>
 					</tr>
 					<tr>
-						<th>전화번호</th>
+						<th>전화번호 <b class="star join">*</b></th>
 						<td>
-							<select name="phone1" id="phone1">
+							<select name="phone1" id="phone1" class="short">
 								<option>010</option>
 								<option>011</option>
 								<option>016</option>
 							</select>
-						-
-						<input type="text" name="phone2" id="phone2" maxlength="4">
-						-
-						<input type="text" name="phone3" id="phone3" maxlength="4">
+							-
+							<input type="text" name="phone2" id="phone2" maxlength="4" class="short">
+							-
+							<input type="text" name="phone3" id="phone3" maxlength="4" class="short">
 						</td>
 					</tr>
 					<c:if test="${level == 0 }">
@@ -87,13 +89,13 @@
 					<input type="hidden" id="careCity" name="careCity" value="">
 					<input type="hidden" id="careArea" name="careArea" value="">
 					<tr>
-						<th>EMAIL</th>
+						<th>EMAIL <b class="star join">*</b></th>
 						<td><input type="text" name="email" id="email" value="${email }" readonly></td>
 					</tr>
 					<input type="hidden" name="level" id="level" value="${level}">
 					<c:if test="${level > 0 }">
 					<tr id="selectTime">
-						<th>방문시간</th>
+						<th>방문시간 <b class="star join">*</b></th>
 						<td>
 							<select name="time" id="time" class="middle">
 								<option value="08">08시</option>
@@ -126,7 +128,7 @@
 					</c:if>	
 					<c:if test="${level == 1}">
 					<tr>
-						<th>시 선택</th> 
+						<th>시 선택 <b class="star join">*</b></th> 
 						<td>
 							<select name="city" id="city">
 								<option>도시선택</option>
@@ -137,7 +139,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>구 선택</th>
+						<th>구 선택 <b class="star join">*</b></th>
 						<td>
 							<select name="area" id="area">
 								<option>지역구선택</option>
@@ -145,7 +147,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>보호소 선택 </th>
+						<th>보호소 선택  <b class="star join">*</b></th>
 						<td>
 							<select name="care" id="care">
 								<option>보호소선택</option>
