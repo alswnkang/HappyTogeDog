@@ -30,7 +30,7 @@
 												${list.adoptionBoardName }(${list.adoptionBoardId })
 											</span>
 											<span>
-												${list.adoptionBoardDate }
+												${list.adoptionBoardDate2 }
 											</span>
 										</h5>
 									</div>

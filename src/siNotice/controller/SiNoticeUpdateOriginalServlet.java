@@ -46,7 +46,7 @@ public class SiNoticeUpdateOriginalServlet extends HttpServlet {
 		String noticeContent = mRequest.getParameter("noticeContent");		
 		String noticeFilename = mRequest.getOriginalFileName("noticeFilename");
 		String noticeFilepath = mRequest.getFilesystemName("noticeFilename");
-		Notice n = new Notice(0,0, 0, null, noticeName, noticeTitle, noticeContent, noticeFilename, noticeFilepath, null, 0, 0, null,null,null,null,null);
+		Notice n = new Notice(0,0, 0, null, noticeName, noticeTitle, noticeContent, noticeFilename, noticeFilepath, null,null, 0, 0, null,null,null,null,null);
 		n = new NoticeService().noticeUpdateOriginal(noticeNo,n);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/notice/siNoticeUpdate.jsp");
 		request.setAttribute("notice", n);

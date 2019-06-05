@@ -40,7 +40,7 @@ public class AdoptionBoardDao {
 		ArrayList<AdoptionBoard> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD where board_Type=2 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
+		String query = "SELECT rnum,board_no,board_type,board_id,board_name,board_title,board_content,board_filename,board_filepath,board_date,to_char(board_date,'yyyy/MM/dd HH:mi') as board_date2,board_count,board_secret,board_pw,board_prdcode,dog_kind,happen_city,happen_date FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD where board_Type=2 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
 		try {
 			pstmt=conn.prepareStatement(query);
 			pstmt.setInt(1, start);
@@ -59,6 +59,7 @@ public class AdoptionBoardDao {
 				a.setAdoptionBoardFilename(rset.getString("board_filename"));
 				a.setAdoptionBoardFilepath(rset.getString("board_filepath"));
 				a.setAdoptionBoardDate(rset.getDate("board_date"));
+				a.setAdoptionBoardDate2(rset.getString("board_date2"));
 				a.setAdoptionBoardCount(rset.getInt("board_count"));
 				a.setAdoptionBoardSecret(rset.getInt("board_secret"));
 				a.setAdoptionBoardPw(rset.getString("board_pw"));
@@ -229,7 +230,7 @@ public class AdoptionBoardDao {
 		ArrayList<AdoptionBoard> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM board where board_name = ? and board_Type=2 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
+		String query = "SELECT rnum,board_no,board_type,board_id,board_name,board_title,board_content,board_filename,board_filepath,board_date,to_char(board_date,'yyyy/MM/dd HH:mi') as board_date2,board_count,board_secret,board_pw,board_prdcode,dog_kind,happen_city,happen_date FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM board where board_name = ? and board_Type=2 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, searchKeyword);
@@ -249,6 +250,7 @@ public class AdoptionBoardDao {
 				a.setAdoptionBoardFilename(rset.getString("board_filename"));
 				a.setAdoptionBoardFilepath(rset.getString("board_filepath"));
 				a.setAdoptionBoardDate(rset.getDate("board_date"));
+				a.setAdoptionBoardDate2(rset.getString("board_date2"));
 				a.setAdoptionBoardCount(rset.getInt("board_count"));
 				a.setAdoptionBoardSecret(rset.getInt("board_secret"));
 				a.setAdoptionBoardPw(rset.getString("board_pw"));
@@ -271,7 +273,7 @@ public class AdoptionBoardDao {
 		ArrayList<AdoptionBoard> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM board where board_title like ? and board_Type=2 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
+		String query = "SELECT rnum,board_no,board_type,board_id,board_name,board_title,board_content,board_filename,board_filepath,board_date,to_char(board_date,'yyyy/MM/dd HH:mi') as board_date2,board_count,board_secret,board_pw,board_prdcode,dog_kind,happen_city,happen_date FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM board where board_title like ? and board_Type=2 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, "%"+searchKeyword+"%");
@@ -291,6 +293,7 @@ public class AdoptionBoardDao {
 				a.setAdoptionBoardFilename(rset.getString("board_filename"));
 				a.setAdoptionBoardFilepath(rset.getString("board_filepath"));
 				a.setAdoptionBoardDate(rset.getDate("board_date"));
+				a.setAdoptionBoardDate2(rset.getString("board_date2"));
 				a.setAdoptionBoardCount(rset.getInt("board_count"));
 				a.setAdoptionBoardSecret(rset.getInt("board_secret"));
 				a.setAdoptionBoardPw(rset.getString("board_pw"));

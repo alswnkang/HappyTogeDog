@@ -13,6 +13,7 @@ public class Board {
 	private String boardFilename;
 	private String boardFilepath;
 	private Date boardDate;
+	private String boardDate2;
 	private int boardCount;
 	private int boardSecret;
 	private String boardPw;
@@ -20,39 +21,13 @@ public class Board {
 	private String dogKind;
 	private String happenCity;
 	private String happenDate;
-	
-	public String getDogKind() {
-		return dogKind;
-	}
-
-	public void setDogKind(String dogKind) {
-		this.dogKind = dogKind;
-	}
-
-	public String getHappenCity() {
-		return happenCity;
-	}
-
-	public void setHappenCity(String happenCity) {
-		this.happenCity = happenCity;
-	}
-
-	public String getHappenDate() {
-		return happenDate;
-	}
-
-	public void setHappenDate(String happenDate) {
-		this.happenDate = happenDate;
-	}
-
 	public Board() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
 	public Board(int boardRnum, int boardNo, int boardType, String boardId, String boardName, String boardTitle,
-			String boardContent, String boardFilename, String boardFilepath, Date boardDate, int boardCount,
-			int boardSecret, String boardPw, String boardPrdCode, String dogKind, String happenCity,
+			String boardContent, String boardFilename, String boardFilepath, Date boardDate, String boardDate2,
+			int boardCount, int boardSecret, String boardPw, String boardPrdCode, String dogKind, String happenCity,
 			String happenDate) {
 		super();
 		this.boardRnum = boardRnum;
@@ -65,6 +40,7 @@ public class Board {
 		this.boardFilename = boardFilename;
 		this.boardFilepath = boardFilepath;
 		this.boardDate = boardDate;
+		this.boardDate2 = boardDate2;
 		this.boardCount = boardCount;
 		this.boardSecret = boardSecret;
 		this.boardPw = boardPw;
@@ -73,7 +49,6 @@ public class Board {
 		this.happenCity = happenCity;
 		this.happenDate = happenDate;
 	}
-
 	public int getBoardRnum() {
 		return boardRnum;
 	}
@@ -134,6 +109,12 @@ public class Board {
 	public void setBoardDate(Date boardDate) {
 		this.boardDate = boardDate;
 	}
+	public String getBoardDate2() {
+		return boardDate2;
+	}
+	public void setBoardDate2(String boardDate2) {
+		this.boardDate2 = boardDate2;
+	}
 	public int getBoardCount() {
 		return boardCount;
 	}
@@ -157,6 +138,24 @@ public class Board {
 	}
 	public void setBoardPrdCode(String boardPrdCode) {
 		this.boardPrdCode = boardPrdCode;
+	}
+	public String getDogKind() {
+		return dogKind;
+	}
+	public void setDogKind(String dogKind) {
+		this.dogKind = dogKind;
+	}
+	public String getHappenCity() {
+		return happenCity;
+	}
+	public void setHappenCity(String happenCity) {
+		this.happenCity = happenCity;
+	}
+	public String getHappenDate() {
+		return happenDate;
+	}
+	public void setHappenDate(String happenDate) {
+		this.happenDate = happenDate;
 	}
 	
 }
