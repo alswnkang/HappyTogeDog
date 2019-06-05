@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <jsp:include page="/WEB-INF/common/header.jsp" />
-<link rel="stylesheet" type="text/css" href="/css/style.css">
+<link rel="stylesheet" type="text/css" href="http://localhost/css/style.css">
 
 <%-- Content --%>
 <section id="content-wrapper">
