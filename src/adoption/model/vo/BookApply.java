@@ -140,8 +140,10 @@ public class BookApply {
 			return "대기중";
 		}else if(status==1) {
 			return "승인";
-		}else {
+		}else if(status==2){
 			return "거절";
+		}else {
+			return "신청취소";
 		}
 	}
 }

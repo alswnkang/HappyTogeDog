@@ -67,21 +67,27 @@
 							</td>
 						</tr>
 						<tr>
-							<th>방문 날짜</th>
+							<th>방문 날짜/시간</th>
 							<td>
-								${ba.visitDate }
+								${fn:substring(ba.visitDate,0,4)}년  
+								${fn:substring(ba.visitDate,5,7)}월  
+								${fn:substring(ba.visitDate,8,10)}일  
+							 	 ${ba.visitTime}
 							</td>
 						</tr>
 						<tr>
-							<th>방문 시간</th>
-							<td>
-								${ba.visitTime }
-							</td>
-						</tr>
-						<tr>
-							<th>방문예약 신청 상태</th>
+							<th>방문예약 승인 상태</th>
 							<td>${ba.result}</td>
 						</tr>
+						<tr>
+							<th>신청 날짜</th>
+							<td>
+								${fn:substring(ba.applyDate,0,4)}년  
+								${fn:substring(ba.applyDate,5,7)}월  
+								${fn:substring(ba.applyDate,8,10)}일  
+							</td>
+						</tr>
+						
 					</table>
 					<div class="common-tbl-btn-group">
 						<button type="button" class="btn-style1" onclick="location.href='/adminReservPage?startDay=${startDay}&endDay=${endDay}&reqPage=${reqPage}'">목록으로</button>
