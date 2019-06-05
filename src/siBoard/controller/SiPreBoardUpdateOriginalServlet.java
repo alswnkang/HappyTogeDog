@@ -46,7 +46,7 @@ public class SiPreBoardUpdateOriginalServlet extends HttpServlet {
 		String boardContent = mRequest.getParameter("boardContent");		
 		String boardFilename = mRequest.getOriginalFileName("boardFilename");
 		String boardFilepath = mRequest.getFilesystemName("boardFilepath");
-		Board b = new Board(0,0, 0, null, boardName, boardTitle, boardContent, boardFilename, boardFilepath, null, 0, 0,null,null,null,null,null);
+		Board b = new Board(0,0, 0, null, boardName, boardTitle, boardContent, boardFilename, boardFilepath, null,null, 0, 0,null,null,null,null,null);
 		b = new BoardService().boardUpdateOriginal(boardNo,b);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/board/siPreBoardUpdate.jsp");
 		request.setAttribute("board", b);

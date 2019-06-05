@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,6 +20,7 @@
 					<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
 					<!-- 등록한 사람의 아이디 정보를 전달 -->
 					<input type="hidden" name="memberName" value="${sessionScope.member.name }"/>
+					<fmt:formatDate value="${list.noticeDate }" pattern="yyyy-MM-dd hh:mm"/>
 					<table class="comm-tbl">
 						<colgroup>
 							<col width="28%">
@@ -26,7 +28,7 @@
 						</colgroup>
 						<tr>
 							<th>제목</th>
-							<td><input type="text" name="noticeTitle"/></td>
+							<td><input type="text" name="noticeTitle" placeholder="글 제목" maxlength="50"/></td>
 						</tr>
 						<tr>
 							<th>파일첨부</th>
@@ -34,7 +36,7 @@
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><textarea type="text" name="noticeContent"></textarea></td>
+							<td><textarea type="text" name="noticeContent" placeholder="글 내용" maxlength="2048"></textarea></td>
 						</tr>
 					</table>
 					<div class="common-tbl-btn-group">
