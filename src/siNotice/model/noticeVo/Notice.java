@@ -13,6 +13,7 @@ public class Notice {
 		private String noticeFilename;
 		private String noticeFilepath;
 		private Date noticeDate;
+		private String noticeDate2;
 		private int noticeCount;
 		private int noticeSecret;
 		private String noticePw;
@@ -26,8 +27,8 @@ public class Notice {
 		}
 		public Notice(int noticeRnum, int noticeNo, int noticeType, String noticeId, String noticeName,
 				String noticeTitle, String noticeContent, String noticeFilename, String noticeFilepath, Date noticeDate,
-				int noticeCount, int noticeSecret, String noticePw, String noticePrdCode, String dogKind,
-				String happenCity, String happenDate) {
+				String noticeDate2, int noticeCount, int noticeSecret, String noticePw, String noticePrdCode,
+				String dogKind, String happenCity, String happenDate) {
 			super();
 			this.noticeRnum = noticeRnum;
 			this.noticeNo = noticeNo;
@@ -39,6 +40,7 @@ public class Notice {
 			this.noticeFilename = noticeFilename;
 			this.noticeFilepath = noticeFilepath;
 			this.noticeDate = noticeDate;
+			this.noticeDate2 = noticeDate2;
 			this.noticeCount = noticeCount;
 			this.noticeSecret = noticeSecret;
 			this.noticePw = noticePw;
@@ -106,6 +108,12 @@ public class Notice {
 		}
 		public void setNoticeDate(Date noticeDate) {
 			this.noticeDate = noticeDate;
+		}
+		public String getNoticeDate2() {
+			return noticeDate2;
+		}
+		public void setNoticeDate2(String noticeDate2) {
+			this.noticeDate2 = noticeDate2;
 		}
 		public int getNoticeCount() {
 			return noticeCount;

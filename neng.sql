@@ -6,7 +6,7 @@ select * from sponsorship ;
 select * from board;
 
 
-ALTER TABLE sponsorship ADD(vbank_name varchar2(20)); 
+ALTER TABLE sponsorship ADD(vbank_name varchar2(50)); 
 ALTER TABLE sponsorship ADD(vbank_num varchar2(50));
 ALTER TABLE sponsorship ADD(vbank_holder varchar2(50));
 ALTER TABLE sponsorship ADD(vbank_date varchar2(50));

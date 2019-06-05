@@ -107,6 +107,25 @@ public class Member {
 		}
 		return user;
 	}
-	
+	public String getMainAddress() {
+		String[] address = this.address.split("//");
+		return address[0];
+	}
+	public String getDetailAddress() {
+		String[] address = this.address.split("//");
+		return address[1];
+	}
+	public String getPhone1() {
+		String[] phone = this.phone.split("-");
+		return phone[0];
+	}
+	public String getPhone2() {
+		String[] phone = this.phone.split("-");
+		return phone[1];
+	}
+	public String getPhone3() {
+		String[] phone = this.phone.split("-");
+		return phone[2];
+	}
 	
 }

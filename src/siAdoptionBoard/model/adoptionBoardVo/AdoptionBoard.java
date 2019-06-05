@@ -13,6 +13,7 @@ public class AdoptionBoard {
 		private String adoptionBoardFilename;
 		private String adoptionBoardFilepath;
 		private Date adoptionBoardDate;
+		private String adoptionBoardDate2;
 		private int adoptionBoardCount;
 		private int adoptionBoardSecret;
 		private String adoptionBoardPw;
@@ -27,8 +28,8 @@ public class AdoptionBoard {
 		public AdoptionBoard(int adoptionBoardRnum, int adoptionBoardNo, int adoptionBoardType, String adoptionBoardId,
 				String adoptionBoardName, String adoptionBoardTitle, String adoptionBoardContent,
 				String adoptionBoardFilename, String adoptionBoardFilepath, Date adoptionBoardDate,
-				int adoptionBoardCount, int adoptionBoardSecret, String adoptionBoardPw, String adoptionBoardPrdCode,
-				String dogKind, String happenCity, String happenDate) {
+				String adoptionBoardDate2, int adoptionBoardCount, int adoptionBoardSecret, String adoptionBoardPw,
+				String adoptionBoardPrdCode, String dogKind, String happenCity, String happenDate) {
 			super();
 			this.adoptionBoardRnum = adoptionBoardRnum;
 			this.adoptionBoardNo = adoptionBoardNo;
@@ -40,6 +41,7 @@ public class AdoptionBoard {
 			this.adoptionBoardFilename = adoptionBoardFilename;
 			this.adoptionBoardFilepath = adoptionBoardFilepath;
 			this.adoptionBoardDate = adoptionBoardDate;
+			this.adoptionBoardDate2 = adoptionBoardDate2;
 			this.adoptionBoardCount = adoptionBoardCount;
 			this.adoptionBoardSecret = adoptionBoardSecret;
 			this.adoptionBoardPw = adoptionBoardPw;
@@ -107,6 +109,12 @@ public class AdoptionBoard {
 		}
 		public void setAdoptionBoardDate(Date adoptionBoardDate) {
 			this.adoptionBoardDate = adoptionBoardDate;
+		}
+		public String getAdoptionBoardDate2() {
+			return adoptionBoardDate2;
+		}
+		public void setAdoptionBoardDate2(String adoptionBoardDate2) {
+			this.adoptionBoardDate2 = adoptionBoardDate2;
 		}
 		public int getAdoptionBoardCount() {
 			return adoptionBoardCount;

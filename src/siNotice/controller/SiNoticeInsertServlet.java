@@ -54,7 +54,7 @@ public class SiNoticeInsertServlet extends HttpServlet {
 		String noticeFilename = mRequest.getOriginalFileName("noticeFilename");
 		//DefaultFileRenamePlicy 클래스 객체에 의해 파일명이 변경되기 전, 원래의 파일명을 리턴(원본 파일이름 유지)
 		String noticeFilepath = mRequest.getFilesystemName("noticeFilename");
-		Notice n = new Notice(0,0, noticeType, noticeId, noticeName, noticeTitle, noticeContent, noticeFilename, noticeFilepath, null, 0, 0,null,null,null,null,null);
+		Notice n = new Notice(0,0, noticeType, noticeId, noticeName, noticeTitle, noticeContent, noticeFilename, noticeFilepath, null,null, 0, 0,null,null,null,null,null);
 		//insert가 작동하는지 확인용 / 로그인 정보와 연동 필요
 		int result = new NoticeService().noticeInsert(n);
 		String view = "";
