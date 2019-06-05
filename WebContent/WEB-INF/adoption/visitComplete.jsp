@@ -46,7 +46,7 @@
 					</tr>
 				</table>
 				<div class="common-tbl-btn-group">
-					<button type="button" class="btn-style1" onclick="location.href='/'">메인으로</button><button type="button" class="btn-style2" onclick="location.href='##'">어디로 갈까</button>
+					<button type="button" class="btn-style1" onclick="location.href='/'">메인으로</button>
 				</div>
 			</div>
 	</div>

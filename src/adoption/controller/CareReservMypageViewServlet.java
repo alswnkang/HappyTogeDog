@@ -12,44 +12,45 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import adoption.model.service.BookApplyService;
-import adoption.model.vo.BookApplyPageData;
+import adoption.model.vo.BookApply;
 import member.model.vo.Member;
 
-@WebServlet(name = "ReservationCareMypage", urlPatterns = { "/reservationCareMypage" })
-public class ReservationCareMypageServlet extends HttpServlet {
+/**
+ * Servlet implementation class CareReservMypageViewServlet
+ */
+@WebServlet(name = "CareReservMypageView", urlPatterns = { "/reservationView" })
+public class CareReservMypageViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    public ReservationCareMypageServlet() {
+    public CareReservMypageViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		String code = ((Member)session.getAttribute("member")).getCode();
-		System.out.println(code);
-		int reqPage;
+		int no = Integer.parseInt(request.getParameter("no"));
 		String startDay = request.getParameter("startDay");
 		String endDay = request.getParameter("endDay");
+		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
 		try {
-			reqPage = Integer.parseInt(request.getParameter("reqPage"));
-		}catch(NumberFormatException e) {
-			reqPage=1;
-		}
-		BookApplyPageData bp;
-		try {
+			BookApply ba = new BookApplyService().viewOne(no);
+			request.setAttribute("ba", ba);
 			request.setAttribute("reqPage", reqPage);
-			request.setAttribute("start", startDay);
-			request.setAttribute("end", endDay);
-			bp = new BookApplyService().reservationCareMypage(reqPage, code, startDay, endDay);
-			request.setAttribute("bp", bp);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/careMypage.jsp");
+			request.setAttribute("startDay", startDay);
+			request.setAttribute("endDay", endDay);
+			request.setAttribute("msg", request.getAttribute("msg"));
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/careReservationView.jsp");
 			rd.forward(request, response);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			/*RequestDispatcher rd = request.getRequestDispatcher("/error/sqlerror.jsp");
+			/*RequestDispatcher rd = request.getRequestDispatcher("/error/sqlError.jsp");
 			rd.forward(request, response);*/
 		}
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

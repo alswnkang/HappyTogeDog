@@ -1,6 +1,7 @@
 package adoption.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -43,11 +44,12 @@ public class DogInfoServlet extends HttpServlet {
 		String filename = request.getParameter("filename");			//이미지 사진
 		System.out.println(sexCd);		
 		System.out.println(neuterYn);
-		//보호소 방문가능시간 가져오기
-		String careTime = new BookApplyService().careTime(careNm);
+		//보호소 방문가능시간,보호소코드 가져오기
+		ArrayList<String> careList = new BookApplyService().careTime(careNm);
 		DogList dl = new DogList(age,careAddr,careNm,careTel,filename,kindCd,sexCd,specialMark,neuterYn);
 		request.setAttribute("dl", dl);
-		request.setAttribute("careTime", careTime);		
+		request.setAttribute("careList", careList);		//보호소코드,보호소방문가능시간
+		System.out.println(careList);		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/dogInfo.jsp");
 		rd.forward(request, response);
 	}

@@ -175,6 +175,17 @@
 						</div>
 					</a>
 				</li>
+				<li>
+					<a href="/adminReservPage">
+						<div class="img-thum">
+							<span><img src="/img/mypage_icon06.png"></span>
+						</div>
+						<div class="txt-thum">
+							<h4>방문예약 리스트</h4>
+							<p>보호소 방문예약 전체 리스트를 <br>볼 수 있습니다.</p>
+						</div>
+					</a>
+				</li>
 			</ul>
 		</c:if>
 	</div>

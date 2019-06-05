@@ -7,20 +7,78 @@ import java.util.ArrayList;
 import adoption.model.dao.BookApplyDao;
 import adoption.model.vo.BookApply;
 import adoption.model.vo.BookApplyPageData;
+import adoption.model.vo.DogKind;
 import adoption.model.vo.DogList;
 import adoption.model.vo.SearchDogPageData;
 import common.JDBCTemplate;
+import openApi.model.vo.cityCode;
 
 public class BookApplyService {
-	//예약된 방문 시간 구해오기
-	public ArrayList<String> possibleTime(String visitDate, String careNm){
-		System.out.println("1Service");
+	//유기견 리스트 받아오기
+	public SearchDogPageData dogList(int reqPage,String cityCode,String gunCode,String dogsize, String kindCd, String neuterYn) {
+		if(cityCode==null) {
+			cityCode="";
+		}
+		if(gunCode==null) {
+			gunCode="";
+		}
+		if(kindCd==null) {
+			kindCd="";
+		}
+		if(neuterYn==null) {
+			neuterYn="";
+		}
+		ArrayList<DogList> list= new BookApplyDao().dogList(reqPage,cityCode,gunCode,kindCd,neuterYn);
+//		System.out.println(list.get(0).getSexCd());
+		int totalCount = Integer.parseInt(list.get(0).getOrgNm());		//totalCount
+		String pageNavi ="";
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage-1)/5)*5+1;
+		if(pageNo!=1) {
+			pageNavi += "<a class='paging-arrow prev-arrow' href='/dogAdopList?city="+cityCode+"&gun="+gunCode+"&dogsize="+dogsize+"&kindCd="+kindCd+"&neuterYn="+neuterYn+"&reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
+		}
+		int i = 1;
+		while(!(i++>pageNaviSize||pageNo>totalCount)) {	
+			if(reqPage==pageNo) {
+				pageNavi += "<span class='cur'>"+pageNo+"</span>";
+			}else {
+				pageNavi +="<a href='/dogAdopList?city="+cityCode+"&gun="+gunCode+"&dogsize="+dogsize+"&kindCd="+kindCd+"&neuterYn="+neuterYn+"&reqPage="+pageNo+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
+		if(pageNo <= totalCount) {
+			pageNavi += "<a class='paging-arrow next-arrow' href='/dogAdopList?city="+cityCode+"&gun="+gunCode+"&dogsize="+dogsize+"&kindCd="+kindCd+"&neuterYn="+neuterYn+"&reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
+			
+		}
+		SearchDogPageData sdpd = new SearchDogPageData(list,pageNavi);
+		return sdpd;
+	}
+	
+	//도시 코드, 코드 가져오기
+		public ArrayList<cityCode> getCityCode() {
+			Connection conn = JDBCTemplate.getCon();
+			ArrayList<cityCode> list = new BookApplyDao().getCityCode(conn);
+			JDBCTemplate.close(conn);
+			return list;
+		}
+		//크기선택에 따른 품종 가져오기
+		public ArrayList<DogKind> getKind(String dogsize) {
+			Connection conn = JDBCTemplate.getCon();
+			ArrayList<DogKind> list = new BookApplyDao().getKind(conn,dogsize);
+			JDBCTemplate.close(conn);
+			return list;
+		}
+		
+	/////////////////////////////////////////////////일반회원 유기견 입양 방문 신청///////////////////////////////////////////////////////////
+
+	//보호소 방문가능시간,보호소코드 가져오기
+	public ArrayList<String> careTime(String careNm) {
 		Connection conn = JDBCTemplate.getCon();
-		ArrayList<String> list = new BookApplyDao().possibleTime(conn,visitDate, careNm);
-		System.out.println("3Service");
+		ArrayList<String> list = new BookApplyDao().careTime(conn, careNm);
 		JDBCTemplate.close(conn);
 		return list;
 	}
+	
 	//방문예약 신청
 	public int reservation(BookApply ba) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
@@ -32,7 +90,21 @@ public class BookApplyService {
 		}
 		return result;
 	}
-	//일반회원 마이페이지에 방문예약 신청내역 보여주기
+		
+	//예약된 방문 시간 구해오기
+	public ArrayList<String> possibleTime(String visitDate, String careNm){
+		System.out.println("1Service");
+		Connection conn = JDBCTemplate.getCon();
+		ArrayList<String> list = new BookApplyDao().possibleTime(conn,visitDate, careNm);
+		System.out.println("3Service");
+		JDBCTemplate.close(conn);
+		return list;
+	}
+	
+	
+	/////////////////////////////////////////////////일반회원 마이페이지///////////////////////////////////////////////////////////
+	
+	//일반회원 마이페이지에 방문예약 신청리스트 보여주기
 	public BookApplyPageData selectList(int reqPage,String id){
 		Connection conn = JDBCTemplate.getCon();
 		ArrayList<BookApply> list = new ArrayList<BookApply>();
@@ -69,45 +141,19 @@ public class BookApplyService {
 		BookApplyPageData bp = new BookApplyPageData(list, pageNavi);
 		return bp;
 	}
-	
-	//유기견 리스트 받아오기
-	public SearchDogPageData dogList(int reqPage) {
-		//기간을 어떻게 잡아줘야할까?
-		ArrayList<DogList> list= new BookApplyDao().dogList(reqPage);
-//		System.out.println(list.get(0).getSexCd());
-		int totalCount = Integer.parseInt(list.get(0).getOrgNm());		//totalCount
-		String pageNavi ="";
-		int pageNaviSize = 5;
-		int pageNo = ((reqPage-1)/5)*5+1;
-		if(pageNo!=1) {
-			pageNavi += "<a class='paging-arrow prev-arrow' href='/dogAdopList?reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
-		}
-		int i = 1;
-		while(!(i++>pageNaviSize||pageNo>totalCount)) {	
-			if(reqPage==pageNo) {
-				pageNavi += "<span class='cur'>"+pageNo+"</span>";
-			}else {
-				pageNavi +="<a href='/dogAdopList?reqPage="+pageNo+"'>"+pageNo+"</a>";
-			}
-			pageNo++;
-		}
-		if(pageNo <= totalCount) {
-			pageNavi += "<a class='paging-arrow next-arrow' href='/dogAdopList?reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
-			
-		}
-		SearchDogPageData sdpd = new SearchDogPageData(list,pageNavi);
-		return sdpd;
-	}
-	
-	//보호소 방문가능시간 가져오기
-	public String careTime(String careNm) {
+
+	//일반회원이 방문예약 신청내역 내용 확인
+	public BookApply myViewOne(int no, String id) {
 		Connection conn = JDBCTemplate.getCon();
-		String careTime = new BookApplyDao().careTime(conn, careNm);
+		System.out.println("no: "+no);
+		BookApply b = new BookApplyDao().myViewOne(conn ,no, id);
 		JDBCTemplate.close(conn);
-		return careTime;
+		return b;
 	}
+
+	/////////////////////////////////////////////////보호소 회원 마이페이지///////////////////////////////////////////////////////////
 	
-	//보호소가 방문예약 신청내역 리스트 확인
+	//보호소회원 방문예약 신청내역 리스트 확인
 	public BookApplyPageData reservationCareMypage(int reqPage, String code, String startDay, String endDay) throws SQLException {
 		if(startDay==null) {
 			startDay="";
@@ -151,8 +197,8 @@ public class BookApplyService {
 		BookApplyPageData bp = new BookApplyPageData(list, pageNavi);
 		return bp;
 	}
-	
-	//보호소가 방문예약 신청내역 내용 확인
+
+	//보호소회원이 방문예약 신청내역 내용 확인
 	public BookApply viewOne(int no) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
 		System.out.println("no: "+no);
@@ -174,12 +220,59 @@ public class BookApplyService {
 		JDBCTemplate.close(conn);
 		return result;	
 	}
-	//일반회원이 방문예약 신청내역 내용 확인
-	public BookApply myViewOne(int no, String id) {
+	
+	/////////////////////////////////////////////////관리자 마이페이지///////////////////////////////////////////////////////////
+	
+	//관리자가 방문예약 신청 리스트 확인
+	public BookApplyPageData adminReservationMypage(int reqPage, String startDay, String endDay) {
+		if(startDay==null) {
+			startDay="";
+		}
+		if(endDay==null) {
+			endDay="";
+		}
+		System.out.println("목록 service왔다");
+		Connection conn = JDBCTemplate.getCon();
+		ArrayList<BookApply> list = new ArrayList<BookApply>();
+		int numPerPage = 3;
+		int totalCount = new BookApplyDao().adminReservationCount(conn, startDay, endDay);
+		System.out.println("service().adminReservationMypage() totalCount : "+totalCount);
+		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
+		int start = (reqPage-1)*numPerPage+1;
+		int end = reqPage*numPerPage;
+		list = new BookApplyDao().adminReservationList(conn, start, end, startDay, endDay);
+		System.out.println("Dao에서 리스트 구해옴");
+		String pageNavi ="";
+		int pageNaviSize = 3;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
+		
+		if(pageNo!=1) {
+			pageNavi += "<a class='paging-arrow prev-arrow' href='/adminReservPage?startDay="+startDay+"&endDay="+endDay+"&reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
+		}
+		int i = 1;
+		while(!(i++>pageNaviSize||pageNo>totalPage)) {
+			if(reqPage==pageNo) {
+				pageNavi += "<span class='cur'>"+pageNo+"</span>";
+			}else {
+				pageNavi +="<a href='/adminReservPage?startDay="+startDay+"&endDay="+endDay+"&reqPage="+pageNo+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<a class='paging-arrow next-arrow' href='/adminReservPage?startDay="+startDay+"&endDay="+endDay+"&reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
+		}
+		JDBCTemplate.close(conn);
+		BookApplyPageData bp = new BookApplyPageData(list, pageNavi);
+		return bp;
+	}
+	
+	//관리자가 방문예약 신청내역 내용 확인
+	public BookApply adminViewOne(int no) {
 		Connection conn = JDBCTemplate.getCon();
 		System.out.println("no: "+no);
-		BookApply b = new BookApplyDao().myViewOne(conn ,no, id);
+		BookApply b = new BookApplyDao().adminViewOne(conn ,no);
 		JDBCTemplate.close(conn);
 		return b;
 	}
+
 }
