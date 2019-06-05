@@ -28,7 +28,7 @@ public class BookApplyDao {
 	//유기견 리스트 가져오기
 	public ArrayList<DogList> dogList(int reqPage,String cityCode,String gunCode,String kindCd,String neuterYn){
 		String today = date();			//오늘
-		String preMonth = preMonth();	//한달전
+		String preMonth = preMonth();	//육개월전
 		String sql="";
 		if(cityCode!=null && cityCode!=""){
 			sql += "&upr_cd="+cityCode;
@@ -631,7 +631,7 @@ public class BookApplyDao {
 //		Date today = new Date();
 		SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.MONTH, -1);
+		cal.add(Calendar.MONTH, -6);
 		System.out.println("preMonth메소드 : "+date.format(cal.getTime()));
 		return date.format(cal.getTime());
 	}
