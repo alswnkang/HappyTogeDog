@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import adoption.model.vo.Shelter;
 import adoption.model.vo.ShelterPageData;
@@ -50,7 +48,7 @@ public class PrintShelterDao {
 			shelter.setName(rset.getString("name"));
 			shelter.setPhone(rset.getString("phone"));
 			list.add(shelter);
-			System.out.println("아이씨좀 되자고"+shelter.getName());
+		
 		}	
 			
 		
@@ -192,7 +190,40 @@ public class PrintShelterDao {
 			s.setName(rset.getString("name"));
 			s.setPhone(rset.getString("phone"));
 			s.setLevel(rset.getInt("lev"));
+			list.add(s);
+		}
+		
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
+		
+		
+		return list;
+	}
+	public ArrayList<Shelter> getSearchName(Connection conn, String key) throws SQLException {
+		// TODO Auto-generated method stub
+		
+		ArrayList<Shelter>list =null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select * from shelter";
+		
+		
+		
+		pstmt= conn.prepareStatement(query);
+		rset = pstmt.executeQuery();
+		list = new ArrayList<>();
+		
+		while(rset.next()) {
+			Shelter s = new Shelter();
+			s.setAddr(rset.getString("addr"));
+			s.setCode(rset.getString("code"));
+			s.setName(rset.getString("name"));
+			s.setPhone(rset.getString("phone"));
+			s.setLevel(rset.getInt("lev"));
 			
+			if(rset.getString("name").contains(key)) {
+				list.add(s);
+			}		
 		}
 		
 		JDBCTemplate.close(rset);

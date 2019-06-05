@@ -11,24 +11,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import adoption.model.dao.PrintShelterDao;
 import adoption.model.service.PrintShelterService;
 import adoption.model.vo.Shelter;
-import adoption.model.vo.ShelterPageData;
 
 /**
- * Servlet implementation class PrintShelterServlet
+ * Servlet implementation class NameSearchShelterServlet
  */
-@WebServlet(name = "PrintShelter", urlPatterns = { "/printShelter" })
-public class PrintShelterServlet extends HttpServlet {
+@WebServlet(name = "NameSearchShelter", urlPatterns = { "/nameSearchShelter" })
+public class NameSearchShelterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PrintShelterServlet() {
+    public NameSearchShelterServlet() {
         super();
         // TODO Auto-generated constructor stub
+        
+        
     }
 
 	/**
@@ -36,36 +36,21 @@ public class PrintShelterServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int city = Integer.parseInt(request.getParameter("city"));
+		String key=request.getParameter("keyword");
 		
-		int page;
-		try {	
-			page = Integer.parseInt(request.getParameter("page"));
-		}catch (NumberFormatException e) {
-			// TODO: handle exception
-			page=1;
-		}
-		System.out.println(city);
-		ShelterPageData spd = new ShelterPageData();
-		
+		ArrayList<Shelter> list=null;
 		try {
-			spd = new PrintShelterService().printShelter(city,page);
+			list = new PrintShelterService().getSearchName(key);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(spd.getList().size());
-		request.setAttribute("spd", spd);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/findShelter.jsp");
+		
+		request.setAttribute("list", list);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/NameSearchShelter.jsp");
 		rd.forward(request, response);
-		
-		
-		
-	
-		
-		
-		
 	}
 
 	/**
