@@ -37,6 +37,7 @@ public class PrintShelterServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int city = Integer.parseInt(request.getParameter("city"));
+		
 		int page;
 		try {	
 			page = Integer.parseInt(request.getParameter("page"));

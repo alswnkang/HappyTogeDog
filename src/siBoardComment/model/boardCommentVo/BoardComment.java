@@ -11,12 +11,14 @@ public class BoardComment {
 	private int boardRef;
 	private int boardCommentRef;
 	private Date boardCommentDate;
+	private String boardCommentDate2;
 	public BoardComment() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public BoardComment(int boardCommentNo, int boardCommentType, String boardCommentId, String boardCommentName,
-			String boardCommentContent, int boardRef, int boardCommentRef, Date boardCommentDate) {
+			String boardCommentContent, int boardRef, int boardCommentRef, Date boardCommentDate,
+			String boardCommentDate2) {
 		super();
 		this.boardCommentNo = boardCommentNo;
 		this.boardCommentType = boardCommentType;
@@ -26,6 +28,7 @@ public class BoardComment {
 		this.boardRef = boardRef;
 		this.boardCommentRef = boardCommentRef;
 		this.boardCommentDate = boardCommentDate;
+		this.boardCommentDate2 = boardCommentDate2;
 	}
 	public int getBoardCommentNo() {
 		return boardCommentNo;
@@ -74,6 +77,12 @@ public class BoardComment {
 	}
 	public void setBoardCommentDate(Date boardCommentDate) {
 		this.boardCommentDate = boardCommentDate;
+	}
+	public String getBoardCommentDate2() {
+		return boardCommentDate2;
+	}
+	public void setBoardCommentDate2(String boardCommentDate2) {
+		this.boardCommentDate2 = boardCommentDate2;
 	}
 	
 }

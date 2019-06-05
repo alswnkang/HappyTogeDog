@@ -48,7 +48,7 @@ public class SiAdoptionBoardUpdateOriginalServlet extends HttpServlet {
 		String adoptionBoardContent = mRequest.getParameter("adoptionBoardContent");		
 		String adoptionBoardFilename = mRequest.getOriginalFileName("adoptionBoardFilename");
 		String adoptionBoardFilepath = mRequest.getFilesystemName("adoptionBoardFilename");
-		AdoptionBoard a = new AdoptionBoard(0,0, 0, null, adoptionBoardName, adoptionBoardTitle, adoptionBoardContent, adoptionBoardFilename, adoptionBoardFilepath, null, 0, 0,null,null,null,null,null);
+		AdoptionBoard a = new AdoptionBoard(0,0, 0, null, adoptionBoardName, adoptionBoardTitle, adoptionBoardContent, adoptionBoardFilename, adoptionBoardFilepath, null,null, 0, 0,null,null,null,null,null);
 		a = new AdoptionBoardService().adoptionBoardUpdateOriginal(adoptionBoardNo,a);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/adoptionBoard/siAdoptionBoardUpdate.jsp");
 		request.setAttribute("adoptionBoard", a);

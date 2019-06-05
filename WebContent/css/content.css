@@ -48,6 +48,8 @@
 .comm-tbl.order-tbl input[type='text'].short, .comm-tbl.order-tbl input[type='password'].middle, 
 .comm-tbl.order-tbl input[type='file'].short, .comm-tbl.order-tbl select.short{width:20%;}
 
+.necessary.join{text-align:right; margin-bottom:10px;}
+.star.join{color:rgba(254,67,30); font-size:15px;}
 
 .common-tbl-btn-group{padding-top:30px; text-align:center;}
 .common-tbl-btn-group.join-btn-group{display:inline-block; text-align:right; padding-top:0; width:auto; max-width:20%; vertical-align:middle;}

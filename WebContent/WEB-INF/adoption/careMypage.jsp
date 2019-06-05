@@ -22,7 +22,7 @@
 		</div>
 			<table class="comm-tbl type2">
 				<tr>
-					<th>No.</th><th>신청자 아이디</th><th>신청자 이름</th><th>신청자 전화번호</th><th>방문 날짜</th><th>방문 시간</th><th>신청 날짜</th><th>신청 상태</th>
+					<th>No.</th><th>신청자 아이디</th><th>신청자 이름</th><th>신청자 전화번호</th><th>방문 날짜/시간</th><th>신청 날짜</th><th>승인 여부</th>
 				</tr>
 				<c:forEach items="${bp.list }" var="ba">
 					<tr onclick="view(${ba.no})" class="view">
@@ -30,9 +30,17 @@
 						<td>${ba.id }</td>
 						<td>${ba.name }</td>
 						<td>${ba.phone }</td>
-						<td>${ba.visitDate }</td>
-						<td>${ba.visitTime }</td>
-						<td>${ba.applyDate }</td>
+						<td>
+							${fn:substring(ba.visitDate,0,4)}년  
+							${fn:substring(ba.visitDate,5,7)}월  
+							${fn:substring(ba.visitDate,8,10)}일  
+							 ${ba.visitTime}
+						</td>
+						<td>
+							${fn:substring(ba.applyDate,0,4)}년  
+							${fn:substring(ba.applyDate,5,7)}월  
+							${fn:substring(ba.applyDate,8,10)}일  
+						</td>
 						<td>${ba.result }</td>
 					</tr>
 				</c:forEach>

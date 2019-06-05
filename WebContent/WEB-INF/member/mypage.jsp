@@ -1,129 +1,134 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-<body>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	<jsp:include page="/WEB-INF/common/header.jsp" />
-	<section id="content-wrapper">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%-- Header --%>
+<jsp:include page="/WEB-INF/common/header.jsp" />
+
+<style>
+	.common-tbl-box{padding:70px;}
+	.comm-tbl input[type='text'].middle, .comm-tbl input[type='password'].middle{width:50%;}
+	.comm-tbl select.short{width:30%;}
+	#post{display:inline-block; width:75%; vertical-align:middle;}
+</style>
+
+<%-- Content --%>
+<section id="content-wrapper">
+	<div class="area">
+		<h2 class="comm-content-tit">회원 정보 수정/탈퇴</h2>
 		<form action="/memberModify" method="post" onsubmit="return check()">
-			<div class="area"><input type="hidden" name="level" value="${m.memberLevel }">
-			<h1 class="comm-content-tit">회원 정보 수정/탈퇴</h1>
-				<table class="comm-tbl type2">
+			<div class="common-tbl-box">
+				<p class="necessary join"><b class="star join">*</b> 는 필수입력항목입니다. </p>
+				<input type="hidden" name="level" value="${m.memberLevel }">
+				<table class="comm-tbl view">
 					<tr>
-						<td>아이디</td>
+						<th>아이디</th>
 						<td><input type="text" name="id" value="${m.id }" readonly></td>
 					</tr>
 					<tr>
-						<td>비밀번호</td>
-						<td><input type="password" id="pw" name="pw" value="${m.pw }" class="modify">
-						<p id="p_checkPw" style="display:none">비밀번호 입력양식 확인</p>
+						<th>비밀번호 <b class="star join">*</b></th>
+						<td>
+							<input type="password" id="pw" name="pw" value="${m.pw }" class="modify middle">
+							<p id="p_checkPw" style="display:none">비밀번호 입력양식 확인</p>
 						</td>
-						
 					</tr>
 					<tr>
-						<td>비밀번호 확인</td>
-						<td><input type="password" id="pw_re" name="pw_re" value="${m.pw }" class="modify">
-						<p id="p_checkPw_re" style="display:none">비밀번호가 일치하지 않습니다</p>
+						<th>비밀번호 확인 <b class="star join">*</b></th>
+						<td>
+							<input type="password" id="pw_re" name="pw_re" value="${m.pw }" class="modify middle">
+							<p id="p_checkPw_re" style="display:none">비밀번호가 일치하지 않습니다</p>
 						</td>
-						
 					</tr>
 					<tr>
-						<td>코드</td>
+						<th>코드</th>
 						<td><input type="text" name="code" value="${m.code }" readonly></td>
 					</tr>
 					<tr>
-						<td>이름</td>
-						<td><input type="text" id="name" name="name" value="${m.name }" class="modify"></td>
+						<th>이름 <b class="star join">*</b></th>
+						<td><input type="text" id="name" name="name" value="${m.name }" class="modify middle"></td>
 					</tr>
 					<tr>
-						<td>전화번호</td>
+						<th>전화번호 <b class="star join">*</b></th>
 						<td>
-						<select name="phone1" id="phone1">
-							<option>${m.phone1 }</option>
-							<option>010</option>
-							<option>011</option>
-							<option>016</option>
-						</select>
-						<input type="text" id="phone2" name="phone2" value="${m.phone2 }" class="modify" maxlength="4">
-						<input type="text" id="phone3" name="phone3" value="${m.phone3 }" class="modify" maxlength="4">
+							<select name="phone1" id="phone1" class="short">
+								<option>${m.phone1 }</option>
+								<option>010</option>
+								<option>011</option>
+								<option>016</option>
+							</select> - 
+							<input type="text" id="phone2" name="phone2" value="${m.phone2 }" class="modify short" maxlength="4"> - 
+							<input type="text" id="phone3" name="phone3" value="${m.phone3 }" class="modify short" maxlength="4">
 						</td>
 					</tr>
 					<c:if test="${m.memberLevel == 0 }">
 					<tr>
-						<td>우편번호</td>
-						<td><input type="text" id="post" name="post" value="${m.post }" class="modify">
-						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+						<th>우편번호</th>
+						<td>
+							<input type="text" id="post" name="post" value="${m.post }" class="modify">
+							<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 						</td>
 					</tr>
 					<tr>
-						<td>주소</td>
-						<td><input type="text" id="address" name="address" value="${m.mainAddress }" class="modify">
+						<th>주소</th>
+						<td>
+							<input type="text" id="address" name="address" value="${m.mainAddress }" class="modify" style="margin-bottom:5px;">
 							<span id="guide" style="color:#999;display:none"></span>
-					<input type="text" id="detailAddress" placeholder="상세주소" name="detailAddress" value="${m.detailAddress }">
+							<input type="text" id="detailAddress" placeholder="상세주소" name="detailAddress" value="${m.detailAddress }">
 						</td>
 					</tr>
 					</c:if>
 					<tr>
-						<td>이메일</td>
+						<th>이메일</th>
 						<td><input type="text" name="email" value="${m.email }" readonly></td>
-						
 					</tr>
-					
 					<c:if test="${m.memberLevel == 1}">
 					<tr id="selectTime">
-						<td>시간</td>
+						<th>시간 <b class="star join">*</b></th>
 						<td>
-							
-								<select name="time" id="time">
-									<option id="startTime">${m.startTime }시</option>
-									<option value="08">08시</option>
-									<option value="09">09시</option>
-									<option value="10">10시</option>
-									<option value="11">11시</option>
-									<option value="12">12시</option>
-									<option value="13">13시</option>
-									<option value="14">14시</option>
-									<option value="15">15시</option>
-									<option value="16">16시</option>
-									<option value="17">17시</option>
-										
-								</select> 
-								~
-								<select name="endTime" id="endTime">
-									<option id="endTime2">${m.endTime }시</option>
-									<option value="09">09시</option>
-									<option value="10">10시</option>
-									<option value="11">11시</option>
-									<option value="12">12시</option>
-									<option value="13">13시</option>
-									<option value="14">14시</option>
-									<option value="15">15시</option>
-									<option value="16">16시</option>
-									<option value="17">17시</option>
-									<option value="18">18시</option>
-										
-									</select><br>
-								
-							</td>
-						</tr>
+							<select name="time" id="time" class="short">
+								<option id="startTime">${m.startTime }시</option>
+								<option value="08">08시</option>
+								<option value="09">09시</option>
+								<option value="10">10시</option>
+								<option value="11">11시</option>
+								<option value="12">12시</option>
+								<option value="13">13시</option>
+								<option value="14">14시</option>
+								<option value="15">15시</option>
+								<option value="16">16시</option>
+								<option value="17">17시</option>
+							</select> 
+							~
+							<select name="endTime" id="endTime" class="short">
+								<option id="endTime2">${m.endTime }시</option>
+								<option value="09">09시</option>
+								<option value="10">10시</option>
+								<option value="11">11시</option>
+								<option value="12">12시</option>
+								<option value="13">13시</option>
+								<option value="14">14시</option>
+								<option value="15">15시</option>
+								<option value="16">16시</option>
+								<option value="17">17시</option>
+								<option value="18">18시</option>
+							</select>
+						</td>
+					</tr>
 					</c:if>
-					
-				</table><br>
+				</table>
+			</div>
+			<div class="common-tbl-btn-group">
+				<button type="submit" class="btn-style1" value="수정하기">수정하기</button>
 				<c:if test="${m.memberLevel < 2}">
-				<button type="button" onclick="location.href='/delete?id=${m.id}'">탈퇴하기</button>
+				<button type="button" class="btn-style2" onclick="location.href='/delete?id=${m.id}'">탈퇴하기</button>
 				</c:if>
-				<input type="submit" value="수정하기">
-				<input type="reset" value="취소">
+				<button type="reset" class="btn-style3" value="취소">취소</button>
 			</div>
 		</form>
-	</section>
-	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	</div>
+</section>
+	
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
     function sample4_execDaumPostcode() {
         new daum.Postcode({
@@ -187,115 +192,114 @@
     }
 </script>
 	
-	<script>
-		$(document).ready(function(){
-			$('.modify').click(function(){
-				$(this).val("");
-				
-				
-			});
-			$('#time').change(function(){
-				var time = $('#time').val();
-				var no = $('#time').children().eq();
-				
-				for(var i=0;i<11;i++){
-				
-					if(time>=$('#endTime').children().eq(i).val()){
-						$('#endTime').children().eq(i).css('display','none');
-					}else if(time<=$('#endTime').children().eq(i).val()){
-						$('#endTime').children().eq(i).css('display','block');
-					}
+<script>
+	$(document).ready(function(){
+		$('.modify').click(function(){
+			$(this).val("");
+			
+			
+		});
+		$('#time').change(function(){
+			var time = $('#time').val();
+			var no = $('#time').children().eq();
+			
+			for(var i=0;i<11;i++){
+			
+				if(time>=$('#endTime').children().eq(i).val()){
+					$('#endTime').children().eq(i).css('display','none');
+				}else if(time<=$('#endTime').children().eq(i).val()){
+					$('#endTime').children().eq(i).css('display','block');
 				}
-			});
-			$('#endTime').change(function(){
-				var endTime = $('#endTime').val();
-				for(var j=0;j<11;j++){
-				if(endTime<=$('#time').children().eq(j).val()){
-					$('#time').children().eq(j).css('display','none');
-				}else if(endTime>=$('#time').children().eq(j).val()){
-					$('#time').children().eq(j).css('display','block');
-				}
-				}
-			});
+			}
+		});
+		$('#endTime').change(function(){
+			var endTime = $('#endTime').val();
+			for(var j=0;j<11;j++){
+			if(endTime<=$('#time').children().eq(j).val()){
+				$('#time').children().eq(j).css('display','none');
+			}else if(endTime>=$('#time').children().eq(j).val()){
+				$('#time').children().eq(j).css('display','block');
+			}
+			}
+		});
 
-			$("#time").mouseover(function(){
-				$('#startTime').css('display','none');
-			});
-			$("#endTime").mouseover(function(){
-				$('#endTime2').css('display','none');
-			});
-			
-			$('#pw').keyup(function(){
-				var pw = $('#pw').val();
-				var checkPw = /^.*(?=.{8,13})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
-				if(checkPw.test(pw)==true){
-					$('#p_checkPw').css('display','none');
-					
-				}else if(checkPw.test(pw)==false){
-					$('#p_checkPw').css('display','block');
-					$('#p_checkPw').css('color','red');
-				}
-			});
-			
-			$('#pw_re').keyup(function(){
-				var pw = $('#pw').val();
-				var pw_re = $('#pw_re').val();
-				if(pw != pw_re){
-					$('#p_checkPw_re').css('display','block');
-					$('#p_checkPw_re').css('color','red');
-				}else{
-					$('#p_checkPw_re').css('display','none');
-				}
-			});
+		$("#time").mouseover(function(){
+			$('#startTime').css('display','none');
+		});
+		$("#endTime").mouseover(function(){
+			$('#endTime2').css('display','none');
+		});
+		
+		$('#pw').keyup(function(){
+			var pw = $('#pw').val();
+			var checkPw = /^.*(?=.{8,13})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+			if(checkPw.test(pw)==true){
+				$('#p_checkPw').css('display','none');
+				
+			}else if(checkPw.test(pw)==false){
+				$('#p_checkPw').css('display','inline-block');
+				$('#p_checkPw').css('color','red');
+			}
 
 		});
-		function check(){
-			var id_re = /^[a-zA-Z0-9]{4,12}$/;
-			var checkPw = /^.*(?=.{8,13})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
-			if($('#pw').val() == ""){
-				alert("비밀번호를 입력해주세요");
-				$('#pw').focus();
-				return false;
+		
+		$('#pw_re').keyup(function(){
+			var pw = $('#pw').val();
+			var pw_re = $('#pw_re').val();
+			if(pw != pw_re){
+				$('#p_checkPw_re').css('display','inline-block');
+				$('#p_checkPw_re').css('color','red');
+			}else{
+				$('#p_checkPw_re').css('display','none');
 			}
-			if(checkPw.test($('#pw').val())==false){
-				alert("비밀번호 양식이 틀렸습니다");
-				$('#pw').focus();
-				return false;
-			}
-			if($('#name').val() == ""){
-				alert("이름을 입력해주세요");
-				$('#name').focus();
-				return false;
-			}
-			if($('#phone2').val() == ""){
-				alert("전화번호를 입력해주세요");
-				$('#phone2').focus();
-				return false;
-			}
-			if($('#phone3').val() == ""){
-				alert("전화번호를 입력해주세요");
-				$('#phone3').focus();
-				return false;
-			}
-			if($('#post').val() == ""){
-				alert("우편번호를 입력해주세요");
-				$('#post').focus();
-				return false;
-			}
-			if($('#address').val() == ""){
-				alert("주소를 입력해주세요");
-				$('#address').focus();
-				return false;
-			}
-			if($('#detailAddress').val() == ""){
-				alert("상세주소를 입력해주세요");
-				$('#detailAddress').focus();
-				return false;
-			}
+		});
+
+	});
+	function check(){
+		var id_re = /^[a-zA-Z0-9]{4,12}$/;
+		var checkPw = /^.*(?=.{8,13})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+		if($('#pw').val() == ""){
+			alert("비밀번호를 입력해주세요");
+			$('#pw').focus();
+			return false;
 		}
-		
-		
-	</script>
+		if(checkPw.test($('#pw').val())==false){
+			alert("비밀번호 양식이 틀렸습니다");
+			$('#pw').focus();
+			return false;
+		}
+		if($('#name').val() == ""){
+			alert("이름을 입력해주세요");
+			$('#name').focus();
+			return false;
+		}
+		if($('#phone2').val() == ""){
+			alert("전화번호를 입력해주세요");
+			$('#phone2').focus();
+			return false;
+		}
+		if($('#phone3').val() == ""){
+			alert("전화번호를 입력해주세요");
+			$('#phone3').focus();
+			return false;
+		}
+		if($('#post').val() == ""){
+			alert("우편번호를 입력해주세요");
+			$('#post').focus();
+			return false;
+		}
+		if($('#address').val() == ""){
+			alert("주소를 입력해주세요");
+			$('#address').focus();
+			return false;
+		}
+		if($('#detailAddress').val() == ""){
+			alert("상세주소를 입력해주세요");
+			$('#detailAddress').focus();
+			return false;
+		}
+	}
+</script>
 	
-</body>
-</html>
+<%-- Footer --%>
+<jsp:include page="/WEB-INF/common/footer.jsp" />

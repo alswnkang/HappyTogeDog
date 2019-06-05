@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import member.model.vo.Member;
 import volunteer.model.service.VoluntaryService;
 import volunteer.model.vo.VoluntaryApplyBoard;
 import volunteer.model.vo.VoluntaryApplyData;
@@ -32,8 +33,10 @@ public class VoluntaryApplyListServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession(false);
 		
-		String id = request.getParameter("id");
-		session.setAttribute("id", id);
+		//String id = request.getParameter("id");
+		//session.setAttribute("id", id);
+		String id = ((Member)session.getAttribute("member")).getId();
+		
 		
 		int reqPage;
 		try {

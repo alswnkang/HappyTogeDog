@@ -45,24 +45,7 @@
 						<tr>
 							<th>발견시간</th>
 							<th>
-								<select name="shappenDateY" style="width:100px;">
-									<option>년</option>
-									<c:forEach items="${yList }" var="y"  varStatus="i">
-										<option value="${y }">${y }</option>
-									</c:forEach>
-								</select>년
-								<select name="shappenDateM" style="width:50px;">
-									<option>월</option>
-									<c:forEach items="${mList }" var="y"  varStatus="i">
-										<option value="${y }">${y }</option>
-									</c:forEach>
-								</select>월
-								<select name="shappenDateD" style="width:50px;">
-									<option>일</option>
-									<c:forEach items="${dList }" var="y"  varStatus="i">
-										<option value="${y }">${y }</option>
-									</c:forEach>
-								</select>일
+								<input type="date" name="startDay" class="datepicker search-day">
 							</th>
 							
 						</tr>

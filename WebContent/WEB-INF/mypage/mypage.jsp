@@ -30,7 +30,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="/voluntaryApplyList?id=${member.id }">
+					<a href="/voluntaryApplyList">
 						<div class="img-thum">
 							<span><img src="/img/mypage_icon02.png"></span>
 						</div>
@@ -92,7 +92,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="/volunteerMyList?id=${member.id }">
+					<a href="/volunteerMyList">
 						<div class="img-thum">
 							<span><img src="/img/mypage_icon02.png"></span>
 						</div>
