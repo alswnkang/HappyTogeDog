@@ -65,7 +65,8 @@
 							<button type="button" id="applyCheckBtn" class="btn-style1">신청하기</button><!-- 신청 마감시 버튼 변경->신청 마감 누르면 alert('신청이 마감되었습니다.') -->
 						</c:if>
 					</c:if>
-					<button type="button" class="btn-style2" onclick="location.href='/volunteerList'">목록으로</button>
+					<!-- <button type="button" class="btn-style2" onclick="location.href='/volunteerList'">목록으로</button> -->
+					<button type="button" class="btn-style2" onclick="goBack();">목록으로</button>
 					<c:if test="${sessionScope.member.code == vr.code}">
 						<button type="button" class="btn-style3" onclick="location.href='/voluntaryUpdate?no=${vr.no}'">수정</button>
 						<button type="button" id="deleteBtn" class="btn-style3">삭제</button>
@@ -162,6 +163,11 @@
 
 <%-- script --%>
 <script>
+//목록으로 버튼 누를시 뒤로가기
+function goBack(){
+	window.history.back();
+}
+
 // 파일 다운로드
 function fileDownload(filename,filepath){
 	var url = "/voluntaryFileDownload";
