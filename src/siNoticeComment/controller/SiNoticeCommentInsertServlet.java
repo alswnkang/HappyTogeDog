@@ -36,7 +36,7 @@ public class SiNoticeCommentInsertServlet extends HttpServlet {
 		String noticeCommentName = request.getParameter("memberName");
 		String noticeCommentContent = request.getParameter("noticeCommentContent");
 		int noticeRef = Integer.parseInt(request.getParameter("noticeNo"));
-		NoticeComment nc = new NoticeComment(0, noticeCommentType, noticeCommentId, noticeCommentName, noticeCommentContent, noticeRef, 0, null);
+		NoticeComment nc = new NoticeComment(0, noticeCommentType, noticeCommentId, noticeCommentName, noticeCommentContent, noticeRef, 0, null,null);
 		int result = new NoticeCommentService().commentInsert(nc);
 		if(result>0) {
 			request.setAttribute("msg", "댓글등록성공");

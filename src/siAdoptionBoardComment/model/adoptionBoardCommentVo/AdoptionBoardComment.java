@@ -11,13 +11,14 @@ public class AdoptionBoardComment {
 	private int adoptionBoardRef;
 	private int adoptionBoardCommentRef;
 	private Date adoptionBoardCommentDate;
+	private String adoptionBoardCommentDate2;
 	public AdoptionBoardComment() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public AdoptionBoardComment(int adoptionBoardCommentNo, int adoptionBoardCommentType, String adoptionBoardCommentId,
 			String adoptionBoardCommentName, String adoptionBoardCommentContent, int adoptionBoardRef,
-			int adoptionBoardCommentRef, Date adoptionBoardCommentDate) {
+			int adoptionBoardCommentRef, Date adoptionBoardCommentDate, String adoptionBoardCommentDate2) {
 		super();
 		this.adoptionBoardCommentNo = adoptionBoardCommentNo;
 		this.adoptionBoardCommentType = adoptionBoardCommentType;
@@ -27,6 +28,7 @@ public class AdoptionBoardComment {
 		this.adoptionBoardRef = adoptionBoardRef;
 		this.adoptionBoardCommentRef = adoptionBoardCommentRef;
 		this.adoptionBoardCommentDate = adoptionBoardCommentDate;
+		this.adoptionBoardCommentDate2 = adoptionBoardCommentDate2;
 	}
 	public int getAdoptionBoardCommentNo() {
 		return adoptionBoardCommentNo;
@@ -75,6 +77,12 @@ public class AdoptionBoardComment {
 	}
 	public void setAdoptionBoardCommentDate(Date adoptionBoardCommentDate) {
 		this.adoptionBoardCommentDate = adoptionBoardCommentDate;
+	}
+	public String getAdoptionBoardCommentDate2() {
+		return adoptionBoardCommentDate2;
+	}
+	public void setAdoptionBoardCommentDate2(String adoptionBoardCommentDate2) {
+		this.adoptionBoardCommentDate2 = adoptionBoardCommentDate2;
 	}
 	
 }
