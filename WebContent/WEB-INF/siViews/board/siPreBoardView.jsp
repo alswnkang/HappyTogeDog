@@ -29,7 +29,7 @@
 					</tr>
 					<c:if test="${not empty vd.b.boardFilename }">
 						<tr>
-							<td colspan="2">
+							<td colspan="2" style="border-bottom: 0px;">
 								<a style="float:right;" href="javascript:fileDownload('${vd.b.boardFilename }','${vd.b.boardFilepath }')">${vd.b.boardFilename }</a>
 								<br/>
 								<img src='/siUpload/board/${vd.b.boardFilename }'width="500px"/>
@@ -37,25 +37,36 @@
 							</td>
 						</tr>
 					</c:if>
-					<tr>
-						<td colspan="2">${vd.b.boardContent }</td>
-					</tr>
+					<c:if test="${not empty sessionScope.member.id }">
+					<!-- 로그인을 안하면 댓글리스트만 조회가능, 등록칸이 보이지 않도록 설정 -->
+						<tr>
+							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">${vd.b.boardContent }</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="border-top: 0px;">
+								<button type="button" class="cmtBtn" style="float:right;">댓글</button>
+							</td>
+						</tr>
+					</c:if>
+					<c:if test="${empty sessionScope.member.id }">
+					<!-- 로그인을 안하면 댓글리스트만 조회가능, 등록칸이 보이지 않도록 설정 -->
+						<tr>
+							<td colspan="2" style="border-top: 0px;">${vd.b.boardContent }</td>
+						</tr>
+					</c:if>
 				</table>
 				<form action="/siPreBoardCommentInsert" method="post">
 					<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
 					<input type="hidden" name="memberName" value="${sessionScope.member.name }"/>
 					<input type="hidden" name="boardNo" value="${vd.b.boardNo }"/>
 					<input type="hidden" name="boardType" value="1"/>
-					<table class="comm-tbl view" id="commentTb">
-						<c:if test="${not empty sessionScope.member.id }">
-						<!-- 로그인을 안하면 댓글리스트만 조회가능, 등록칸이 보이지 않도록 설정 -->
-							<tr>
-								<td colspan="4" style="text-align:center">
-									댓글입력 <input type="text" name="boardCommentContent" value=""/>
-									<button type="submit">등록</button>
-								</td>
-							</tr>
-						</c:if>
+					<table class="comm-tbl view" id="commentTb" style="display:none;">
+						<tr>
+							<td colspan="4" style="text-align:center">
+								댓글입력 <input type="text" name="boardCommentContent" value=""/>
+								<button type="submit">등록</button>
+							</td>
+						</tr>
 					</table>
 				</form>
 				<form id="cmtUpdateForm" action="/siPreBoardCommentUpdate" method="post">
@@ -64,8 +75,8 @@
 					<table class="comm-tbl view">
 						<c:forEach items="${vd.list }" var="list">
 							<c:if test="${list.boardRef == vd.b.boardNo}">
-								<input type="hidden" name="boardCommentNo" value="${list.boardCommentNo }"/>
 							<!-- 해당 게시글에 입력된 댓글만 출력되도록 -->
+								<input type="hidden" name="boardCommentNo" value="${list.boardCommentNo }"/>
 								<tr>
 									<td width="20%">${list.boardCommentName }(${list.boardCommentId })</td>
 									<td width="65%">
@@ -110,6 +121,11 @@
 	</section>
 </body>
 <script>
+	$(document).ready(function(){
+		$('.cmtBtn').click(function(){
+			$('#commentTb').show();
+		});
+	});
 	$(document).ready(function(){
 		$('button').eq(1).click(function(){
 			$(this).parent().prev().children().eq(0).hide();

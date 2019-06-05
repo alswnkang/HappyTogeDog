@@ -28,8 +28,11 @@
 						<td>작성일 : ${vd.a.adoptionBoardDate2 }</td>
 					</tr>
 					<c:if test="${not empty vd.a.adoptionBoardFilename }">
+					<!-- 파일이 있을 때 -->
+						<c:if test="${not empty sessionScope.member.id }">
+						<!-- 로그인 된 경우 사진과 내용, 댓글 버튼 노출 -->
 						<tr>
-							<td colspan="2" style="text-align:center;">
+							<td colspan="2" style="text-align:center;border-bottom: 0px;">
 								<a style="float:right;" href="javascript:fileDownload('${vd.a.adoptionBoardFilename }','${vd.a.adoptionBoardFilepath }');">${vd.a.adoptionBoardFilename }</a>
 								<br/>
 								<img src='/siUpload/adoptionBoard/${vd.a.adoptionBoardFilename }'width="500px"/>
@@ -38,13 +41,49 @@
 								${vd.a.adoptionBoardContent }
 							</td>
 						</tr>
+							<tr>
+								<td colspan="2" class="cmtBtn" style="border-top: 0px;">
+									<button type="button" style="float:right;">댓글</button>
+								</td>
+							</tr>
+						</c:if>
+						<c:if test="${empty sessionScope.member.id }">
+						<!-- 로그인 안된 경우 사진과 내용만 -->
+							<tr>
+								<td colspan="2" style="text-align:center;">
+									<a style="float:right;" href="javascript:fileDownload('${vd.a.adoptionBoardFilename }','${vd.a.adoptionBoardFilepath }');">${vd.a.adoptionBoardFilename }</a>
+									<br/>
+									<img src='/siUpload/adoptionBoard/${vd.a.adoptionBoardFilename }'width="500px"/>
+									<!-- 파일이 있으면 넘겨준 No를 기준으로 게시물의 이름을 불러와서 출력 -->
+									<br/><br/><br/>
+									${vd.a.adoptionBoardContent }
+								</td>
+							</tr>
+						</c:if>
 					</c:if>
 					<c:if test="${empty vd.a.adoptionBoardFilename }">
-						<tr>
-							<td colspan="2" style="text-align:center;">
-								${vd.a.adoptionBoardContent }
-							</td>
-						</tr>
+					<!-- 파일이 없을 때 -->
+						<c:if test="${not empty sessionScope.member.id }">
+						<!-- 로그인 된 경우 내용과 댓글 버튼 노출 -->
+							<tr>
+								<td colspan="2" style="text-align:center;border-bottom: 0px;">
+									${vd.a.adoptionBoardContent }
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="cmtBtn" style="border-top: 0px;">
+									<button type="button" style="float:right;">댓글</button>
+								</td>
+							</tr>
+						</c:if>
+						<c:if test="${empty sessionScope.member.id }">
+						<!-- 로그인 안된 경우 내용만 -->
+							<tr>
+								<td colspan="2" style="text-align:center;">
+									${vd.a.adoptionBoardContent }
+								</td>
+							</tr>
+						</c:if>
 					</c:if>
 				</table>
 				<form action="/siAdoptionBoardCommentInsert" method="post">
@@ -52,15 +91,13 @@
 					<input type="hidden" name="memberName" value="${sessionScope.member.name }"/>
 					<input type="hidden" name="adoptionBoardNo" value="${vd.a.adoptionBoardNo }"/>
 					<input type="hidden" name="adoptionBoardType" value="2"/>
-					<table class="comm-tbl view" id="commentTb">
-						<c:if test="${not empty sessionScope.member.id }">
-							<tr>
-								<td colspan="4" style="text-align:center">
-									댓글입력 <input type="text" name="adoptionBoardCommentContent" value=""/>
-									<button type="submit">등록</button>
-								</td>
-							</tr>
-						</c:if>
+					<table class="comm-tbl view" id="commentTb" style="display:none;">
+						<tr>
+							<td colspan="4" style="text-align:center">
+								댓글입력 <input type="text" name="adoptionBoardCommentContent" value=""/>
+								<button type="submit">등록</button>
+							</td>
+						</tr>
 					</table>
 				</form>
 				<form id="cmtUpdateForm" action="/siAdoptionBoardCommentUpdate" method="post">
@@ -114,6 +151,11 @@
 	</section>
 </body>
 <script>
+	$(document).ready(function(){
+		$('.cmtBtn').click(function(){
+			$('#commentTb').show();
+		});
+	});
 	$(document).ready(function(){
 		$('button').eq(1).click(function(){
 			$(this).parent().prev().children().eq(0).hide();

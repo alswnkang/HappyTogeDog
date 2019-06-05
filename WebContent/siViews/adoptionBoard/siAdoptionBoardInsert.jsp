@@ -26,7 +26,7 @@
 						</colgroup>
 						<tr>
 							<th>제목</th>
-							<td><input type="text" name="adoptionBoardTitle"/></td>
+							<td><input type="text" name="adoptionBoardTitle" placeholder="글 제목" maxlength="50"/></td>
 						</tr>
 						<tr>
 							<th>파일첨부</th>
@@ -34,7 +34,7 @@
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><textarea type="text" name="adoptionBoardContent"></textarea></td>
+							<td><textarea type="text" name="adoptionBoardContent" placeholder="글 내용" maxlength="2048"></textarea></td>
 						</tr>
 					</table>
 					<div class="common-tbl-btn-group">

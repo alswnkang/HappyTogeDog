@@ -29,7 +29,7 @@
 					</tr>
 					<c:if test="${not empty vd.n.noticeFilename }">
 						<tr>
-							<td colspan="2">
+							<td colspan="2" style="border-bottom: 0px;">
 								<a style="float:right;" href="javascript:fileDownload('${vd.n.noticeFilename }','${vd.n.noticeFilepath }');">${vd.n.noticeFilename }</a>
 								<br/>
 								<img src='/siUpload/notice/${vd.n.noticeFilename }'width="500px"/>
@@ -37,24 +37,34 @@
 							</td>
 						</tr>
 					</c:if>
-					<tr>
-						<td colspan="2">${vd.n.noticeContent }</td>
-					</tr>
+					<c:if test="${not empty sessionScope.member.id }">
+						<tr >
+							<td colspan="2" style="border-bottom: 0px;border-top: 0px;"">${vd.n.noticeContent }</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="border-top: 0px;">
+								<button type="button" class="cmtBtn" style="float:right;">댓글</button>
+							</td>
+						</tr>
+					</c:if>
+					<c:if test="${ empty sessionScope.member.id }">
+						<tr>
+							<td colspan="2" style="border-top: 0px;">${vd.n.noticeContent }</td>
+						</tr>
+					</c:if>
 				</table>
 				<form action="/siNoticeCommentInsert" method="post">
 					<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
 					<input type="hidden" name="memberName" value="${sessionScope.member.name }"/>
 					<input type="hidden" name="noticeNo" value="${vd.n.noticeNo }"/>
 					<input type="hidden" name="noticeType" value="0"/>
-					<table class="comm-tbl view" id="commentTb">
-						<c:if test="${not empty sessionScope.member.id }">
-							<tr>
-								<td colspan="4" style="text-align:center">
-									댓글입력 <input type="text" name="noticeCommentContent" value=""/>
-									<button type="submit">등록</button>
-								</td>
-							</tr>
-						</c:if>
+					<table class="comm-tbl view" id="commentTb" style="display:none;">
+						<tr>
+							<td colspan="4" style="text-align:center;">
+								댓글입력 <input type="text" name="noticeCommentContent" value="" maxlength="50"/>
+								<button type="submit">등록</button>
+							</td>
+						</tr>
 					</table>
 				</form>
 				<form id="cmtUpdateForm" action="/siNoticeCommentUpdate" method="post">
@@ -106,6 +116,11 @@
 	</section>
 </body>
 <script>
+	$(document).ready(function(){
+		$('.cmtBtn').click(function(){
+			$('#commentTb').show();
+		});
+	});
 	$(document).ready(function(){
 		$('button').eq(1).click(function(){
 			$(this).parent().prev().children().eq(0).hide();
