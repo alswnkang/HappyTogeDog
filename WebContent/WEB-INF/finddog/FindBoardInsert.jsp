@@ -82,7 +82,7 @@
 					</table>
 					<div class="common-tbl-btn-group">
 						<button type="submit" class="btn-style1">등록하기</button>
-						<button type="reset" class="btn-style2" onclick="location.href='/takeBoard'">취소</button>
+						<button type="reset" class="btn-style2" onclick="location.href='/findBoard'">취소</button>
 					</div>
 				</form>
 			</div>

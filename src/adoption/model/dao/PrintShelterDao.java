@@ -95,10 +95,7 @@ public class PrintShelterDao {
 		pstmt.setString(2, m.getName());
 		pstmt.setString(3, m.getPhone());
 		pstmt.setString(4, m.getAddress());
-		
-	
-		
-		
+
 		int city=0;
 		int result=0;
 		String[] array = m.getAddress().split(" ");
