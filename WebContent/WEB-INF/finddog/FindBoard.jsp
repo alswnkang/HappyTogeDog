@@ -41,12 +41,13 @@
 							</tr>
 						</c:forEach>
 						<tr>
-							<td colspan="5" style="text-align:center;">
-								<div>${bp.pageNavi }</div>
-							</td>
+							
 						</tr>
 					</tbody>
 				</table>
+				<div class="paging">
+					${bp.pageNavi }
+				</div>
 				<form action="/takeBoardSearch" method="post">
 					<div class="board-search-box">
 						<select name="searchWord">

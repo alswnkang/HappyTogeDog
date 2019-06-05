@@ -29,8 +29,16 @@
 							<td>${vd.b.boardTitle }</td>
 						</tr>
 						<tr>
-							<td>작성자 : ${vd.b.boardName }(${vd.b.boardId })</td>
-							<td>작성일 : ${vd.b.boardDate2 }</td>
+							<th>발견날짜</th>
+							<td>${vd.b.happenDate }</td>
+						</tr>
+						<tr>
+							<th>품종</th>
+							<td>${vd.b.dogKind }</td>
+						</tr>
+						<tr>
+							<th>작성자</th>
+							<td>${vd.b.boardName }(${vd.b.boardId })</td>
 						</tr>
 						<tr>
 							<th>내용</th>
@@ -55,7 +63,7 @@
 					</c:if>
 						
 					</table>
-					<form action="/siPreBoardCommentInsert" method="post">
+					<form action="/takeBoardCommentInsert" method="post">
 					<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
 					<input type="hidden" name="memberName" value="${sessionScope.member.name }"/>
 					<input type="hidden" name="boardNo" value="${vd.b.boardNo }"/>
