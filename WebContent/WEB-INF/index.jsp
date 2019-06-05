@@ -17,7 +17,7 @@
 			<div id="background-video" class="background-video">
 				<div id="video_area">
 					<video type="video/mp4" autoplay loop controls muted>
-						<source src="/img/mainVideo04.mp4" type="video/mp4">
+						<source src="/img/mainVideo05.mp4" type="video/mp4">
 					</video>
 				</div>
 			</div>

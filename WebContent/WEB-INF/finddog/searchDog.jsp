@@ -26,12 +26,12 @@
 	<div class="area">
 		<h2 class="comm-content-tit">유기동물 조회 서비스</h2>
 		<div id="searchDog" class="common-tbl-box"><!-- id는 바꿔서 복붙 -->
-			<form action="" method="post">
+			
 				<table class="comm-tbl type2"><!-- 신청목록게시판은 한페이지에 게시물 최대 10개 노출 -->
 					<colgroup>
 						<col width="5%">
 						<col width="">
-						<col width="10%">
+						<col width="15%">
 						<col width="18%">
 						<col width="10%">
 						<col width="25%">
@@ -40,21 +40,19 @@
 					<thead>
 						<tr>
 							<th>No.</th>
-							<th>공고번호</th>
-							<th>품종</th>
-							<th>발견장소</th>
+							<th>사진</th>
 							<th>보호센터</th>
-							<th>보호주소</th>
+							<th>발견장소</th>
+							<th>발견시간</th>
 							<th>특징</th>
 						</tr>
 					</thead>
 					<tbody >
-					<c:forEach items="${list }" var="m" varStatus="i">
+					<c:forEach items="${sdpd.list }" var="m" varStatus="i">
 					<tr>
 						<td>${i.count }</td>
-						<td><img src=${m.filename }></td>
+						<td><img src=${m.filename } style="height: 200px; width: 200px;" ></td>
 						<td>${m.careNm }</td>
-						<td>${m.careTel }</td>
 						<td>${m.happenPlace }</td>
 						<td>${m.happenDt }</td>
 						<td>${m.noticeNo }</td>
@@ -73,6 +71,45 @@
 		 			<a href="">5</a>
 		 			<a href="" class="paging-arrow next-arrrow"><img src="/img/right_arrow.png" style="width:30px;height:30px;"></a>
 		 		</div>
+		 		
+		 		<table class="comm-tbl type2"><!-- 신청목록게시판은 한페이지에 게시물 최대 10개 노출 -->
+					<colgroup>
+						<col width="5%">
+						<col width="">
+						<col width="15%">
+						<col width="18%">
+						<col width="10%">
+						<col width="25%">
+						<col width="15%">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>No.</th>
+							<th>사진</th>
+							<th>보호센터</th>
+							<th>발견장소</th>
+							<th>발견시간</th>
+							<th>특징</th>
+						</tr>
+					</thead>
+					<tbody >
+					<c:forEach items="${sdpd2.list }" var="m" varStatus="i">
+					<tr>
+						<td>${i.count }</td>
+						<td><img src=${m.filename } style="height: 200px; width: 200px;" ></td>
+						<td>${m.careNm }</td>
+						<td>${m.happenPlace }</td>
+						<td>${m.happenDt }</td>
+						<td>${m.noticeNo }</td>
+					</tr>
+					
+					</c:forEach>
+					</tbody>
+				</table>
+		 		
+		 		
+		 		
+		 		
 		 		<!-- 검색박스 -->
 		 		<div class="board-search-box">
 					<select name="search_item"><!-- option 세부항목은 각자 알아서 넣으시면 됩니다. -->
@@ -82,7 +119,7 @@
 					<input placeholder="검색어를 입력해주세요." type="search" name="search_order" class="search-word" value="">
 					<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
 				</div>
-			</form>
+			
 		</div>
 	</div>
 </section>

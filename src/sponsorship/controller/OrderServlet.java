@@ -159,6 +159,7 @@ public class OrderServlet extends HttpServlet {
 				if(startDay == null) {
 					Date sday = new Date();
 					sday.setMonth(sday.getMonth()-1);
+					
 					startDay = f.format(sday);
 				}
 				if(endDay == null) {
