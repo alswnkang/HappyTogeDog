@@ -119,7 +119,7 @@ public class NoticeDao {
 		Notice n = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from board where board_no=?";
+		String query = "select board_no,board_type,board_id,board_name,board_title,board_content,board_filename,board_filepath,board_date,to_char(board_date,'yyyy/MM/dd HH:mi') as board_date2,board_count,board_secret,board_pw,board_prdcode,dog_kind,happen_city,happen_date from board where board_no=?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, noticeNo);
@@ -135,6 +135,7 @@ public class NoticeDao {
 				n.setNoticeFilename(rset.getString("board_filename"));
 				n.setNoticeFilepath(rset.getString("board_filepath"));
 				n.setNoticeDate(rset.getDate("board_date"));
+				n.setNoticeDate2(rset.getString("board_date2"));
 				n.setNoticeCount(rset.getInt("board_count"));
 				n.setNoticeSecret(rset.getInt("board_secret"));
 				n.setNoticePw(rset.getString("board_pw"));

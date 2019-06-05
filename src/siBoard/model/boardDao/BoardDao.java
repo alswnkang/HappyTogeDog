@@ -118,7 +118,7 @@ public class BoardDao {
 		Board b = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from board where board_no=?";
+		String query = "select board_no,board_type,board_id,board_name,board_title,board_content,board_filename,board_filepath,board_date,to_char(board_date,'yyyy/MM/dd HH:mi') as board_date2,board_count,board_secret,board_pw,board_prdcode,dog_kind,happen_city,happen_date from board where board_no=?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, boardNo);
@@ -134,6 +134,7 @@ public class BoardDao {
 				b.setBoardFilename(rset.getString("board_filename"));
 				b.setBoardFilepath(rset.getString("board_filepath"));
 				b.setBoardDate(rset.getDate("board_date"));
+				b.setBoardDate2(rset.getString("board_date2"));
 				b.setBoardCount(rset.getInt("board_count"));
 				b.setBoardSecret(rset.getInt("board_secret"));
 				b.setBoardPw(rset.getString("board_pw"));
