@@ -70,22 +70,22 @@ public class MemberService {
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		//이전 버튼 생성
 		if(pageNo != 1) {
-			pageNavi += "<a class='btn' href='/adminPage?reqPage="+(pageNo-1)+"'>이전</a>";
+			pageNavi += "<a class='paging-arrow prev-arrow' href='/adminPage?reqPage="+(pageNo-1)+"'>이전</a>";
 			
 			// 페이지 번호 버튼 생성 (1 2 3 4 5)
 		}
 		int i = 1;
 		while(!(i++>pageNaviSize || pageNo>totalPage)) {
 			if(reqPage == pageNo) {
-				pageNavi += "<span class=selectPage>"+pageNo+"</span>";
+				pageNavi += "<span class='cur'>"+pageNo+"</span>";
 			}else {
-				pageNavi += "<a class='btn' href='/adminPage?reqPage="+pageNo+"'>"+pageNo+"</a>";
+				pageNavi += "<a class='selectPage' href='/adminPage?reqPage="+pageNo+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
 		// 다음 버튼 생성
 		if(pageNo <= totalPage) {
-			pageNavi += "<a class='btn' href='/adminPage?reqPage="+pageNo+"'>다음</a>";
+			pageNavi += "<a class='paging-arrow next-arrow' href='/adminPage?reqPage="+pageNo+"'>다음</a>";
 		}
 		
 		MemberPageData pd = new MemberPageData(list,pageNavi);
@@ -121,22 +121,22 @@ public class MemberService {
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		//이전 버튼 생성
 		if(pageNo != 1) {
-			pageNavi += "<a class='btn' href='/searchUser?reqPage="+(pageNo-1)+"&select="+select+"&search="+search+"'>이전</a>";
+			pageNavi += "<a class='paging-arrow prev-arrow' href='/searchUser?reqPage="+(pageNo-1)+"&select="+select+"&search="+search+"'>이전</a>";
 			
 			// 페이지 번호 버튼 생성 (1 2 3 4 5)
 		}
 		int i = 1;
 		while(!(i++>pageNaviSize || pageNo>totalPage)) {
 			if(reqPage == pageNo) {
-				pageNavi += "<span class=selectPage>"+pageNo+"</span>";
+				pageNavi += "<span class='cur'>"+pageNo+"</span>";
 			}else {
-				pageNavi += "<a class='btn' href='/searchUser?reqPage="+pageNo+"&select="+select+"&search="+search+"'>"+pageNo+"</a>";
+				pageNavi += "<a class='selectPage' href='/searchUser?reqPage="+pageNo+"&select="+select+"&search="+search+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
 		// 다음 버튼 생성
 		if(pageNo <= totalPage) {
-			pageNavi += "<a class='btn' href='/searchUser?reqPage="+pageNo+"&select="+select+"&search="+search+"'>다음</a>";
+			pageNavi += "<a class='paging-arrow next-arrow' href='/searchUser?reqPage="+pageNo+"&select="+select+"&search="+search+"'>다음</a>";
 		}
 		
 		MemberPageData pd = new MemberPageData(list,pageNavi);
@@ -171,22 +171,22 @@ public class MemberService {
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		//이전 버튼 생성
 		if(pageNo != 1) {
-			pageNavi += "<a class='btn' href='/seeUser?reqPage="+(pageNo-1)+"&user="+user+"'>이전</a>";
+			pageNavi += "<a class='paging-arrow prev-arrow' href='/seeUser?reqPage="+(pageNo-1)+"&user="+user+"'>이전</a>";
 			
 			// 페이지 번호 버튼 생성 (1 2 3 4 5)
 		}
 		int i = 1;
 		while(!(i++>pageNaviSize || pageNo>totalPage)) {
 			if(reqPage == pageNo) {
-				pageNavi += "<span class=selectPage>"+pageNo+"</span>";
+				pageNavi += "<span class='cur'>"+pageNo+"</span>";
 			}else {
-				pageNavi += "<a class='btn' href='/seeUser?reqPage="+pageNo+"&user="+user+"'>"+pageNo+"</a>";
+				pageNavi += "<a class='selectPage' href='/seeUser?reqPage="+pageNo+"&user="+user+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
 		// 다음 버튼 생성
 		if(pageNo <= totalPage) {
-			pageNavi += "<a class='btn' href='/seeUser?reqPage="+pageNo+"&user="+user+"'>다음</a>";
+			pageNavi += "<a class='paging-arrow next-arrow' href='/seeUser?reqPage="+pageNo+"&user="+user+"'>다음</a>";
 		}
 		
 		MemberPageData pd = new MemberPageData(list,pageNavi);

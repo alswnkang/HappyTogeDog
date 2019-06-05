@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -15,7 +15,7 @@
 <%-- Content --%>
 <section id="content-wrapper">
 	<div class="area">
-		<h2 class="comm-content-tit">My Page</h2>
+		<h2 class="comm-content-tit">회원 정보 수정/탈퇴</h2>
 		<form action="/memberModify" method="post" onsubmit="return check()">
 			<div class="common-tbl-box">
 				<p class="necessary join"><b class="star join">*</b> 는 필수입력항목입니다. </p>
@@ -240,6 +240,7 @@
 				$('#p_checkPw').css('display','inline-block');
 				$('#p_checkPw').css('color','red');
 			}
+
 		});
 		
 		$('#pw_re').keyup(function(){
@@ -293,7 +294,7 @@
 			return false;
 		}
 		if($('#detailAddress').val() == ""){
-			alert("주소를 입력해주세요");
+			alert("상세주소를 입력해주세요");
 			$('#detailAddress').focus();
 			return false;
 		}
