@@ -187,11 +187,11 @@ public class PrintShelterDao {
 		
 		while(rset.next()) {
 			Shelter s = new Shelter();
-			s.setAddr(rset.getString(""));
-			s.setCode(rset.getString(""));
-			s.setName(rset.getString(""));
-			s.setPhone(rset.getString(""));
-			s.setLevel(rset.getInt(""));
+			s.setAddr(rset.getString("addr"));
+			s.setCode(rset.getString("code"));
+			s.setName(rset.getString("name"));
+			s.setPhone(rset.getString("phone"));
+			s.setLevel(rset.getInt("lev"));
 			
 		}
 		
