@@ -96,11 +96,11 @@
 					<c:forEach items="${sdpd2.list }" var="m" varStatus="i">
 					<tr>
 						<td>${i.count }</td>
-						<td><img src=${m.filename } style="height: 200px; width: 200px;" ></td>
-						<td>${m.careNm }</td>
-						<td>${m.happenPlace }</td>
-						<td>${m.happenDt }</td>
-						<td>${m.noticeNo }</td>
+						<td><img src=${m.boardFilename } style="height: 200px; width: 200px;" ></td>
+						<td>${m.boardName }</td>
+						<td>${m.happenCity }</td>
+						<td>${m.happenDate }</td>
+						<td>${m.boardNo }</td>
 					</tr>
 					
 					</c:forEach>

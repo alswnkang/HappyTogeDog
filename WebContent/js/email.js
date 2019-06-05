@@ -7,7 +7,7 @@ function send_email(){
     }
     var url = "/mailSend";
     var title ="send_email";
-    var status ="left=500px, top=100px, width=300px,height=200px,menubar=no,status=no,scrollbars=yes";
+    var status ="left=500px, top=100px, width=500px,height=300px,menubar=no,status=no,scrollbars=yes";
     var popup = window.open("",title,status);    
     send_emailFrm.send_email.value=email;
     send_emailFrm.send_level.value=level;
