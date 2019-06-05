@@ -43,7 +43,16 @@
 					</tr>
 					<tr>
 						<td>전화번호</td>
-						<td><input type="text" id="phone" name="phone" value="${m.phone }" class="modify"></td>
+						<td>
+						<select name="phone1" id="phone1">
+							<option>${m.phone1 }</option>
+							<option>010</option>
+							<option>011</option>
+							<option>016</option>
+						</select>
+						<input type="text" id="phone2" name="phone2" value="${m.phone2 }" class="modify" maxlength="4">
+						<input type="text" id="phone3" name="phone3" value="${m.phone3 }" class="modify" maxlength="4">
+						</td>
 					</tr>
 					<c:if test="${m.memberLevel == 0 }">
 					<tr>
@@ -54,9 +63,9 @@
 					</tr>
 					<tr>
 						<td>주소</td>
-						<td><input type="text" id="address" name="address" value="${m.address }" class="modify">
+						<td><input type="text" id="address" name="address" value="${m.mainAddress }" class="modify">
 							<span id="guide" style="color:#999;display:none"></span>
-					<input type="text" id="detailAddress" placeholder="상세주소" name="detailAddress" value="">
+					<input type="text" id="detailAddress" placeholder="상세주소" name="detailAddress" value="${m.detailAddress }">
 						</td>
 					</tr>
 					</c:if>
@@ -67,10 +76,10 @@
 					</tr>
 					
 					<c:if test="${m.memberLevel == 1}">
-					<tr>
+					<tr id="selectTime">
 						<td>시간</td>
 						<td>
-							<div id="selectTime">
+							
 								<select name="time" id="time">
 									<option id="startTime">${m.startTime }시</option>
 									<option value="08">08시</option>
@@ -100,7 +109,7 @@
 									<option value="18">18시</option>
 										
 									</select><br>
-								</div>
+								
 							</td>
 						</tr>
 					</c:if>
@@ -258,9 +267,14 @@
 				$('#name').focus();
 				return false;
 			}
-			if($('#phone').val() == ""){
+			if($('#phone2').val() == ""){
 				alert("전화번호를 입력해주세요");
-				$('#phone').focus();
+				$('#phone2').focus();
+				return false;
+			}
+			if($('#phone3').val() == ""){
+				alert("전화번호를 입력해주세요");
+				$('#phone3').focus();
 				return false;
 			}
 			if($('#post').val() == ""){
@@ -271,6 +285,11 @@
 			if($('#address').val() == ""){
 				alert("주소를 입력해주세요");
 				$('#address').focus();
+				return false;
+			}
+			if($('#detailAddress').val() == ""){
+				alert("주소를 입력해주세요");
+				$('#detailAddress').focus();
 				return false;
 			}
 		}

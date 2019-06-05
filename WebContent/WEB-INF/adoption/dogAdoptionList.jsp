@@ -43,6 +43,10 @@
 			</div>
 		</form>
 		<ul class="main-adopt-review-list clearfix">
+			<!-- 가져온 리스트가 없을 경우 문구 띄워주기 -->
+			<c:if test="${empty sdpd.list }">
+				<p id="emptyNotice">검색결과가 없습니다.</p>
+			</c:if>
 			<c:forEach items="${sdpd.list }" var="m" varStatus="i">
 				<li>
 					<form action="/dogInfo" method="post" name="form_${i.count}">
@@ -108,7 +112,7 @@
 							$(this).prop("selected",true);
 						}
 					});
-					/* 검색후 시에 따른 군고정과 군 리스트 가져오기 */
+					/* 검색후 도시에 따른 군고정과 군 리스트 가져오기 */
 					getGun();
 				},
 				error : function(){

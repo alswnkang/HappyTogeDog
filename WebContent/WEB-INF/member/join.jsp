@@ -1,157 +1,165 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<body>
-	<jsp:include page="/WEB-INF/common/header.jsp" />
-	<section id="content-wrapper">
-		
+<%-- Header --%>
+<jsp:include page="/WEB-INF/common/header.jsp" />
+
+<style>
+	.common-tbl-box{padding:70px;}
+	.comm-tbl input[type='text'].middle, .comm-tbl input[type='password'].middle{width:50%;}
+	#post{display:inline-block; width:75%; vertical-align:middle;}
+</style>
+
+<%-- Content --%>
+<section id="content-wrapper">
+	<div class="area">
+		<h1 id="h_title1" class="comm-content-tit">일반 회원정보 입력</h1>
+		<h1 id="h_title2" style="display:none" class="comm-content-tit">보호소 회원정보 입력</h1>
 		<form action="/memberJoin" method="post" onsubmit="return check()">
-			<div class="area">
-				<h1 id="h_title1" class="comm-content-tit">일반 회원정보 입력</h1>
-				<h1 id="h_title2" style="display:none" class="comm-content-tit">보호소 회원정보 입력</h1>
-				<table class="comm-tbl type2">
-				<tr>
-				<td>아이디</td>
-				<td><input type="text" name="id" id="id" placeholder = "4~12자리 영/숫자">
-				<p id="p_checkId" style="display:none">아이디 입력양식 확인</p>
-				</td>
-				<td><input type="button" id="checkId" value="중복체크"></td>
-				</tr>
-				
-				<tr>
-				
-				<td>비밀번호</td>
-				<td><input type="password" name="pw" id="pw" placeholder = "영/숫자를 포함한 8~13자리">
-				<p id="p_checkPw" style="display:none">비밀번호 입력양식 확인</p></td>
-				</tr>
-				
-				<tr>
-				<td>비밀번호 확인</td>
-				<td><input type="password" name="pw_re" id="pw_re">
-				<p id="p_checkPw_re" style="display:none">비밀번호가 일치하지 않습니다</p>
-				</td>
-				</tr>
-				
-				<tr>
-				<td>이름</td>
-				<td><input type="text" name="name" id="name"></td>
-				</tr>
-				
-				<tr>
-				<td>전화번호</td>
-				<td><input type="text" name="phone" id="phone"></td>
-				</tr>
-				
-				<c:if test="${level == 0 }">
-				<tr>
-				<td>우편번호</td>
-				<td><input type="text" id="post" placeholder="우편번호" name="post"></td>
-				<td><input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"></td>
-				</tr>
-				
-				<tr>
-				<td>주소</td>
-				<td><input type="text" id="address" placeholder="도로명주소" name="address">
-					<span id="guide" style="color:#999;display:none"></span>
-					</td>
-				<td><input type="text" id="detailAddress" placeholder="상세주소" name="detailAddress" value=""></td>
-				</tr>
-					
-				</c:if>
+			<div class="common-tbl-box">
+				<table class="comm-tbl view">
+					<colgroup>
+						<col width="20%">
+						<col width="/">
+					</colgroup>
+					<tr>
+						<th>아이디</th>
+						<td>
+							<input type="text" name="id" id="id" class="middle" placeholder="4~12자리 영/숫자">
+							<p id="p_checkId" style="display:none">아이디 입력양식을 확인하세요</p>
+							<div class="common-tbl-btn-group join-btn-group">
+								<button type="button" id="checkId" value="중복체크" class="btn-style2 small">중복체크</button>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th>비밀번호</th>
+						<td>
+							<input type="password" name="pw" id="pw" class="middle" placeholder="영/숫자를 포함한 8~13자리">
+							<p id="p_checkPw" style="display:none">비밀번호 입력양식을 확인하세요</p>
+						</td>
+					</tr>
+					<tr>
+						<th>비밀번호 확인</th>
+						<td>
+							<input type="password" name="pw_re" id="pw_re" class="middle">
+							<p id="p_checkPw_re" style="display:none">비밀번호가 일치하지 않습니다</p>
+						</td>
+					</tr>
+					<tr>
+						<th>이름</th>
+						<td><input type="text" name="name" id="name"></td>
+					</tr>
+					<tr>
+						<th>전화번호</th>
+						<td>
+							<select name="phone1" id="phone1">
+								<option>010</option>
+								<option>011</option>
+								<option>016</option>
+							</select>
+						-
+						<input type="text" name="phone2" id="phone2" maxlength="4">
+						-
+						<input type="text" name="phone3" id="phone3" maxlength="4">
+						</td>
+					</tr>
+					<c:if test="${level == 0 }">
+					<tr>
+						<th>우편번호</th>
+						<td>
+							<input type="text" id="post" placeholder="우편번호" name="post">
+							<div class="common-tbl-btn-group join-btn-group">
+								<button type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" class="btn-style2 small">우편번호 찾기</button>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th>주소</th>
+						<td>
+							<input type="text" id="address" placeholder="도로명주소" name="address" style="margin-bottom:5px;">
+							<span id="guide" style="color:#999;display:none"></span>
+							<input type="text" id="detailAddress" placeholder="상세주소" name="detailAddress" value="">
+						</td>
+					</tr>
+					</c:if>
 					<input type="hidden" id="careCity" name="careCity" value="">
 					<input type="hidden" id="careArea" name="careArea" value="">
-				<tr>
-				<td>EMAIL</td>
-				<td><input type="text" name="email" id="email" value="${email }" readonly></td>
-				</tr>
-				
-				<input type="hidden" name="level" id="level" value="${level}">
-				<tr>
-				<td>방문시간</td>
-				
-				<div id="selectTime">
-				<td>
-				<select name="time" id="time">
-					<option value="08">08시</option>
-					<option value="09">09시</option>
-					<option value="10">10시</option>
-					<option value="11">11시</option>
-					<option value="12">12시</option>
-					<option value="13">13시</option>
-					<option value="14">14시</option>
-					<option value="15">15시</option>
-					<option value="16">16시</option>
-					<option value="17">17시</option>
-				</select> 
-				~
-				<select name="endTime" id="endTime">
-					<option>시간선택</option>
-					<option value="09">09시</option>
-					<option value="10">10시</option>
-					<option value="11">11시</option>
-					<option value="12">12시</option>
-					<option value="13">13시</option>
-					<option value="14">14시</option>
-					<option value="15">15시</option>
-					<option value="16">16시</option>
-					<option value="17">17시</option>
-					<option value="18">18시</option>
-					
-				</select>
-				</td>
-				</div>
-				</tr>	
-					
-			<c:if test="${level == 1}">
-			<tr>
-			<td>시 선택</td> 
-			<td><select name="city" id="city">
-				<option>도시선택</option>
-				<c:forEach items="${list }" var="m" varStatus="i">
-						<option value="${m.cityCode }">${m.cityName }</option>
-				</c:forEach>
-			</select>
-			</td>
-			</tr>
-			
-			<tr>
-			<td>
-			구 선택
-			</td>
-			<td>
-			<select name="area" id="area">
-				<option>지역구선택</option>
-			</select>
-			</td>
-			</tr>
-			
-			<tr>
-			<td>
-			보호소 선택 
-			</td>
-			<td>
-			<select name="care" id="care">
-				<option>보호소선택</option>
-			</select>
-			</td>
-			</tr>
-			</c:if>
-			</table>
-			<input type="submit" value="회원가입" id="sub">
-			<input type="reset" value="취소" id="reset">
-		</div>
-			
+					<tr>
+						<th>EMAIL</th>
+						<td><input type="text" name="email" id="email" value="${email }" readonly></td>
+					</tr>
+					<input type="hidden" name="level" id="level" value="${level}">
+					<c:if test="${level > 0 }">
+					<tr id="selectTime">
+						<th>방문시간</th>
+						<td>
+							<select name="time" id="time" class="middle">
+								<option value="08">08시</option>
+								<option value="09">09시</option>
+								<option value="10">10시</option>
+								<option value="11">11시</option>
+								<option value="12">12시</option>
+								<option value="13">13시</option>
+								<option value="14">14시</option>
+								<option value="15">15시</option>
+								<option value="16">16시</option>
+								<option value="17">17시</option>
+							</select> 
+							~
+							<select name="endTime" id="endTime" class="middle">
+								<option>시간선택</option>
+								<option value="09">09시</option>
+								<option value="10">10시</option>
+								<option value="11">11시</option>
+								<option value="12">12시</option>
+								<option value="13">13시</option>
+								<option value="14">14시</option>
+								<option value="15">15시</option>
+								<option value="16">16시</option>
+								<option value="17">17시</option>
+								<option value="18">18시</option>
+							</select>
+						</td>
+					</tr>	
+					</c:if>	
+					<c:if test="${level == 1}">
+					<tr>
+						<th>시 선택</th> 
+						<td>
+							<select name="city" id="city">
+								<option>도시선택</option>
+								<c:forEach items="${list }" var="m" varStatus="i">
+										<option value="${m.cityCode }">${m.cityName }</option>
+								</c:forEach>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>구 선택</th>
+						<td>
+							<select name="area" id="area">
+								<option>지역구선택</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>보호소 선택 </th>
+						<td>
+							<select name="care" id="care">
+								<option>보호소선택</option>
+							</select>
+						</td>
+					</tr>
+					</c:if>
+				</table>
+			</div>
+			<div class="common-tbl-btn-group">
+				<button type="submit" value="회원가입" class="btn-style1" id="sub">회원가입</button>
+				<button type="reset" value="취소" class="btn-style2" id="reset">취소</button>
+			</div>
 		</form>
-	
-		
 	</section>
 	
 	
@@ -323,8 +331,6 @@
 				$('#h_title2').css('display','block');		//level이 0보다 클때 block
 				$('#h_title1').css('display','none');		//level이 0보다 클때 none
 				
-			}else if(level == 0){
-				$('#selectTime').css('display','none');		//level이 0일때 none
 			}
 			
 			$('#id').keyup(function(){
@@ -334,7 +340,7 @@
 					$('#p_checkId').css('display','none');
 					
 				}else if(id_re.test(id)==false){
-					$('#p_checkId').css('display','block');
+					$('#p_checkId').css('display','inline-block');
 					$('#p_checkId').css('color','red');
 				}
 			});
@@ -346,7 +352,7 @@
 					$('#p_checkPw').css('display','none');
 					
 				}else if(checkPw.test(pw)==false){
-					$('#p_checkPw').css('display','block');
+					$('#p_checkPw').css('display','inline-block');
 					$('#p_checkPw').css('color','red');
 				}
 			});
@@ -355,7 +361,7 @@
 				var pw = $('#pw').val();
 				var pw_re = $('#pw_re').val();
 				if(pw != pw_re){
-					$('#p_checkPw_re').css('display','block');
+					$('#p_checkPw_re').css('display','inline-block');
 					$('#p_checkPw_re').css('color','red');
 				}else{
 					$('#p_checkPw_re').css('display','none');
@@ -416,9 +422,14 @@
 				$('#name').focus();
 				return false;
 			}
-			if($('#phone').val() == ""){
+			if($('#phone2').val() == ""){
 				alert("전화번호를 입력해주세요");
-				$('#phone').focus();
+				$('#phone2').focus();
+				return false;
+			}
+			if($('#phone3').val() == ""){
+				alert("전화번호를 입력해주세요");
+				$('#phone3').focus();
 				return false;
 			}
 			if($('#post').val() == ""){
@@ -431,6 +442,11 @@
 				$('#address').focus();
 				return false;
 			}
+			if($('#detailAddress').val() == ""){
+				alert("주소를 입력해주세요");
+				$('#detailAddress').focus();
+				return false;
+			}
 			if($('#email').val() == ""){
 				alert("이메일을 입력해주세요");
 				$('#email').focus();
@@ -439,6 +455,6 @@
 		}
 	
 	</script>
-</body>
-	<jsp:include page="/WEB-INF/common/footer.jsp" />
-</html>
+	
+<%-- Footer --%>
+<jsp:include page="/WEB-INF/common/footer.jsp" />

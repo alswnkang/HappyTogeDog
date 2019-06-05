@@ -42,11 +42,15 @@ public class DeleteServlet extends HttpServlet {
 				HttpSession session = request.getSession(false);
 				session.invalidate();
 				System.out.println("탈퇴완료");
-				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+				request.setAttribute("msg", "탈퇴 완료");
+				request.setAttribute("loc", "/");
 				rd.forward(request, response);
 			}else {
 				System.out.println("탈퇴실패");
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/mypage.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+				request.setAttribute("msg", "탈퇴 실패");
+				request.setAttribute("loc", "/");
 				rd.forward(request, response);
 			}
 		} catch (SQLException e) {
