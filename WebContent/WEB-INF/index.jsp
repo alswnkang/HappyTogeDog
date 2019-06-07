@@ -87,6 +87,7 @@
 									</div>
 								</a>
 							</li>
+							
 							<li>
 								<a href="/dogInfo?careNm=%28%EC%82%AC%29%ED%95%9C%EB%8F%99%EB%B3%B4&careAddr=%EA%B2%BD%EA%B8%B0%EB%8F%84+%EC%95%88%EC%82%B0%EC%8B%9C+%EC%83%81%EB%A1%9D%EA%B5%AC+%EC%B2%AD%EA%B3%A1%EA%B8%B8+50+&careTel=031-296-0124&kindCd=%5B%EA%B0%9C%5D+%EB%B9%A0%EC%82%90%EC%9A%A9&age=2017%28%EB%85%84%EC%83%9D%29&sexCd=F&specialMark=%EC%B9%A9%EC%9E%88%EC%9C%BC%EB%82%98+%EC%97%86%EB%8A%94%EC%97%B0%EB%9D%BD%EC%B2%98%2C%EC%9D%B4%EB%A6%84+%EB%B9%A0%EC%82%90&neuterYn=U&filename=http%3A%2F%2Fwww.animal.go.kr%2Ffiles%2Fshelter%2F2019%2F04%2F201905021005946.jpg">
 									<div class="img-thum">
@@ -96,29 +97,30 @@
 								</a>
 							</li>
 							<li>
+								<a href="/dogInfo?careNm=위더스+동물보호센터&careAddr=경기도+여주시+능서면+능서공원길+34+&careTel=031-882-4381&kindCd=%5B개%5D+시베리안+허스키&age=2018%28년생%29&sexCd=F&specialMark=온순&neuterYn=N&filename=http%3A%2F%2Fwww.animal.go.kr%2Ffiles%2Fshelter%2F2019%2F05%2F20190529210542.jpg">
+									<div class="img-thum">
+                                        <span style="background:url('/img/main_dog16.jpg') no-repeat center center; background-size:cover;"></span>
+                                        <em class="best-prd-plus btn-effect01 effect"><img src="/img/paw_icon.png"></em>
+									</div>
+								</a>
+							</li>
+							<li>
 								<a href="/dogInfo?careNm=한국동물구조관리협회&careAddr=경기도+양주시+남면+상수리+410-1&careTel=031-867-9119&kindCd=%5B개%5D+스피츠&age=2016%28년생%29&sexCd=F&specialMark=눈곱약간.+코검정.+털빠짐.+짖음.+낑낑거림.+사람좋아함.+활발함.+단미안됨.+털상태양호.&neuterYn=U&filename=http%3A%2F%2Fwww.animal.go.kr%2Ffiles%2Fshelter%2F2019%2F06%2F201906051906133.jpg">
 									<div class="img-thum">
-										<span style="background:url('/img/main_dog15.jpg') no-repeat center center; background-size:cover;"></span>
-										<em class="best-prd-plus btn-effect01 effect"><img src="/img/paw_icon.png"></em>
+                                        <span style="background:url('/img/main_dog15.jpg') no-repeat center center; background-size:cover;"></span>
+                                        <em class="best-prd-plus btn-effect01 effect"><img src="/img/paw_icon.png"></em>
 									</div>
 								</a>
 							</li>
 							<li>
 								<a href="/dogInfo?careNm=%EC%9C%84%EB%8D%94%EC%8A%A4+%EB%8F%99%EB%AC%BC%EB%B3%B4%ED%98%B8%EC%84%BC%ED%84%B0&careAddr=%EA%B2%BD%EA%B8%B0%EB%8F%84+%EC%97%AC%EC%A3%BC%EC%8B%9C+%EB%8A%A5%EC%84%9C%EB%A9%B4+%EB%8A%A5%EC%84%9C%EA%B3%B5%EC%9B%90%EA%B8%B8+34+&careTel=031-882-4381&kindCd=%5B%EA%B0%9C%5D+%EC%9A%94%ED%81%AC%EC%85%94+%ED%85%8C%EB%A6%AC%EC%96%B4&age=2017%28%EB%85%84%EC%83%9D%29&sexCd=F&specialMark=%EB%A7%A4%EC%9A%B0%EC%98%A8%EC%88%9C&neuterYn=N&filename=http%3A%2F%2Fwww.animal.go.kr%2Ffiles%2Fshelter%2F2019%2F06%2F20190604190616.jpg">
 									<div class="img-thum">
-										<span style="background:url('/img/main_dog7.jpg') no-repeat center center; background-size:cover;"></span>
-										<em class="best-prd-plus btn-effect01 effect"><img src="/img/paw_icon.png"></em>
+                                        <span style="background:url('/img/main_dog7.jpg') no-repeat center center; background-size:cover;"></span>
+                                        <em class="best-prd-plus btn-effect01 effect"><img src="/img/paw_icon.png"></em>
 									</div>
 								</a>
 							</li>
-							<li>
-								<a href="/dogInfo?careNm=위더스+동물보호센터&careAddr=경기도+여주시+능서면+능서공원길+34+&careTel=031-882-4381&kindCd=%5B개%5D+시베리안+허스키&age=2018%28년생%29&sexCd=F&specialMark=온순&neuterYn=N&filename=http%3A%2F%2Fwww.animal.go.kr%2Ffiles%2Fshelter%2F2019%2F05%2F20190529210542.jpg">
-									<div class="img-thum">
-										<span style="background:url('/img/main_dog16.jpg') no-repeat center center; background-size:cover;"></span>
-										<em class="best-prd-plus btn-effect01 effect"><img src="/img/paw_icon.png"></em>
-									</div>
-								</a>
-							</li>
+							
 							<li>
 								<a href="/dogInfo?careNm=%ED%99%94%EC%B2%9C%EA%B5%B0%EB%86%8D%EC%97%85%EA%B8%B0%EC%88%A0%EC%84%BC%ED%84%B0&careAddr=%EA%B0%95%EC%9B%90%EB%8F%84+%ED%99%94%EC%B2%9C%EA%B5%B0+%ED%99%94%EC%B2%9C%EC%9D%8D+%EC%82%B0%EC%B2%9C%EC%96%B4%EA%B8%B8+206+%ED%99%94%EC%B2%9C%EA%B5%B0%EB%86%8D%EC%97%85%EA%B8%B0%EC%88%A0%EC%84%BC%ED%84%B0&careTel=033-440-2941&kindCd=%5B%EA%B0%9C%5D+%EB%AF%B9%EC%8A%A4%EA%B2%AC&age=2016%28%EB%85%84%EC%83%9D%29&sexCd=M&specialMark=%ED%8A%B9%EC%9D%B4%EC%82%AC%ED%95%AD%EC%97%86%EC%9D%8C.&neuterYn=U&filename=http%3A%2F%2Fwww.animal.go.kr%2Ffiles%2Fshelter%2F2019%2F06%2F201906070906562.jpg">
 									<div class="img-thum">
