@@ -67,14 +67,14 @@
 						</tr>
 					</table>
 				</form>
-				<form id="cmtUpdateForm" action="/siNoticeCommentUpdate" method="post">
-					<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
-					<input type="hidden" name="noticeNo" value="${vd.n.noticeNo }"/>
-					<table class="comm-tbl view">
-						<c:forEach items="${vd.list }" var="list">
-							<c:if test="${list.noticeRef == vd.n.noticeNo}">
-								<input type="hidden" name="noticeCommentNo" value="${list.noticeCommentNo }"/>
+				<c:forEach items="${vd.list }" var="list" varStatus="i">
+					<form action="/siNoticeCommentUpdate" method="post">
+						<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
+						<input type="hidden" name="noticeNo" value="${vd.n.noticeNo }"/>
+						<table class="comm-tbl view">
+							<c:if test="${list.noticeRef == vd.n.noticeNo && list.noticeCommentRef == 0 }">
 							<!-- 해당 게시글에 입력된 댓글만 출력되도록 -->
+								<input type="hidden" name="noticeCommentNo" value="${list.noticeCommentNo }"/>
 								<tr>
 									<td width="20%">${list.noticeCommentName }(${list.noticeCommentId })</td>
 									<td width="65%">
@@ -90,22 +90,50 @@
 											<button class="cancelBtn" type="reset" style="display:none;">취소</button>
 											/
 											<a href="/siNoticeCommentDelete?noticeCommentNo=${list.noticeCommentNo }&noticeNo=${vd.n.noticeNo }">삭제</a>
+											/
 										</c:if>
 										<c:if test="${sessionScope.member.id!=list.noticeCommentId && sessionScope.member.id eq 'admin' }">
 										<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
 											<a href="/siNoticeCommentDelete?noticeCommentNo=${list.noticeCommentNo }&noticeNo=${vd.n.noticeNo }">삭제</a>
+											/
+										</c:if>
+										<c:if test="${not empty sessionScope.member.id }"><!-- 로그인시 노출 -->
+											<button type="button" class="reCmtBtn">대댓글</button>
 										</c:if>
 									</td>
 								</tr>
 							</c:if>
-						</c:forEach>
-					</table>
-				</form>
+							<c:forEach items="${vd.list }" var="clist"><!-- 대댓글 조회를 위해 forEach 내부에 forEach 사용 -->
+								<c:if test="${clist.noticeCommentRef == list.noticeCommentNo && not empty clist.noticeCommentRef && clist.noticeRef == vd.n.noticeNo }">
+									<tr>
+										<td width="20%"> └─ ${clist.noticeCommentName }(${clist.noticeCommentId })</td>
+										<td width="65%">
+											<span>${clist.noticeCommentContent }</span>
+										</td>
+										<td width="11%">
+											${clist.noticeCommentDate2 }<br/>
+										</td>
+									</tr>
+								</c:if>
+							</c:forEach>
+							<tr style="display:none;"><!-- 대댓글 버튼 클릭시 입력창 노출 -->
+								<td> -> re : ${sessionScope.member.name }(${sessionScope.member.id })</td>
+								<td>
+									<input type="text" name="noticeReCommentContent" class="noticeReCommentContent${list.noticeCommentNo }"  placeholder="대댓글을 입력하세요" maxlenth="50">
+								</td>
+								<td>
+									<button onclick="sendReCmt('${list.noticeCommentNo }')" type="button">대댓글 등록하기</button>
+								</td>
+							</tr>
+						</table>							
+					</form>
+				</c:forEach>
 				<form action="/siNoticeUpdateOriginal?noticeNo=${vd.n.noticeNo }" method="post" enctype="multipart/form-data">
 					<div class="common-tbl-btn-group" style="text-align:right;">
 						<c:if test='${sessionScope.member.id==vd.n.noticeId }'>
-						<!-- 회원 아이디와 글 작성자의 아이디가 같거나 관리자라면 수정/삭제 버튼 생성 -->
 							<button type="submit" class="btn-style3">수정</button>
+						</c:if>
+						<c:if test='${sessionScope.member.id==vd.n.noticeId || sessionScope.member.id eq "admin" }'>
 							<button type="button" id="noticeDelBtn" class="btn-style3">삭제</button>
 						</c:if>
 						<button type="button" class="btn-style2" onclick="location.href='/siNotice'">목록으로 이동</button>
@@ -116,26 +144,36 @@
 	</section>
 </body>
 <script>
-	$(document).ready(function(){
+	function sendReCmt(noticeCommentNo){	//대댓글 전송
+		var memberId = '${sessionScope.member.id }';		
+		var memberName = '${sessionScope.member.name }';
+		var noticeCommentContent = $(".noticeReCommentContent"+noticeCommentNo).val();
+		location.href="/siNoticeReCommentInsert?noticeType=0"+"&noticeRef="+${vd.n.noticeNo }
+			+"&memberId="+memberId+"&memberName="+memberName+"&noticeCommentContent="+noticeCommentContent
+			+"&noticeNo="+${vd.n.noticeNo }+"&noticeCommentRef="+noticeCommentNo;
+	}
+	$(document).ready(function(){	//대댓글 입력 tr 노출
+		$('.reCmtBtn').click(function(){
+			$(this).hide();
+			$(this).parent().parent().parent().children().last().show();
+		});
+	});
+	$(document).ready(function(){// 댓글 입력창 노출
 		$('.cmtBtn').click(function(){
 			$('#commentTb').show();
 		});
 	});
-	$(document).ready(function(){
+	$(document).ready(function(){//댓글 수정,삭제 버튼 
 		$('.mdfBtn').click(function(){
 			$(this).parent().prev().children().eq(0).hide();
 			$(this).parent().prev().children().eq(1).show();
-			$(this).html('등록').attr("id","cmtUpdate");
+			$(this).html('등록').attr("class","cmtUpdate");
 			$(this).nextAll().show();
 			$('.cancelBtn').click(function(){
 				location.href='/siNoticeView?noticeNo='+${vd.n.noticeNo };
 			});
-			$("#cmtUpdate").click(function(){
-				$(this).parent().prev().children().eq(0).show();
-				$(this).parent().prev().children().eq(1).hide();
-				$(this).nextAll().hide();
-				$(this).html('수정').removeAttr("id");
-				$('#cmtUpdateForm').submit();
+			$(".cmtUpdate").click(function(){
+				$(this).parents('form').submit();
 			});
 		});
 	});

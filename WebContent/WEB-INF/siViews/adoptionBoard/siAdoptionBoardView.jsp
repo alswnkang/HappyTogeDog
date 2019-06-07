@@ -100,14 +100,14 @@
 						</tr>
 					</table>
 				</form>
-				<form id="cmtUpdateForm" action="/siAdoptionBoardCommentUpdate" method="post">
-					<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
-					<input type="hidden" name="adoptionBoardNo" value="${vd.a.adoptionBoardNo }"/>
-					<table class="comm-tbl view">
-						<c:forEach items="${vd.list }" var="list">
-							<c:if test="${list.adoptionBoardRef == vd.a.adoptionBoardNo}">
-								<input type="hidden" name="adoptionBoardCommentNo" value="${list.adoptionBoardCommentNo }"/>
+				<c:forEach items="${vd.list }" var="list">
+					<form action="/siAdoptionBoardCommentUpdate" method="post">
+						<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
+						<input type="hidden" name="adoptionBoardNo" value="${vd.a.adoptionBoardNo }"/>
+						<table class="comm-tbl view">
+							<c:if test="${list.adoptionBoardRef == vd.a.adoptionBoardNo && list.adoptionBoardCommentRef == 0 }">
 							<!-- 해당 게시글에 입력된 댓글만 출력되도록 -->
+								<input type="hidden" name="adoptionBoardCommentNo" value="${list.adoptionBoardCommentNo }"/>
 								<tr>
 									<td width="20%">${list.adoptionBoardCommentName }(${list.adoptionBoardCommentId })</td>
 									<td width="65%">
@@ -123,21 +123,48 @@
 											<button class="cancelBtn" type="reset" style="display:none;">취소</button>
 											/
 											<a href="/siAdoptionBoardCommentDelete?adoptionBoardCommentNo=${list.adoptionBoardCommentNo }&adoptionBoardNo=${vd.a.adoptionBoardNo }">삭제</a>
+											/
 										</c:if>
 										<c:if test="${sessionScope.member.id!=list.adoptionBoardCommentId && sessionScope.member.id eq 'admin' }">
 										<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
 											<a href="/siAdoptionBoardCommentDelete?adoptionBoardCommentNo=${list.adoptionBoardCommentNo }&adoptionBoardNo=${vd.a.adoptionBoardNo }">삭제</a>
+											/
+										</c:if>
+										<c:if test="${not empty sessionScope.member.id }"><!-- 로그인시 노출 -->
+											<button type="button" class="reCmtBtn">대댓글</button>
 										</c:if>
 									</td>
 								</tr>
 							</c:if>
-						</c:forEach>
-					</table>
-				</form>
+							<c:forEach items="${vd.list }" var="clist"><!-- 대댓글 조회를 위해 forEach 내부에 forEach 사용 -->
+								<c:if test="${clist.adoptionBoardCommentRef == list.adoptionBoardCommentNo && not empty clist.adoptionBoardCommentRef && clist.adoptionBoardRef == vd.a.adoptionBoardNo }">
+									<tr>
+										<td width="20%"> └─ ${clist.adoptionBoardCommentName }(${clist.adoptionBoardCommentId })</td>
+										<td width="65%">
+											<span>${clist.adoptionBoardCommentContent }</span>
+										</td>
+										<td width="11%">
+											${clist.adoptionBoardCommentDate2 }<br/>
+										</td>
+									</tr>
+								</c:if>
+							</c:forEach>
+							<tr style="display:none;"><!-- 대댓글 버튼 클릭시 입력창 노출 -->
+								<td> -> re : ${sessionScope.member.name }(${sessionScope.member.id })</td>
+								<td>
+									<input type="text" name="adoptionBoardReCommentContent" class="adoptionBoardReCommentContent${list.adoptionBoardCommentNo }"  placeholder="대댓글을 입력하세요" maxlenth="50">
+								</td>
+								<td>
+									<button onclick="sendReCmt('${list.adoptionBoardCommentNo }')" type="button">대댓글 등록하기</button>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</c:forEach>
 				<form action="/siAdoptionBoardUpdateOriginal?adoptionBoardNo=${vd.a.adoptionBoardNo }" method="post" enctype="multipart/form-data">
 					<div class="common-tbl-btn-group" style="text-align:right;">
 						<c:if test='${sessionScope.member.id==vd.a.adoptionBoardId }'>
-						<!-- 회원 아이디와 글 작성자의 아이디가 같거나 관리자라면 수정/삭제 버튼 생성 -->
+						<!-- 회원 아이디와 글 작성자의 아이디가 같을때만 수정버튼 생성-->
 							<button type="submit" class="btn-style3">수정</button>
 						</c:if>
 						<c:if test='${sessionScope.member.id==vd.a.adoptionBoardId || sessionScope.member.id eq "admin" }'>
@@ -151,26 +178,36 @@
 	</section>
 </body>
 <script>
-	$(document).ready(function(){
+	function sendReCmt(adoptionBoardCommentNo){	//대댓글 전송
+		var memberId = '${sessionScope.member.id }';		
+		var memberName = '${sessionScope.member.name }';
+		var adoptionBoardCommentContent = $(".adoptionBoardReCommentContent"+adoptionBoardCommentNo).val();
+		location.href="/siAdoptionBoardReCommentInsert?adoptionBoardType=2"+"&adoptionBoardRef="+${vd.a.adoptionBoardNo }
+			+"&memberId="+memberId+"&memberName="+memberName+"&adoptionBoardCommentContent="+adoptionBoardCommentContent
+			+"&adoptionBoardNo="+${vd.a.adoptionBoardNo }+"&adoptionBoardCommentRef="+adoptionBoardCommentNo;
+	}
+	$(document).ready(function(){	//대댓글 입력 tr 노출
+		$('.reCmtBtn').click(function(){
+			$(this).hide();
+			$(this).parent().parent().parent().children().last().show();
+		});
+	});
+	$(document).ready(function(){	// 댓글 입력창 노출
 		$('.cmtBtn').click(function(){
 			$('#commentTb').show();
 		});
 	});
-	$(document).ready(function(){
-		$('#mdfBtn').click(function(){
+	$(document).ready(function(){	//댓글 수정,삭제 버튼 
+		$('.mdfBtn').click(function(){
 			$(this).parent().prev().children().eq(0).hide();
 			$(this).parent().prev().children().eq(1).show();
-			$(this).html('등록').attr("id","cmtUpdate");
+			$(this).html('등록').attr("class","cmtUpdate");
 			$(this).nextAll().show();
-			$('#cancelBtn').click(function(){
+			$('.cancelBtn').click(function(){
 				location.href='/siAdoptionBoardView?adoptionBoardNo='+${vd.a.adoptionBoardNo };
 			});
-			$("#cmtUpdate").click(function(){
-				$(this).parent().prev().children().eq(0).show();
-				$(this).parent().prev().children().eq(1).hide();
-				$(this).nextAll().hide();
-				$(this).html('수정').removeAttr("id");
-				$('#cmtUpdateForm').submit();
+			$(".cmtUpdate").click(function(){
+				$(this).parents('form').submit();
 			});
 		});
 	});

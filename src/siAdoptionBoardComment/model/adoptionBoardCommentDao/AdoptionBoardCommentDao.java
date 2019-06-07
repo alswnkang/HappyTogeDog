@@ -8,6 +8,27 @@ import siAdoptionBoardComment.model.adoptionBoardCommentVo.AdoptionBoardComment;
 import siTemplete.JDBCTemplete;
 
 public class AdoptionBoardCommentDao {
+	public int reCommentInsert(Connection conn, AdoptionBoardComment ac) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "insert into board_comment values(board_comment_seq.nextval,?,?,?,?,?,?,sysdate)";
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, ac.getAdoptionBoardCommentType());
+			pstmt.setString(2, ac.getAdoptionBoardCommentId());
+			pstmt.setString(3, ac.getAdoptionBoardCommentName());
+			pstmt.setString(4, ac.getAdoptionBoardCommentContent());
+			pstmt.setInt(5, ac.getAdoptionBoardRef());
+			pstmt.setInt(6, ac.getAdoptionBoardCommentRef());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(pstmt);
+		}
+		return result;
+	}
 	public int commentInsert(Connection conn, AdoptionBoardComment ac) {
 		PreparedStatement pstmt = null;
 		int result = 0;
