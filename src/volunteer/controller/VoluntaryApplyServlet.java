@@ -33,9 +33,10 @@ public class VoluntaryApplyServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		int possiblePerson = Integer.parseInt(request.getParameter("possiblePerson"));
-		//System.out.println(possiblePerson); // 봉사 가능 인원수
-		/*int applyNum = Integer.parseInt(request.getParameter("applyNum"));
-		System.out.println(applyNum); // 현재 신청한 인원수*/
+		System.out.println("봉사 가능 인원수1 : "+possiblePerson); // 봉사 가능 인원수
+		
+		int currentApplyNum = Integer.parseInt(request.getParameter("applyNum"));
+		System.out.println("현재까지 신청한  인원수1 : "+currentApplyNum); // 현재 신청한 인원수
 		
 		int no = Integer.parseInt(request.getParameter("no")); //공고 번호
 		String code = request.getParameter("code"); //보호소 코드
@@ -46,10 +47,10 @@ public class VoluntaryApplyServlet extends HttpServlet {
 		String volunTime1 = request.getParameter("volunTime1");	//봉사 시작 시간
 		String volunTime2 = request.getParameter("volunTime2"); //봉사 마감 시간
 		String volunTime = volunTime1+","+volunTime2; //봉사 시간
-		int person = Integer.parseInt(request.getParameter("person")); //봉사 신청 인원 수
+		int person = Integer.parseInt(request.getParameter("person")); //지금 봉사 신청한 인원 수
 		
 		VoluntaryApplyBoard vab = new VoluntaryApplyBoard(0, no, code, name, null, id, phone, person, volunDate, volunTime, null);
-		int result = new VoluntaryService().voluntaryApply(vab, possiblePerson);
+		int result = new VoluntaryService().voluntaryApply(vab, possiblePerson, currentApplyNum);
 		
 		if(result > 0) {
 			request.setAttribute("msg", "봉사활동 신청이 완료되었습니다.");
@@ -63,8 +64,6 @@ public class VoluntaryApplyServlet extends HttpServlet {
 		request.setAttribute("loc", "/voluntaryView?no="+no);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
 		rd.forward(request, response);
-		
-		
 		
 	}
 
