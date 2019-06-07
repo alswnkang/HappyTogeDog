@@ -73,7 +73,7 @@
 					<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
 					<input type="hidden" name="boardNo" value="${vd.b.boardNo }"/>
 					<table class="comm-tbl view">
-						<c:forEach items="${vd.list }" var="list">
+						<c:forEach items="${vd.list }" var="list" varStatus="i">
 							<c:if test="${list.boardRef == vd.b.boardNo}">
 							<!-- 해당 게시글에 입력된 댓글만 출력되도록 -->
 								<input type="hidden" name="boardCommentNo" value="${list.boardCommentNo }"/>
@@ -87,22 +87,49 @@
 										${list.boardCommentDate2 }<br/>
 										<c:if test="${sessionScope.member.id==list.boardCommentId }">
 										<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
-											<button type="button">수정</button>
+											<button class="mdfBtn" type="button">수정</button>
 											<button type="text" style="display:none;">/</button>
-											<button type="reset" style="display:none;">취소</button>
+											<button class="cancelBtn" type="reset" style="display:none;">취소</button>
 											/
 											<a href="/siPreBoardCommentDelete?boardCommentNo=${list.boardCommentNo }&boardNo=${vd.b.boardNo }">삭제</a>
+											/
 										</c:if>
 										<c:if test="${sessionScope.member.id!=list.boardCommentId && sessionScope.member.id eq 'admin' }">
 										<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
 											<a href="/siPreBoardCommentDelete?boardCommentNo=${list.boardCommentNo }&boardNo=${vd.b.boardNo }">삭제</a>
+											/
 										</c:if>
+										<c:if test="${not empty sessionScope.member.id }"><!-- 로그인시 노출 -->
+											<button type="button" class="reCmtBtn">대댓글</button>
+										</c:if>
+									</td>
+								</tr>	
+								<c:if test="${list.boardCommentRef == list.boardCommentNo }">
+									<tr>
+										<td width="20%"> --> ${list.boardCommentName }(${list.boardCommentId })</td>
+										<td width="65%">
+											<span>${list.boardCommentContent }</span>
+										</td>
+										<td width="11%">
+											${list.boardCommentDate2 }<br/>
+										</td>
+									</tr>
+								</c:if>
+								<tr style="display:none;"><!-- 대댓글 버튼 클릭시 입력창 노출 -->
+									<td> -> re : ${sessionScope.member.name }(${sessionScope.member.id })</td>
+									<td>
+										<input type="text" name="boardReCommentContent" class="boardReCommentContent${list.boardCommentNo }"  placeholder="대댓글을 입력하세요" maxlenth="50">
+									</td>
+									<td>
+										<button onclick="sendReCmt('${list.boardCommentNo }')" type="button">대댓글 등록하기</button>
 									</td>
 								</tr>
 							</c:if>
 						</c:forEach>
 					</table>
 				</form>
+				
+				
 				<form action="/siPreBoardUpdateOriginal?boardNo=${vd.b.boardNo }" method="post" enctype="multipart/form-data">
 					<div class="common-tbl-btn-group" style="text-align:right;">
 						<c:if test='${sessionScope.member.id==vd.b.boardId }'>
@@ -121,18 +148,32 @@
 	</section>
 </body>
 <script>
-	$(document).ready(function(){
+	function sendReCmt(boardCommentNo){	//대댓글 전송
+		var memberId = '${sessionScope.member.id }';		
+		var memberName = '${sessionScope.member.name }';
+		var boardCommentContent = $(".boardReCommentContent"+boardCommentNo).val();
+		location.href="/siPreBoardReCommentInsert?boardType=1"+"&boardRef="+${vd.b.boardNo }
+			+"&memberId="+memberId+"&memberName="+memberName+"&boardCommentContent="+boardCommentContent
+			+"&boardNo="+${vd.b.boardNo }+"&boardCommentRef="+boardCommentNo;
+	}
+	$(document).ready(function(){	//대댓글 입력 tr 노출
+		$('.reCmtBtn').click(function(){
+			$(this).hide();
+			$(this).parent().parent().next().show();
+		});
+	});
+	$(document).ready(function(){	// 댓글 입력창 노출
 		$('.cmtBtn').click(function(){
 			$('#commentTb').show();
 		});
 	});
-	$(document).ready(function(){
-		$('button').eq(1).click(function(){
+	$(document).ready(function(){	//댓글 수정,삭제 버튼 
+		$('.mdfBtn').click(function(){
 			$(this).parent().prev().children().eq(0).hide();
 			$(this).parent().prev().children().eq(1).show();
 			$(this).html('등록').attr("id","cmtUpdate");
 			$(this).nextAll().show();
-			$('button').next(1).click(function(){
+			$('.cancelBtn').click(function(){
 				location.href='/siPreBoardView?boardNo='+${vd.b.boardNo };
 			});
 			$("#cmtUpdate").click(function(){
@@ -151,7 +192,7 @@
 			}
 		});
 	});
-	function fileDownload(boardFilename,boardFilepath){
+	function fileDownload(boardFilename,boardFilepath){	//파일 다운로드
 		var url = "/siPreBoardFileDownload";
 		var encFilename = encodeURIComponent(boardFilename);
 		var encFilepath = encodeURIComponent(boardFilepath);

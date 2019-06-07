@@ -27,16 +27,16 @@
 							<col width="/">
 						</colgroup>
 						<tr>
-							<th>제목</th>
+							<th style="text-align:center;">제목</th>
 							<td><input type="text" name="noticeTitle" placeholder="글 제목" maxlength="50"/></td>
 						</tr>
 						<tr>
-							<th>파일첨부</th>
+							<th style="text-align:center;">파일첨부</th>
 							<td><input type="file" name="noticeFilename"/></td>
 						</tr>
 						<tr>
-							<th>내용</th>
-							<td><textarea type="text" name="noticeContent" placeholder="글 내용" maxlength="2048"></textarea></td>
+							<th height="100" style="text-align:center;">내용</th>
+							<td><textarea rows="10" type="text" name="noticeContent" placeholder="글 내용" maxlength="2048"></textarea></td>
 						</tr>
 					</table>
 					<div class="common-tbl-btn-group">

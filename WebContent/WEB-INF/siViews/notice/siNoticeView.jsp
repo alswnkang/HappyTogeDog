@@ -39,7 +39,7 @@
 					</c:if>
 					<c:if test="${not empty sessionScope.member.id }">
 						<tr >
-							<td colspan="2" style="border-bottom: 0px;border-top: 0px;"">${vd.n.noticeContent }</td>
+							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">${vd.n.noticeContent }</td>
 						</tr>
 						<tr>
 							<td colspan="2" style="border-top: 0px;">
@@ -85,9 +85,9 @@
 										${list.noticeCommentDate2 }<br/>
 										<c:if test="${sessionScope.member.id==list.noticeCommentId }">
 										<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
-											<button type="button">수정</button>
+											<button class="mdfBtn" type="button">수정</button>
 											<button type="text" style="display:none;">/</button>
-											<button type="reset" style="display:none;">취소</button>
+											<button class="cancelBtn" type="reset" style="display:none;">취소</button>
 											/
 											<a href="/siNoticeCommentDelete?noticeCommentNo=${list.noticeCommentNo }&noticeNo=${vd.n.noticeNo }">삭제</a>
 										</c:if>
@@ -122,12 +122,12 @@
 		});
 	});
 	$(document).ready(function(){
-		$('button').eq(1).click(function(){
+		$('.mdfBtn').click(function(){
 			$(this).parent().prev().children().eq(0).hide();
 			$(this).parent().prev().children().eq(1).show();
 			$(this).html('등록').attr("id","cmtUpdate");
 			$(this).nextAll().show();
-			$('button').next(1).click(function(){
+			$('.cancelBtn').click(function(){
 				location.href='/siNoticeView?noticeNo='+${vd.n.noticeNo };
 			});
 			$("#cmtUpdate").click(function(){
