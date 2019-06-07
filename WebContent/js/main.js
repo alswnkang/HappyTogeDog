@@ -58,7 +58,7 @@ $(document).ready(function(){
 		arrows:true,
 		fade:false,
 		dots:false,
-		autoplay:true,
+		autoplay:false,
 		spped:2000,
 		infinite:true,
 		autoplaySpeed:3000,

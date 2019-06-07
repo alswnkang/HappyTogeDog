@@ -25,6 +25,90 @@ body { background-color:#fff; }
 .fr{float:right;}
 .fl{float:left;}
 
+/* 버튼 효과 */
+@-webkit-keyframes criss-cross-left {
+  0% {
+    left: -20px;
+  }
+  50% {
+    left: 50%;
+    width: 20px;
+    height: 20px;
+  }
+  100% {
+    left: 50%;
+    width: 375px;
+    height: 375px;
+  }
+}
+
+@keyframes criss-cross-left {
+  0% {
+    left: -20px;
+  }
+  50% {
+    left: 50%;
+    width: 20px;
+    height: 20px;
+  }
+  100% {
+    left: 50%;
+    width: 375px;
+    height: 375px;
+  }
+}
+@-webkit-keyframes criss-cross-right {
+  0% {
+    right: -20px;
+  }
+  50% {
+    right: 50%;
+    width: 20px;
+    height: 20px;
+  }
+  100% {
+    right: 50%;
+    width: 375px;
+    height: 375px;
+  }
+}
+@keyframes criss-cross-right {
+  0% {
+    right: -20px;
+  }
+  50% {
+    right: 50%;
+    width: 20px;
+    height: 20px;
+  }
+  100% {
+    right: 50%;
+    width: 375px;
+    height: 375px;
+  }
+}
+
+.btn-effect01:before, .btn-effect01:after {
+  position: absolute;
+  top: 50%;
+  content: '';
+  width: 20px;
+  height: 20px;
+  /*background-color: #f36f21;*/
+  background-color:rgba(243,111,33,0.6);
+  border-radius: 50%;
+}
+.btn-effect01:before {
+  left: -20px;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.btn-effect01:after {
+  right: -20px;
+  -webkit-transform: translate(50%, -50%);
+          transform: translate(50%, -50%);
+}
+
 /* 달력 */
 /*datepicer 버튼 롤오버 시 손가락 모양 표시*/
 .ui-datepicker-trigger{cursor: pointer;}
@@ -103,12 +187,37 @@ body { background-color:#fff; }
 #mainAdoptBox{margin-bottom:60px;}
 .main-adopt-box{padding:15px;}
 .main-adopt-list li{padding:0 20px;}
-.main-adopt-list .img-thum{position:relative; width:100%; padding-top:100%; border:1px solid #ddd;}
-.main-adopt-list .img-thum > span{position:absolute; display:block; top:0; left:0; right:0; bottom:0;}
+.main-adopt-list .img-thum{position:relative; width:100%; padding-top:100%; border:1px solid #ddd; overflow:hidden; border-radius:5px;}
+.main-adopt-list .img-thum > span{position:absolute; display:block; top:0; left:0; right:0; bottom:0; -webkit-transition:all 0.4s; -moz-transition:all 0.4s; -o-transition:all 0.4s; -ms-transition:all 0.4s; transition:all 0.4s}
 .main-adopt-list .img-thum > span img{width:100%;}
 .main-adopt-list .slick-arrow{position:absolute; top:50%; margin-top:-25px; width:50px; height:50px; font-size:0; z-index:99;}
 .main-adopt-list .slick-arrow.slick-prev{background:url(/img/main_arrow02.png) no-repeat; background-size:100% 100%; left:-50px;}
 .main-adopt-list .slick-arrow.slick-next{background:url(/img/main_arrow01.png) no-repeat; background-size:100% 100%; right:-50px; }
+
+/* 입양 리스트 :: + 효과 */
+.main-adopt-list .best-prd-plus{position:absolute; top:50%; left:50%; margin:-51px 0 0 -51px; width:102px; height:102px; line-height:102px; text-align:center; overflow:hidden;  border-radius:100%; -moz-border-radius:100%; -webkit-border-radius:100%; -o-border-radius:100%;}
+.main-adopt-list .best-prd-plus img{display:inline-block; position:relative; top:22px; z-index:2; opacity:0;filter:Alpha(opacity=0); visibility:hidden; 
+-webkit-transition:all 0.2s 0.0s; -moz-transition:all 0.2s 0.0s; -o-transition:all 0.2s 0.0s; -ms-transition:all 0.2s 0.0s; transition:all 0.2s 0.0s;
+-ms-transform:scale(0.5,0.5); -webkit-transform:scale(0.5,0.5); -moz-transform:scale(0.5,0.5); -o-transform:scale(0.5,0.5); transform:scale(0.5,0.5); vertical-align:middle;}
+
+/* 입양 리스트 :: 오버시 효과 */
+.main-adopt-list li a:hover .img-thum > span{-ms-transform:scale(1.1,1.1); -webkit-transform:scale(1.1,1.1); -moz-transform:scale(1.1,1.1); -o-transform:scale(1.1,1.1); transform:scale(1.1,1.1);}
+.main-adopt-list li a:hover .best-prd-plus img{opacity:1.0;filter:Alpha(opacity=100); visibility:visible;
+-ms-transform:scale(1.0,1.0); -webkit-transform:scale(1.0,1.0); -moz-transform:scale(1.0,1.0); -o-transform:scale(1.0,1.0); transform:scale(1.0,1.0);
+-webkit-transition:all 0.4s 0.3s; -moz-transition:all 0.4s 0.3s; -o-transition:all 0.4s 0.3s; -ms-transition:all 0.4s 0.3s; transition:all 0.4s 0.3s;}
+.main-adopt-list li a:hover .best-prd-plus:before {
+  -webkit-animation: criss-cross-left 0.8s both;
+          animation: criss-cross-left 0.8s both;
+  -webkit-animation-direction: alternate;
+          animation-direction: alternate;
+}
+.main-adopt-list li a:hover .best-prd-plus:after {
+  -webkit-animation: criss-cross-right 0.8s both;
+          animation: criss-cross-right 0.8s both;
+  -webkit-animation-direction: alternate;
+          animation-direction: alternate;
+}
+
 
 /* ****************** Main :: 입양 후기 영역 ********************** */
 #mainAdoptReviewBox{margin-bottom:60px;}
