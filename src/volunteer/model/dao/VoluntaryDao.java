@@ -308,12 +308,19 @@ public class VoluntaryDao {
 	public int totalApply(Connection conn, VoluntaryApplyBoard vab) {
 		int possible = 0;
 		PreparedStatement pstmt = null;
-		String query = "select count(*) cnt from (select apply_num from volunteer_register where no=?)";
+		//ResultSet rset = null;
+		//String query = "select count(*) cnt from (select apply_num from volunteer_register where no=?)";
+		String query = "select apply_num from volunteer_register where no=?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, vab.getNo());
 			possible = pstmt.executeUpdate();
+			/*rset = pstmt.executeQuery();
+			if(rset.next()) {
+				possible = rset.getInt("cnt");
+			}*/
+			//possible = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -349,16 +356,20 @@ public class VoluntaryDao {
 	}
 
 	// 신청 누적 인원수
-	public int voluntaryCurrentPerson(Connection conn, VoluntaryApplyBoard vab) {
+	public int voluntaryCurrentPerson(Connection conn, VoluntaryApplyBoard vab, int currentApplyNum) {
 		int currentPerson = 0;
 		PreparedStatement pstmt = null;
-		String query = "update volunteer_register set apply_num=apply_num+? where no=?";
+		String query = "update volunteer_register set apply_num=? where no=?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, vab.getPerson());
+			pstmt.setInt(1, currentApplyNum);
 			pstmt.setInt(2, vab.getNo());
+			//pstmt.setInt(2, vab.getPerson());
+			//pstmt.setInt(3, vab.getNo());
 			currentPerson = pstmt.executeUpdate();
+			System.out.println("신청 누적 인원 결과(성공 1) : "+currentPerson);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
