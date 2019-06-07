@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -67,12 +69,27 @@ public class SearchDogDao {
 		// TODO Auto-generated method stub
 		ArrayList<DogList> list = null;
 		try {
+			String kinds="";
+			String cityCo="";
 			while (true) {
+				
+				if(sDay.equals("")||sDay==null) {
+					sDay=preMonth();
+				}
+				if(eDay.equals("")||eDay==null) {
+					eDay=date();
+				}
+				if(kind.equals("")||kind==null) {
+					kinds="&kind=".concat(kind);
+				}
+				if(cityCode.equals("")||cityCode==null) {
+					cityCo="&upr_cd=".concat(cityCode);
+				}
 				// parsing할 url 지정(API 키 포함해서)
 				System.out.println(sDay+","+eDay+"진짜이상하네");
 				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde="+sDay+"&endde="+eDay+"&pageNo="
 						+ page
-						+"&kind="+kind+"&upr_cd="+cityCode+"&upkind=417000&numOfRows=8&ServiceKey=9foRMY8t3j0MRIsmBCTWOiLUVaW4yJivGOtPfYE9x8yYsPcPCkCUZgGm39bZZGdQQc1ZT9MN87KHULUH8aLpMg%3D%3D";
+						+kinds+cityCo+"&upkind=417000&numOfRows=8&ServiceKey=9foRMY8t3j0MRIsmBCTWOiLUVaW4yJivGOtPfYE9x8yYsPcPCkCUZgGm39bZZGdQQc1ZT9MN87KHULUH8aLpMg%3D%3D";
 				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
 				Document doc = dBuilder.parse(url);
@@ -164,19 +181,33 @@ public class SearchDogDao {
 	public ArrayList<Board> getListDB(int page, String sDay, String eDay, String kind, String cityCode, Connection conn, int start, int end) {
 		// TODO Auto-generated method stub
 		//보완 필요
+		String city="";
+		if(sDay.equals("")||sDay==null) {
+			sDay=preMonth();
+		}
+		if(eDay.equals("")||eDay==null) {
+			eDay=date();
+		}
+		if(cityCode.equals("")||cityCode==null) {
+			city="";
+		}else {
+			city="and happen_city=".concat(cityCode);
+		}
+		
 		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		System.out.println("여기는 겟리스트 도착");
-		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ? and board_type=3 and dog_kind=? and happen_city=? and happen_date>?  and happen_date<=?";
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ? and board_type=3 and dog_kind=? "+city+" and happen_date>?  and happen_date<=?";
+		System.out.println(query);
+		
 		try {
 			pstmt=conn.prepareStatement(query);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
 			pstmt.setString(3, kind);
-			pstmt.setString(4, cityCode);
-			pstmt.setString(5, sDay);
-			pstmt.setString(6, eDay);
+			pstmt.setString(4, sDay);
+			pstmt.setString(5, eDay);
 			rset = pstmt.executeQuery();
 			list = new ArrayList<Board>();
 			while(rset.next()) {
@@ -335,5 +366,22 @@ public class SearchDogDao {
 		}
 		return list;
 	}
+	public String date() {
+//		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
+		Calendar cal = Calendar.getInstance();
+		System.out.println("date메소드 : "+date.format(cal.getTime()));
+		return date.format(cal.getTime());
+	}
+	public String preMonth() {
+//		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH, -6);
+		System.out.println("preMonth메소드 : "+date.format(cal.getTime()));
+		return date.format(cal.getTime());
+	}
 
 }
+
+

@@ -381,6 +381,11 @@ public class QnaServlet extends HttpServlet {
 			String boardPw = request.getParameter("boardPw");
 			try {
 				QnaVO qna = new QnaService().selectQna(boardNo);
+				if(member!=null) {
+					if(member.getMemberLevel()==2) {
+						boardPw = qna.getBoardPw();
+					}
+				}
 				int result = new QnaService().deleteQna(boardNo,boardPw);
 				if(result>0) {
 					if(qna.getBoardFilepath() != null) {

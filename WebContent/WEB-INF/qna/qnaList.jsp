@@ -13,7 +13,7 @@
 <section id="content-wrapper">
 	<div class="area">
 		<h2 class="comm-content-tit">Q & A</h2>
-		<div id="qnaListBox" class="common-tbl-box">
+		<div id="qnaListBox">
 				<table class="comm-tbl type2">
 					<colgroup>
 						<col width="5%">
@@ -71,10 +71,19 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				
-				<div class="common-tbl-btn-group" style="text-align: right;">
-					<button class="btn-style1 sm" onclick="location.href='/regiQna'">작성</button>
-				</div>
+					
+				<c:if test="${not empty sessionScope.member}">
+					<c:if test="${sessionScope.member.memberLevel ne 2}">
+						<div class="common-tbl-btn-group" style="text-align: right;">
+							<button class="btn-style1 sm" onclick="location.href='/regiQna'">작성</button>
+						</div>
+					</c:if>
+				</c:if>
+				<c:if test="${empty sessionScope.member}">
+					<div class="common-tbl-btn-group" style="text-align: right;">
+						<button class="btn-style1 sm" onclick="location.href='/regiQna'">작성</button>
+					</div>
+				</c:if>
 				<!-- paging -->
 				<div class="paging">
 		 			${qnaList.pageNavi }

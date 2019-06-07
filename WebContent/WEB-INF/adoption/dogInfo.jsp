@@ -122,7 +122,7 @@
 	}
 	//목록으로 버튼 누를 시 뒤로가기
 	function goBack(){
-		window.history.back();
+		location.href="/dogAdopList";
 	}
 
 

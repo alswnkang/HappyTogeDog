@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
@@ -25,12 +26,23 @@
 				</select>
 		 	</form> 	
 			<table class="comm-tbl type2">
+				<colgroup>
+					<col width="">
+					<col width="">
+					<col width="13%">
+					<col width="">
+					<col width="">
+					<col width="">
+					<col width="7.5%">
+					<col width="7%">
+				</colgroup>
 				<tr>
 					<th>ID</th>
+					<c:if test="${user >= 1 }">
 					<th>CODE</th>
+					</c:if>
 					<th>이름</th>
 					<th>전화번호</th>
-					<th>우편번호</th>
 					<th>주소</th>
 					<th>EMAIL</th>
 					<th>회원등급</th>
@@ -39,11 +51,23 @@
 				<c:forEach items="${pd.list }" var = "m">
 				<tr>
 					<td>${m.id }</td>
-					<td>${m.code }</td>
+					<c:if test="${m.memberLevel >= 1 }">
+						<td>${m.code }</td>
+					</c:if>
+					<c:if test="${m.memberLevel == 0 }">
+						
+					</c:if>
+					<c:if test="${user >= 1 }">
+					<c:if test="${m.memberLevel == 0 }">
+					<td>-</td>
+					</c:if>
+					</c:if>
 					<td>${m.name }</td>
 					<td>${m.phone }</td>
-					<td>${m.post }</td>
-					<td>${m.address }</td>
+					<td>
+						(${m.post }) 
+						${fn:replace(m.address,'//',' ') }
+					</td>
 					<td>${m.email }</td>
 					<td>${m.user }</td>
 					<td><button onclick="location.href='/adminDelete?id=${m.id}'">탈퇴</button></td>
