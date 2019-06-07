@@ -144,21 +144,34 @@ public class VoluntaryService {
 	}
 
 	// 봉사활동 신청
-	public int voluntaryApply(VoluntaryApplyBoard vab, int possiblePerson) { // possiblePerson 봉사 가능 인원수
+	public int voluntaryApply(VoluntaryApplyBoard vab, int possiblePerson, int currentApplyNum) { // possiblePerson 봉사 가능 인원수, currentApplyNum 현재까지 신청한  인원수
 		Connection conn = JDBCTemplate.getCon();
-		int possible = new VoluntaryDao().totalApply(conn, vab); //신청 인원수 파악
+		//int possible = new VoluntaryDao().totalApply(conn, vab); //이미 신청된 인원수 파악
+		//int possible = vab.getApplyNo();
+		System.out.println("현재까지 신청한  인원수2 : "+currentApplyNum);
+		
 		int result = 0; //신청
 		int currentPerson = 0;//신청 누적 인원수
-		if(possiblePerson > possible && (possiblePerson-possible) >= vab.getPerson()) { 
+		
+		if(possiblePerson > currentApplyNum && (possiblePerson - currentApplyNum) >= vab.getPerson()) { 
 			//봉사 가능 인원수 > 해당공고에 현재까지 신청된 인원수 && (봉사 가능 인원수 - 해당공고에 현재까지 신청된 인원수) >= 신청한 인원 수
-			result = new VoluntaryDao().voluntaryApply(conn, vab);
-			if(result > 0) {
-				currentPerson = new VoluntaryDao().voluntaryCurrentPerson(conn, vab);
-				if(currentPerson > 0) {
+			System.out.println("(봉사 가능 인원수 - 해당공고에 현재까지 신청된 인원수) >= 신청한 인원 수 : "+((possiblePerson - currentApplyNum) > vab.getPerson()));
+			System.out.println("봉사 가능 인원수 : "+possiblePerson);
+			System.out.println("해당공고에 현재까지 신청된 인원수1(currentApplyNum) : "+currentApplyNum);
+			System.out.println("내가 신청한 인원 수 : "+vab.getPerson());
+			
+			result = new VoluntaryDao().voluntaryApply(conn, vab); //성공 1
+			if(result > 0) {				
+				currentApplyNum = currentApplyNum+vab.getPerson();
+				System.out.println("신청 완료 후 총 신청 인원수1(currentApplyNum) : "+currentApplyNum);
+				
+				currentPerson = new VoluntaryDao().voluntaryCurrentPerson(conn, vab, currentApplyNum);
+				
+				if(currentPerson > 0) { //신청 성공 시
 					JDBCTemplate.commit(conn);
 				}else {
 					JDBCTemplate.rollback(conn);
-				}
+				}			
 			}else {
 				currentPerson = 0;
 			}	
@@ -166,6 +179,7 @@ public class VoluntaryService {
 			currentPerson = -1;
 		}
 		JDBCTemplate.close(conn);
+		
 		return currentPerson;
 	}
 

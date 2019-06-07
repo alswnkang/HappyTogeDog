@@ -115,7 +115,7 @@
 						}
 					});
 					/* 검색후 도시에 따른 군고정과 군 리스트 가져오기 */
-					//getGun();
+					getGun();
 				},
 				error : function(){
 					console.log("못가져왔다");
@@ -123,17 +123,17 @@
 			});
 		}
 		/* 도시 변경하면 지역구 리스트 가져오기 */
-		//$("#city").change(function(){
-		//	getGun();
-		//});
+		$("#city").change(function(){
+			getGun();
+		});
 	
 		/* 도시에 따른 지역구 코드, 지역구명 가져오기 */
 		function getGun(){
 			var cityCode = $("#city").val();
 			console.log(cityCode);
 			$.ajax({
-				url:"/areaCode",
-				data : {value:cityCode},
+				url:"/getAreaCode",
+				data : {cityCode:cityCode},
 				success : function(data){
 					var $select = $("#gun");
 					$select.find("option").remove();
