@@ -122,12 +122,12 @@
 											<button type="text" style="display:none;">/</button>
 											<button class="cancelBtn" type="reset" style="display:none;">취소</button>
 											/
-											<a href="/siAdoptionBoardCommentDelete?adoptionBoardCommentNo=${list.adoptionBoardCommentNo }&adoptionBoardNo=${vd.a.adoptionBoardNo }">삭제</a>
+											<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.adoptionBoardCommentNo }');">삭제</a>
 											/
 										</c:if>
 										<c:if test="${sessionScope.member.id!=list.adoptionBoardCommentId && sessionScope.member.id eq 'admin' }">
 										<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
-											<a href="/siAdoptionBoardCommentDelete?adoptionBoardCommentNo=${list.adoptionBoardCommentNo }&adoptionBoardNo=${vd.a.adoptionBoardNo }">삭제</a>
+											<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.adoptionBoardCommentNo }');">삭제2</a>
 											/
 										</c:if>
 										<c:if test="${not empty sessionScope.member.id }"><!-- 로그인시 노출 -->
@@ -142,9 +142,22 @@
 										<td width="20%"> └─ ${clist.adoptionBoardCommentName }(${clist.adoptionBoardCommentId })</td>
 										<td width="65%">
 											<span>${clist.adoptionBoardCommentContent }</span>
+											<input type="text" value="${clist.adoptionBoardCommentContent }" class="adoptionBoardReCommentModify${clist.adoptionBoardCommentNo }" style="display:none;"/>
 										</td>
 										<td width="11%">
 											${clist.adoptionBoardCommentDate2 }<br/>
+											<c:if test="${clist.adoptionBoardCommentId == sessionScope.member.id }">
+												<button class="cmtrUpdate" type="button" onclick="cmtrMfy('${clist.adoptionBoardCommentRef }','${clist.adoptionBoardCommentNo }')" style="display:none;">등록</button>
+												<button class="mdfBtnr" type="button">수정</button>
+												<button type="text" style="display:none;">/</button>
+												<button class="cancelBtnr" type="reset" style="display:none;">취소</button>
+												/
+												<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.adoptionBoardCommentNo }','${clist.adoptionBoardCommentRef }');">삭제</a>
+											</c:if>
+											<c:if test="${sessionScope.member.id!=clist.adoptionBoardCommentId && sessionScope.member.id eq 'admin' }">
+											<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
+												<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.adoptionBoardCommentNo }','${clist.adoptionBoardCommentRef }');">삭제2</a>
+											</c:if>
 										</td>
 									</tr>
 								</c:if>
@@ -186,6 +199,17 @@
 			+"&memberId="+memberId+"&memberName="+memberName+"&adoptionBoardCommentContent="+adoptionBoardCommentContent
 			+"&adoptionBoardNo="+${vd.a.adoptionBoardNo }+"&adoptionBoardCommentRef="+adoptionBoardCommentNo;
 	}
+	function rcmtDelBtn(adoptionBoardCommentNo,adoptionBoardCommentRef){//대댓글 삭제확인
+		if(confirm("댓글을 삭제하시겠습니까?")){
+			location.href="/siAdoptionBoardReCommentDelete?adoptionBoardCommentNo="+adoptionBoardCommentNo+"&adoptionBoardNo="+${vd.a.adoptionBoardNo }+"&adoptionBoardCommentRef="+adoptionBoardCommentRef;
+		}
+	};
+	function cmtDelBtn(adoptionBoardCommentNo){ //댓글 삭제확인
+		if(confirm("댓글을 삭제하시겠습니까?")){
+			location.href="/siAdoptionBoardCommentDelete?adoptionBoardCommentNo="+adoptionBoardCommentNo+"&adoptionBoardNo="+${vd.a.adoptionBoardNo };
+			alert("삭제가 완료되었습니다.")
+		}
+	};
 	$(document).ready(function(){	//대댓글 입력 tr 노출
 		$('.reCmtBtn').click(function(){
 			$(this).hide();
@@ -211,7 +235,24 @@
 			});
 		});
 	});
-	$(document).ready(function(){
+	$(document).ready(function(){	//대댓글 수정,취소 버튼 
+		$('.mdfBtnr').click(function(){
+			$(this).parent().prev().children().eq(0).hide();
+			$(this).parent().prev().children().eq(1).show();
+			$(this).hide();
+			$('.cmtrUpdate').show();
+			$(this).nextAll().show();
+			$('.cancelBtnr').click(function(){
+				location.href='/siAdoptionBoardView?adoptionBoardNo='+${vd.a.adoptionBoardNo };
+			});
+		});
+	});
+	function cmtrMfy(adoptionBoardCommentRef,adoptionBoardCommentNo){	//대댓글 수정
+		var adoptionBoardCommentContent2 = $('.adoptionBoardReCommentModify'+adoptionBoardCommentNo).val();
+		location.href="/siAdoptionBoardReCommentUpdate?adoptionBoardCommentContent="+adoptionBoardCommentContent2
+			+"&adoptionBoardNo="+${vd.a.adoptionBoardNo }+"&adoptionBoardCommentRef="+adoptionBoardCommentRef+"&adoptionBoardCommentNo="+adoptionBoardCommentNo;
+	}
+	$(document).ready(function(){	//삭제 확인
 		$('#adoptionBoardDelBtn').click(function(){
 			if(confirm("게시글을 삭제하시겠습니까?")){
 				location.href = '/siAdoptionBoardDelete?adoptionBoardNo='+${vd.a.adoptionBoardNo };

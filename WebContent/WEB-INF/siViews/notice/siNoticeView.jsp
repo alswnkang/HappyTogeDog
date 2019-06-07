@@ -89,12 +89,12 @@
 											<button type="text" style="display:none;">/</button>
 											<button class="cancelBtn" type="reset" style="display:none;">취소</button>
 											/
-											<a href="/siNoticeCommentDelete?noticeCommentNo=${list.noticeCommentNo }&noticeNo=${vd.n.noticeNo }">삭제</a>
+											<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.noticeCommentNo }');">삭제</a>
 											/
 										</c:if>
 										<c:if test="${sessionScope.member.id!=list.noticeCommentId && sessionScope.member.id eq 'admin' }">
 										<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
-											<a href="/siNoticeCommentDelete?noticeCommentNo=${list.noticeCommentNo }&noticeNo=${vd.n.noticeNo }">삭제</a>
+											<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.noticeCommentNo }');">삭제2</a>
 											/
 										</c:if>
 										<c:if test="${not empty sessionScope.member.id }"><!-- 로그인시 노출 -->
@@ -109,21 +109,21 @@
 										<td width="20%"> └─ ${clist.noticeCommentName }(${clist.noticeCommentId })</td>
 										<td width="65%">
 											<span>${clist.noticeCommentContent }</span>
-											<input type="text" value="${clist.noticeCommentContent }" class="noticeReCommentModify" style="display:none;"/>
+											<input type="text" value="${clist.noticeCommentContent }" class="noticeReCommentModify${clist.noticeCommentNo }" style="display:none;"/>
 										</td>
 										<td width="11%">
 											${clist.noticeCommentDate2 }<br/>
 											<c:if test="${clist.noticeCommentId == sessionScope.member.id }">
-												<button class="cmtrUpdate" type="button" onclick="cmtrMfy('${vd.n.noticeNo }','${clist.noticeCommentRef }','${clist.noticeCommentNo }')" style="display:none;">등록</button>
+												<button class="cmtrUpdate" type="button" onclick="cmtrMfy('${clist.noticeCommentRef }','${clist.noticeCommentNo }')" style="display:none;">등록</button>
 												<button class="mdfBtnr" type="button">수정</button>
 												<button type="text" style="display:none;">/</button>
 												<button class="cancelBtnr" type="reset" style="display:none;">취소</button>
 												/
-												<a href="/siNoticeReCommentDelete?noticeCommentNo=${clist.noticeCommentNo }&noticeNo=${vd.n.noticeNo }&noticeCommentRef=${clist.noticeCommentRef }">삭제</a>
+												<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.noticeCommentNo }','${clist.noticeCommentRef }');">삭제</a>
 											</c:if>
 											<c:if test="${sessionScope.member.id!=clist.noticeCommentId && sessionScope.member.id eq 'admin' }">
 											<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
-												<a href="/siNoticeReCommentDelete?noticeCommentNo=${clist.noticeCommentNo }&noticeNo=${vd.n.noticeNo }&noticeCommentRef=${clist.noticeCommentRef }">삭제</a>
+												<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.noticeCommentNo }','${clist.noticeCommentRef }');">삭제2</a>
 											</c:if>
 										</td>
 									</tr>
@@ -165,6 +165,16 @@
 			+"&memberId="+memberId+"&memberName="+memberName+"&noticeCommentContent="+noticeCommentContent
 			+"&noticeNo="+${vd.n.noticeNo }+"&noticeCommentRef="+noticeCommentNo;
 	}
+	function rcmtDelBtn(noticeCommentNo,noticeCommentRef){//대댓글 삭제확인
+		if(confirm("댓글을 삭제하시겠습니까?")){
+			location.href="/siNoticeReCommentDelete?noticeCommentNo="+noticeCommentNo+"&noticeNo="+${vd.n.noticeNo }+"&noticeCommentRef="+noticeCommentRef;
+		}
+	};
+	function cmtDelBtn(noticeCommentNo){ //댓글 삭제확인
+		if(confirm("댓글을 삭제하시겠습니까?")){
+			location.href="/siNoticeCommentDelete?noticeCommentNo="+noticeCommentNo+"&noticeNo="+${vd.n.noticeNo };
+		}
+	};
 	$(document).ready(function(){	//대댓글 입력 tr 노출
 		$('.reCmtBtn').click(function(){
 			$(this).hide();
@@ -202,10 +212,10 @@
 			});
 		});
 	});
-	function cmtrMfy(noticeNo,noticeCommentRef,noticeCommentNo){//대댓글 수정
-		var noticeCommentContent2 = $('.noticeReCommentModify').val();
+	function cmtrMfy(noticeCommentRef,noticeCommentNo){//대댓글 수정
+		var noticeCommentContent2 = $('.noticeReCommentModify'+noticeCommentNo).val();
 		location.href="/siNoticeReCommentUpdate?noticeCommentContent="+noticeCommentContent2
-			+"&noticeNo="+noticeNo+"noticeCommentRef="+noticeCommentRef+"&noticeCommentNo="+noticeCommentNo;
+			+"&noticeNo="+${vd.n.noticeNo }+"&noticeCommentRef="+noticeCommentRef+"&noticeCommentNo="+noticeCommentNo;
 	}
 	$(document).ready(function(){	//게시글 삭제확인
 		$('#noticeDelBtn').click(function(){
