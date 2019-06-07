@@ -263,15 +263,15 @@ public class MemberDao {
 		String query= "";
 		ArrayList<Member> list = new ArrayList<Member>();
 		if(select == 1) {
-			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where id=? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where id like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
 		}else if(select == 2) {
-			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where name=? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where name like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
 		}else if(select == 3) {
 			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where code=? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
 		}
 		
 		pstmt = conn.prepareStatement(query);
-		pstmt.setString(1, search);
+		pstmt.setString(1, "%"+search+"%");
 		pstmt.setInt(2, start);
 		pstmt.setInt(3, end);
 		rset = pstmt.executeQuery();
@@ -301,14 +301,14 @@ public class MemberDao {
 		int result = 0;
 		String query = "";
 		if(select == 1) {
-			query = "select count(*) cnt from member where id=?";
+			query = "select count(*) cnt from member where id like ?";
 		}else if(select == 2) {
-			query = "select count(*) cnt from member where name=?";
+			query = "select count(*) cnt from member where name like ?";
 		}else if(select == 3) {
 			query = "select count(*) cnt from member where code=?";
 		}
 		pstmt = conn.prepareStatement(query);
-		pstmt.setString(1, search);
+		pstmt.setString(1, "%"+search+"%");
 		rset = pstmt.executeQuery();
 		if(rset.next()) {
 		result = rset.getInt("cnt");

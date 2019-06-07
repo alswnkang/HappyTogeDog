@@ -25,11 +25,80 @@ public class PrintShelterDao {
 		MemberPageData spd = null;
 		ArrayList<Member> list = null;
 		
-		String query ="select*from member";
+		String query="";
+		
+		switch (city) {
+		case 2:
+			
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '서울%') M) WHERE RNUM BETWEEN ? AND ?";
+			
+			break;
+		case 14:
+			
+				query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '부산%') M) WHERE RNUM BETWEEN ? AND ?";
+			
+			break;
+		case 15:
+			
+				query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '대구%') M) WHERE RNUM BETWEEN ? AND ?";
+			
+			break;
+		case 6:
+			
+				query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '대전%') M) WHERE RNUM BETWEEN ? AND ?";
+		
+			break;
+		case 10:
+			
+				query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '광주%') M) WHERE RNUM BETWEEN ? AND ?";
+			
+			break;
+		case 50:
+			
+			break;
+		case 3:
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '경기%') M) WHERE RNUM BETWEEN ? AND ?";
+				
+		
+			break;
+	
+		case 12:
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '경상남%') M) WHERE RNUM BETWEEN ? AND ?";
+			break;
+		case 8:
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '경상북%') M) WHERE RNUM BETWEEN ? AND ?";
+			break;
+		case 5:
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '충청남%') M) WHERE RNUM BETWEEN ? AND ?";
+			break;
+		case 7:
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '충청북%') M) WHERE RNUM BETWEEN ? AND ?";
+			break;
+		case 11:
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '전라남%') M) WHERE RNUM BETWEEN ? AND ?";
+			break;
+		case 9:
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '전라북%') M) WHERE RNUM BETWEEN ? AND ?";
+			break;
+		case 4:
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '강원%') M) WHERE RNUM BETWEEN ? AND ?";
+			break;	
+		case 16:
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '세종%') M) WHERE RNUM BETWEEN ? AND ?";
+			break;	
+		case 1:
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '인천%') M) WHERE RNUM BETWEEN ? AND ?";
+			break;	
+		case 13:
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '제주%') M) WHERE RNUM BETWEEN ? AND ?";
+			break;	
+		
+		}
 		
 		
 		pstmt= conn.prepareStatement(query);
-		
+		pstmt.setInt(1, start);
+		pstmt.setInt(2, end);
 		
 		
 		System.out.println(start+""+end+""+city);
@@ -39,7 +108,7 @@ public class PrintShelterDao {
 		list= new ArrayList<>();
 		spd = new MemberPageData();
 		System.out.println(query);
-		String[] array=null;
+		
 		while(rset.next()) {							
 			m = new Member();
 			
@@ -51,110 +120,8 @@ public class PrintShelterDao {
 			m.setPhone(rset.getString("phone"));
 			m.setAddress(address);
 			
-			if(address==null) {
-				array[0]="";
-			}else {
-				array= address.split(" ");
-				address.replace("//", "");
-			}
+			list.add(m);
 			
-			
-			
-			
-			switch (array[0]) {
-			case "서울특별시":
-				if(city==2) {
-					list.add(m);
-				};
-				break;
-			case "부산광역시":
-				if(city==14) {
-					list.add(m);
-				};
-				break;
-			case "대구광역시":
-				if(city==15) {
-					list.add(m);
-				};
-				break;
-			case "대전광역시":
-				if(city==6) {
-					list.add(m);
-				};
-				break;
-			case "광주광역시":
-				if(city==10) {
-					list.add(m);
-				};
-				break;
-			case "울산광역시":
-				break;
-			case "경기도":
-				if(city==3) {
-					list.add(m);
-				};
-				break;
-			case "경기":
-				if(city==3) {
-					list.add(m);
-				};
-				break;
-			case "경상남도":
-				if(city==12) {
-					list.add(m);
-				};
-				break;
-			case "경상북도":
-				if(city==8) {
-					list.add(m);
-				};
-				break;
-			case "충청남도":
-				if(city==5) {
-					list.add(m);
-				};
-				break;
-			case "충청북도":
-				if(city==7) {
-					list.add(m);
-				};
-				break;
-			case "전라남도":
-				if(city==11) {
-					list.add(m);
-				};
-				break;
-			case "전라북도":
-				if(city==9) {
-					list.add(m);
-				};
-				break;
-			case "강원도":
-				if(city==4) {
-					list.add(m);
-				};
-				break;	
-			case "세종특별시":
-				if(city==16) {
-					list.add(m);
-				};
-				break;	
-			case "인천광역시":
-				if(city==1) {
-					list.add(m);
-				};
-				break;	
-			case "제주특별시":
-				if(city==13) {
-					list.add(m);
-				};
-				break;	
-			
-			}
-			
-			
-			
-		
 		}	
 			
 		
@@ -173,151 +140,91 @@ public class PrintShelterDao {
 		PreparedStatement pstmt = null;	
 		ResultSet rset= null;
 		
-		Member m = null;
+
+		String query="select count(*) cnt from member where address like '서울%'";
 		
-		ArrayList<Member> list = null;
+		switch (city) {
+		case 2:
+			
+			query="select count(*) cnt from member where address like '서울%'";
+			
+			break;
+		case 14:
+			
+			query="select count(*) cnt from member where address like '부산%'";
+			
+			break;
+		case 15:
+			
+			query="select count(*) cnt from member where address like '대구%'";
+			
+			break;
+		case 6:
+			
+			query="select count(*) cnt from member where address like '대전%'";
 		
-		String query ="select*from member";
+			break;
+		case 10:
+			
+			query="select count(*) cnt from member where address like '광주%'";
+			
+			break;
+		case 50:
+			
+			break;
+		case 3:
+			query="select count(*) cnt from member where address like '경기%'";
+			break;
+	
+		case 12:
+			query="select count(*) cnt from member where address like '경상남%'";
+			break;
+		case 8:
+			query="select count(*) cnt from member where address like '경상북%'";
+			break;
+		case 5:
+			query="select count(*) cnt from member where address like '충청남%'";
+			break;
+		case 7:
+			query="select count(*) cnt from member where address like '충청북%'";
+			break;
+		case 11:
+			query="select count(*) cnt from member where address like '전라남%'";
+			break;
+		case 9:
+			query="select count(*) cnt from member where address like '전라북%'";;
+			break;
+		case 4:
+			query="select count(*) cnt from member where address like '강원%'";
+			break;	
+		case 16:
+			query="select count(*) cnt from member where address like '세종%'";
+			break;	
+		case 1:
+			query="select count(*) cnt from member where address like '인천%'";
+			break;	
+		case 13:
+			query="select count(*) cnt from member where address like '제주%'";
+			break;	
 		
+		}
 		
 		pstmt= conn.prepareStatement(query);
 		
 		rset= pstmt.executeQuery();
 		
-		list= new ArrayList<>();
 		
+		int result=0;
 		System.out.println(query);
-		String[] array=null;
-		while(rset.next()) {							
-			m = new Member();
-			
+		
+		if(rset.next()) {							
+				
 			System.out.println("들어옴여긴??");
-			String address=rset.getString("address");
-			m.setName(rset.getString("name"));
-			m.setPhone(rset.getString("phone"));
-			m.setAddress(address);
-			System.out.println(address);
-			if(address==null) {
-				array[0]="";
-			}else {
-				array= address.split(" ");
-			}
-			 
-			
-			 System.out.println(array[0]);
-			
-			
-			switch (array[0]) {
-			
-			
-			case "서울특별시":
-				if(city==2) {
-					list.add(m);
-				};
-				break;
-			case "서울":
-				if(city==2) {
-					list.add(m);
-				};
-				break;
-			case "서울시":
-				if(city==2) {
-					list.add(m);
-				};
-				break;
-			case "부산광역시":
-				if(city==14) {
-					list.add(m);
-				};
-				break;
-			case "대구광역시":
-				if(city==15) {
-					list.add(m);
-				};
-				break;
-			case "대전광역시":
-				if(city==6) {
-					list.add(m);
-				};
-				break;
-			case "광주광역시":
-				if(city==10) {
-					list.add(m);
-				};
-				break;
-			case "울산광역시":
-				break;
-			case "경기도":
-				if(city==3) {
-					list.add(m);
-				};
-				break;
-			case "경상남도":
-				if(city==12) {
-					list.add(m);
-				};
-				break;
-			case "경상북도":
-				if(city==8) {
-					list.add(m);
-				};
-				break;
-			case "충청남도":
-				if(city==5) {
-					list.add(m);
-				};
-				break;
-			case "충청북도":
-				if(city==7) {
-					list.add(m);
-				};
-				break;
-			case "전라남도":
-				if(city==11) {
-					list.add(m);
-				};
-				break;
-			case "전라북도":
-				if(city==9) {
-					list.add(m);
-				};
-				break;
-			case "강원도":
-				if(city==4) {
-					list.add(m);
-				};
-				break;	
-			case "강원":
-				if(city==4) {
-					list.add(m);
-				};
-				break;	
-			case "세종특별시":
-				if(city==16) {
-					list.add(m);
-				};
-				break;	
-			case "인천광역시":
-				if(city==1) {
-					list.add(m);
-				};
-				break;	
-			case "제주특별시":
-				if(city==13) {
-					list.add(m);
-				};
-				break;	
-			default:
-				break;
-			}
-		
-		
-		
-		
+			result=rset.getInt("cnt");		
 		}
 		JDBCTemplate.close(rset);
 		JDBCTemplate.close(pstmt);
-		int result=list.size();
+		
 		
 		return result;
 	}

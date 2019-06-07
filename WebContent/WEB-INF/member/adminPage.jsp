@@ -38,7 +38,9 @@
 				</colgroup>
 				<tr>
 					<th>ID</th>
+					<c:if test="${user >= 1 }">
 					<th>CODE</th>
+					</c:if>
 					<th>이름</th>
 					<th>전화번호</th>
 					<th>주소</th>
@@ -49,7 +51,17 @@
 				<c:forEach items="${pd.list }" var = "m">
 				<tr>
 					<td>${m.id }</td>
+					<c:if test="${m.memberLevel >= 1 }">
 					<td>${m.code }</td>
+					</c:if>
+					<c:if test="${m.memberLevel == 0 }">
+					
+					</c:if>
+					<c:if test="${user >= 1 }">
+					<c:if test="${m.memberLevel == 0 }">
+					<td></td>
+					</c:if>
+					</c:if>
 					<td>${m.name }</td>
 					<td>${m.phone }</td>
 					<td>
