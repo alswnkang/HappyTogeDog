@@ -74,11 +74,11 @@ public class PrintShelterService {
 		return list;
 	}
 
-	public ArrayList<Shelter> getSearchName(String key) throws SQLException {
+	public ArrayList<Member> getSearchName(String key) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection conn = JDBCTemplate.getCon();
 		
-		ArrayList<Shelter> list = new PrintShelterDao().getSearchName(conn,key);
+		ArrayList<Member> list = new PrintShelterDao().getSearchName(conn,key);
 		
 		JDBCTemplate.close(conn);
 		return list;

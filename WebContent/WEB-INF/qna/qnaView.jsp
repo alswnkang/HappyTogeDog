@@ -70,22 +70,40 @@
 			<div class="common-tbl-btn-group">
 				<%-- 비회원이 작성한 글 --%>
 				<c:if test="${empty qna.boardId}">
-					<%-- 답변이 없을 때만 수정 가능 --%>
-					<c:if test="${empty comment.boardCommentContent}">
-						<button class="btn-style1 sm" onclick="location.href='/modifyQna?boardNo=${qna.boardNo }'">수정</button>
+					<c:if test="${not empty sessionScope.member}">
+						<c:if test="${sessionScope.member.memberLevel eq 2}">
+							<button class="btn-style2 sm" onclick="if(confirm('삭제하시겠습니까?')){location.href='/removeQna?boardNo=${qna.boardNo }';}">삭제</button>
+						</c:if>
+						<c:if test="${sessionScope.member.memberLevel ne 2}">
+							<%-- 답변이 없을 때만 수정 가능 --%>
+							<c:if test="${empty comment.boardCommentContent}">
+								<button class="btn-style1 sm" onclick="location.href='/modifyQna?boardNo=${qna.boardNo }'">수정</button>
+							</c:if>
+							<button class="btn-style2 sm" onclick="location.href='/checkPw?boardNo=${qna.boardNo }&checkType=d'">삭제</button>
+						</c:if>
 					</c:if>
-					<button class="btn-style2 sm" onclick="location.href='/checkPw?boardNo=${qna.boardNo }&checkType=d'">삭제</button>
+					<c:if test="${empty sessionScope.member}">
+						<%-- 답변이 없을 때만 수정 가능 --%>
+						<c:if test="${empty comment.boardCommentContent}">
+							<button class="btn-style1 sm" onclick="location.href='/modifyQna?boardNo=${qna.boardNo }'">수정</button>
+						</c:if>
+						<button class="btn-style2 sm" onclick="location.href='/checkPw?boardNo=${qna.boardNo }&checkType=d'">삭제</button>
+					</c:if>
 				</c:if>
 				<%-- 회원이 작성한 글 --%>
 				<c:if test="${not empty qna.boardId}">
 					<%-- 로그인 한 상태 --%>
 					<c:if test="${not empty sessionScope.member}">
 						<%-- 내 글일 때만 수정 삭제 버튼 보임 --%>
-						<c:if test="${sessionScope.member.id eq qna.boardId }">
+						<c:if test="${sessionScope.member.id eq qna.boardId && sessionScope.member.memberLevel eq 2}">
 							<%-- 답변이 없을 때만 수정 가능 --%>
 							<c:if test="${empty comment.boardCommentContent}">
 								<button class="btn-style1 sm" onclick="location.href='/modifyQna?boardNo=${qna.boardNo }'">수정</button>
 							</c:if>
+							<button class="btn-style2 sm" onclick="if(confirm('삭제하시겠습니까?')){location.href='/removeQna?boardNo=${qna.boardNo }';}">삭제</button>
+						</c:if>
+						<%-- 관리자는 삭제만 --%>
+						<c:if test="${sessionScope.member.memberLevel eq 2}">
 							<button class="btn-style2 sm" onclick="if(confirm('삭제하시겠습니까?')){location.href='/removeQna?boardNo=${qna.boardNo }';}">삭제</button>
 						</c:if>
 					</c:if>
