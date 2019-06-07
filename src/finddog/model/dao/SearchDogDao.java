@@ -198,7 +198,9 @@ public class SearchDogDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		System.out.println("여기는 겟리스트 도착");
-		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ? and board_type=3 and dog_kind=?"+city+"and happen_date>?  and happen_date<=?";
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ? and board_type=3 and dog_kind=? "+city+" and happen_date>?  and happen_date<=?";
+		System.out.println(query);
+		
 		try {
 			pstmt=conn.prepareStatement(query);
 			pstmt.setInt(1, start);
