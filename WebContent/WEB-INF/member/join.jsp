@@ -99,6 +99,7 @@
 						<th>방문시간 <b class="star join">*</b></th>
 						<td>
 							<select name="time" id="time" class="middle">
+								<option value="07">07시</option>
 								<option value="08">08시</option>
 								<option value="09">09시</option>
 								<option value="10">10시</option>
@@ -123,6 +124,12 @@
 								<option value="16">16시</option>
 								<option value="17">17시</option>
 								<option value="18">18시</option>
+								<option value="19">19시</option>
+								<option value="20">20시</option>
+								<option value="21">21시</option>
+								<option value="22">22시</option>
+								<option value="23">23시</option>
+								<option value="24">24시</option>
 							</select>
 						</td>
 					</tr>	
