@@ -1,7 +1,6 @@
-package siBoardComment.controller;
+package finddog.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,16 +13,16 @@ import siBoardComment.model.boardCommentService.BoardCommentService;
 import siBoardComment.model.boardCommentVo.BoardComment;
 
 /**
- * Servlet implementation class SiPreBoardCommentServlet
+ * Servlet implementation class TakeBoardCommentInsertServlet
  */
-@WebServlet(name = "SiPreBoardCommentInsert", urlPatterns = { "/siPreBoardCommentInsert" })
-public class SiPreBoardCommentInsertServlet extends HttpServlet {
+@WebServlet(name = "TakeBoardCommentInsert", urlPatterns = { "/takeBoardCommentInsert" })
+public class TakeBoardCommentInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SiPreBoardCommentInsertServlet() {
+    public TakeBoardCommentInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,6 +31,7 @@ public class SiPreBoardCommentInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		int boardCommentType = Integer.parseInt(request.getParameter("boardType"));
 		String boardCommentId = request.getParameter("memberId");
@@ -48,7 +48,7 @@ public class SiPreBoardCommentInsertServlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/common/siMsg.jsp");
 		
 		
-		request.setAttribute("loc", "/siPreBoardView?boardNo="+boardRef);
+		request.setAttribute("loc", "/detailTakeBoard?boardNo="+boardRef);
 		
 		
 		rd.forward(request, response);

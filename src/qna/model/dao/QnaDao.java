@@ -141,7 +141,7 @@ public class QnaDao {
 	public int insertQna(Connection conn,QnaVO qna) throws SQLException {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = "insert into board values(board_seq.nextval,?,?,?,?,?,?,?,sysdate,0,?,?,?) ";
+		String sql = "insert into board values(board_seq.nextval,?,?,?,?,?,?,?,sysdate,0,?,?,?,null,null,null) ";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, qna.getBoardType());
 		pstmt.setString(2, qna.getBoardId());

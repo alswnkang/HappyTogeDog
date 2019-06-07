@@ -90,10 +90,11 @@
 						</c:if>
 					</c:if>
 				</c:if>
-				<%--
+				
 				<button class="btn-style3" onclick="list(${search.reqPage });">목록으로</button>
-				--%>
+				<%--
 				<button class="btn-style3" onclick="history.back();">목록으로</button>
+				--%>
 			</div>
 			<form action="${pageName}" method="post" name="search">
 		 		<input type="hidden" name="reqPage">

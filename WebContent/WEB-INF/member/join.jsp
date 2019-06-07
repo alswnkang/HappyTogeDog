@@ -10,6 +10,7 @@
 	.comm-tbl input[type='text'].middle, .comm-tbl input[type='password'].middle{width:50%;}
 	.comm-tbl select.short{width:30%;}
 	#post{display:inline-block; width:75%; vertical-align:middle;}
+	.star.join{color:rgba(254,67,30); font-size:15px;}
 </style>
 
 <%-- Content --%>

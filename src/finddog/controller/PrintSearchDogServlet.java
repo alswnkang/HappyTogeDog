@@ -41,10 +41,10 @@ public class PrintSearchDogServlet extends HttpServlet {
 	
 		
 		
-		String sDay=request.getParameter("startDay").replaceAll("-", "");
-		String eDay=request.getParameter("endDay").replaceAll("-", "");
+		String sDay=request.getParameter("startDay");
+		String eDay=request.getParameter("endDay");
 		System.out.println(sDay+","+eDay);
-		
+		int count =0;
 		int page;
 		try {
 			page = Integer.parseInt(request.getParameter("page"));
@@ -55,8 +55,12 @@ public class PrintSearchDogServlet extends HttpServlet {
 		SearchDogPageData sdpd = new SearchDogPageData();
 		while(b) {
 			sdpd = new SearchDogService().selectList(page,sDay,eDay,kind,cityCode);
-			if(sdpd.getList().size()==8) { //8개의 리스트를답을때까지 반복
+			if(sdpd.getList().size()<=8) { //8개의 리스트를답을때까지 반복
+				count++;
 				b=false;
+				if(count==10) {
+					b=false;
+				}
 			}
 		}
 		

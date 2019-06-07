@@ -9,7 +9,9 @@
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
 <script src="http://code.jquery.com/jquery-3.4.0.min.js"></script><!-- jQuery 선언 -->
-
+<style>
+	.search-select select{padding-left:3px;}
+</style>
 
 <%-- Content --%>
 <section id="content-wrapper">
@@ -18,23 +20,23 @@
 		<form action="/dogAdopList" method="post">
 			<div class="search-select">
 				<select name="city" id="city" data-city="${cityCode}">
-					<option value="">== 도시 선택 ==</option>
+					<option value="">==== 도시 선택 ====</option>
 				</select>
 				<select name="gun" id="gun" data-gun="${gun}">
-					<option value="">== 지역구 선택 ==</option>
+					<option value="">==== 지역구 선택 ====</option>
 				</select>
 				<select name="dogsize" id="dogsize" data-size="${dogsize}">
-					<option value="">== 크기 분류 ==</option>
+					<option value="">==== 크기 분류 ====</option>
 					<option value="소">소형견</option>
 					<option value="중">중형견</option>
 					<option value="대">대형견</option>
 					<option value="기타">기타</option>
 				</select>
 				<select name="kindCd" id="kindCd" data-kind="${kindCd}">
-					<option value="">== 품종 선택 ==</option>
+					<option value="">==== 품종 선택 ====</option>
 				</select>
 				<select name="neuterYn" id="neuterYn" data-neuter="${neuterYn}">
-					<option value="">== 중성화여부 ==</option>
+					<option value="">==== 중성화여부 ====</option>
 					<option value="Y">했음</option>
 					<option value="N">안했음</option>
 					<option value="U">미상</option>
@@ -98,7 +100,7 @@
 				success : function(data){
 					var $select = $("#city");
 					$select.find("option").remove();
-					$select.append("<option value=''>== 도시 선택 ==</option>");
+					$select.append("<option value=''>==== 도시 선택 ====</option>");
 					
 					for(var i=0;i<data.length;i++){
 						var cityName = data[i].cityName;
@@ -130,12 +132,12 @@
 			var cityCode = $("#city").val();
 			console.log(cityCode);
 			$.ajax({
-				url:"/areaCode",
-				data : {value:cityCode},
+				url:"/getAreaCode",
+				data : {cityCode:cityCode},
 				success : function(data){
 					var $select = $("#gun");
 					$select.find("option").remove();
-					$select.append("<option value=''>== 지역구 선택 ==</option>");
+					$select.append("<option value=''>==== 지역구 선택 ====</option>");
 						
 					for(var i=0;i<data.length;i++){
 						var gunName = data[i].districtName;
@@ -176,7 +178,7 @@
 				success : function(data){
 					var $select = $("#kindCd");
 					$select.find("option").remove();
-					$select.append("<option value=''>== 품종 선택 ==</option>");
+					$select.append("<option value=''>==== 품종 선택 ====</option>");
 					for(var i=0;i<data.length;i++){
 						var kind = data[i].kind;
 						var code = data[i].code;;

@@ -33,7 +33,7 @@
 			 			<c:forEach items="${bp.list }" var="list">
 							<tr>
 								<td>${list.boardRnum}</td>
-								<td><img src=''></td>
+								<td><img src='${list.boardFilepath }'></td>
 								<td><a href="/detailTakeBoard?boardNo=${list.boardNo }">${list.boardTitle }</a></td>
 								<!-- name 값을 넘겨주도록 설정필요 -->
 								<td>${list.boardName }(${list.boardId })</td>
@@ -41,13 +41,31 @@
 								<td>${list.boardCount }</td>
 							</tr>
 						</c:forEach>
-						<tr>
-							<td colspan="5" style="text-align:center;">
-								<div>${bp.pageNavi }</div>
-							</td>
-						</tr>
+						<c:if test="${empty bp.list }">
+							<tr>
+								<td colspan="5">
+								<p class="none">게시물이 없습니다.</p>
+								</td>
+							</tr>
+						</c:if>
+					<!-- <tr>
+						<td colspan="5" style="text-align:center;">
+							<div>${bp.pageNavi }</div>
+						</td>
+					</tr> -->
 					</tbody>
 				</table>
+				<c:if test="${not empty sessionScope.member.id }">
+					<div class="common-tbl-btn-group" style="text-align:right;">
+						<!-- 로그인이 되있어야 글쓰기버튼 활성화 -->
+						<button type="button" class="bbs-search-btn btn-style1" onclick="location.href='/takeBoardInsert'">글쓰기</button>
+					</div>
+				</c:if>
+				<!-- paging -->
+				<div class="paging">
+					${bp.pageNavi }
+				</div>
+				
 				<form action="/takeBoardSearch" method="post">
 					<div class="board-search-box">
 						<select name="searchWord">

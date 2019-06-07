@@ -83,7 +83,7 @@
 						</tr>
 						<tr>
 							<th>품종</th>
-							<td>${fn:split(m.kindCd,']')[1]}</td>
+							<td>${fn:split(dl.kindCd,']')[1]}</td>
 						</tr>
 						<tr>
 							<th>나이</th>
@@ -136,10 +136,10 @@
 		        query: address
 		    }, function(status, response) {
 		        if (status === naver.maps.Service.Status.ERROR) {
-		            return alert('Something Wrong!');
+		            return console.log('Something Wrong!');
 		        }
 		        if (response.v2.meta.totalCount === 0) {
-		            return alert('totalCount' + response.v2.meta.totalCount);
+		            return console.log('totalCount' + response.v2.meta.totalCount);
 		        }
 		        var htmlAddresses = [],
 		            item = response.v2.addresses[0],

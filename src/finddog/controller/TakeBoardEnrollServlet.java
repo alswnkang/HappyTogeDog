@@ -63,14 +63,13 @@ public class TakeBoardEnrollServlet extends HttpServlet {
 		
 		System.out.println(boardName);
 		
-		String sY=mRequest.getParameter("shappenDateY");
-		String sM=mRequest.getParameter("shappenDateM");
-		String sD=mRequest.getParameter("shappenDateD");
+		String sY=mRequest.getParameter("startDay");
+	
 		
 		System.out.println(boardId);
-		String sDay=sY.concat(sM).concat(sD);
 		
-		Board b = new Board(0,0, boardType, boardId, boardName, boardTitle, boardContent, boardFilename, boardFilepath, null, 0, 0, null,null,kind,cityCode,sDay);
+		
+		Board b = new Board(0,0, boardType, boardId, boardName, boardTitle, boardContent, boardFilename, boardFilepath, null, null,0, 0, null,null,kind,cityCode,sY);
 		//insert가 작동하는지 확인용 / 로그인 정보와 연동 필요
 		int result = new BoardService().takeBoardInsert(b);
 		String view = "";

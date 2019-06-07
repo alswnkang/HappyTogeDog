@@ -39,6 +39,8 @@ public class ReservationMyViewServlet extends HttpServlet {
 		BookApply ba = new BookApplyService().myViewOne(no,id);
 		request.setAttribute("ba", ba);
 		request.setAttribute("reqPage", reqPage);
+		request.setAttribute("no", no);
+		request.setAttribute("msg", request.getAttribute("msg"));
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/reservationView.jsp");
 		rd.forward(request, response);
 	}
