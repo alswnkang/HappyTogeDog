@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import adoption.model.service.PrintShelterService;
-import adoption.model.vo.Shelter;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class NameSearchShelterServlet
@@ -37,10 +37,12 @@ public class NameSearchShelterServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String key=request.getParameter("keyword");
-		
-		ArrayList<Shelter> list=null;
+		System.out.println(key);
+		ArrayList<Member> list=null;
 		try {
 			list = new PrintShelterService().getSearchName(key);
+			
+			System.out.println(list.get(0).getName());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

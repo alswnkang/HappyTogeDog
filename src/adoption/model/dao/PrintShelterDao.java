@@ -340,13 +340,13 @@ public class PrintShelterDao {
 		
 		return list;
 	}
-	public ArrayList<Shelter> getSearchName(Connection conn, String key) throws SQLException {
+	public ArrayList<Member> getSearchName(Connection conn, String key) throws SQLException {
 		// TODO Auto-generated method stub
 		
-		ArrayList<Shelter>list =null;
+		ArrayList<Member>list =null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from shelter";
+		String query = "select * from member";
 		
 		
 		
@@ -355,12 +355,10 @@ public class PrintShelterDao {
 		list = new ArrayList<>();
 		
 		while(rset.next()) {
-			Shelter s = new Shelter();
-			s.setAddr(rset.getString("addr"));
-			s.setCode(rset.getString("code"));
+			Member s = new Member();
+			s.setAddress(rset.getString("address"));
 			s.setName(rset.getString("name"));
 			s.setPhone(rset.getString("phone"));
-			s.setLevel(rset.getInt("lev"));
 			
 			if(rset.getString("name").contains(key)) {
 				list.add(s);
