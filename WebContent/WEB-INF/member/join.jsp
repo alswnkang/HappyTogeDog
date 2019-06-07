@@ -58,6 +58,24 @@
 						<th>전화번호 <b class="star join">*</b></th>
 						<td>
 							<select name="phone1" id="phone1" class="short">
+								<option></option>
+								<option>02</option>
+								<option>031</option>
+								<option>032</option>
+								<option>033</option>
+								<option>041</option>
+								<option>042</option>
+								<option>043</option>
+								<option>044</option>
+								<option>051</option>
+								<option>052</option>
+								<option>053</option>
+								<option>054</option>
+								<option>055</option>
+								<option>061</option>
+								<option>062</option>
+								<option>063</option>
+								<option>064</option>
 								<option>010</option>
 								<option>011</option>
 								<option>016</option>
@@ -99,6 +117,7 @@
 						<th>방문시간 <b class="star join">*</b></th>
 						<td>
 							<select name="time" id="time" class="middle">
+								<option value="07">07시</option>
 								<option value="08">08시</option>
 								<option value="09">09시</option>
 								<option value="10">10시</option>
@@ -123,6 +142,12 @@
 								<option value="16">16시</option>
 								<option value="17">17시</option>
 								<option value="18">18시</option>
+								<option value="19">19시</option>
+								<option value="20">20시</option>
+								<option value="21">21시</option>
+								<option value="22">22시</option>
+								<option value="23">23시</option>
+								<option value="24">24시</option>
 							</select>
 						</td>
 					</tr>	

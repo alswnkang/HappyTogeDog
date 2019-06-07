@@ -48,7 +48,7 @@
 			</table>	<!-- email.js로  -->
 				
 				<input type="text" name="level" id="level" value="${level }" style="display:none">	<br>					<!-- 가입자 레벨 -->
-				<input type="text" name="a" id="a" value="0" change="emailChk();" style="display:none">	<br>		<!-- 이메일 인증 완료시 1 미완료시 0 -->
+				<input type="text" name="a" id="a" value="0" style="display:none">	<br>		<!-- 이메일 인증 완료시 1 미완료시 0 -->
 			
 			<div class="common-tbl-btn-group">
 				<button type="submit" id="btn2" class="btn-style1">계속하기</button>
