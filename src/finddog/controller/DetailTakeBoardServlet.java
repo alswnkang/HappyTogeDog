@@ -38,8 +38,8 @@ public class DetailTakeBoardServlet extends HttpServlet {
 		
 		int no=Integer.parseInt(request.getParameter("boardNo"));
 		BoardViewData bvd  = new BoardService().boardView(no);
-		Board b= bvd.getB();
-		request.setAttribute("b", b);
+		
+		request.setAttribute("vd", bvd);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/DetailTakeBoard.jsp");
 		rd.forward(request, response);

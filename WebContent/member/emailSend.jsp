@@ -24,7 +24,7 @@
 	<c:if test="${result == 0 }">
 	<div id="checked-container">
 	
-		인증번호 입력 <input type="text" name="email_num" id="email_num">			<!-- 인증번호 입력받는 곳 -->
+		인증번호 입력 <input type="text" name="email_num" id="email_num"><br>			<!-- 인증번호 입력받는 곳 -->
 		<input type="text" name="serverNum" id="serverNum" value="${num }">		<!-- 서버 인증번호 -->
 		<input type="button" id="btn" value="확인">
 		<div id="countdown"></div>
@@ -48,6 +48,7 @@
 				      console.log('done');
 				      alert("다시 인증받으세요");
 				      $('#serverNum').val("356854651654");
+				      self.close();
 				    } else {
 				      time = new Date( msLeft );
 				      hours = time.getUTCHours();

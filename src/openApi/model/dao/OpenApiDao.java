@@ -78,7 +78,7 @@ public class OpenApiDao {
 		try{
 			while(true){
 				// parsing할 url 지정(API 키 포함해서)
-				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/sigungu?upr_cd="+code+"&ServiceKey=aLiSUfKw3hrZNSZrqXuG6iJtNr0ufMlgmB8Y%2Fh93hFuOk5E%2Brl8bd8mxxl%2Fcga%2B6i2CP7lD5%2BGBnLYmmVm%2BkFw%3D%3D";
+				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/sigungu?upr_cd="+code+"&ServiceKey=9foRMY8t3j0MRIsmBCTWOiLUVaW4yJivGOtPfYE9x8yYsPcPCkCUZgGm39bZZGdQQc1ZT9MN87KHULUH8aLpMg%3D%3D";
 				//보경 서비스키 : TZzGtB8BZdZ0VsTPgpNVa1IQMCBLU9%2FlEriT0S4AFcqcswb4YiOAqJiR7So%2BJMbWd5fB0P6%2B8JQsI7EpN4KKrg%3D%3D
 				//지영 서비스키 : aLiSUfKw3hrZNSZrqXuG6iJtNr0ufMlgmB8Y%2Fh93hFuOk5E%2Brl8bd8mxxl%2Fcga%2B6i2CP7lD5%2BGBnLYmmVm%2BkFw%3D%3D
 				//민주 서비스키 : 9foRMY8t3j0MRIsmBCTWOiLUVaW4yJivGOtPfYE9x8yYsPcPCkCUZgGm39bZZGdQQc1ZT9MN87KHULUH8aLpMg%3D%3D
@@ -89,11 +89,11 @@ public class OpenApiDao {
 				
 				// root tag 
 				doc.getDocumentElement().normalize();
-				System.out.println("areaCode"+"Root element :" + doc.getDocumentElement().getNodeName());		//XML의 최상위 tag값 가져오기
+				
 				
 				// 파싱할 tag
 				NodeList nList = doc.getElementsByTagName("item");
-				System.out.println("파싱할 리스트 수 : "+ nList.getLength());
+				
 				
 				for(int temp = 0; temp < nList.getLength(); temp++){
 					cityCode cc = new cityCode();
@@ -102,8 +102,9 @@ public class OpenApiDao {
 						Element eElement = (Element) nNode;
 						cc.setDistrict(getTagValue("orgCd", eElement));
 						cc.setDistrictName(getTagValue("orgdownNm", eElement));
-						System.out.print(cc.getDistrict());
-						System.out.println(cc.getDistrictName());
+						System.out.println("insert into area values('"+cc.getDistrict()+"','"+cc.getDistrictName()+"','"+code+"');");
+						
+						
 						list.add(cc);
 					}	// for end
 				}	// if end
