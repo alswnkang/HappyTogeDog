@@ -38,8 +38,10 @@
 						<td>${vr.startTime }시 ~ ${vr.endTime }시</td>
 					</tr>
 					<tr>
+						<th>봉사 신청한 인원 수</th>
+						<td>${vr.applyNum }명</td>
 						<th>봉사 가능 인원 수</th>
-						<td colspan="3">${vr.person }명</td>
+						<td>${vr.person }명</td>
 					</tr>
 					<tr>
 						<th>봉사 상세설명</th>

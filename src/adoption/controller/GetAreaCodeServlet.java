@@ -1,34 +1,35 @@
-package qna.controller;
+package adoption.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
+import adoption.model.service.BookApplyService;
+import openApi.model.vo.cityCode;
+
 /**
- * Servlet implementation class test
+ * Servlet implementation class GetAreaCodeServlet
  */
-@WebServlet("/test")
-public class test extends HttpServlet {
+@WebServlet(name = "GetAreaCode", urlPatterns = { "/getAreaCode" })
+public class GetAreaCodeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public test() {
+    public GetAreaCodeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println(request.getHeader("REFERER"));
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String cityCode = request.getParameter("cityCode");
+		ArrayList<cityCode> list = new BookApplyService().getAreaCode(cityCode);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(list,response.getWriter());
 	}
 
 	/**

@@ -9,10 +9,11 @@ import adoption.model.vo.Shelter;
 import adoption.model.vo.ShelterPageData;
 import common.JDBCTemplate;
 import member.model.vo.Member;
+import member.model.vo.MemberPageData;
 
 public class PrintShelterService {
 
-	public ShelterPageData printShelter(int city,int reqPage) throws SQLException {
+	public MemberPageData printShelter(int city,int reqPage) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection conn =JDBCTemplate.getCon();
 		String pageNavi ="";
@@ -23,7 +24,7 @@ public class PrintShelterService {
 		int start =(reqPage-1)*numPerPage+1;
 		int end = reqPage*numPerPage;
 		
-		ShelterPageData spd = new PrintShelterDao().selectList(city,conn,start,end);
+		MemberPageData spd = new PrintShelterDao().selectList(city,conn,start,end);
 		
 		int pageNaviSize =5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;

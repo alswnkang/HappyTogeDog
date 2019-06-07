@@ -64,19 +64,28 @@ public class BookApplyService {
 	}
 	
 	//도시 코드, 코드 가져오기
-		public ArrayList<cityCode> getCityCode() {
-			Connection conn = JDBCTemplate.getCon();
-			ArrayList<cityCode> list = new BookApplyDao().getCityCode(conn);
-			JDBCTemplate.close(conn);
-			return list;
-		}
-		//크기선택에 따른 품종 가져오기
-		public ArrayList<DogKind> getKind(String dogsize) {
-			Connection conn = JDBCTemplate.getCon();
-			ArrayList<DogKind> list = new BookApplyDao().getKind(conn,dogsize);
-			JDBCTemplate.close(conn);
-			return list;
-		}
+	public ArrayList<cityCode> getCityCode() {
+		Connection conn = JDBCTemplate.getCon();
+		ArrayList<cityCode> list = new BookApplyDao().getCityCode(conn);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+		
+	//도시코드 받아서 지역구리스트 가져오기
+	public ArrayList<cityCode> getAreaCode(String cityCode) {
+		Connection conn = JDBCTemplate.getCon();
+		ArrayList<cityCode> list = new BookApplyDao().getCityCode(conn,cityCode);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+	
+	//크기선택에 따른 품종 가져오기
+	public ArrayList<DogKind> getKind(String dogsize) {
+		Connection conn = JDBCTemplate.getCon();
+		ArrayList<DogKind> list = new BookApplyDao().getKind(conn,dogsize);
+		JDBCTemplate.close(conn);
+		return list;
+	}
 		
 	/////////////////////////////////////////////////일반회원 유기견 입양 방문 신청///////////////////////////////////////////////////////////
 

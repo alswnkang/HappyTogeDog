@@ -1,7 +1,6 @@
 package siBoardComment.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,16 +13,16 @@ import siBoardComment.model.boardCommentService.BoardCommentService;
 import siBoardComment.model.boardCommentVo.BoardComment;
 
 /**
- * Servlet implementation class SiPreBoardCommentServlet
+ * Servlet implementation class SiPreBoardReCommentServlet
  */
-@WebServlet(name = "SiPreBoardCommentInsert", urlPatterns = { "/siPreBoardCommentInsert" })
-public class SiPreBoardCommentInsertServlet extends HttpServlet {
+@WebServlet(name = "SiPreBoardReCommentInsert", urlPatterns = { "/siPreBoardReCommentInsert" })
+public class SiPreBoardReCommentInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SiPreBoardCommentInsertServlet() {
+    public SiPreBoardReCommentInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,24 +32,28 @@ public class SiPreBoardCommentInsertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		int boardCommentType = Integer.parseInt(request.getParameter("boardType"));
+		int boardRef = Integer.parseInt(request.getParameter("boardRef"));
+		int boardCommentRef = Integer.parseInt(request.getParameter("boardCommentRef"));
+		String boardCommentContent = request.getParameter("boardCommentContent");
 		String boardCommentId = request.getParameter("memberId");
 		String boardCommentName = request.getParameter("memberName");
-		String boardCommentContent = request.getParameter("boardCommentContent");
-		int boardRef = Integer.parseInt(request.getParameter("boardNo"));
-		BoardComment bc = new BoardComment(0, boardCommentType, boardCommentId, boardCommentName, boardCommentContent, boardRef, 0,null,null);
-		int result = new BoardCommentService().commentInsert(bc);
+		BoardComment bc = new BoardComment();
+		bc.setBoardRef(boardRef);
+		bc.setBoardCommentRef(boardCommentRef);
+		bc.setBoardCommentType(boardCommentType);
+		bc.setBoardCommentContent(boardCommentContent);
+		bc.setBoardCommentId(boardCommentId);
+		bc.setBoardCommentName(boardCommentName);
+		int result = new BoardCommentService().reCommentInsert(bc);
 		if(result>0) {
-			request.setAttribute("msg", "댓글등록성공");
+			request.setAttribute("msg", "대댓글등록성공");
 		}else {
-			request.setAttribute("msg", "댓글등록실패");
+			request.setAttribute("msg", "대댓글등록실패");
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/common/siMsg.jsp");
-		
-		
-		request.setAttribute("loc", "/siPreBoardView?boardNo="+boardRef);
-		
-		
+		request.setAttribute("loc", "/siPreBoardView?boardNo="+boardNo);
 		rd.forward(request, response);
 	}
 

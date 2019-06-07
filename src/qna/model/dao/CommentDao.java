@@ -32,7 +32,7 @@ public class CommentDao {
 	public int insertComment(Connection conn, CommentVO comment) throws SQLException {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = "insert into board_comment values(board_comment_seq.nextval,3,null,null,?,?,null,sysdate )";
+		String sql = "insert into board_comment values(board_comment_seq.nextval,5,null,null,?,?,null,sysdate )";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, comment.getBoardCommentContent());
 		pstmt.setInt(2, comment.getBoardRef());

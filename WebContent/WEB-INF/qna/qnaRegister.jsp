@@ -12,7 +12,7 @@
 		<h2 class="comm-content-tit">Q & A</h2>
 		<div id="qnaRegisterBox" class="common-tbl-box">
 			<form action="/insertQna" method="post" enctype="multipart/form-data" onsubmit="return chkSubmit(this);">
-				<input type="hidden" name="boardType" value="3">
+				<input type="hidden" name="boardType" value="5">
 				<input type="hidden" name="boardPrdcode" value="${prdCode }">
 				<%-- 상품코드가 있으면 해당 상품 연결 --%>
 				<c:if test="${not empty prdCode }">
