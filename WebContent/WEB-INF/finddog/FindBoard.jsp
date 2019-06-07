@@ -8,7 +8,7 @@
 <section name="siSection" id="content-wrapper">
 		<div class="area">
 			<h2 class="comm-content-tit">강아지를 찾습니다</h2>
-			<div class="common-tbl-box">
+			<div class="">
 				<table class="comm-tbl type2">
 					<colgroup>
 						<col width="5%">
@@ -40,11 +40,22 @@
 								<td>${list.boardCount }</td>
 							</tr>
 						</c:forEach>
-						<tr>
-							
-						</tr>
+						<c:if test="${empty bp.list }">
+							<tr>
+								<td colspan="6">
+								<p class="none">게시물이 없습니다.</p>
+								</td>
+							</tr>
+						</c:if>
 					</tbody>
 				</table>
+				<!-- 글쓰기 버튼 -->
+				<c:if test="${not empty sessionScope.member.id }">
+					<div class="common-tbl-btn-group" style="text-align:right;">
+						<!-- 로그인이 되있어야 글쓰기버튼 활성화 -->
+						<button type="button" class="bbs-search-btn btn-style1" onclick="location.href='/findBoardInsert'">글쓰기</button>
+					</div>
+				</c:if>
 				<div class="paging">
 					${bp.pageNavi }
 				</div>
@@ -54,12 +65,8 @@
 							<option value="boardName">작성자</option>
 							<option value="boardTitle">글 제목</option>
 						</select>
-						<input type="text" name="keyword">
-						<button type="submit" class="bbs-search-btn">검색</button>
-						<c:if test="${not empty sessionScope.member.id }">
-						<!-- 로그인이 되있어야 글쓰기버튼 활성화 -->
-							<button type="button" class="bbs-search-btn" style="float:right;" onclick="location.href='/findBoardInsert'">글쓰기</button>
-						</c:if>
+						<input type="text" name="keyword" class="search-word" >
+						<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
 					</div>
 				</form>
 			</div>
