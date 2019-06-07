@@ -3,10 +3,32 @@ package siNoticeComment.model.noticeCommentDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
 import siNoticeComment.model.noticeCommentVo.NoticeComment;
 import siTemplete.JDBCTemplete;
 
 public class NoticeCommentDao {
+	public int reCommentInsert(Connection conn, NoticeComment nc) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "insert into board_comment values(board_comment_seq.nextval,?,?,?,?,?,?,sysdate)";
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, nc.getNoticeCommentType());
+			pstmt.setString(2, nc.getNoticeCommentId());
+			pstmt.setString(3, nc.getNoticeCommentName());
+			pstmt.setString(4, nc.getNoticeCommentContent());
+			pstmt.setInt(5, nc.getNoticeRef());
+			pstmt.setInt(6, nc.getNoticeCommentRef());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(pstmt);
+		}
+		return result;
+	}
 	public int commentInsert(Connection conn, NoticeComment nc) {
 		PreparedStatement pstmt = null;
 		int result = 0;

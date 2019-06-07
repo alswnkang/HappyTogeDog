@@ -1,69 +1,73 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link rel="stylesheet" type="text/css" href="/css/content.css">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+
+<%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
-	<section id="content-wrapper">
+
+<style>
+#user{min-width:100px; height:40px; border:1px solid #ccc; margin-bottom:10px;}
+.comm-tbl.type2 th{background-color:#f8f8f8;}
+.comm-tbl.type2 td > button{padding:7px 13px; background-color:rgba(254,67,30,0.95); color:#fff; border-radius:5px;}
+</style>
+
+<%-- Content --%>
+<section id="content-wrapper">
 	<div class="area">
-	<input type="hidden" id="a" value="${user }">
-	<h1 class="comm-content-tit">관리자 페이지</h1>
-	<div class="common-tbl-box">
-	 	<form action="/seeUser" method="post" id="form"> 
-	 		<select name="user" id="user">
-			<option value="2">전체회원</option>
-			<option value="0">일반회원</option>
-			<option value="1">보호소회원</option>
-			</select>
-	 </form> 	
-		<table class="comm-tbl type2">
-			<tr>
-				<th>ID</th>
-				<th>CODE</th>
-				<th>이름</th>
-				<th>전화번호</th>
-				<th>우편번호</th>
-				<th>주소</th>
-				<th>EMAIL</th>
-				<th>회원등급</th>
-				<th>관리</th>
-			</tr>
-			<c:forEach items="${pd.list }" var = "m">
+		<h2 class="comm-content-tit">회원 관리</h2>
+		<input type="hidden" id="a" value="${user }">
+		<div class="">
+		 	<form action="/seeUser" method="post" id="form"> 
+		 		<select name="user" id="user">
+					<option value="2">전체회원</option>
+					<option value="0">일반회원</option>
+					<option value="1">보호소회원</option>
+				</select>
+		 	</form> 	
+			<table class="comm-tbl type2">
 				<tr>
-				<td>${m.id }</td>
-				<td>${m.code }</td>
-				<td>${m.name }</td>
-				<td>${m.phone }</td>
-				<td>${m.post }</td>
-				<td>${m.address }</td>
-				<td>${m.email }</td>
-				<td>${m.user }</td>
-				<td><button onclick="location.href='/adminDelete?id=${m.id}'">탈퇴</button></td>
+					<th>ID</th>
+					<th>CODE</th>
+					<th>이름</th>
+					<th>전화번호</th>
+					<th>우편번호</th>
+					<th>주소</th>
+					<th>EMAIL</th>
+					<th>회원등급</th>
+					<th>관리</th>
 				</tr>
-			</c:forEach>
-		</table>
-		<div id="pageNavi" class="paging">${pd.pageNavi }</div>
-		<form action="/searchUser" method="post">
-		<select name="select">
-			<option value="1">아이디</option>
-			<option value="2">이름,보호소</option>
-			<option value="3">코드</option>
-		</select>
-		<input type="text" name="search">
-		<input type="submit" value="검색">
-		</form>
+				<c:forEach items="${pd.list }" var = "m">
+				<tr>
+					<td>${m.id }</td>
+					<td>${m.code }</td>
+					<td>${m.name }</td>
+					<td>${m.phone }</td>
+					<td>${m.post }</td>
+					<td>${m.address }</td>
+					<td>${m.email }</td>
+					<td>${m.user }</td>
+					<td><button onclick="location.href='/adminDelete?id=${m.id}'">탈퇴</button></td>
+				</tr>
+				</c:forEach>
+			</table>
+			<div id="pageNavi" class="paging">${pd.pageNavi }</div>
+			<!-- 검색박스 -->
+	 		<div class="board-search-box">
+				<form action="/searchUser" method="post">
+					<select name="select">
+						<option value="1">아이디</option>
+						<option value="2">이름,보호소</option>
+						<option value="3">코드</option>
+					</select>
+					<input type="text" name="search" class="search-word" >
+					<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
+				</form>
+			</div>
 		</div>
-		
-		</div>
-	</section>	
+	</div>
+</section>	
 	
-	<script>
+<script>
 		$(document).ready(function(){
 			var a = $('#a').val();
 			console.log(a);
@@ -94,6 +98,7 @@
 				});	*/
 			});
 		
-	</script>
-</body>
-</html>
+</script>
+	
+<%-- Footer --%>
+<jsp:include page="/WEB-INF/common/footer.jsp" />

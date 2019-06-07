@@ -40,8 +40,10 @@ public class MyPageServlet extends HttpServlet {
 		
 		try {
 			Member m = new MemberService().selectOne(id);
+			System.out.println("phone"+m.getPhone());
 			if(m != null) {
 				request.setAttribute("m", m);
+				
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/mypage.jsp");
 				rd.forward(request, response);
 			}else {

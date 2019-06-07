@@ -3,31 +3,60 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-	<style type="text/css">
-		#checked-container{
-			text-align : center;
-			padding-top : 50px;
-		}
-		#checked{
-			color: red;
-			font-weight: bold;
-		}
-	</style>
+<title>HappyTogeDog</title>
+<link rel="Shortcut Icon" href="/img/favicon.ico">
+<link rel="stylesheet" type="text/css" href="/css/reset.css"> <!-- 태그 초기화 css(민주) -->
+<link rel="stylesheet" type="text/css" href="/css/layout.css"> <!-- 레이아웃 css(민주) -->
+<link rel="stylesheet" type="text/css" href="/css/content.css"> <!-- 컨텐츠 css(민주) -->
+<!-- script -->
+<script src="http://code.jquery.com/jquery-3.4.0.min.js"></script><!-- jQuery 선언 -->
+
+<style type="text/css">
+	#checked-container{
+		text-align : center;
+		padding : 50px 20px;
+	}
+	#checked{
+		color: red;
+		font-weight: bold;
+	}
+	.count-time{padding-top:30px; text-align:center; font-size:15px; font-weight:400;}
+	#countdown{display:inline-block; font-size:18px; color:red; font-weight:500;}
+</style>
+
 </head>
 <body>
 	<input type="hidden" id="check" value="${result }">
 	<c:if test="${result == 0 }">
 	<div id="checked-container">
-	
-		인증번호 입력 <input type="text" name="email_num" id="email_num"><br>			<!-- 인증번호 입력받는 곳 -->
-		<input type="text" name="serverNum" id="serverNum" value="${num }">		<!-- 서버 인증번호 -->
-		<input type="button" id="btn" value="확인">
-		<div id="countdown"></div>
+		<table class="comm-tbl view">
+			<colgroup>
+				<col width="">
+				<col width="">
+			</colgroup>
+			<tr>
+				<th>인증번호 입력</th>
+				<td><input type="text" name="email_num" id="email_num"></td><!-- 인증번호 입력받는 곳 -->
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align:center;">
+					<input type="text" name="serverNum" id="serverNum" value="${num }" class="short"><!-- 서버 인증번호 -->
+					<div class="common-tbl-btn-group join-btn-group">
+						<button type="button" id="btn" class="btn-style2 small">확인</button>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<div class="count-time">
+			<span>제한시간 </span><div id="countdown"></div>
+		</div>
+		
+		<!-- 인증번호 입력 <input type="text" name="email_num" id="email_num"><br>			
+		<input type="text" name="serverNum" id="serverNum" value="${num }">		
+		<input type="button" id="btn" value="확인"> -->
+		
 	
 	</div>
 	</c:if>
@@ -82,8 +111,6 @@
 				alert("인증실패");
 			}
 		});
-		
-		
 		
 	</script>
 	

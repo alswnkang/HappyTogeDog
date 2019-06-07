@@ -15,6 +15,7 @@ import adoption.model.dao.PrintShelterDao;
 import adoption.model.service.PrintShelterService;
 import adoption.model.vo.Shelter;
 import adoption.model.vo.ShelterPageData;
+import member.model.vo.MemberPageData;
 
 /**
  * Servlet implementation class PrintShelterServlet
@@ -36,6 +37,7 @@ public class PrintShelterServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("utf-8");
 		int city = Integer.parseInt(request.getParameter("city"));
 		
 		int page;
@@ -46,16 +48,17 @@ public class PrintShelterServlet extends HttpServlet {
 			page=1;
 		}
 		System.out.println(city);
-		ShelterPageData spd = new ShelterPageData();
+		MemberPageData mpd = new MemberPageData();
 		
 		try {
-			spd = new PrintShelterService().printShelter(city,page);
+			System.out.println("여기들어왔나요?");
+			mpd = new PrintShelterService().printShelter(city,page);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(spd.getList().size());
-		request.setAttribute("spd", spd);
+		System.out.println(mpd.getList().size());
+		request.setAttribute("spd", mpd);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/findShelter.jsp");
 		rd.forward(request, response);

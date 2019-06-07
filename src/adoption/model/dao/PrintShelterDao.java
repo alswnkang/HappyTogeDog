@@ -10,27 +10,26 @@ import adoption.model.vo.Shelter;
 import adoption.model.vo.ShelterPageData;
 import common.JDBCTemplate;
 import member.model.vo.Member;
+import member.model.vo.MemberPageData;
 
 public class PrintShelterDao {
 
-	public ShelterPageData selectList(int city, Connection conn, int start, int end) throws SQLException {
+	public MemberPageData selectList(int city, Connection conn, int start, int end) throws SQLException {
 		// TODO Auto-generated method stub
 		
 		
 		PreparedStatement pstmt = null;	
 		ResultSet rset= null;
 		
-		Shelter shelter = null;
-		ShelterPageData spd = null;
-		ArrayList<Shelter> list = null;
+		Member m = null;
+		MemberPageData spd = null;
+		ArrayList<Member> list = null;
 		
-		String query ="SELECT * FROM (SELECT ROWNUM AS RNUM, M.* FROM (select * from shelter where lev=?) M) where RNUM BETWEEN ? AND ?";
+		String query ="select*from member";
 		
 		
 		pstmt= conn.prepareStatement(query);
-		pstmt.setInt(1, city);
-		pstmt.setInt(2, start);
-		pstmt.setInt(3, end);
+		
 		
 		
 		System.out.println(start+""+end+""+city);
@@ -38,16 +37,123 @@ public class PrintShelterDao {
 		rset= pstmt.executeQuery();
 		
 		list= new ArrayList<>();
-		spd = new ShelterPageData();
-		
+		spd = new MemberPageData();
 		System.out.println(query);
-		
+		String[] array=null;
 		while(rset.next()) {							
-			shelter = new Shelter();
-			shelter.setAddr(rset.getString("addr"));		
-			shelter.setName(rset.getString("name"));
-			shelter.setPhone(rset.getString("phone"));
-			list.add(shelter);
+			m = new Member();
+			
+			System.out.println("여기들어왔나요");
+			String address=rset.getString("address");
+			
+			
+			m.setName(rset.getString("name"));
+			m.setPhone(rset.getString("phone"));
+			m.setAddress(address);
+			
+			if(address==null) {
+				array[0]="";
+			}else {
+				array= address.split(" ");
+				address.replace("//", "");
+			}
+			
+			
+			
+			
+			switch (array[0]) {
+			case "서울특별시":
+				if(city==2) {
+					list.add(m);
+				};
+				break;
+			case "부산광역시":
+				if(city==14) {
+					list.add(m);
+				};
+				break;
+			case "대구광역시":
+				if(city==15) {
+					list.add(m);
+				};
+				break;
+			case "대전광역시":
+				if(city==6) {
+					list.add(m);
+				};
+				break;
+			case "광주광역시":
+				if(city==10) {
+					list.add(m);
+				};
+				break;
+			case "울산광역시":
+				break;
+			case "경기도":
+				if(city==3) {
+					list.add(m);
+				};
+				break;
+			case "경기":
+				if(city==3) {
+					list.add(m);
+				};
+				break;
+			case "경상남도":
+				if(city==12) {
+					list.add(m);
+				};
+				break;
+			case "경상북도":
+				if(city==8) {
+					list.add(m);
+				};
+				break;
+			case "충청남도":
+				if(city==5) {
+					list.add(m);
+				};
+				break;
+			case "충청북도":
+				if(city==7) {
+					list.add(m);
+				};
+				break;
+			case "전라남도":
+				if(city==11) {
+					list.add(m);
+				};
+				break;
+			case "전라북도":
+				if(city==9) {
+					list.add(m);
+				};
+				break;
+			case "강원도":
+				if(city==4) {
+					list.add(m);
+				};
+				break;	
+			case "세종특별시":
+				if(city==16) {
+					list.add(m);
+				};
+				break;	
+			case "인천광역시":
+				if(city==1) {
+					list.add(m);
+				};
+				break;	
+			case "제주특별시":
+				if(city==13) {
+					list.add(m);
+				};
+				break;	
+			
+			}
+			
+			
+			
 		
 		}	
 			
@@ -64,23 +170,154 @@ public class PrintShelterDao {
 	
 	}
 	public int totalCount(Connection conn, int city) throws SQLException {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String query = "select count(*) cnt from shelter where lev=?";
+		PreparedStatement pstmt = null;	
+		ResultSet rset= null;
+		
+		Member m = null;
+		
+		ArrayList<Member> list = null;
+		
+		String query ="select*from member";
 		
 		
-		int result =0;
 		pstmt= conn.prepareStatement(query);
-		pstmt.setInt(1, city);
-		rset = pstmt.executeQuery();
 		
-		if(rset.next()) {
-			result =rset.getInt("cnt");
+		rset= pstmt.executeQuery();
+		
+		list= new ArrayList<>();
+		
+		System.out.println(query);
+		String[] array=null;
+		while(rset.next()) {							
+			m = new Member();
+			
+			System.out.println("들어옴여긴??");
+			String address=rset.getString("address");
+			m.setName(rset.getString("name"));
+			m.setPhone(rset.getString("phone"));
+			m.setAddress(address);
+			System.out.println(address);
+			if(address==null) {
+				array[0]="";
+			}else {
+				array= address.split(" ");
+			}
+			 
+			
+			 System.out.println(array[0]);
+			
+			
+			switch (array[0]) {
+			
+			
+			case "서울특별시":
+				if(city==2) {
+					list.add(m);
+				};
+				break;
+			case "서울":
+				if(city==2) {
+					list.add(m);
+				};
+				break;
+			case "서울시":
+				if(city==2) {
+					list.add(m);
+				};
+				break;
+			case "부산광역시":
+				if(city==14) {
+					list.add(m);
+				};
+				break;
+			case "대구광역시":
+				if(city==15) {
+					list.add(m);
+				};
+				break;
+			case "대전광역시":
+				if(city==6) {
+					list.add(m);
+				};
+				break;
+			case "광주광역시":
+				if(city==10) {
+					list.add(m);
+				};
+				break;
+			case "울산광역시":
+				break;
+			case "경기도":
+				if(city==3) {
+					list.add(m);
+				};
+				break;
+			case "경상남도":
+				if(city==12) {
+					list.add(m);
+				};
+				break;
+			case "경상북도":
+				if(city==8) {
+					list.add(m);
+				};
+				break;
+			case "충청남도":
+				if(city==5) {
+					list.add(m);
+				};
+				break;
+			case "충청북도":
+				if(city==7) {
+					list.add(m);
+				};
+				break;
+			case "전라남도":
+				if(city==11) {
+					list.add(m);
+				};
+				break;
+			case "전라북도":
+				if(city==9) {
+					list.add(m);
+				};
+				break;
+			case "강원도":
+				if(city==4) {
+					list.add(m);
+				};
+				break;	
+			case "강원":
+				if(city==4) {
+					list.add(m);
+				};
+				break;	
+			case "세종특별시":
+				if(city==16) {
+					list.add(m);
+				};
+				break;	
+			case "인천광역시":
+				if(city==1) {
+					list.add(m);
+				};
+				break;	
+			case "제주특별시":
+				if(city==13) {
+					list.add(m);
+				};
+				break;	
+			default:
+				break;
+			}
+		
+		
+		
+		
 		}
-		
 		JDBCTemplate.close(rset);
 		JDBCTemplate.close(pstmt);
-		
+		int result=list.size();
 		
 		return result;
 	}

@@ -58,6 +58,24 @@
 						<th>전화번호 <b class="star join">*</b></th>
 						<td>
 							<select name="phone1" id="phone1" class="short">
+								<option></option>
+								<option>02</option>
+								<option>031</option>
+								<option>032</option>
+								<option>033</option>
+								<option>041</option>
+								<option>042</option>
+								<option>043</option>
+								<option>044</option>
+								<option>051</option>
+								<option>052</option>
+								<option>053</option>
+								<option>054</option>
+								<option>055</option>
+								<option>061</option>
+								<option>062</option>
+								<option>063</option>
+								<option>064</option>
 								<option>010</option>
 								<option>011</option>
 								<option>016</option>
