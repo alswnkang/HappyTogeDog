@@ -12,7 +12,7 @@
 <section id="content-wrapper">
 	<div class="area">
 		<h2 class="comm-content-tit">나의 후원 내역</h2>
-		<div id="orderListBox" class="common-tbl-box">
+		<div id="orderListBox" class="">
 			<!-- 검색박스 -->
 		 		<div class="board-search-box order-search">
 		 			<form action="/myOrderList" method="post" name="search">
@@ -25,7 +25,7 @@
 						&nbsp;<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
 					</form>
 				</div>
-				
+				<br>
 				<table class="comm-tbl type2">
 					<colgroup>
 						<col width="15%">
