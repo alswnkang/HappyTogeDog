@@ -232,7 +232,7 @@ public class QnaServlet extends HttpServlet {
 			try {
 				boardType = Integer.parseInt(mRequest.getParameter("boardType"));
 			}catch(Exception e){
-				boardType = 3;
+				boardType = 5;
 			}
 			String boardTitle = mRequest.getParameter("boardTitle");
 			String boardId = mRequest.getParameter("boardId");

@@ -30,7 +30,7 @@ public class QnaDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String sql = "select count(*) as cnt from board where board_type=3 "+makeQuery(search);
+		String sql = "select count(*) as cnt from board where board_type=5 "+makeQuery(search);
 		
 		pstmt = conn.prepareStatement(sql);
 		rset = pstmt.executeQuery();
@@ -47,7 +47,7 @@ public class QnaDao {
 		ArrayList<QnaVO> qnaList = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = "select * from (select rownum rnum,b.* from (select * from board where board_type=3 "+makeQuery(search)+" order by board_date desc) b ) where rnum between ? and ? ";
+		String sql = "select * from (select rownum rnum,b.* from (select * from board where board_type=5 "+makeQuery(search)+" order by board_date desc) b ) where rnum between ? and ? ";
 		
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, start);

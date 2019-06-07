@@ -13,7 +13,7 @@
 		<h2 class="comm-content-tit">Q & A</h2>
 		<div id="qnaModifyBox" class="common-tbl-box">
 			<form action="/updateQna" method="post" enctype="multipart/form-data" onsubmit="return chkSubmit(this);">
-				<input type="hidden" name="boardType" value="3">
+				<input type="hidden" name="boardType" value="5">
 				<input type="hidden" name="boardNo" value="${qna.boardNo }">
 				<input type="hidden" name="boardPrdcode" value="${qna.boardPrdcode }">
 				<%-- 상품코드가 있으면 해당 상품 연결 --%>
