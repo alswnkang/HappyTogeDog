@@ -34,8 +34,8 @@ $(function(){
 					<col width="5%">
 					<col width="">
 					<col width="15%">
-					<col width="10%">
-					<col width="23%">
+					<col width="13%">
+					<col width="18%">
 					<col width="13%">
 					<col width="10%">
 				</colgroup>
@@ -44,7 +44,7 @@ $(function(){
 						<th>No.</th>
 						<th>봉사활동 제목</th>
 						<th>봉사활동 <br>날짜 / 시간</th>
-						<th>신청 가능 <br>인원 수</th>
+						<th>신청한 인원 수 / <br>신청 가능 인원 수</th>
 						<th>보호소명</th>
 						<th>공고 등록일</th>
 						<th>상태</th>
@@ -57,7 +57,7 @@ $(function(){
 								<td>${i.count }</td>
 								<td><p class="volun-tit"><a href="/voluntaryView?no=${volunRegister.no }">${volunRegister.title}</a></p></td>
 								<td>${volunRegister.volunDate } <br>${volunRegister.startTime }시 ~ ${volunRegister.endTime }시</td>
-								<td>${volunRegister.person }명</td>
+								<td>${volunRegister.applyNum }명 / ${volunRegister.person }명</td>
 								<td class="name">${volunRegister.name}</td>
 								<td>${volunRegister.enrollDate }</td><!-- ${volunRegister.status } -->
 								<td>

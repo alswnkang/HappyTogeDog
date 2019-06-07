@@ -52,6 +52,7 @@ public class BookApplyDao {
 				//보경 서비스키 : TZzGtB8BZdZ0VsTPgpNVa1IQMCBLU9%2FlEriT0S4AFcqcswb4YiOAqJiR7So%2BJMbWd5fB0P6%2B8JQsI7EpN4KKrg%3D%3D
 				//지영 서비스키 : aLiSUfKw3hrZNSZrqXuG6iJtNr0ufMlgmB8Y%2Fh93hFuOk5E%2Brl8bd8mxxl%2Fcga%2B6i2CP7lD5%2BGBnLYmmVm%2BkFw%3D%3D
 				//민주 서비스키 : 9foRMY8t3j0MRIsmBCTWOiLUVaW4yJivGOtPfYE9x8yYsPcPCkCUZgGm39bZZGdQQc1ZT9MN87KHULUH8aLpMg%3D%3D
+				System.out.println(url);
 				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
 				Document doc;
@@ -156,6 +157,34 @@ public class BookApplyDao {
 		}finally {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(stmt);
+		}
+		return list;
+	}
+	
+	//도시코드로 지역구 리스트 가져오기
+	public ArrayList<cityCode> getCityCode(Connection conn, String cityCode) {
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		ArrayList<cityCode> list = null;
+		String query = "select * from area where citycode=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, cityCode);
+			rset = pstmt.executeQuery();
+			list = new ArrayList<cityCode>();
+			while(rset.next()) {
+				cityCode c = new cityCode();
+				c.setDistrict(rset.getString("areacode"));
+				c.setDistrictName(rset.getString("areaname"));
+				list.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
 		}
 		return list;
 	}

@@ -48,7 +48,7 @@ public class FindBoardEnrollServlet extends HttpServlet {
 		int boardType = Integer.parseInt(mRequest.getParameter("boardType"));
 		String boardId = mRequest.getParameter("memberId");
 		
-	
+		System.out.println(saveDirectory);
 		
 		//회원의 로그인 정보를 가져와서 boardId에 대입
 		String boardName = mRequest.getParameter("memberName");
@@ -56,12 +56,14 @@ public class FindBoardEnrollServlet extends HttpServlet {
 		String boardContent = mRequest.getParameter("boardContent");		
 		String boardFilename = mRequest.getOriginalFileName("boardFilename");
 		//DefaultFileRenamePlicy 클래스 객체에 의해 파일명이 변경되기 전, 원래의 파일명을 리턴(원본 파일이름 유지)
-		String boardFilepath = mRequest.getFilesystemName("boardFilepath");
+		String boardFilepath = mRequest.getFilesystemName("boardFilename");
+		
+		
 		
 		String kind = mRequest.getParameter("kind");
 		String cityCode= mRequest.getParameter("happenCity");
 		
-		System.out.println(boardName);
+		System.out.println("filepath:"+boardFilepath);
 		
 		
 		
