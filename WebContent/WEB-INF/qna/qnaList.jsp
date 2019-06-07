@@ -13,7 +13,7 @@
 <section id="content-wrapper">
 	<div class="area">
 		<h2 class="comm-content-tit">Q & A</h2>
-		<div id="qnaListBox" class="common-tbl-box">
+		<div id="qnaListBox">
 				<table class="comm-tbl type2">
 					<colgroup>
 						<col width="5%">

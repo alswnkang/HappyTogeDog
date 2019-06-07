@@ -42,6 +42,13 @@
 							</tr>
 						</c:forEach>
 					</c:if>
+					<c:if test="${empty vad.list }">
+						<tr>
+							<td colspan="6">
+								<p class="none">신청한 봉사활동 내역이 없습니다.</p>
+							</td>
+						</tr>
+					</c:if>
 				</tbody>
 			</table>
 			<!-- paging -->
