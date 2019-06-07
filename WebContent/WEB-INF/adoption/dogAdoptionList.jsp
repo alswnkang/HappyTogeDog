@@ -132,8 +132,8 @@
 			var cityCode = $("#city").val();
 			console.log(cityCode);
 			$.ajax({
-				url:"/areaCode",
-				data : {value:cityCode},
+				url:"/getAreaCode",
+				data : {cityCode:cityCode},
 				success : function(data){
 					var $select = $("#gun");
 					$select.find("option").remove();
