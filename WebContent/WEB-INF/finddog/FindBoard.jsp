@@ -32,7 +32,7 @@
 			 			<c:forEach items="${bp.list }" var="list">
 							<tr>
 								<td>${list.boardRnum}</td>
-								<td><img src='${list.boardFilepath }'></td>
+								<td><img src="/siUpload/board/${list.boardFilepath }"></td>
 								<td><a href="/detailTakeBoard?boardNo=${list.boardNo }">${list.boardTitle }</a></td>
 								<!-- name 값을 넘겨주도록 설정필요 -->
 								<td>${list.boardName }(${list.boardId })</td>

@@ -96,7 +96,7 @@
 					<c:forEach items="${sdpd2.list }" var="m" varStatus="i">
 					<tr>
 						<td>${i.count }</td>
-						<td><img src=${m.boardFilename } style="height: 200px; width: 200px;" ></td>
+						<td><img src="/siUpload/board/${m.boardFilepath }" style="height: 200px; width: 200px;" ></td>
 						<td>${m.boardName }</td>
 						<td>${m.happenCity }</td>
 						<td>${m.happenDate }</td>
