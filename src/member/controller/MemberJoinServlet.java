@@ -75,7 +75,7 @@ public class MemberJoinServlet extends HttpServlet {
 		System.out.println(m.getMemberLevel());
 		try {
 			int result = new MemberService().memberJoin(m);
-			int result2 = new PrintShelterService().addShelter(m);		//-- 보호소 찾기DB 수정이 필요함
+			
 			
 			
 			
@@ -87,11 +87,7 @@ public class MemberJoinServlet extends HttpServlet {
 				request.setAttribute("loc", "/");
 
 			System.out.println("가입완료");						//-- 보호소 찾기DB 수정이 필요함
-				if(result2<0) {
-					System.out.println("보호소 등록은 실패");
-				}else {
-					System.out.println("보호소등록성공");
-				}
+			
 				
 				rd.forward(request, response);
 			}else {
