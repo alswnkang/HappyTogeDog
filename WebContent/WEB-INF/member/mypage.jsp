@@ -49,16 +49,68 @@
 					</tr>
 					<tr>
 						<th>전화번호 <b class="star join">*</b></th>
-						<td>
+
+					<c:choose>
+    					<c:when test="${m.phone1 eq 'phone'}">
+       						<td>
 							<select name="phone1" id="phone1" class="short">
-								<option>${m.phone1 }</option>
+								<option></option>
+								<option>02</option>
+								<option>031</option>
+								<option>032</option>
+								<option>033</option>
+								<option>041</option>
+								<option>042</option>
+								<option>043</option>
+								<option>044</option>
+								<option>051</option>
+								<option>052</option>
+								<option>053</option>
+								<option>054</option>
+								<option>055</option>
+								<option>061</option>
+								<option>062</option>
+								<option>063</option>
+								<option>064</option>
 								<option>010</option>
 								<option>011</option>
 								<option>016</option>
 							</select> - 
-							<input type="text" id="phone2" name="phone2" value="${m.phone2 }" class="modify short" maxlength="4"> - 
-							<input type="text" id="phone3" name="phone3" value="${m.phone3 }" class="modify short" maxlength="4">
-						</td>
+								<input type="text" id="phone2" name="phone2" value="" class="modify short" maxlength="4"> - 
+								<input type="text" id="phone3" name="phone3" value="" class="modify short" maxlength="4">
+							</td>
+   						</c:when>
+    					<c:otherwise>
+        					<td>
+								<select name="phone1" id="phone1" class="short">
+									<option>${m.phone1 }</option>
+									<option>02</option>
+									<option>031</option>
+									<option>032</option>
+									<option>033</option>
+									<option>041</option>
+									<option>042</option>
+									<option>043</option>
+									<option>044</option>
+									<option>051</option>
+									<option>052</option>
+									<option>053</option>
+									<option>054</option>
+									<option>055</option>
+									<option>061</option>
+									<option>062</option>
+									<option>063</option>
+									<option>064</option>
+									<option>010</option>
+									<option>011</option>
+									<option>016</option>
+								</select> - 
+								<input type="text" id="phone2" name="phone2" value="${m.phone2 }" class="modify short" maxlength="4"> - 
+								<input type="text" id="phone3" name="phone3" value="${m.phone3 }" class="modify short" maxlength="4">
+							</td>
+    					</c:otherwise>
+    				</c:choose>
+				
 					</tr>
 					<c:if test="${m.memberLevel == 0 }">
 					<tr>
@@ -73,7 +125,7 @@
 						<td>
 							<input type="text" id="address" name="address" value="${m.mainAddress }" class="modify" style="margin-bottom:5px;">
 							<span id="guide" style="color:#999;display:none"></span>
-							<input type="text" id="detailAddress" placeholder="상세주소" name="detailAddress" value="${m.detailAddress }">
+							<input type="text" id="detailAddress" placeholder="상세주소" class="modify" name="detailAddress" value="${m.detailAddress }">
 						</td>
 					</tr>
 					</c:if>
