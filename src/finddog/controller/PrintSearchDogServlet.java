@@ -34,7 +34,7 @@ public class PrintSearchDogServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		
+		int count =0;
 		String kind = request.getParameter("kind");
 		String cityCode= request.getParameter("happenCity");
 		
@@ -44,7 +44,7 @@ public class PrintSearchDogServlet extends HttpServlet {
 		String sDay=request.getParameter("startDay");
 		String eDay=request.getParameter("endDay");
 		System.out.println(sDay+","+eDay);
-		int count =0;
+		
 		int page;
 		try {
 			page = Integer.parseInt(request.getParameter("page"));
@@ -55,9 +55,14 @@ public class PrintSearchDogServlet extends HttpServlet {
 		SearchDogPageData sdpd = new SearchDogPageData();
 		while(b) {
 			sdpd = new SearchDogService().selectList(page,sDay,eDay,kind,cityCode);
-			if(sdpd.getList().size()<=8) { //8개의 리스트를답을때까지 반복
+			if(sdpd.getList().size()==8) { //8개의 리스트를답을때까지 반복
 				count++;
 				b=false;
+				if(count==10) {
+					b=false;
+				}
+			}else if(sdpd.getList().size()==7||sdpd.getList().size()==6||sdpd.getList().size()==5||sdpd.getList().size()==4||sdpd.getList().size()==3||sdpd.getList().size()==2||sdpd.getList().size()==1){
+				count++;
 				if(count==10) {
 					b=false;
 				}

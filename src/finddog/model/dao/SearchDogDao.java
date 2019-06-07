@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -67,12 +69,27 @@ public class SearchDogDao {
 		// TODO Auto-generated method stub
 		ArrayList<DogList> list = null;
 		try {
+			String kinds="";
+			String cityCo="";
 			while (true) {
+				
+				if(sDay.equals("")||sDay==null) {
+					sDay=preMonth();
+				}
+				if(eDay.equals("")||eDay==null) {
+					eDay=date();
+				}
+				if(kind.equals("")||kind==null) {
+					kinds="&kind=".concat(kind);
+				}
+				if(cityCode.equals("")||cityCode==null) {
+					cityCo="&upr_cd=".concat(cityCode);
+				}
 				// parsing할 url 지정(API 키 포함해서)
 				System.out.println(sDay+","+eDay+"진짜이상하네");
 				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde="+sDay+"&endde="+eDay+"&pageNo="
 						+ page
-						+"&kind="+kind+"&upr_cd="+cityCode+"&upkind=417000&numOfRows=8&ServiceKey=9foRMY8t3j0MRIsmBCTWOiLUVaW4yJivGOtPfYE9x8yYsPcPCkCUZgGm39bZZGdQQc1ZT9MN87KHULUH8aLpMg%3D%3D";
+						+kinds+cityCo+"&upkind=417000&numOfRows=8&ServiceKey=9foRMY8t3j0MRIsmBCTWOiLUVaW4yJivGOtPfYE9x8yYsPcPCkCUZgGm39bZZGdQQc1ZT9MN87KHULUH8aLpMg%3D%3D";
 				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
 				Document doc = dBuilder.parse(url);
@@ -335,5 +352,22 @@ public class SearchDogDao {
 		}
 		return list;
 	}
+	public String date() {
+//		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
+		Calendar cal = Calendar.getInstance();
+		System.out.println("date메소드 : "+date.format(cal.getTime()));
+		return date.format(cal.getTime());
+	}
+	public String preMonth() {
+//		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH, -6);
+		System.out.println("preMonth메소드 : "+date.format(cal.getTime()));
+		return date.format(cal.getTime());
+	}
 
 }
+
+

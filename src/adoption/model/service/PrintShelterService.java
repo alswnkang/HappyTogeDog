@@ -17,7 +17,7 @@ public class PrintShelterService {
 		// TODO Auto-generated method stub
 		Connection conn =JDBCTemplate.getCon();
 		String pageNavi ="";
-		int numPerPage =7;
+		int numPerPage =10;
 		int totalCount = new PrintShelterDao().totalCount(conn,city);
 		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
 		
