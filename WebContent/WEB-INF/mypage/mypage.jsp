@@ -145,7 +145,7 @@
 				<li>
 					<a href="/adminPage">
 						<div class="img-thum">
-							<span><img src="/img/mypage_icon06.png"></span>
+							<span><img src="/img/join_type01.png"></span>
 						</div>
 						<div class="txt-thum">
 							<h4>회원</h4>
@@ -163,7 +163,7 @@
 							<p>후원 상품의 주문 관리를 <br>할 수 있습니다.</p>
 						</div>
 					</a>
-				</li>
+				</li><br><br>
 				<li>
 					<a href="">
 						<div class="img-thum">
