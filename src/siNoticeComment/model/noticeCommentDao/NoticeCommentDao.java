@@ -49,6 +49,24 @@ public class NoticeCommentDao {
 		}
 		return result;
 	}
+	public int reCommentUpdate(Connection conn,String noticeCommentContent,int noticeCommentNo,int noticeCommentRef) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "update board_comment set board_comment_content = ? where board_comment_Ref = ? and board_comment_no = ?";
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setString(1, noticeCommentContent);
+			pstmt.setInt(2, noticeCommentRef);
+			pstmt.setInt(3, noticeCommentNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(pstmt);
+		}
+		return result;
+	}		
 	public int commentUpdate(Connection conn,String memberId,String noticeCommentContent,int noticeCommentNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -66,7 +84,24 @@ public class NoticeCommentDao {
 			JDBCTemplete.close(pstmt);
 		}
 		return result;
-	}	
+	}			
+	public int reCommentDelete(Connection conn,int noticeCommentNo,int noticeCommentRef) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "delete board_comment where board_comment_no = ? and board_comment_ref = ?";
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, noticeCommentNo);
+			pstmt.setInt(2, noticeCommentRef);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(pstmt);
+		}
+		return result;
+	}
 	public int commentDelete(Connection conn,int noticeCommentNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;

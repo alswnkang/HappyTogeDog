@@ -111,9 +111,22 @@
 										<td width="20%"> └─ ${clist.boardCommentName }(${clist.boardCommentId })</td>
 										<td width="65%">
 											<span>${clist.boardCommentContent }</span>
+											<input type="text" value="${clist.boardCommentContent }" class="boardReCommentModify" style="display:none;"/>
 										</td>
 										<td width="11%">
 											${clist.boardCommentDate2 }<br/>
+											<c:if test="${clist.boardCommentId == sessionScope.member.id }">
+												<button class="cmtrUpdate" type="button" onclick="cmtrMfy('${vd.b.boardNo }','${clist.boardCommentRef }','${clist.boardCommentNo }')" style="display:none;">등록</button>
+												<button class="mdfBtnr" type="button">수정</button>
+												<button type="text" style="display:none;">/</button>
+												<button class="cancelBtnr" type="reset" style="display:none;">취소</button>
+												/
+												<a href="/siPreBoardReCommentDelete?boardCommentNo=${clist.boardCommentNo }&boardNo=${vd.b.boardNo }&boardCommentRef=${clist.boardCommentRef }">삭제</a>
+											</c:if>
+											<c:if test="${sessionScope.member.id!=clist.boardCommentId && sessionScope.member.id eq 'admin' }">
+											<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
+												<a href="/siPreBoardReCommentDelete?boardCommentNo=${clist.boardCommentNo }&boardNo=${vd.b.boardNo }&boardCommentRef=${clist.boardCommentRef }">삭제</a>
+											</c:if>
 										</td>
 									</tr>
 								</c:if>
@@ -168,7 +181,7 @@
 			$('#commentTb').show();
 		});
 	});
-	$(document).ready(function(){	//댓글 수정,삭제 버튼 
+	$(document).ready(function(){	//댓글 수정,취소 버튼 
 		$('.mdfBtn').click(function(){
 			$(this).parent().prev().children().eq(0).hide();
 			$(this).parent().prev().children().eq(1).show();
@@ -182,6 +195,23 @@
 			});
 		});
 	});
+	$(document).ready(function(){	//대댓글 수정,취소 버튼 
+		$('.mdfBtnr').click(function(){
+			$(this).parent().prev().children().eq(0).hide();
+			$(this).parent().prev().children().eq(1).show();
+			$(this).hide();
+			$('.cmtrUpdate').show();
+			$(this).nextAll().show();
+			$('.cancelBtnr').click(function(){
+				location.href='/siPreBoardView?boardNo='+${vd.b.boardNo };
+			});
+		});
+	});
+	function cmtrMfy(boardNo,boardCommentRef,boardCommentNo){	//대댓글 수정
+		var boardCommentContent2 = $('.boardReCommentModify').val();
+		location.href="/siPreBoardReCommentUpdate?boardCommentContent="+boardCommentContent2
+			+"&boardNo="+boardNo+"&boardCommentRef="+boardCommentRef+"&boardCommentNo="+boardCommentNo;
+	}
 	$(document).ready(function(){	//게시글 삭제 확인
 		$('#boardDelBtn').click(function(){
 			if(confirm("게시글을 삭제하시겠습니까?")){

@@ -197,7 +197,7 @@
 			$('#commentTb').show();
 		});
 	});
-	$(document).ready(function(){	//댓글 수정,삭제 버튼 
+	$(document).ready(function(){	//댓글 수정,취소 버튼  
 		$('.mdfBtn').click(function(){
 			$(this).parent().prev().children().eq(0).hide();
 			$(this).parent().prev().children().eq(1).show();

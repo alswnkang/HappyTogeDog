@@ -109,9 +109,22 @@
 										<td width="20%"> └─ ${clist.noticeCommentName }(${clist.noticeCommentId })</td>
 										<td width="65%">
 											<span>${clist.noticeCommentContent }</span>
+											<input type="text" value="${clist.noticeCommentContent }" class="noticeReCommentModify" style="display:none;"/>
 										</td>
 										<td width="11%">
 											${clist.noticeCommentDate2 }<br/>
+											<c:if test="${clist.noticeCommentId == sessionScope.member.id }">
+												<button class="cmtrUpdate" type="button" onclick="cmtrMfy('${vd.n.noticeNo }','${clist.noticeCommentRef }','${clist.noticeCommentNo }')" style="display:none;">등록</button>
+												<button class="mdfBtnr" type="button">수정</button>
+												<button type="text" style="display:none;">/</button>
+												<button class="cancelBtnr" type="reset" style="display:none;">취소</button>
+												/
+												<a href="/siNoticeReCommentDelete?noticeCommentNo=${clist.noticeCommentNo }&noticeNo=${vd.n.noticeNo }&noticeCommentRef=${clist.noticeCommentRef }">삭제</a>
+											</c:if>
+											<c:if test="${sessionScope.member.id!=clist.noticeCommentId && sessionScope.member.id eq 'admin' }">
+											<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
+												<a href="/siNoticeReCommentDelete?noticeCommentNo=${clist.noticeCommentNo }&noticeNo=${vd.n.noticeNo }&noticeCommentRef=${clist.noticeCommentRef }">삭제</a>
+											</c:if>
 										</td>
 									</tr>
 								</c:if>
@@ -163,7 +176,7 @@
 			$('#commentTb').show();
 		});
 	});
-	$(document).ready(function(){//댓글 수정,삭제 버튼 
+	$(document).ready(function(){//댓글 수정,취소 버튼  
 		$('.mdfBtn').click(function(){
 			$(this).parent().prev().children().eq(0).hide();
 			$(this).parent().prev().children().eq(1).show();
@@ -177,14 +190,31 @@
 			});
 		});
 	});
-	$(document).ready(function(){
+	$(document).ready(function(){	//대댓글 수정,취소 버튼 
+		$('.mdfBtnr').click(function(){
+			$(this).parent().prev().children().eq(0).hide();
+			$(this).parent().prev().children().eq(1).show();
+			$(this).hide();
+			$('.cmtrUpdate').show();
+			$(this).nextAll().show();
+			$('.cancelBtnr').click(function(){
+				location.href='/siNoticeView?noticeNo='+${vd.n.noticeNo };
+			});
+		});
+	});
+	function cmtrMfy(noticeNo,noticeCommentRef,noticeCommentNo){//대댓글 수정
+		var noticeCommentContent2 = $('.noticeReCommentModify').val();
+		location.href="/siNoticeReCommentUpdate?noticeCommentContent="+noticeCommentContent2
+			+"&noticeNo="+noticeNo+"noticeCommentRef="+noticeCommentRef+"&noticeCommentNo="+noticeCommentNo;
+	}
+	$(document).ready(function(){	//게시글 삭제확인
 		$('#noticeDelBtn').click(function(){
 			if(confirm("게시글을 삭제하시겠습니까?")){
 				location.href = '/siNoticeDelete?noticeNo='+${vd.n.noticeNo };
 			}
 		});
 	});
-	function fileDownload(noticeFilename,noticeFilepath){
+	function fileDownload(noticeFilename,noticeFilepath){	//파일 다운로드
 		var url = "/siNoticeFileDownload";
 		var encFilename = encodeURIComponent(noticeFilename);
 		var encFilepath = encodeURIComponent(noticeFilepath);
