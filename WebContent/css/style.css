@@ -1,8 +1,3 @@
-.clear-float:after {
-	content: '';
-	clear: both;
-	display: block;
-}
 
 /* productList.jsp */
 .product-list .product {
@@ -23,7 +18,7 @@
 .product-list .product:hover .prd-txt-thum h3{color:rgba(254,67,30);}
 .product-list .product .prd-txt-thum .price{font-size:13px; line-height:20px; margin-bottom:5px;}
 .product-list .product .prd-txt-thum .price b{font-weight:500; font-size:16px; margin-left:3px;}
-.product-list .product .prd-txt-thum .txt{font-size:13px; line-height:18px; color:#888; max-height:36px; overflow:hidden;}
+.product-list .product .prd-txt-thum .txt{font-size:13px; line-height:18px; color:#888; max-height:36px; overflow:visible;}
 
 
 /* productDetail.jsp */

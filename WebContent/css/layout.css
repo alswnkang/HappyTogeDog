@@ -264,7 +264,7 @@ body { background-color:#fff; }
 .main-sponse-list li .img-thum > span{position:absolute; top:0; left:0; right:0; bottom:0; display:block;}
 .main-sponse-list li .txt-thum{float:right; width:200px; padding:10px 0;}
 .main-sponse-list li .txt-thum h3{font-size:20px; color:#2b2b2b; line-height:30px; max-height:60px; margin-bottom:25px; width:100%; overflow:hidden; word-break:keep-all;}
-.main-sponse-list li .txt-thum p{font-size:14px; color:#2b2b2b; line-height:20px; max-height:80px; overflow:hidden; margin-bottom:7px;}
+.main-sponse-list li .txt-thum p{font-size:14px; color:#2b2b2b; line-height:20px; max-height:80px; overflow:visible; margin-bottom:7px;}
 .main-sponse-list .slick-dots{position:absolute; bottom:-33px; left:0; right:0; z-index:9; text-align:center;}
 .main-sponse-list .slick-dots li{display:inline-block; margin:0 7px; font-size:0; text-indext:-9999px;}
 .main-sponse-list .slick-dots li button{display:inline-block; width:10px; height:10px; border-radius:10px; background-color:#ddd; cursor:pointer; font-size:0; text-indext:-9999px;}
