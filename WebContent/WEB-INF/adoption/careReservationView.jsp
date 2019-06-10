@@ -91,12 +91,12 @@
 					</table>
 					<div class="common-tbl-btn-group">
 						<c:choose>
-							<c:when test="${ba.status eq 2 || ba.status eq 3}">
+							<c:when test="${ba.status eq 0}">
+								<button type="submit" class="btn-style1">수정</button>
 								<button type="button" class="btn-style2" onclick="location.href='/reservationCareMypage?startDay=${startDay}&endDay=${endDay}&reqPage=${reqPage}'">목록으로</button>
 							</c:when>
 							<c:otherwise>
-								<button type="submit" class="btn-style1">수정</button>
-						<button type="button" class="btn-style2" onclick="location.href='/reservationCareMypage?startDay=${startDay}&endDay=${endDay}&reqPage=${reqPage}'">목록으로</button>
+								<button type="button" class="btn-style2" onclick="location.href='/reservationCareMypage?startDay=${startDay}&endDay=${endDay}&reqPage=${reqPage}'">목록으로</button>
 							</c:otherwise>
 						</c:choose>
 					</div>
