@@ -30,16 +30,16 @@ public class BookApplyDao {
 		String today = date();			//오늘
 		String preMonth = preMonth();	//육개월전
 		String sql="";
-		if(cityCode!=null && cityCode!=""){
+		if(cityCode!=null && !cityCode.equals("")){
 			sql += "&upr_cd="+cityCode;
 		}
-		if(gunCode!=null && gunCode!=""){
+		if(gunCode!=null && !gunCode.equals("")){
 			sql += "&org_cd="+gunCode;
 		}
-		if(kindCd!=null && kindCd!=""){
+		if(kindCd!=null && !kindCd.equals("")){
 			sql += "&kind="+kindCd;
 		}
-		if(neuterYn!=null && neuterYn!=""){
+		if(neuterYn!=null && !neuterYn.equals("")){
 			sql += "&neuter_yn="+neuterYn;
 		}
 		ArrayList<DogList> list = null;
@@ -123,8 +123,6 @@ public class BookApplyDao {
 		return list;
 	}
 	private static String getTagValue(String tag, Element eElement) {
-		//System.out.println(eElement.getElementsByTagName(tag));		
-//		System.out.println(eElement.getElementsByTagName(tag).item(0).toString());
 		NodeList nlList = eElement.getElementsByTagName(tag).item(0).getChildNodes();
 		Node nValue = (Node) nlList.item(0);
 		if (nValue == null)
@@ -357,7 +355,6 @@ public class BookApplyDao {
 	public BookApply myViewOne(Connection conn, int no, String id) {
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
-		System.out.println("리스트 내용 no(DAO) : "+no);
 		String query = "select * from (select rownum as rnum, b.* from (select ba.no, m.name careNm, ba.id, ba.name, ba.phone, ba.visit_date, ba.visit_time, ba.apply_date, ba.status,ba.yard, ba.animal,ba.family,ba.experience, ba.avg_time from ((select * from book_apply order by 1 desc)ba) Join member m Using(code) where ba.id=?) b) where no=?";
 		BookApply ba = null;
 		try {
@@ -415,8 +412,6 @@ public class BookApplyDao {
 	
 	//보호소 회원 방문예약리스트 갯수 구하기
 	public int reservationCareCount(Connection conn, String code,String startDay, String endDay) throws SQLException {
-		System.out.println("갯수 구하기Dao");
-		System.out.println(code);
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
@@ -441,8 +436,6 @@ public class BookApplyDao {
 	
 	//보호소회원 방문예약 신청내역 리스트 확인
 	public ArrayList<BookApply> reservationCareList(Connection conn, int start, int end, String code, String startDay, String endDay) throws SQLException {
-		System.out.println("리스트구하기 Dao");
-		System.out.println(start);
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
 		ArrayList<BookApply> list = new ArrayList<BookApply>();
@@ -482,7 +475,6 @@ public class BookApplyDao {
 	public BookApply viewOne(Connection conn, int no) throws SQLException {
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
-		System.out.println("리스트 내용 no(DAO) : "+no);
 		String query = "select * from (select ROWNUM as rNum,b.* from (select * from book_apply order by 1 desc) b) where no=?";
 		pstmt = conn.prepareStatement(query);
 		pstmt.setInt(1, no);
@@ -566,7 +558,6 @@ public class BookApplyDao {
 	
 	//관리자가 방문예약 신청내역 리스트 확인
 	public ArrayList<BookApply> adminReservationList(Connection conn, int start, int end, String startDay,String endDay) {
-		System.out.println(start);
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
 		ArrayList<BookApply> list = new ArrayList<BookApply>();
@@ -616,7 +607,6 @@ public class BookApplyDao {
 	public BookApply adminViewOne(Connection conn, int no) {
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
-		System.out.println("리스트 내용 no(DAO) : "+no);
 		String query = "select * from (select rownum as rnum, b.* from (select ba.no, m.name careNm, ba.id, ba.name, ba.phone, ba.visit_date, ba.visit_time, ba.apply_date, ba.status,ba.yard, ba.animal,ba.family,ba.experience, ba.avg_time from ((select * from book_apply order by 1 desc)ba) Join member m Using(code)) b) where no=?";
 		BookApply ba = null;
 		try {

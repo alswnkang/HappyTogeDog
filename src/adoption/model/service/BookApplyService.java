@@ -28,7 +28,6 @@ public class BookApplyService {
 		if(neuterYn==null) {
 			neuterYn="";
 		}
-		System.out.println("reqPage : "+reqPage);
 		ArrayList<DogList> list= new BookApplyDao().dogList(reqPage,cityCode,gunCode,kindCd,neuterYn);
 		int numPerPage = 12;
 		int totalCount = 0;
@@ -111,10 +110,8 @@ public class BookApplyService {
 		
 	//예약된 방문 시간 구해오기
 	public ArrayList<String> possibleTime(String visitDate, String careNm){
-		System.out.println("1Service");
 		Connection conn = JDBCTemplate.getCon();
 		ArrayList<String> list = new BookApplyDao().possibleTime(conn,visitDate, careNm);
-		System.out.println("3Service");
 		JDBCTemplate.close(conn);
 		return list;
 	}
@@ -161,7 +158,6 @@ public class BookApplyService {
 	//일반회원이 방문예약 신청내역 내용 확인
 	public BookApply myViewOne(int no, String id) {
 		Connection conn = JDBCTemplate.getCon();
-		System.out.println("no: "+no);
 		BookApply b = new BookApplyDao().myViewOne(conn ,no, id);
 		JDBCTemplate.close(conn);
 		return b;
@@ -189,7 +185,6 @@ public class BookApplyService {
 		if(endDay==null) {
 			endDay="";
 		}
-		System.out.println("목록 service왔다");
 		Connection conn = JDBCTemplate.getCon();
 		ArrayList<BookApply> list = new ArrayList<BookApply>();
 		int numPerPage = 10;
@@ -199,7 +194,6 @@ public class BookApplyService {
 		int start = (reqPage-1)*numPerPage+1;
 		int end = reqPage*numPerPage;
 		list = new BookApplyDao().reservationCareList(conn, start, end, code, startDay, endDay);
-		System.out.println("Dao에서 리스트 구해옴");
 		String pageNavi ="";
 		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
