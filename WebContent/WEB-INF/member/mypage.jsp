@@ -39,10 +39,12 @@
 							<p id="p_checkPw_re" style="display:none">비밀번호가 일치하지 않습니다</p>
 						</td>
 					</tr>
+					<c:if test="${m.memberLevel == 1 }">
 					<tr>
 						<th>코드</th>
 						<td><input type="text" name="code" value="${m.code }" readonly></td>
 					</tr>
+					</c:if>
 					<tr>
 						<th>이름 <b class="star join">*</b></th>
 						<td><input type="text" id="name" name="name" value="${m.name }" class="modify middle"></td>
