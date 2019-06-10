@@ -7,8 +7,11 @@
 
 <style>
 .cmt-txt{display:inline-block; vertical-align:middle; font-size:14px; font-weight:500;}
-.cmtBtn{display:inline-block; vertical-align:middle; font-size:14px; background:rgba(254,67,30); padding:8px 20px; color:#fff; border-radius:5px;}
-.noticeCommentContent{max-width:85%;}
+.cmtBtn, .reCmtBtn{display:inline-block; vertical-align:middle; font-size:14px; background:rgba(254,67,30); padding:8px 20px; color:#fff; border-radius:5px;}
+.noticeCommentContent, .noticeReCommentModify{max-width:85%;}
+.cmt-content{display:inline-block; float:left; max-width:80%;}
+.cmt-date{display:inline-block; float:right; max-width:15%;}
+.comm-tbl.view2 tr:first-child th, .comm-tbl.view2 tr:first-child td{border-top:0;}
 </style>
 
 	<section name="siSection" id="content-wrapper">
@@ -73,18 +76,18 @@
 					<form action="/siNoticeCommentUpdate" method="post">
 						<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
 						<input type="hidden" name="noticeNo" value="${vd.n.noticeNo }"/>
-						<table class="comm-tbl view">
+						<table class="comm-tbl view view2">
 							<c:if test="${list.noticeRef == vd.n.noticeNo && list.noticeCommentRef == 0 }">
 							<!-- 해당 게시글에 입력된 댓글만 출력되도록 -->
 								<input type="hidden" name="noticeCommentNo" value="${list.noticeCommentNo }"/>
 								<tr>
 									<td width="20%">${list.noticeCommentName }(${list.noticeCommentId })</td>
-									<td width="65%">
-										<span>${list.noticeCommentContent }</span>
+									<td width="65%" class="clearfix">
+										<span class="cmt-content">${list.noticeCommentContent }</span>
+										<em class="cmt-date">${list.noticeCommentDate2 }</em>
 										<input type="text" value="${list.noticeCommentContent }" name="noticeCommentContent" style="display:none;"/>
 									</td>
-									<td width="11%">
-										${list.noticeCommentDate2 }<br/>
+									<td width="10%" style="text-align:center;">
 										<c:if test="${sessionScope.member.id==list.noticeCommentId }">
 										<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
 											<button class="mdfBtn" type="button">수정</button>
@@ -100,7 +103,7 @@
 											/
 										</c:if>
 										<c:if test="${not empty sessionScope.member.id }"><!-- 로그인시 노출 -->
-											<button type="button" class="reCmtBtn">대댓글</button>
+											<button type="button" class="reCmtBtn">답글</button>
 										</c:if>
 									</td>
 								</tr>
@@ -110,11 +113,11 @@
 									<tr>
 										<td width="20%"> └─ ${clist.noticeCommentName }(${clist.noticeCommentId })</td>
 										<td width="65%">
-											<span>${clist.noticeCommentContent }</span>
-											<input type="text" value="${clist.noticeCommentContent }" class="noticeReCommentModify${clist.noticeCommentNo }" style="display:none;"/>
+											<span class="cmt-content">${clist.noticeCommentContent }</span>
+											<em class="cmt-date">${clist.noticeCommentDate2 }</em>
+											<input type="text" value="${clist.noticeCommentContent }" class="noticeReCommentModify${clist.noticeCommentNo } noticeReCommentModify" style="display:none;"/>
 										</td>
-										<td width="11%">
-											${clist.noticeCommentDate2 }<br/>
+										<td width="10%">
 											<c:if test="${clist.noticeCommentId == sessionScope.member.id }">
 												<button class="cmtrUpdate" type="button" onclick="cmtrMfy('${clist.noticeCommentRef }','${clist.noticeCommentNo }')" style="display:none;">등록</button>
 												<button class="mdfBtnr" type="button">수정</button>
@@ -132,12 +135,12 @@
 								</c:if>
 							</c:forEach>
 							<tr style="display:none;"><!-- 대댓글 버튼 클릭시 입력창 노출 -->
-								<td> -> re : ${sessionScope.member.name }(${sessionScope.member.id })</td>
+								<td> ⇒ re : ${sessionScope.member.name }(${sessionScope.member.id })</td>
 								<td>
-									<input type="text" name="noticeReCommentContent" class="noticeReCommentContent${list.noticeCommentNo }"  placeholder="대댓글을 입력하세요" maxlenth="50">
+									<input type="text" name="noticeReCommentContent" class="noticeReCommentContent${list.noticeCommentNo }"  placeholder="답글을 입력하세요" maxlenth="50">
 								</td>
 								<td>
-									<button onclick="sendReCmt('${list.noticeCommentNo }')" type="button">대댓글 등록하기</button>
+									<button onclick="sendReCmt('${list.noticeCommentNo }')" type="button" class="reCmtBtn">등록하기</button>
 								</td>
 							</tr>
 						</table>							
