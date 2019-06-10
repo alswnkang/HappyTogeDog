@@ -2,9 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
+
+<style>
+.comm-tbl td img{max-width:100%;}
+</style>
 
 <%-- Content --%>
 <section id="content-wrapper">
@@ -47,19 +52,16 @@
 					<tr>
 						<th>봉사 상세설명</th>
 						<td colspan="3">
-							<c:if test="${empty vr.filename}">
+							<c:if test="${empty vr.filepath}">
 								${vr.detail }
 							</c:if>
-							<c:if test="${not empty vr.filename }">
+							<c:if test="${not empty vr.filepath}">
 								<c:set var="fileLength" value="${fn:length(vr.filename)}"></c:set>
 								<c:set var="fileType" value="${fn:substring(vr.filename,fileLength-3,fileLength) }"></c:set>
 								<c:if test="${fileType eq 'jpg' || fileType eq 'png' || fileType eq 'gif' || fileType eq 'JPG' }">
 									<img src="/upload/volunteer/${vr.filename }"><br><br>
-									${vr.detail }
 								</c:if>
-								<c:if test="${fileType ne 'jpg' || fileType ne 'png' || fileType ne 'gif' || fileType ne 'JPG' }">
-									${vr.detail }
-								</c:if>
+								${vr.detail }
 							</c:if>
 						</td>
 					</tr>
@@ -73,12 +75,15 @@
 					</tr>
 				</table>
 				<div class="common-tbl-btn-group" style="text-align:right;">
-					<c:if test="${vr.status eq '모집중' }">
-						<c:if test="${not empty member && member.memberLevel == 0 }">
-							<button type="button" class="btn-style1" onclick="javascript:layerLoad('/voluntaryApplyForm?no=${vr.no}');">신청하기</button><!-- 신청 마감시 버튼 변경->신청 마감 누르면 alert('신청이 마감되었습니다.') -->
-						</c:if>
-						<c:if test="${empty member && member.memberLevel != 1 }">
-							<button type="button" id="applyCheckBtn" class="btn-style1">신청하기</button><!-- 신청 마감시 버튼 변경->신청 마감 누르면 alert('신청이 마감되었습니다.') -->
+					<fmt:formatDate value="<%=new java.util.Date() %>" pattern="YYYY-MM-DD" var="today"/>
+					<c:if test="${vr.volunDate >= today }">
+						<c:if test="${vr.status eq '모집중' }">
+							<c:if test="${not empty member && member.memberLevel == 0 }">
+								<button type="button" class="btn-style1" onclick="javascript:layerLoad('/voluntaryApplyForm?no=${vr.no}');">신청하기</button><!-- 신청 마감시 버튼 변경->신청 마감 누르면 alert('신청이 마감되었습니다.') -->
+							</c:if>
+							<c:if test="${empty member && member.memberLevel != 1 }">
+								<button type="button" id="applyCheckBtn" class="btn-style1">신청하기</button><!-- 신청 마감시 버튼 변경->신청 마감 누르면 alert('신청이 마감되었습니다.') -->
+							</c:if>
 						</c:if>
 					</c:if>
 					<button type="button" class="btn-style2" onclick="location.href='/volunteerList'">목록으로</button>

@@ -28,11 +28,15 @@
 							<col width="/">
 						</colgroup>
 						<tr>
-							<th>제목</th>
-							<td><input type="text" name="adoptionBoardTitle" value="${adoptionBoard.adoptionBoardTitle }"></td>
+							<th style="text-align:center;">제목</th>
+							<td><input type="text" name="adoptionBoardTitle" placeholder="글 제목" value="${adoptionBoard.adoptionBoardTitle }"></td>
 						</tr>
 						<tr>
-							<th>파일첨부</th>
+							<th style="text-align:center;">작성자</th>
+							<td>${sessionScope.member.name }</td>
+						</tr>
+						<tr>
+							<th style="text-align:center;">파일첨부</th>
 							<td>
 								<input type="hidden" name="status" id="status" value="stay">
 								<!-- 삭제 유무 판단용 input태그 -->
@@ -53,8 +57,8 @@
 							</td>
 						</tr>
 						<tr>
-							<th>내용</th>
-							<td><textarea name="adoptionBoardContent">${adoptionBoard.adoptionBoardContent }</textarea></td>
+							<th style="text-align:center;">내용</th>
+							<td><textarea name="adoptionBoardContent" rows="30" style="resize:none;" placeholder="글 내용" maxlength="2048">${adoptionBoard.adoptionBoardContent }</textarea></td>
 						</tr>
 					</table>
 					<div class="common-tbl-btn-group">
