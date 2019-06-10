@@ -248,6 +248,7 @@ public class BookApplyDao {
 	//일반회원 방문예약 신청
 	public int reservation(Connection conn, BookApply ba) throws SQLException {
 		PreparedStatement pstmt = null;
+		System.out.println("보호소코드 : "+ba.getCode());
 		int result = 0;
 		String query = "insert into book_apply values (book_apply_seq.nextval,?,?,?,?,?,?,sysdate,0,?,?,?,?,?)";
 		pstmt = conn.prepareStatement(query);

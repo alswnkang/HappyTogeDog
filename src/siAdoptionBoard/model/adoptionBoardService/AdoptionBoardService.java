@@ -16,7 +16,6 @@ public class AdoptionBoardService {
 		int numPerPage = 12;
 		int totalCount = new AdoptionBoardDao().totalCount(conn);
 		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
-		System.out.println("입양후기 service: "+totalPage);
 		int start = (reqPage-1)*numPerPage+1;
 		int end = reqPage*numPerPage;
 		ArrayList<AdoptionBoard> list = new AdoptionBoardDao().adoptionBoardAll(conn,start,end);
