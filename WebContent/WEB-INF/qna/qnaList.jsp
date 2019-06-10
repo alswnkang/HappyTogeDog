@@ -52,6 +52,12 @@
 							</td>
 							<td>
 								<p class="volun-tit">
+								<%-- 상품코드가 있으면 해당 상품 연결 --%>
+								<c:if test="${not empty qna.boardPrdcode }">
+												<a href="/viewProduct?code=${qna.boardPrdcode}">
+													<img height="50" src="/img/${prdList[qna.boardPrdcode].prdImg }">
+												</a>
+								</c:if>
 									<a href="javascript:view(${qna.boardNo });">
 										${qna.boardTitle }
 										<c:if test="${qna.boardSecret eq 1 }"><img src="/img/lock.png"></c:if>
@@ -71,10 +77,7 @@
 								</c:if>
 								<%-- 이름이 2글자 이상 --%>
 								<c:if test="${fn:length(qna.boardName) > 2 }">
-									${fn:substring(qna.boardName,0,2) }
-									<c:forEach var="i" begin="1"  end="${fn:length(qna.boardName) - 2 }">
-									*
-									</c:forEach>
+									${fn:substring(qna.boardName,0,2) }<c:forEach var="i" begin="1"  end="${fn:length(qna.boardName) - 2 }">*</c:forEach>
 								</c:if>
 								
 								<c:if test="${not empty qna.boardId}">
