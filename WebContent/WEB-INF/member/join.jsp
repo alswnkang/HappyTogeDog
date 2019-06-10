@@ -301,7 +301,7 @@
 	});
 	
 	$("#care").change(function(){
-		$('#name').text($('#care')).val();
+		$('#name').text($('#care').val());
 		$('#name').val($('#care option:selected').text());
 		$('#code_re').val($('#care').val());
 		console.log($('#care').val());
