@@ -84,7 +84,7 @@
 					</tr>
 				</table>
 				<div class="common-tbl-btn-group">
-					<button type="submit" class="btn-style1">수정</button><button type="button" class="btn-style2" onclick="location.href='/qnaList'">목록으로</button>
+					<button type="submit" class="btn-style1">수정</button><button type="button" class="btn-style2" onclick="history.back();">취소</button>
 				</div>
 			</form>
 		</div>
