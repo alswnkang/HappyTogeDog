@@ -5,7 +5,9 @@
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
-
+<style>
+	.viewNotice{cursor:pointer;}
+</style>
 <%-- Content --%>
 <section name="siSection" id="content-wrapper">
 	<div class="area">
@@ -31,9 +33,9 @@
 				<tbody>
 		 			<c:forEach items="${np.list }" var="list">
 						<c:if test="${list.noticeType == 0 }">
-							<tr>
+							<tr onclick="viewOne(${list.noticeNo})" class="viewNotice">
 								<td>${list.noticeRnum}</td>
-								<td><a href="/siNoticeView?noticeNo=${list.noticeNo }">${list.noticeTitle }</a></td>
+								<td>${list.noticeTitle }</td>
 								<!-- name 값을 넘겨주도록 설정필요 -->
 								<td>
 									<c:if test="${list.noticeId ne 'admin' }">
@@ -89,6 +91,11 @@
 		</div>
 	</div>
 </section>
+<script>
+	function viewOne(no){
+		location.href="/siNoticeView?noticeNo="+no;
+	}
+</script>
 
 <%-- Footer --%>
 <jsp:include page="/WEB-INF/common/footer.jsp" />
