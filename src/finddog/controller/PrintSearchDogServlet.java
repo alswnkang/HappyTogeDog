@@ -1,6 +1,8 @@
 package finddog.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import adoption.model.vo.SearchDogPageData;
 import finddog.model.service.SearchDogService;
+import finddog.model.vo.Kind;
+import openApi.model.dao.OpenApiDao;
+import openApi.model.vo.cityCode;
 import siBoard.model.boardVo.BoardPageData;
 
 /**
@@ -37,10 +42,6 @@ public class PrintSearchDogServlet extends HttpServlet {
 		int count =0;
 		String kind = request.getParameter("kind");
 		String cityCode= request.getParameter("happenCity");
-		
-	
-		
-		
 		String sDay=request.getParameter("startDay");
 		String eDay=request.getParameter("endDay");
 		System.out.println(sDay+","+eDay);
@@ -55,20 +56,48 @@ public class PrintSearchDogServlet extends HttpServlet {
 		SearchDogPageData sdpd = new SearchDogPageData();
 		while(b) {
 			sdpd = new SearchDogService().selectList(page,sDay,eDay,kind,cityCode);
-			if(sdpd.getList().size()==8) { //8개의 리스트를답을때까지 반복
-				count++;
-				b=false;
-				if(count==10) {
+			if(!sdpd.getList().isEmpty()) {
+				if(sdpd.getList().size()==8) { //8개의 리스트를답을때까지 반복
+					count++;
 					b=false;
+					if(count==10) {
+						b=false;
+					}
+				}else if(sdpd.getList().size()==7||sdpd.getList().size()==6||sdpd.getList().size()==5||sdpd.getList().size()==4||sdpd.getList().size()==3||sdpd.getList().size()==2||sdpd.getList().size()==1){
+					count++;
+					if(count==10) {
+						b=false;
+					}
 				}
-			}else if(sdpd.getList().size()==7||sdpd.getList().size()==6||sdpd.getList().size()==5||sdpd.getList().size()==4||sdpd.getList().size()==3||sdpd.getList().size()==2||sdpd.getList().size()==1){
-				count++;
-				if(count==10) {
-					b=false;
-				}
+			}else {
+				break;
 			}
+		
+			
 		}
 		
+		
+
+		ArrayList<cityCode> city=null;	
+		ArrayList<Kind> kindds = new ArrayList<>();
+		
+		city=new OpenApiDao().getCityCode();
+		
+		
+		
+		try {
+			kindds= new SearchDogService().getKindCode();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+
+		request.setAttribute("kind", kindds);
+		request.setAttribute("city", city);
 		
 		
 		BoardPageData sdpd2 = new BoardPageData();
