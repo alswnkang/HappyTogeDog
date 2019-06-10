@@ -29,7 +29,9 @@ public class SearchDogService {
 
 	public SearchDogPageData selectList(int page, String sDay, String eDay, String kind, String cityCode) {
 		
-		ArrayList<DogList> list= new SearchDogDao().getList(page,sDay.replaceAll("-", ""),eDay.replaceAll("-", ""),kind,cityCode);
+		
+		
+		ArrayList<DogList> list= new SearchDogDao().getList(page,sDay,eDay,kind,cityCode);
 		
 		//네비바 생성
 		String pageNavi="";

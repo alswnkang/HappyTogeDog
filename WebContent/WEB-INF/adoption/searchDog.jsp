@@ -36,16 +36,23 @@
 		
 		<div id="searchDog" class="common-tbl-box"><!-- id는 바꿔서 복붙 -->
 			<!-- search -->
-			<form action="" method="post">
-		 		<!-- 검색박스 -->
-		 		<div class="board-search-box">
-					<select name="search_item"><!-- option 세부항목은 각자 알아서 넣으시면 됩니다. -->
-						<option value="subject">지역</option>
-						<option value="content">품종</option>
-					</select>
-					<input placeholder="검색어를 입력해주세요." type="search" name="search_order" class="search-word" value="">
-					<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
-				</div>
+			 	<form action="/printSearchDog">
+		 	<div class="board-search-box">
+				<select name="kind"><!-- option 세부항목은 각자 알아서 넣으시면 됩니다. -->
+					<option>품종</option>
+					<c:forEach items="${kind }" var="k">
+						<option value="${k.code }">${k.kind }</option>
+					</c:forEach>
+				</select>
+				<select name="happenCity" style="margin-right:7px;">
+					<option>도시</option>
+					<c:forEach items="${city }" var="c">
+						<option value="${c.cityCode }">${c.cityName }</option>
+					</c:forEach>
+				</select>
+				<input type="date" name="startDay" class="datepicker search-day"> ~ <input type="date" name="endDay" class="datepicker search-day">
+				<button type="submit" class="bbs-search-btn" title="검색" style="margin-left:5px;"><img src="/img/search_icon.png" style="width:30px;"></button>
+			</div>
 			</form>
 		</div>
 	</div>
