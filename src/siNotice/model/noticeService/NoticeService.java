@@ -14,11 +14,11 @@ import siTemplete.JDBCTemplete;
 
 public class NoticeService {
 	public ArrayList<Notice> noticeList(){
-	Connection conn = JDBCTemplete.getConnection();
-	ArrayList<Notice> list = new NoticeDao().noticeAll(conn);
-	JDBCTemplete.close(conn);
-	return list;
-}
+		Connection conn = JDBCTemplete.getConnection();
+		ArrayList<Notice> list = new NoticeDao().noticeAll(conn);
+		JDBCTemplete.close(conn);
+		return list;
+	}
 	public NoticePageData noticeAll(int reqPage){
 		Connection conn = JDBCTemplete.getConnection();
 		int numPerPage = 10;
