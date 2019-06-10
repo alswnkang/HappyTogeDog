@@ -92,7 +92,7 @@
 				<p class="main-comm-tit">Q&A</p>
 				<table class="comm-tbl type2">
 					<colgroup>
-						<col width="5%">
+						<%--<col width="5%">--%>
 						<col width="10%">
 						<col width="">
 						<col width="15%">
@@ -100,7 +100,7 @@
 					</colgroup>
 					<thead>
 						<tr>
-							<th>No.</th>
+							<%--<th>No.</th>--%>
 							<th>답변상태</th>
 							<th>제목</th>
 							<th>작성자</th>
@@ -117,7 +117,7 @@
 						</c:if>
 						<c:forEach items="${qnaList}" var="qna">
 							<tr>
-							<td>${qna.boardRnum }</td>
+							<%-- <td>${qna.boardRnum }</td>--%>
 							<td>
 								<c:if test="${qna.boardCount eq 0 }">
 									<span class="volun-status ing">답변대기</span>
@@ -136,7 +136,24 @@
 									</a>
 								</p>
 							</td>
-							<td>${fn:substring(qna.boardName,0,2) }*</td>	
+							<td>
+								<%-- 이름이 1글자 --%>
+								<c:if test="${fn:length(qna.boardName) eq 1 }">
+									${fn:substring(qna.boardName,0,1) }
+								</c:if>
+								<%-- 이름이 2글자 --%>
+								<c:if test="${fn:length(qna.boardName) eq 2 }">
+									${fn:substring(qna.boardName,0,1) }*
+								</c:if>
+								<%-- 이름이 2글자 이상 --%>
+								<c:if test="${fn:length(qna.boardName) > 2 }">
+									${fn:substring(qna.boardName,0,2) }<c:forEach var="i" begin="1"  end="${fn:length(qna.boardName) - 2 }">*</c:forEach>
+								</c:if>
+								
+								<c:if test="${not empty qna.boardId}">
+									<br>(${qna.boardId })
+								</c:if>
+							</td>	
 							<td>${qna.boardDate }</td>						
 						</tr>
 						</c:forEach>

@@ -214,6 +214,12 @@
 								</a>
 							</li>
 						</c:forEach>
+						<c:if test="${fn:length(adoptionBoardList) == 0 }">
+							<li class="review-none">
+								<span class="paw1"></span><span class="paw2"></span>
+								<p>등록된 후기가 없습니다.</p>
+							</li>
+						</c:if>
 					<%-- 	<li>
 							<a href="/siAdoptionBoardView?adoptionBoardNo=64&adoptionBoardName=한국동물구조관리협회&adoptionBoardDate2=2019/06/07 09:39&adoptionBoardContent=후기 2번 글&adoptionBoardTitle=후기2">
 								<div class="img-thum">
@@ -323,6 +329,11 @@
 												</a>
 											</li>
 										</c:forEach>
+										<c:if test="${fn:length(noticeList) == 0 }">
+											<li class="none">
+												<p class="none" style="padding-top:90px;">등록된 공지사항이 없습니다.</p>
+											</li>
+										</c:if>
 	<!-- 									<li>
 											<a href="/siNoticeView?noticeNo=21" class="clearfix">
 												<p>공지사항2</p>
@@ -361,7 +372,7 @@
 										</c:forEach>
 										<c:if test="${fn:length(volunList) == 0 }">
 											<li class="none">
-												<p class="none">등록된 봉사활동 신청 공고가 없습니다.</p>
+												<p class="none" style="padding-top:90px;">등록된 봉사활동 신청 공고가 없습니다.</p>
 											</li>
 										</c:if>
 										<!-- <li>
