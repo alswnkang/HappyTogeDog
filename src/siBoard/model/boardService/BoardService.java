@@ -11,14 +11,14 @@ import siBoardComment.model.boardCommentVo.BoardComment;
 import siTemplete.JDBCTemplete;
 
 public class BoardService {
-	public BoardPageData myBoardList(int reqPage,String boardId,int boardType){
+	public BoardPageData myBoardList(int reqPage,String boardId){
 		Connection conn = JDBCTemplete.getConnection();
 		int numPerPage = 10;
 		int totalCount = new BoardDao().totalCount(conn);
 		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
 		int start = (reqPage-1)*numPerPage+1;
 		int end = reqPage*numPerPage;
-		ArrayList<Board> list = new BoardDao().myBoardList(conn,start,end,boardId,boardType);
+		ArrayList<Board> list = new BoardDao().myBoardList(conn,start,end,boardId);
 		String pageNavi = "";
 		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
