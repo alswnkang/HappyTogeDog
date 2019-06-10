@@ -62,13 +62,7 @@
 			</table>
 			<!-- paging -->
 			<div class="paging">
-	 			<a href="" class="paging-arrow prev-arrow"><img src="/img/left_arrow.png" style="width:30px;height:30px;"></a>
-	 			<a href="" class="cur">1</a>
-	 			<a href="">2</a>  
-	 			<a href="">3</a>
-	 			<a href="">4</a>
-	 			<a href="">5</a>
-	 			<a href="" class="paging-arrow next-arrrow"><img src="/img/right_arrow.png" style="width:30px;height:30px;"></a>
+				${sdpd.pageNavi }
 	 		</div>
 	 		
 	 		<table class="comm-tbl type2"><!-- 신청목록게시판은 한페이지에 게시물 최대 10개 노출 -->
@@ -85,21 +79,24 @@
 					<tr>
 						<th>No.</th>
 						<th>사진</th>
-						<th>보호센터</th>
+						<th>보호자</th>
+						<th>제목</th>
 						<th>발견장소</th>
 						<th>발견시간</th>
-						<th>특징</th>
+						
 					</tr>
 				</thead>
 				<tbody >
 					<c:forEach items="${sdpd2.list }" var="m" varStatus="i">
 					<tr>
 						<td>${i.count }</td>
-						<td><img src="/siUpload/board/${m.boardFilepath }" style="height: 200px; width: 200px;" ></td>
-						<td>${m.boardName }</td>
+						<td><a href="/detailTakeBoard?boardNo=${m.boardNo }"><img src="/siUpload/board/${m.boardFilepath }" style="height: 200px; width: 200px;" ></a></td>
+						<td><a href="/detailTakeBoard?boardNo=${m.boardNo }">${m.boardName }</a></td>
+						<td><a href="/detailTakeBoard?boardNo=${m.boardNo }">${m.boardTitle }</a></td>
 						<td>${m.happenCity }</td>
 						<td>${m.happenDate }</td>
-						<td>${m.boardNo }</td>
+					
+
 					</tr>
 					</c:forEach>
 					<c:if test="${empty sdpd2.list }">
@@ -111,6 +108,10 @@
 					</c:if>
 				</tbody>
 			</table>
+				<!-- paging -->
+			<div class="paging">
+				${sdpd2.pageNavi }
+	 		</div>
 	 		
 	 		<!-- 검색박스 -->
 	 		 	<!-- 검색박스 -->
