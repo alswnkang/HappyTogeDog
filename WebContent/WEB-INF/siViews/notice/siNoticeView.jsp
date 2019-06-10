@@ -8,7 +8,10 @@
 <%pageContext.setAttribute("newLineChar", "\n"); %>
 <style>
 .cmt-txt{display:inline-block; vertical-align:middle; font-size:14px; font-weight:500;}
-.cmtBtn, .reCmtBtn{display:inline-block; vertical-align:middle; font-size:14px; background:rgba(254,67,30); padding:8px 20px; color:#fff; border-radius:5px;}
+.cmtBtn, .reCmtBtn, .cmtDelBtn, .rcmtDelBtn, 
+.cmtrUpdate, .mdfBtnr, .cancelBtnr{display:inline-block; vertical-align:middle; font-size:13px; background:rgba(254,67,30); padding:5px 10px; color:#fff; border-radius:5px;}
+.cmtBtn.big, .reCmtBtn.big, .reCmtBtn.big{font-size:14px; padding:8px 20px;}
+.cmtDelBtn, .rcmtDelBtn, .cmtDelBtn:hover, .rcmtDelBtn:hover{background:#444; color:#fff;}
 .noticeCommentContent, .noticeReCommentModify{max-width:85%;}
 .cmt-content{display:inline-block; float:left; max-width:80%;}
 .cmt-date{display:inline-block; float:right; max-width:15%;}
@@ -48,7 +51,7 @@
 						</tr>
 						<tr>
 							<td colspan="2" style="border-top: 0px;text-align:right;">
-								<button type="button" class="cmtBtn">댓글</button>
+								<button type="button" class="cmtBtn big">댓글</button>
 							</td>
 						</tr>
 					</c:if>
@@ -85,11 +88,11 @@
 									<td width="65%" class="clearfix">
 										<span class="cmt-content">${list.noticeCommentContent }</span>
 										<em class="cmt-date">${list.noticeCommentDate2 }</em>
-										<input type="text" value="${list.noticeCommentContent }" name="noticeCommentContent" style="display:none;"/>
+										<input type="text" value="${list.noticeCommentContent }" name="noticeCommentContent" class="noticeCommentContent" style="display:none;"/>
 									</td>
 									<%-- 회원일때만 노출 --%>
 									<c:if test="${not empty sessionScope.member }">
-										<td width="10%" style="text-align:center;">
+										<td width="12%" style="text-align:center;">
 											<c:if test="${sessionScope.member.id==list.noticeCommentId }">
 											<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
 												<button class="mdfBtn" type="button">수정</button>
@@ -105,7 +108,7 @@
 												/
 											</c:if>
 											<c:if test="${not empty sessionScope.member.id }"><!-- 로그인시 노출 -->
-												<button type="button" class="reCmtBtn">답글</button>
+												<button type="button" class="reCmtBtn big">답글</button>
 											</c:if>
 										</td>
 									</c:if>
@@ -122,7 +125,7 @@
 										</td>
 										<%-- 회원일때만 노출 --%>
 										<c:if test="${not empty sessionScope.member }">
-											<td width="10%">
+											<td width="12%" style="text-align:center;">
 												<c:if test="${clist.noticeCommentId == sessionScope.member.id }">
 													<button class="cmtrUpdate" type="button" onclick="cmtrMfy('${clist.noticeCommentRef }','${clist.noticeCommentNo }')" style="display:none;">등록</button>
 													<button class="mdfBtnr" type="button">수정</button>
@@ -145,8 +148,8 @@
 								<td>
 									<input type="text" name="noticeReCommentContent" class="noticeReCommentContent${list.noticeCommentNo }"  placeholder="답글을 입력하세요" maxlenth="50">
 								</td>
-								<td>
-									<button onclick="sendReCmt('${list.noticeCommentNo }')" type="button" class="reCmtBtn">등록하기</button>
+								<td style="text-align:center;">
+									<button onclick="sendReCmt('${list.noticeCommentNo }')" type="button" class="reCmtBtn big">등록</button>
 								</td>
 							</tr>
 						</table>							
