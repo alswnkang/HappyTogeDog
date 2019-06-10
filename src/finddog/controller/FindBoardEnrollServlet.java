@@ -63,6 +63,7 @@ public class FindBoardEnrollServlet extends HttpServlet {
 		String kind = mRequest.getParameter("kind");
 		String cityCode= mRequest.getParameter("happenCity");
 		
+		
 		System.out.println("filepath:"+boardFilepath);
 		
 		
