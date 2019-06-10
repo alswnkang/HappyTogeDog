@@ -52,9 +52,9 @@
 							</td>
 						</tr>
 					</c:if>
-					<c:if test="${ empty sessionScope.member.id }">
+					<c:if test="${empty sessionScope.member }">
 						<tr>
-							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">${fn:replace(vd.n.noticeContent,newLineChar,"<br/>")}</td>
+							<td colspan="2" style="border-top: 0px;">${fn:replace(vd.n.noticeContent,newLineChar,"<br/>")}</td>
 						</tr>
 					</c:if>
 				</table>
@@ -87,25 +87,28 @@
 										<em class="cmt-date">${list.noticeCommentDate2 }</em>
 										<input type="text" value="${list.noticeCommentContent }" name="noticeCommentContent" style="display:none;"/>
 									</td>
-									<td width="10%" style="text-align:center;">
-										<c:if test="${sessionScope.member.id==list.noticeCommentId }">
-										<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
-											<button class="mdfBtn" type="button">수정</button>
-											<button type="text" style="display:none;">/</button>
-											<button class="cancelBtn" type="reset" style="display:none;">취소</button>
-											/
-											<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.noticeCommentNo }');">삭제</a>
-											/
-										</c:if>
-										<c:if test="${sessionScope.member.id!=list.noticeCommentId && sessionScope.member.id eq 'admin' }">
-										<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
-											<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.noticeCommentNo }');">삭제2</a>
-											/
-										</c:if>
-										<c:if test="${not empty sessionScope.member.id }"><!-- 로그인시 노출 -->
-											<button type="button" class="reCmtBtn">답글</button>
-										</c:if>
-									</td>
+									<%-- 회원일때만 노출 --%>
+									<c:if test="${not empty sessionScope.member }">
+										<td width="10%" style="text-align:center;">
+											<c:if test="${sessionScope.member.id==list.noticeCommentId }">
+											<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
+												<button class="mdfBtn" type="button">수정</button>
+												<button type="text" style="display:none;">/</button>
+												<button class="cancelBtn" type="reset" style="display:none;">취소</button>
+												/
+												<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.noticeCommentNo }');">삭제</a>
+												/
+											</c:if>
+											<c:if test="${sessionScope.member.id!=list.noticeCommentId && sessionScope.member.id eq 'admin' }">
+											<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
+												<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.noticeCommentNo }');">삭제2</a>
+												/
+											</c:if>
+											<c:if test="${not empty sessionScope.member.id }"><!-- 로그인시 노출 -->
+												<button type="button" class="reCmtBtn">답글</button>
+											</c:if>
+										</td>
+									</c:if>
 								</tr>
 							</c:if>
 							<c:forEach items="${vd.list }" var="clist"><!-- 대댓글 조회를 위해 forEach 내부에 forEach 사용 -->
@@ -117,20 +120,23 @@
 											<em class="cmt-date">${clist.noticeCommentDate2 }</em>
 											<input type="text" value="${clist.noticeCommentContent }" class="noticeReCommentModify${clist.noticeCommentNo } noticeReCommentModify" style="display:none;"/>
 										</td>
-										<td width="10%">
-											<c:if test="${clist.noticeCommentId == sessionScope.member.id }">
-												<button class="cmtrUpdate" type="button" onclick="cmtrMfy('${clist.noticeCommentRef }','${clist.noticeCommentNo }')" style="display:none;">등록</button>
-												<button class="mdfBtnr" type="button">수정</button>
-												<button type="text" style="display:none;">/</button>
-												<button class="cancelBtnr" type="reset" style="display:none;">취소</button>
-												/
-												<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.noticeCommentNo }','${clist.noticeCommentRef }');">삭제</a>
-											</c:if>
-											<c:if test="${sessionScope.member.id!=clist.noticeCommentId && sessionScope.member.id eq 'admin' }">
-											<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
-												<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.noticeCommentNo }','${clist.noticeCommentRef }');">삭제2</a>
-											</c:if>
-										</td>
+										<%-- 회원일때만 노출 --%>
+										<c:if test="${not empty sessionScope.member }">
+											<td width="10%">
+												<c:if test="${clist.noticeCommentId == sessionScope.member.id }">
+													<button class="cmtrUpdate" type="button" onclick="cmtrMfy('${clist.noticeCommentRef }','${clist.noticeCommentNo }')" style="display:none;">등록</button>
+													<button class="mdfBtnr" type="button">수정</button>
+													<button type="text" style="display:none;">/</button>
+													<button class="cancelBtnr" type="reset" style="display:none;">취소</button>
+													/
+													<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.noticeCommentNo }','${clist.noticeCommentRef }');">삭제</a>
+												</c:if>
+												<c:if test="${sessionScope.member.id!=clist.noticeCommentId && sessionScope.member.id eq 'admin' }">
+												<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
+													<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.noticeCommentNo }','${clist.noticeCommentRef }');">삭제2</a>
+												</c:if>
+											</td>
+										</c:if>
 									</tr>
 								</c:if>
 							</c:forEach>
