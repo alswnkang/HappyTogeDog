@@ -73,7 +73,8 @@
 							<input type="hidden" name="oldFilename" value="${qna.boardFilename }">
 							<input type="hidden" name="oldFilepath" value="${qna.boardFilepath }">
 							<c:if test="${not empty qna.boardFilepath }">
-								<span id="nowFile">${qna.boardFilename } <input type="checkbox" name="deleteFile" value="1">삭제</span>
+								<span id="nowFile">${qna.boardFilename } <button type="button" id="fileDelBtn" class="file-del-btn delFile">삭제</button>
+								<input type="hidden" name="deleteFile" ></span>
 								<span id="upload"><input type="file" name="filename"><p class="comment">(※ 파일 크기는 최대 10MB까지만 가능합니다.)</p></span>
 							</c:if>
 							<c:if test="${empty qna.boardFilepath }">
@@ -89,19 +90,6 @@
 		</div>
 	</div>
 </section>
-<script>
-$(function(){
-	$('#upload').hide();
-	$('input[name=deleteFile]').click(function(){
-		if($(this).is(":checked")){
-			if(confirm("첨부파일을 삭제하시겠습니까?")){
-				$('#nowFile').hide();
-				$('#upload').show();
-			}
-		}
-	});
-});
-</script>
 
 <%-- Footer --%>
 <jsp:include page="/WEB-INF/common/footer.jsp" />
