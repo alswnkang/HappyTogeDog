@@ -410,4 +410,29 @@ public class BoardDao {
 		}
 		return result;
 	}
+	public String getKindName(String dogkind, Connection conn) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String kindName="";
+		String query = "select*from dogkind where code=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery(query);
+			pstmt.setString(1,dogkind);
+			if(rset.next()) {
+				kindName=rset.getString("kind");
+				
+			
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(rset);
+			JDBCTemplete.close(pstmt);
+		}
+		return kindName;
+	}
 }

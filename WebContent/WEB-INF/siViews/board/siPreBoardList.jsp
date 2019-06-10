@@ -14,8 +14,8 @@
 				<colgroup>
 					<col width="5%">
 					<col width="">
-					<col width="15%">
-					<col width="10%">
+					<col width="13%">
+					<col width="12%">
 					<col width="7%">
 				</colgroup>
 				<thead>
@@ -34,7 +34,14 @@
 								<td>${list.boardRnum}</td>
 								<td><a href="/siPreBoardView?boardNo=${list.boardNo }">${list.boardTitle }</a></td>
 								<!-- name 값을 넘겨주도록 설정필요 -->
-								<td>${list.boardName }(${list.boardId })</td>
+								<td>
+									<c:if test="${list.boardId ne 'admin' }">
+										${list.boardName }(${list.boardId })
+									</c:if>
+									<c:if test="${list.boardId eq 'admin' }">
+										${list.boardName }
+									</c:if>
+								</td>
 								<td>${list.boardDate2 }</td>
 								<td>${list.boardCount }</td>
 							</tr>

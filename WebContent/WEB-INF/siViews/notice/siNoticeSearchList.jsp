@@ -8,7 +8,7 @@
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
 			<h2 class="comm-content-tit">공지사항</h2>
-			<div class="common-tbl-box">
+			<div class="">
 				<table class="comm-tbl type2">
 					<colgroup>
 						<col width="5%">
@@ -32,29 +32,44 @@
 								<td>${list.noticeRnum}</td>
 								<td><a href="/siNoticeView?noticeNo=${list.noticeNo }">${list.noticeTitle }</a></td>
 								<!-- name 값을 넘겨주도록 설정필요 -->
-								<td>${list.noticeName }(${list.noticeId })</td>
+								<td>
+									<c:if test="${list.noticeId ne 'admin' }">
+										${list.noticeName }(${list.noticeId })
+									</c:if>
+									<c:if test="${list.noticeId eq 'admin' }">
+										${list.noticeName }
+									</c:if>
+								</td>
 								<td>${list.noticeDate }</td>
 								<td>${list.noticeCount }</td>
 							</tr>
 						</c:forEach>
-						<tr>
+						<!-- <tr>
 							<td colspan="5" style="text-align:center;">
 								<div>${np.pageNavi }</div>
 							</td>
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
+				<!-- 글쓰기 버튼 -->
+				<c:if test="${not empty sessionScope.member.id && sessionScope.member.id eq 'admin' }">
+					<div class="common-tbl-btn-group" style="text-align:right;">
+						<!-- 로그인이 되있어야 글쓰기버튼 활성화 -->
+						<button type="button" class="bbs-search-btn btn-style1" onclick="location.href='/siViews/notice/siNoticeInsert.jsp'">글쓰기</button>
+					</div>
+				</c:if>
+				<!-- paging -->
+				<div class="paging">
+					${np.pageNavi }
+				</div>
 				<form action="/siNoticeSearch" method="get">
 					<div class="board-search-box">
 						<select name="searchWord">
 							<option value="noticeName">작성자</option>
 							<option value="noticeTitle">글 제목</option>
 						</select>
-						<input type="text" name="keyword">
-						<button type="submit" class="bbs-search-btn">검색</button>
-						<c:if test="${not empty sessionScope.member.id && sessionScope.member.id eq 'admin' }">
-							<button type="button" class="bbs-search-btn" style="float:right;" onclick="location.href='/siViews/notice/siNoticeInsert.jsp'">글쓰기</button>
-						</c:if>
+						<input placeholder="검색어를 입력해주세요." type="text" name="keyword" class="search-word" >
+					<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
 					</div>
 				</form>
 			</div>

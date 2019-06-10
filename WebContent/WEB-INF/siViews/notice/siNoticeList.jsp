@@ -15,8 +15,8 @@
 				<colgroup>
 					<col width="5%">
 					<col width="">
-					<col width="15%">
-					<col width="10%">
+					<col width="12%">
+					<col width="13%">
 					<col width="7%">
 				</colgroup>
 				<thead>
@@ -35,7 +35,14 @@
 								<td>${list.noticeRnum}</td>
 								<td><a href="/siNoticeView?noticeNo=${list.noticeNo }">${list.noticeTitle }</a></td>
 								<!-- name 값을 넘겨주도록 설정필요 -->
-								<td>${list.noticeName }(${list.noticeId })</td>
+								<td>
+									<c:if test="${list.noticeId ne 'admin' }">
+										${list.noticeName }(${list.noticeId })
+									</c:if>
+									<c:if test="${list.noticeId eq 'admin' }">
+										${list.noticeName }
+									</c:if>
+								</td>
 								<td>
 									${list.noticeDate2 }
 								</td>
