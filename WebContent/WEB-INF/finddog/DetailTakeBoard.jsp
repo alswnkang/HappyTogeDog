@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<link rel="stylesheet" type="text/css" href="/css/adoption_bk.css">
 <jsp:include page="/WEB-INF/common/header.jsp" />
 <%-- Content --%>
 
@@ -16,7 +16,7 @@
 			</div>
 			<div class="dog-info-top-inner clearfix">
 				<div class="dog-info-left">
-					<img src="/siUpload/board/${vd.b.boardFilepath }" style="max-width:100%;">
+					<img src="/siUpload/board/${vd.b.boardFilepath }" style="height: 400px; width: 400px;">
 				</div>
 				<div class="dog-info-right">
 					<table class="comm-tbl">

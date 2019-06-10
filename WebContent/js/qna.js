@@ -8,7 +8,18 @@ $(function(){
 		}
 	});
 	
+	/* 첨부파일 삭제 */
+	$('#upload').hide();
+	$('#fileDelBtn').click(function(){
+		if(confirm("첨부파일을 삭제하시겠습니까?")){
+			$('input[name=deleteFile]').val('1');
+			$('#nowFile').hide();
+			$('#upload').show();
+		}
+	});
+	
 });
+
 function view(boardNo){
 	$('input[name=boardNo]').val(boardNo);
 	moveView.submit();

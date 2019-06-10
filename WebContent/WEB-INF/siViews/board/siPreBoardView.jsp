@@ -49,7 +49,7 @@
 					<c:if test="${empty sessionScope.member.id }">
 					<!-- 로그인을 안하면 댓글리스트만 조회가능, 등록칸이 보이지 않도록 설정 -->
 						<tr>
-							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">${fn:replace(vd.b.boardContent,newLineChar,"<br/>")}</td>
+							<td colspan="2" style="border-top: 0px;">${fn:replace(vd.b.boardContent,newLineChar,"<br/>")}</td>
 						</tr>
 					</c:if>
 				</table>

@@ -25,7 +25,7 @@
 				<table class="comm-tbl view">
 					<colgroup>
 						<col width="20%">
-						<col width="3%">
+						<col width="4%">
 						<col width="/">
 						<col width="100%">
 					</colgroup>

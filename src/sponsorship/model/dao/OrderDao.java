@@ -71,7 +71,7 @@ public class OrderDao {
 		OrderInfoVO orderInfo = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = "select no,id,name,phone,pay_method,amount,pay,status,deilvery_num,product_name,TO_CHAR(spon_date,'YYY/MM/DD HH24:MI:SS') as time,memo,post,address,email,receive_name,receive_phone,vbank_name,vbank_num,vbank_holder,vbank_date from sponsorship where no=?";
+		String sql = "select no,id,name,phone,pay_method,amount,pay,status,deilvery_num,product_name,TO_CHAR(spon_date,'YYYY-MM-DD HH24:MI:SS') as time,memo,post,address,email,receive_name,receive_phone,vbank_name,vbank_num,vbank_holder,vbank_date from sponsorship where no=?";
 		
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, no);
@@ -110,7 +110,7 @@ public class OrderDao {
 		ArrayList<OrderInfoVO> orderList = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = "select rnum,no,id,name,phone,pay_method,amount,pay,status,deilvery_num,product_name,TO_CHAR(spon_date,'YYYY/MM/DD HH24:MI:SS') as time,memo,post,address,email,receive_name,receive_phone from (select rownum rnum,s.* from (select * from sponsorship where 1=1 "+makeQuery(search)+" order by spon_date desc) s ) where rnum between ? and ? ";
+		String sql = "select rnum,no,id,name,phone,pay_method,amount,pay,status,deilvery_num,product_name,TO_CHAR(spon_date,'YYYY-MM-DD HH24:MI:SS') as time,memo,post,address,email,receive_name,receive_phone from (select rownum rnum,s.* from (select * from sponsorship where 1=1 "+makeQuery(search)+" order by spon_date desc) s ) where rnum between ? and ? ";
 		
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, start);
