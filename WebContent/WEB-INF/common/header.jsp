@@ -40,12 +40,13 @@
 				<h1 class="header-logo"><a href="/"><img src="/img/logo_01.png" style="max-height:68px;"></a></h1>
 				<!-- 부가메뉴 -->
 				<div class="header-util">
-					<ul class="header-util-box clearfix">
-						<%if(m == null){%>
+					<%if(m == null){%>
+					<ul class="header-util-box clearfix"><!-- 로그인 전 -->
 						<li><a href="/member/login.jsp">Login</a></li>
 						<li><a href="/member/terms.jsp">JOIN</a></li>
-						<%}else{ %>
-						<!-- 로그인 후 -->
+					</ul>
+					<%}else{ %>
+					<ul class="header-util-box type2 clearfix"><!-- 로그인 후 -->
 						<li><a href="/logout">Logout</a></li>
 						<li class="mypage">
 							<a href="#">MyPage</a>
@@ -54,8 +55,9 @@
 								<p><a href="/totalMyPage">MyPage</a></p>
 							</div>
 						</li>
-						<%} %>
+						<li class="name"><p><b><%=m.getId() %></b>님 환영합니다.</p></li>
 					</ul>
+					<%} %>
 				</div>
 				<!-- 주메뉴 -->
 				<nav id="gnb" class="total-menu">
