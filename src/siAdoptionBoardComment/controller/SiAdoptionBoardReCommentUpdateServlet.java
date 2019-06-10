@@ -38,13 +38,10 @@ public class SiAdoptionBoardReCommentUpdateServlet extends HttpServlet {
 		int result = new AdoptionBoardCommentService().reCommentUpdate(adoptionBoardCommentContent,adoptionBoardCommentNo,adoptionBoardCommentRef);
 		String view = "";
 		if(result>0) {
-			request.setAttribute("msg", "대댓글 수정 성공");
-			view = "/WEB-INF/siViews/common/siMsg.jsp";
+			view = "/siAdoptionBoardView?adoptionBoardNo="+adoptionBoardNo;
 		}else {
-			request.setAttribute("msg", "대댓글 수정 실패");
-			view = "/WEB-INF/siViews/common/siMsg.jsp";
+			view = "/siAdoptionBoardView?adoptionBoardNo="+adoptionBoardNo;
 		}
-		request.setAttribute("loc", "/siAdoptionBoardView?adoptionBoardNo="+adoptionBoardNo);
 		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
 	}
