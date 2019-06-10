@@ -5,7 +5,18 @@
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
-<%pageContext.setAttribute("newLineChar", "\n"); %>
+<%pageContext.setAttribute("newLineChar", "\r\n"); %>
+<%pageContext.setAttribute("cr", "\r");
+pageContext.setAttribute("cn", "\n");
+pageContext.setAttribute("crcn", "\r\n");
+pageContext.setAttribute("sp", "&nbsp;");
+pageContext.setAttribute("br", "<br/>");
+%> 
+
+<!-- jstl로 변환처리 -->
+<c:set var="cmt" value="${fn:replace(coment.coment,crcn,br)}" />
+<c:set var="cmt" value="${fn:replace(cmt,cr,br)}" />
+<c:set var="cmt" value="${fn:replace(cmt,cn,br)}" />
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
 			<div class="voluntary-box">
@@ -37,7 +48,10 @@
 					<c:if test="${not empty sessionScope.member.id }">
 					<!-- 로그인을 안하면 댓글리스트만 조회가능, 등록칸이 보이지 않도록 설정 -->
 						<tr>
-							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">${fn:replace(vd.b.boardContent,newLineChar,"<br/>")}</td></td>
+							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">
+								${fn:replace(vd.b.boardContent,newLineChar,"<br/>")}
+							</td>
+							<c:out value="${cmt}" escapeXml="false"/> 
 						</tr>
 						<tr>
 							<td colspan="2" style="border-top: 0px;">
@@ -48,7 +62,7 @@
 					<c:if test="${empty sessionScope.member.id }">
 					<!-- 로그인을 안하면 댓글리스트만 조회가능, 등록칸이 보이지 않도록 설정 -->
 						<tr>
-							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">${fn:replace(vd.b.boardContent,newLineChar,"<br/>")}</td>
+							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">${fn:replace(vd.b.boardContent,newLineChar,("&nbsp"||"<br/>"))}</td>
 						</tr>
 					</c:if>
 				</table>
