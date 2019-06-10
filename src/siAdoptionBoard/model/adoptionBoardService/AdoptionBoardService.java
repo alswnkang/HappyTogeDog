@@ -11,6 +11,12 @@ import siAdoptionBoardComment.model.adoptionBoardCommentVo.AdoptionBoardComment;
 import siTemplete.JDBCTemplete;
 
 public class AdoptionBoardService {
+	public ArrayList<AdoptionBoard> adoptionBoardList(){
+	Connection conn = JDBCTemplete.getConnection();
+	ArrayList<AdoptionBoard> list = new AdoptionBoardDao().adoptionBoardAll(conn);
+	JDBCTemplete.close(conn);
+	return list;
+}
 	public AdoptionBoardPageData adoptionBoardAll(int reqPage){
 		Connection conn = JDBCTemplete.getConnection();
 		int numPerPage = 12;

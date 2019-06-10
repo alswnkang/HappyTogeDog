@@ -11,6 +11,46 @@ import siNoticeComment.model.noticeCommentVo.NoticeComment;
 import siTemplete.JDBCTemplete;
 
 public class NoticeDao {
+	public ArrayList<Notice> noticeAll(Connection conn){
+		ArrayList<Notice> list = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		String query = "SELECT rnum,board_no,board_type,board_id,board_name,board_title,board_content,board_filename,board_filepath,board_date,to_char(board_date,'yyyy/MM/dd HH:mi') as board_date2,board_count,board_secret,board_pw,board_prdcode,dog_kind,happen_city,happen_date FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD where board_Type=0 ORDER BY BOARD_NO desc) n)";
+		try {
+			stmt=conn.createStatement();
+			rset = stmt.executeQuery(query);
+			list = new ArrayList<Notice>();
+			while(rset.next()) {
+				Notice n = new Notice();
+				n.setNoticeRnum(rset.getInt("rnum"));
+				n.setNoticeNo(rset.getInt("board_no"));
+				n.setNoticeType(rset.getInt("board_Type"));
+				n.setNoticeId(rset.getString("board_id"));
+				n.setNoticeName(rset.getString("board_Name"));
+				n.setNoticeTitle(rset.getString("board_title"));
+				n.setNoticeContent(rset.getString("board_content"));
+				n.setNoticeFilename(rset.getString("board_filename"));
+				n.setNoticeFilepath(rset.getString("board_filepath"));
+				n.setNoticeDate(rset.getDate("board_date"));
+				n.setNoticeDate2(rset.getString("board_date2"));
+				n.setNoticeCount(rset.getInt("board_count"));
+				n.setNoticeSecret(rset.getInt("board_secret"));
+				n.setNoticePw(rset.getString("board_pw"));
+				n.setNoticePrdCode(rset.getString("board_prdCode"));
+				n.setDogKind(rset.getString("dog_kind"));
+				n.setHappenCity(rset.getString("happen_City"));
+				n.setHappenDate(rset.getString("happen_date"));
+				list.add(n);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(rset);
+			JDBCTemplete.close(stmt);
+		}
+		return list;
+	}
 	public int totalCount(Connection conn) {
 		Statement stmt = null;
 		ResultSet rset = null;
