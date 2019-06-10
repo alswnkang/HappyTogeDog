@@ -12,6 +12,46 @@ import siAdoptionBoardComment.model.adoptionBoardCommentVo.AdoptionBoardComment;
 import siTemplete.JDBCTemplete;
 
 public class AdoptionBoardDao {
+	public ArrayList<AdoptionBoard> adoptionBoardAll(Connection conn){
+		ArrayList<AdoptionBoard> list = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		String query = "SELECT rnum,board_no,board_type,board_id,board_name,board_title,board_content,board_filename,board_filepath,board_date,to_char(board_date,'yyyy/MM/dd HH:mi') as board_date2,board_count,board_secret,board_pw,board_prdcode,dog_kind,happen_city,happen_date FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD where board_Type=2 ORDER BY BOARD_NO desc) n) ";
+		try {
+			stmt=conn.createStatement();
+			rset = stmt.executeQuery(query);
+			list = new ArrayList<AdoptionBoard>();
+			while(rset.next()) {
+				AdoptionBoard a = new AdoptionBoard();
+				a.setAdoptionBoardRnum(rset.getInt("rnum"));
+				a.setAdoptionBoardNo(rset.getInt("board_no"));
+				a.setAdoptionBoardType(rset.getInt("board_Type"));
+				a.setAdoptionBoardId(rset.getString("board_id"));
+				a.setAdoptionBoardName(rset.getString("board_Name"));
+				a.setAdoptionBoardTitle(rset.getString("board_title"));
+				a.setAdoptionBoardContent(rset.getString("board_content"));
+				a.setAdoptionBoardFilename(rset.getString("board_filename"));
+				a.setAdoptionBoardFilepath(rset.getString("board_filepath"));
+				a.setAdoptionBoardDate(rset.getDate("board_date"));
+				a.setAdoptionBoardDate2(rset.getString("board_date2"));
+				a.setAdoptionBoardCount(rset.getInt("board_count"));
+				a.setAdoptionBoardSecret(rset.getInt("board_secret"));
+				a.setAdoptionBoardPw(rset.getString("board_pw"));
+				a.setAdoptionBoardPrdCode(rset.getString("board_prdCode"));
+				a.setDogKind(rset.getString("dog_kind"));
+				a.setHappenCity(rset.getString("happen_City"));
+				a.setHappenDate(rset.getString("happen_date"));
+				list.add(a);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(rset);
+			JDBCTemplete.close(stmt);
+		}
+		return list;
+	}
 	public int totalCount(Connection conn) {
 		Statement stmt = null;
 		ResultSet rset = null;

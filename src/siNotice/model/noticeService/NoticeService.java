@@ -3,6 +3,8 @@ package siNotice.model.noticeService;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import siAdoptionBoard.model.adoptionBoardDao.AdoptionBoardDao;
+import siAdoptionBoard.model.adoptionBoardVo.AdoptionBoard;
 import siNotice.model.noticeDao.NoticeDao;
 import siNotice.model.noticeVo.Notice;
 import siNotice.model.noticeVo.NoticePageData;
@@ -11,6 +13,12 @@ import siNoticeComment.model.noticeCommentVo.NoticeComment;
 import siTemplete.JDBCTemplete;
 
 public class NoticeService {
+	public ArrayList<Notice> noticeList(){
+	Connection conn = JDBCTemplete.getConnection();
+	ArrayList<Notice> list = new NoticeDao().noticeAll(conn);
+	JDBCTemplete.close(conn);
+	return list;
+}
 	public NoticePageData noticeAll(int reqPage){
 		Connection conn = JDBCTemplete.getConnection();
 		int numPerPage = 10;

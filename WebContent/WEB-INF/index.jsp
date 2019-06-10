@@ -200,19 +200,21 @@
 				<div id="mainAdoptReviewBox">
 					<h2 class="main-comm-tit">입양 후기</h2>
 					<ul class="main-adopt-review-list clearfix"><!-- 입양후기는 최소/최대 8개가 노출됩니다. -->
-						<li>
-							<a href="/siAdoptionBoardView?adoptionBoardNo=2">
-								<div class="img-thum">
-									<span style="background:url('/siUpload/adoptionBoard/20180422_174924429_849.jpg') no-repeat center center; background-size:cover;"></span>
-								</div>
-								<div class="txt-thum">
-									<h3>${adiptionBoardList}</h3>
-									<p>1</p>
-									<h5 class="clearfix"><span>${list.adoptionBoardName }</span><span>2019-05-23</span></h5>
-								</div>
-							</a>
-						</li>
-						<li>
+						<c:forEach items="${adoptionBoardList }" var="list">
+							<li>
+								<a href="/siAdoptionBoardView?adoptionBoardNo=${list.adoptionBoardNo }">
+									<div class="img-thum">
+										<span style="background:url('/siUpload/adoptionBoard/${list.adoptionBoardFilename }') no-repeat center center; background-size:cover;"></span>
+									</div>
+									<div class="txt-thum">
+										<h3>${list.adoptionBoardTitle }</h3>
+										<p>${list.adoptionBoardContent }</p>
+										<h5 class="clearfix"><span>${list.adoptionBoardName }</span><span>${list.adoptionBoardDate2 }</span></h5>
+									</div>
+								</a>
+							</li>
+						</c:forEach>
+					<%-- 	<li>
 							<a href="/siAdoptionBoardView?adoptionBoardNo=64&adoptionBoardName=한국동물구조관리협회&adoptionBoardDate2=2019/06/07 09:39&adoptionBoardContent=후기 2번 글&adoptionBoardTitle=후기2">
 								<div class="img-thum">
 									<span style="background:url('/siUpload/adoptionBoard/20180422_174743637_226.jpg') no-repeat center center; background-size:cover;"></span>
@@ -295,7 +297,7 @@
 									<h5 class="clearfix"><span>작성자</span><span>2019-05-23</span></h5>
 								</div>
 							</a>
-						</li>
+						</li> --%>
 					</ul>
 				</div>
 			</div>
@@ -313,13 +315,15 @@
 							<div class="tab-content-wrapper">
 								<div id="B-con01" class="tab-con">
 									<ul class="main-board-list"><!-- 공지사항 게시물은 최소 5개, 최대 5개가 노출됩니다.(최신순) -->
-										<li>
-											<a href="/siNoticeView?noticeNo=3" class="clearfix">
-												<p>공지사항1</p>
-												<span>2019/06/04 06:47</span>
-											</a>
-										</li>
-										<li>
+										<c:forEach items="${noticeList }" var="list">
+											<li>
+												<a href="/siNoticeView?noticeNo=${list.noticeNo }" class="clearfix">
+													<p>${list.noticeTitle }</p>
+													<span>${list.noticeDate2 }</span>
+												</a>
+											</li>
+										</c:forEach>
+	<!-- 									<li>
 											<a href="/siNoticeView?noticeNo=21" class="clearfix">
 												<p>공지사항2</p>
 												<span>2019/06/05 12:12</span>
@@ -342,7 +346,7 @@
 												<p>공지사항5</p>
 												<span>2019/06/07 09:33</span>
 											</a>
-										</li>
+										</li> -->
 									</ul>
 								</div>
 								<div id="B-con02" class="tab-con">
