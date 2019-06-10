@@ -49,6 +49,7 @@
 					<th>관리</th>
 				</tr>
 				<c:forEach items="${pd.list }" var = "m">
+				<c:if test="${m.memberLevel < 2 }">
 				<tr>
 					<td>${m.id }</td>
 					<c:if test="${m.memberLevel >= 1 }">
@@ -72,6 +73,7 @@
 					<td>${m.user }</td>
 					<td><button onclick="location.href='/adminDelete?id=${m.id}'">탈퇴</button></td>
 				</tr>
+				</c:if>
 				</c:forEach>
 			</table>
 			<div id="pageNavi" class="paging">${pd.pageNavi }</div>
