@@ -4,7 +4,9 @@
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
-
+<style>
+	.viewBoard{cursor:pointer;}
+</style>
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
 			<h2 class="comm-content-tit">자유게시판</h2>
@@ -28,9 +30,9 @@
 					</thead>
 					<tbody>
 			 			<c:forEach items="${bp.list }" var="list">
-							<tr>
+							<tr onclick="viewOne(${list.boardNo})" class="viewBoard">
 								<td>${list.boardRnum}</td>
-								<td><a href="/siPreBoardView?boardNo=${list.boardNo }">${list.boardTitle }</a></td>
+								<td>${list.boardTitle }</td>
 								<!-- name 값을 넘겨주도록 설정필요 -->
 								<td>
 									<c:if test="${list.boardId ne 'admin' }">
@@ -83,6 +85,10 @@
 			</div>
 		</div>
 	</section>
-
+<script>
+	function viewOne(no){
+		location.href="/siPreBoardView?boardNo="+no;
+	}
+</script>
 <%-- Footer --%>
 <jsp:include page="/WEB-INF/common/footer.jsp" />
