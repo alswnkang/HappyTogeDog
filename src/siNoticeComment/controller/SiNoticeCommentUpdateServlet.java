@@ -38,13 +38,10 @@ public class SiNoticeCommentUpdateServlet extends HttpServlet {
 		int result = new NoticeCommentService().commentUpdate(memberId,noticeCommentContent,noticeCommentNo);
 		String view = "";
 		if(result>0) {
-			request.setAttribute("msg", "댓글 수정 성공");
-			view = "/WEB-INF/siViews/common/siMsg.jsp";
+			view = "/siNoticeView?noticeNo="+noticeNo;
 		}else {
-			request.setAttribute("msg", "댓글 수정 실패");
-			view = "/WEB-INF/siViews/common/siMsg.jsp";
+			view = "/siNoticeView?noticeNo="+noticeNo;
 		}
-		request.setAttribute("loc", "/siNoticeView?noticeNo="+noticeNo);
 		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
 	}

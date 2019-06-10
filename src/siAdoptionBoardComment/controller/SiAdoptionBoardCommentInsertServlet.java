@@ -38,13 +38,13 @@ public class SiAdoptionBoardCommentInsertServlet extends HttpServlet {
 		int adoptionBoardRef = Integer.parseInt(request.getParameter("adoptionBoardNo"));
 		AdoptionBoardComment ac = new AdoptionBoardComment(0, adoptionBoardCommentType, adoptionBoardCommentId, adoptionBoardCommentName, adoptionBoardCommentContent, adoptionBoardRef, 0,null,null);
 		int result = new AdoptionBoardCommentService().commentInsert(ac);
+		String view = "";
 		if(result>0) {
-			request.setAttribute("msg", "댓글등록성공");
+			view = "/siAdoptionBoardView?adoptionBoardNo="+adoptionBoardRef;
 		}else {
-			request.setAttribute("msg", "댓글등록실패");
+			view = "/siAdoptionBoardView?adoptionBoardNo="+adoptionBoardRef;
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/common/siMsg.jsp");
-		request.setAttribute("loc", "/siAdoptionBoardView?adoptionBoardNo="+adoptionBoardRef);
+		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
 	}
 

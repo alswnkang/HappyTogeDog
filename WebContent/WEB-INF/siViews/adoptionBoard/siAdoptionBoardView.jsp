@@ -204,7 +204,6 @@
 	function cmtDelBtn(adoptionBoardCommentNo){ //댓글 삭제확인
 		if(confirm("댓글을 삭제하시겠습니까?")){
 			location.href="/siAdoptionBoardCommentDelete?adoptionBoardCommentNo="+adoptionBoardCommentNo+"&adoptionBoardNo="+${vd.a.adoptionBoardNo };
-			alert("삭제가 완료되었습니다.")
 		}
 	};
 	$(document).ready(function(){	//대댓글 입력 tr 노출

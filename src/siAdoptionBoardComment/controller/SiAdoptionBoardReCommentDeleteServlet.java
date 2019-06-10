@@ -35,13 +35,13 @@ public class SiAdoptionBoardReCommentDeleteServlet extends HttpServlet {
 		int adoptionBoardNo = Integer.parseInt(request.getParameter("adoptionBoardNo"));
 		int adoptionBoardCommentRef = Integer.parseInt(request.getParameter("adoptionBoardCommentRef"));
 		int result = new AdoptionBoardCommentService().reCommentDelete(adoptionBoardCommentNo,adoptionBoardCommentRef);
+		String view = "";
 		if(result>0) {
-			request.setAttribute("msg", "대댓글삭제성공");
+			view = "/siAdoptionBoardView?adoptionBoardNo="+adoptionBoardNo;
 		}else {
-			request.setAttribute("msg", "대댓글삭제실패");
+			view = "/siAdoptionBoardView?adoptionBoardNo="+adoptionBoardNo;
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/common/siMsg.jsp");
-		request.setAttribute("loc", "/siAdoptionBoardView?adoptionBoardNo="+adoptionBoardNo);
+		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
 	}
 

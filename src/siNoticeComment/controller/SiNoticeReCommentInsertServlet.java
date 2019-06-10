@@ -47,13 +47,13 @@ public class SiNoticeReCommentInsertServlet extends HttpServlet {
 		nc.setNoticeCommentId(noticeCommentId);
 		nc.setNoticeCommentName(noticeCommentName);
 		int result = new NoticeCommentService().reCommentInsert(nc);
+		String view = "";
 		if(result>0) {
-			request.setAttribute("msg", "대댓글등록성공");
+			view = "/siNoticeView?noticeNo="+noticeNo;
 		}else {
-			request.setAttribute("msg", "대댓글등록실패");
+			view = "/siNoticeView?noticeNo="+noticeNo;
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/common/siMsg.jsp");
-		request.setAttribute("loc", "/siNoticeView?noticeNo="+noticeNo);
+		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
 	}
 

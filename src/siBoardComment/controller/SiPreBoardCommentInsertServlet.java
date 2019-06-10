@@ -40,17 +40,13 @@ public class SiPreBoardCommentInsertServlet extends HttpServlet {
 		int boardRef = Integer.parseInt(request.getParameter("boardNo"));
 		BoardComment bc = new BoardComment(0, boardCommentType, boardCommentId, boardCommentName, boardCommentContent, boardRef, 0,null,null);
 		int result = new BoardCommentService().commentInsert(bc);
+		String view = "";
 		if(result>0) {
-			request.setAttribute("msg", "댓글등록성공");
+			view = "/siPreBoardView?boardNo="+boardRef;
 		}else {
-			request.setAttribute("msg", "댓글등록실패");
+			view = "/siPreBoardView?boardNo="+boardRef;
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/common/siMsg.jsp");
-		
-		
-		request.setAttribute("loc", "/siPreBoardView?boardNo="+boardRef);
-		
-		
+		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
 	}
 

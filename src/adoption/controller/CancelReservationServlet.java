@@ -34,11 +34,11 @@ public class CancelReservationServlet extends HttpServlet {
 		System.out.println("신청취소 서블릿/ 넘버: "+no);
 		int result = new BookApplyService().cancelReservation(no);
 		if(result>0) {
-			request.setAttribute("msg", "방문예약 신청 취소 완료");
+			request.setAttribute("loc", "/reservationMypage");
 		}else {
-			request.setAttribute("msg", "방문예약 신청 취소 실패");
+			request.setAttribute("msg", "방문예약 신청 취소 실패했습니다.");
+			request.setAttribute("loc", "/reservationMypage");
 		}
-		request.setAttribute("loc", "/reservationMypage");
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
 		rd.forward(request, response);
 	}

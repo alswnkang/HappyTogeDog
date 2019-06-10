@@ -43,7 +43,7 @@ public class CareUpdateStatusServlet extends HttpServlet {
 			request.setAttribute("startDay", startDay);
 			request.setAttribute("endDay", endDay);
 			request.setAttribute("reqPage", reqPage);
-			request.setAttribute("msg", "상태 수정 실패");
+			request.setAttribute("msg", "상태 수정 실패했습니다.");
 			RequestDispatcher rd = request.getRequestDispatcher("/reservationView");
 			rd.forward(request, response);
 		}
