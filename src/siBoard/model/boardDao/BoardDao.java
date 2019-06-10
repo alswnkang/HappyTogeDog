@@ -34,6 +34,50 @@ public class BoardDao {
 		}
 		return result;
 	}
+	public ArrayList<Board> myBoardList(Connection conn, int start, int end, String boardId, int boardType){
+		ArrayList<Board> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "SELECT rnum,board_no,board_type,board_id,board_name,board_title,board_content,board_filename,board_filepath,board_date,to_char(board_date,'yyyy/MM/dd HH:mi') as board_date2,board_count,board_secret,board_pw,board_prdcode,dog_kind,happen_city,happen_date FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD where board_id = ? and board_type = ? ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?";
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, boardId);
+			pstmt.setInt(2, boardType);
+			pstmt.setInt(3, start);
+			pstmt.setInt(4, end);
+			rset = pstmt.executeQuery();
+			list = new ArrayList<Board>();
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBoardRnum(rset.getInt("rnum"));
+				b.setBoardNo(rset.getInt("board_no"));
+				b.setBoardType(rset.getInt("board_Type"));
+				b.setBoardId(rset.getString("board_id"));
+				b.setBoardName(rset.getString("board_Name"));
+				b.setBoardTitle(rset.getString("board_title"));
+				b.setBoardContent(rset.getString("board_content"));
+				b.setBoardFilename(rset.getString("board_filename"));
+				b.setBoardFilepath(rset.getString("board_filepath"));
+				b.setBoardDate(rset.getDate("board_date"));
+				b.setBoardDate2(rset.getString("board_date2"));
+				b.setBoardCount(rset.getInt("board_count"));
+				b.setBoardSecret(rset.getInt("board_secret"));
+				b.setBoardPw(rset.getString("board_pw"));
+				b.setBoardPrdCode(rset.getString("board_prdCode"));
+				b.setDogKind(rset.getString("dog_kind"));
+				b.setHappenCity(rset.getString("happen_City"));
+				b.setHappenDate(rset.getString("happen_date"));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(rset);
+			JDBCTemplete.close(pstmt);
+		}
+		return list;
+	}
 	public ArrayList<Board> boardAll(Connection conn,int start,int end){
 		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;

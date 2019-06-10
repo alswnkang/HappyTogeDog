@@ -8,6 +8,7 @@
 <%pageContext.setAttribute("newLineChar", "\n"); %>
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
+			<h2 class="main-comm-tit">입양 후기</h2>
 			<div class="voluntary-box">
 				<!-- 공지사항 게시글 조회 -->
 				<table class="comm-tbl view">

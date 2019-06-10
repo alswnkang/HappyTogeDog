@@ -8,6 +8,7 @@
 <%pageContext.setAttribute("newLineChar", "\n"); %>
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
+			<h2 class="main-comm-tit">자유게시판</h2>
 			<div class="voluntary-box">
 				<!-- 자유게시판 게시글 조회 -->
 				<table class="comm-tbl view">
