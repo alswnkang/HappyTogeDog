@@ -16,8 +16,9 @@
 			<h2 class="main-comm-tit">입양 후기</h2>
 			<ul class="main-adopt-review-list clearfix"><!-- 입양후기는 최소/최대 8개가 노출됩니다. -->
 				<c:if test="${empty ap.list }">
-					<li>
-						등록된 후기가 없습니다.
+					<li class="review-none">
+						<span class="paw1"></span><span class="paw2"></span>
+						<p>등록된 후기가 없습니다.</p>
 					</li>
 				</c:if>
 				<c:forEach items="${ap.list }" var="list">
