@@ -10,7 +10,7 @@
 <%-- Content --%>
 <section id="content-wrapper">
 	<div class="area">
-		<h2 class="comm-content-tit">Q & A</h2>
+		<h2 class="comm-content-tit">Q &amp; A</h2>
 		<div class="qna-view">
 			<%-- 상품코드가 있으면 해당 상품 연결 --%>
 			<c:if test="${not empty qna.boardPrdcode }">
@@ -42,13 +42,6 @@
 						${qna.boardContent }
 					</td>
 				</tr>
-				<%-- 첨부파일 이미지를 내용에 넣을까 다운로드로 할까 고민중
-				<c:if test="${not empty qna.boardFilename }">
-					<tr>
-						<td>파일첨부</td><td>${qna.boardFilename }</td>
-					</tr>
-				</c:if>
-				--%>
 				<c:if test="${not empty comment.boardCommentContent }">
 					<tr>
 						<td>답변</td><td>${comment.boardCommentContent }</td>
@@ -108,11 +101,7 @@
 						</c:if>
 					</c:if>
 				</c:if>
-				
 				<button class="btn-style3" onclick="list(${search.reqPage });">목록으로</button>
-				<%--
-				<button class="btn-style3" onclick="history.back();">목록으로</button>
-				--%>
 			</div>
 			<form action="${pageName}" method="post" name="search">
 		 		<input type="hidden" name="reqPage">
@@ -120,8 +109,6 @@
 		 		<input type="hidden" name="searchVal" value="${search.searchVal }">
 			</form>
 		</div>
-		
-		
 	</div>
 </section>
 

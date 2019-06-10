@@ -12,35 +12,35 @@
 <%-- Content --%>
 <section id="content-wrapper">
 	<div class="area">
-		<h2 class="comm-content-tit">Q & A</h2>
+		<h2 class="comm-content-tit">Q &amp; A</h2>
 		<div id="qnaListBox">
-				<table class="comm-tbl type2">
-					<colgroup>
-						<col width="5%">
-						<col width="10%">
-						<col width="">
-						<col width="15%">
-						<col width="15%">
-					</colgroup>
-					<thead>
+			<table class="comm-tbl type2">
+				<colgroup>
+					<col width="5%">
+					<col width="10%">
+					<col width="">
+					<col width="15%">
+					<col width="15%">
+				</colgroup>
+				<thead>
+					<tr>
+						<th>No.</th>
+						<th>답변상태</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:if test="${empty qnaList.qnainfoList }">
 						<tr>
-							<th>No.</th>
-							<th>답변상태</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>작성일</th>
+							<td colspan="5">
+								<p class="none">게시물이 없습니다.</p>
+							</td>
 						</tr>
-					</thead>
-					<tbody>
-						<c:if test="${empty qnaList.qnainfoList }">
-							<tr>
-								<td colspan="5">
-									<p class="none">게시물이 없습니다.</p>
-								</td>
-							</tr>
-						</c:if>
-						<c:forEach items="${qnaList.qnainfoList}" var="qna">
-							<tr>
+					</c:if>
+					<c:forEach items="${qnaList.qnainfoList}" var="qna">
+						<tr>
 							<td>${qna.boardRnum }</td>
 							<td>
 								<c:if test="${qna.boardCount eq 0 }">
@@ -52,12 +52,12 @@
 							</td>
 							<td>
 								<p class="volun-tit">
-								<%-- 상품코드가 있으면 해당 상품 연결 --%>
-								<c:if test="${not empty qna.boardPrdcode }">
-									<a href="/viewProduct?code=${qna.boardPrdcode}">
-										<img height="50" src="/img/${prdList[qna.boardPrdcode].prdImg }">
-									</a>
-								</c:if>
+									<%-- 상품코드가 있으면 해당 상품 연결 --%>
+									<c:if test="${not empty qna.boardPrdcode }">
+										<a href="/viewProduct?code=${qna.boardPrdcode}">
+											<img height="50" src="/img/${prdList[qna.boardPrdcode].prdImg }">
+										</a>
+									</c:if>
 									<a href="javascript:view(${qna.boardNo });">
 										${qna.boardTitle }
 										<c:if test="${qna.boardSecret eq 1 }"><img src="/img/lock.png"></c:if>
@@ -86,45 +86,48 @@
 							</td>	
 							<td>${qna.boardDate }</td>						
 						</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+					</c:forEach>
+				</tbody>
+			</table>
 					
-				<c:if test="${not empty sessionScope.member}">
-					<c:if test="${sessionScope.member.memberLevel ne 2}">
-						<div class="common-tbl-btn-group" style="text-align: right;">
-							<button class="btn-style1 sm" onclick="location.href='/regiQna'">작성</button>
-						</div>
-					</c:if>
-				</c:if>
-				<c:if test="${empty sessionScope.member}">
+			<c:if test="${not empty sessionScope.member}">
+				<c:if test="${sessionScope.member.memberLevel ne 2}">
 					<div class="common-tbl-btn-group" style="text-align: right;">
 						<button class="btn-style1 sm" onclick="location.href='/regiQna'">작성</button>
 					</div>
 				</c:if>
-				<!-- paging -->
-				<div class="paging">
-		 			${qnaList.pageNavi }
-		 		</div>
-		 		<form action="/qnaView" method="post" name="moveView">
-		 			<input type="hidden" name="reqPage" class="view" value="${search.reqPage}">
-		 			<input type="hidden" name="boardNo">
-		 			<input type="hidden" name="searchType" value="${search.searchType }">
-		 			<input type="hidden" name="searchVal" value="${search.searchVal }">
-		 			<input type="hidden" name="pageName" value="/qnaList">
-		 		</form>
-		 		<!-- 검색박스 -->
-		 		<div class="board-search-box">
-		 			<form action="/qnaList" method="post" name="search">
-		 				<input type="hidden" name="reqPage">
-						<select name="searchType" data-val="${search.searchType }">
-							<option value="board_title">제목</option>
-							<option value="board_name">작성자</option>
-						</select>
-						<input placeholder="검색어를 입력해주세요." type="search" name="searchVal" class="search-word" value="${search.searchVal }">
-						<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
-					</form>
+			</c:if>
+			<c:if test="${empty sessionScope.member}">
+				<div class="common-tbl-btn-group" style="text-align: right;">
+					<button class="btn-style1 sm" onclick="location.href='/regiQna'">작성</button>
 				</div>
+			</c:if>
+			
+			<!-- paging -->
+			<div class="paging">
+		 		${qnaList.pageNavi }
+		 	</div>
+		 	
+		 	<form action="/qnaView" method="post" name="moveView">
+		 		<input type="hidden" name="reqPage" class="view" value="${search.reqPage}">
+		 		<input type="hidden" name="boardNo">
+		 		<input type="hidden" name="searchType" value="${search.searchType }">
+		 		<input type="hidden" name="searchVal" value="${search.searchVal }">
+		 		<input type="hidden" name="pageName" value="/qnaList">
+		 	</form>
+		 	
+		 	<!-- 검색박스 -->
+		 	<div class="board-search-box">
+		 		<form action="/qnaList" method="post" name="search">
+		 			<input type="hidden" name="reqPage">
+					<select name="searchType" data-val="${search.searchType }">
+						<option value="board_title">제목</option>
+						<option value="board_name">작성자</option>
+					</select>
+					<input placeholder="검색어를 입력해주세요." type="search" name="searchVal" class="search-word" value="${search.searchVal }">
+					<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
+				</form>
+			</div>
 		</div>
 	</div>
 </section>
