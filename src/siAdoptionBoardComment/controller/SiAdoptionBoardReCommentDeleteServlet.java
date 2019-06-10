@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import siAdoptionBoardComment.model.adoptionBoardCommentService.AdoptionBoardCommentService;
 
 /**
- * Servlet implementation class SiBoardCommentDeleteServlet
+ * Servlet implementation class SiAdoptionBoardReCommentDeleteServlet
  */
-@WebServlet(name = "SiAdoptionBoardCommentDelete", urlPatterns = { "/siAdoptionBoardCommentDelete" })
-public class SiAdoptionBoardCommentDeleteServlet extends HttpServlet {
+@WebServlet(name = "SiAdoptionBoardReCommentDelete", urlPatterns = { "/siAdoptionBoardReCommentDelete" })
+public class SiAdoptionBoardReCommentDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SiAdoptionBoardCommentDeleteServlet() {
+    public SiAdoptionBoardReCommentDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,16 +33,16 @@ public class SiAdoptionBoardCommentDeleteServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		int adoptionBoardCommentNo = Integer.parseInt(request.getParameter("adoptionBoardCommentNo"));
 		int adoptionBoardNo = Integer.parseInt(request.getParameter("adoptionBoardNo"));
-		int result = new AdoptionBoardCommentService().commentDelete(adoptionBoardCommentNo);
+		int adoptionBoardCommentRef = Integer.parseInt(request.getParameter("adoptionBoardCommentRef"));
+		int result = new AdoptionBoardCommentService().reCommentDelete(adoptionBoardCommentNo,adoptionBoardCommentRef);
 		if(result>0) {
-			RequestDispatcher rd = request.getRequestDispatcher("/siAdoptionBoardView?adoptionBoardNo="+adoptionBoardNo);
-			rd.forward(request, response);
-		}else {	
-			request.setAttribute("msg", "댓글삭제실패");
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/common/siMsg.jsp");
-			request.setAttribute("loc", "/siAdoptionBoardView?adoptionBoardNo="+adoptionBoardNo);
-			rd.forward(request, response);
+			request.setAttribute("msg", "대댓글삭제성공");
+		}else {
+			request.setAttribute("msg", "대댓글삭제실패");
 		}
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/common/siMsg.jsp");
+		request.setAttribute("loc", "/siAdoptionBoardView?adoptionBoardNo="+adoptionBoardNo);
+		rd.forward(request, response);
 	}
 
 	/**

@@ -6,12 +6,12 @@
 
 <jsp:include page="/WEB-INF/common/header.jsp" />
 <link rel="stylesheet" type="text/css" href="/css/style.css">
-<script type="text/javascript" src="/js/script.js"></script>
+<script type="text/javascript" src="/js/order.js"></script>
 
 <%-- Content --%>
 <section id="content-wrapper">
 	<div class="area">
-		<div class="product clear-float">
+		<div class="product clearfix">
 			<div class="product-top clearfix">
 				<div class="product-img">
 					<img src="/img/${prd.prdImg }">
@@ -27,15 +27,22 @@
 							<p class="option">수량<input type="text" name="amount" class="num" value="1"> 개</p>
 							<p class="option">금액<input type="text" name="price" class="num"> 원</p>
 							<p class="price type2"><span>총 수량  <b><span id="realAmount">0</span> 개</b></span> / &nbsp;&nbsp;<span>총 금액 <b><span id="realPrice">0</span> 원</b></span></p>
-							<p class="order-btn-box"><button type="submit" class="order-btn">후원하기</button></p>
+							<c:if test="${not empty sessionScope.member}">
+								<c:if test="${sessionScope.member.memberLevel ne 2}">
+									<p class="order-btn-box"><button type="submit" class="order-btn">후원하기</button></p>
+								</c:if>
+							</c:if>
+							<c:if test="${empty sessionScope.member}">
+								<p class="order-btn-box"><button type="submit" class="order-btn">후원하기</button></p>
+							</c:if>
 						</div>
 					</form>
 				</div>	
 			</div>
 			
 			<div class="tab clearfix">
-				<a href="#detail">상세설명</a>
-				<a href="#qna">Q&A</a>
+				<a href="javascript:$('#detail')[0].scrollIntoView();">상세설명</a>
+				<a href="javascript:$('#qna')[0].scrollIntoView();">Q&A</a>
 			</div>
 			<div id="detail" class="product-bottom">
 				<p class="main-comm-tit">상세설명</p>
@@ -79,7 +86,7 @@
 				</p>
 			</div>
 			<p class="common-tbl-btn-group">
-					<button class="btn-style1" onclick="history.back();">목록으로</button>
+					<button class="btn-style1" onclick="location.href='/sponsorship'">목록으로</button>
 				</p>
 			<div id="qna" class="product-bottom">
 				<p class="main-comm-tit">Q&A</p>
@@ -136,10 +143,20 @@
 					</tbody>
 				</table>
 				<p class="common-tbl-btn-group right">
-					<button class="btn-style2" onclick="location.href='/qnaList'">더보기</button><button class="btn-style2" onclick="location.href='/regiQna?prdCode=${prd.prdCode}'">작성하기</button>
+					<button class="btn-style2" onclick="location.href='/qnaList'">더보기</button>
+					<c:if test="${not empty sessionScope.member}">
+						<c:if test="${sessionScope.member.memberLevel ne 2}">
+							<button class="btn-style2" onclick="location.href='/regiQna?prdCode=${prd.prdCode}'">작성하기</button>
+						</c:if>
+					</c:if>
+					<c:if test="${empty sessionScope.member}">
+						<button class="btn-style2" onclick="location.href='/regiQna?prdCode=${prd.prdCode}'">작성하기</button>
+					</c:if>
 				</p>
 			</div>
 		</div>
 	</div>
 </section>
+<script>
+</script>
 <jsp:include page="/WEB-INF/common/footer.jsp" />

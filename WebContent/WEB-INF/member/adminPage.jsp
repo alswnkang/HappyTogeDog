@@ -53,14 +53,14 @@
 				<tr>
 					<td>${m.id }</td>
 					<c:if test="${m.memberLevel >= 1 }">
-					<td>${m.code }</td>
+						<td>${m.code }</td>
 					</c:if>
 					<c:if test="${m.memberLevel == 0 }">
-					
+						
 					</c:if>
 					<c:if test="${user >= 1 }">
 					<c:if test="${m.memberLevel == 0 }">
-					<td></td>
+					<td>-</td>
 					</c:if>
 					</c:if>
 					<td>${m.name }</td>

@@ -63,7 +63,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="">
+					<a href="/siPreBoard">
 						<div class="img-thum">
 							<span><img src="/img/mypage_icon05.png"></span>
 						</div>
@@ -125,7 +125,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="">
+					<a href="/siPreBoard">
 						<div class="img-thum">
 							<span><img src="/img/mypage_icon05.png"></span>
 						</div>
@@ -165,7 +165,7 @@
 					</a>
 				</li><br><br>
 				<li>
-					<a href="">
+					<a href="/siNotice">
 						<div class="img-thum">
 							<span><img src="/img/mypage_icon08.png"></span>
 						</div>

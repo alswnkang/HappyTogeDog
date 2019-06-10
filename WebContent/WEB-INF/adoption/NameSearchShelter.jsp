@@ -23,7 +23,7 @@
 						<c:forEach items="${list }" var="i">
 							<tr>
 								<td>${i.name }</td>
-								<td>${i.addr }</td>
+								<td>${i.address }</td>
 								<td>${i.phone }</td>
 							</tr>
 						</c:forEach>	
