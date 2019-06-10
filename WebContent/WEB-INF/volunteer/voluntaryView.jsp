@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
@@ -46,7 +47,20 @@
 					<tr>
 						<th>봉사 상세설명</th>
 						<td colspan="3">
-							${vr.detail }
+							<c:if test="${empty vr.filename}">
+								${vr.detail }
+							</c:if>
+							<c:if test="${not empty vr.filename }">
+								<c:set var="fileLength" value="${fn:length(vr.filename)}"></c:set>
+								<c:set var="fileType" value="${fn:substring(vr.filename,fileLength-3,fileLength) }"></c:set>
+								<c:if test="${fileType eq 'jpg' || fileType eq 'png' || fileType eq 'gif' || fileType eq 'JPG' }">
+									<img src="/upload/volunteer/${vr.filename }"><br><br>
+									${vr.detail }
+								</c:if>
+								<c:if test="${fileType ne 'jpg' || fileType ne 'png' || fileType ne 'gif' || fileType ne 'JPG' }">
+									${vr.detail }
+								</c:if>
+							</c:if>
 						</td>
 					</tr>
 					<tr>
@@ -67,8 +81,8 @@
 							<button type="button" id="applyCheckBtn" class="btn-style1">신청하기</button><!-- 신청 마감시 버튼 변경->신청 마감 누르면 alert('신청이 마감되었습니다.') -->
 						</c:if>
 					</c:if>
-					<!-- <button type="button" class="btn-style2" onclick="location.href='/volunteerList'">목록으로</button> -->
-					<button type="button" class="btn-style2" onclick="goBack();">목록으로</button>
+					<button type="button" class="btn-style2" onclick="location.href='/volunteerList'">목록으로</button>
+					<!-- <button type="button" class="btn-style2" onclick="goBack();">목록으로</button> -->
 					<c:if test="${sessionScope.member.code == vr.code}">
 						<button type="button" class="btn-style3" onclick="location.href='/voluntaryUpdate?no=${vr.no}'">수정</button>
 						<button type="button" id="deleteBtn" class="btn-style3">삭제</button>
