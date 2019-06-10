@@ -62,9 +62,8 @@ public class TakeBoardEnrollServlet extends HttpServlet {
 		
 		
 		String kind = mRequest.getParameter("kind");
-		String cityCode2= mRequest.getParameter("happenCity");
-		String cityCode= saveDirectory.concat(cityCode2);
-		System.out.println(boardName);
+		String cityCode= mRequest.getParameter("happenCity");
+
 		
 		String sY=mRequest.getParameter("startDay");
 	

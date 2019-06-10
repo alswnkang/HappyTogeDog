@@ -54,9 +54,9 @@
 								<p class="volun-tit">
 								<%-- 상품코드가 있으면 해당 상품 연결 --%>
 								<c:if test="${not empty qna.boardPrdcode }">
-												<a href="/viewProduct?code=${qna.boardPrdcode}">
-													<img height="50" src="/img/${prdList[qna.boardPrdcode].prdImg }">
-												</a>
+									<a href="/viewProduct?code=${qna.boardPrdcode}">
+										<img height="50" src="/img/${prdList[qna.boardPrdcode].prdImg }">
+									</a>
 								</c:if>
 									<a href="javascript:view(${qna.boardNo });">
 										${qna.boardTitle }
