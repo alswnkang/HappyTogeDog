@@ -72,6 +72,8 @@
 							<td colspan="4" style="text-align:center;">
 								<span class="cmt-txt">댓글 입력</span>&nbsp;&nbsp;<input type="text" name="noticeCommentContent" value="" maxlength="50" class="noticeCommentContent"/>
 								<button type="submit" class="cmtBtn">등록</button>
+								/
+								<button type="button" class="cancelBtn">취소</button>
 							</td>
 						</tr>
 					</table>
@@ -151,6 +153,8 @@
 								</td>
 								<td style="text-align:center;">
 									<button onclick="sendReCmt('${list.noticeCommentNo }')" type="button" class="reCmtBtn big">등록</button>
+									/
+									<button class="reCmtBtnr" type="button" >취소</button>
 								</td>
 							</tr>
 						</table>							
@@ -170,8 +174,18 @@
 			</div>
 		</div>
 	</section>
-
 <script>
+	$(document).ready(function(){	//댓글 입력 취소	
+		$('.cancelBtn').click(function(){
+			$('#commentTb').hide();
+		});
+	});
+	$(document).ready(function(){	//대댓글 입력 취소	
+		$('.reCmtBtnr').click(function(){
+			$(this).parent().parent().hide();
+			$('.reCmtBtn').show();
+		});
+	});
 	function sendReCmt(noticeCommentNo){	//대댓글 전송
 		var memberId = '${sessionScope.member.id }';		
 		var memberName = '${sessionScope.member.name }';
