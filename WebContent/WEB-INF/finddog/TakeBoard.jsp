@@ -31,9 +31,9 @@
 						</tr>
 					</thead>
 					<tbody>
-			 			<c:forEach items="${bp.list }" var="list">
+			 			<c:forEach items="${bp.list }" var="list" varStatus="i">
 							<tr>
-								<td>${list.boardRnum}</td>
+								<td>${i.count}</td>
 								<td><img src="/siUpload/board/${list.boardFilepath }"></td>
 								<td><a href="/detailTakeBoard?boardNo=${list.boardNo }">${list.boardTitle }</a></td>
 								<!-- name 값을 넘겨주도록 설정필요 -->
