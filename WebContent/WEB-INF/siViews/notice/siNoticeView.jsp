@@ -194,7 +194,7 @@
 	$(document).ready(function(){//댓글 수정,취소 버튼  
 		$('.mdfBtn').click(function(){
 			$(this).parent().prev().children().eq(0).hide();
-			$(this).parent().prev().children().eq(1).show();
+			$(this).parent().prev().children().eq(2).show();
 			$(this).html('등록').attr("class","cmtUpdate");
 			$(this).nextAll().show();
 			$('.cancelBtn').click(function(){

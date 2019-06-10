@@ -206,7 +206,7 @@
 									<span style="background:url('/siUpload/adoptionBoard/20180422_174924429_849.jpg') no-repeat center center; background-size:cover;"></span>
 								</div>
 								<div class="txt-thum">
-									<h3><c:out value="/siAdoptionBoardView?adoptionBoardTitle=후기게시판"/></h3>
+									<h3>${adiptionBoardList}</h3>
 									<p>1</p>
 									<h5 class="clearfix"><span>${list.adoptionBoardName }</span><span>2019-05-23</span></h5>
 								</div>

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import siAdoptionBoard.model.adoptionBoardVo.AdoptionBoard;
 import sponsorship.model.vo.ProductVO;
 import volunteer.model.service.VoluntaryService;
 import volunteer.model.vo.VoluntaryRegister;
@@ -23,7 +24,10 @@ public class MainServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		ArrayLisy<AdoptionBoard> adiptionBoardList = new  
+		/* 메인 :: 후기게시판 게시글 노출 */
+		ArrayList<AdoptionBoard> adoptionBoardList = new ArrayList<AdoptionBoard>();
+		request.setAttribute("adoptionBoardList", adoptionBoardList);
+		
 		/* 메인 :: 후원하기 상품 노출 */
 		ArrayList<ProductVO> prdList = new ArrayList<ProductVO>();
 		prdList.add(new ProductVO(0));
