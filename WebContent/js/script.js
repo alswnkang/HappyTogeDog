@@ -15,7 +15,8 @@ function check(){
 		return false;
 	}
 	if(chkPrice*amount>price){
-		alert('양심있냐 ㅠㅠ');
+		alert('최소금액 이상 후원이 가능합니다.');
+		$('input[name=price]').focus();
 		return false;
 	}
 	return true;
