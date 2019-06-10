@@ -94,7 +94,7 @@
 										</c:if>
 										<c:if test="${sessionScope.member.id!=list.boardCommentId && sessionScope.member.id eq 'admin' }">
 										<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
-											<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.boardCommentNo }');">삭제2</a>
+											<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.boardCommentNo }');">삭제</a>
 											/
 										</c:if>
 										<c:if test="${not empty sessionScope.member.id }"><!-- 로그인시 노출 -->
@@ -123,7 +123,7 @@
 											</c:if>
 											<c:if test="${sessionScope.member.id!=clist.boardCommentId && sessionScope.member.id eq 'admin' }">
 											<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
-												<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.boardCommentNo }','${clist.boardCommentRef }');">삭제2</a>
+												<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.boardCommentNo }','${clist.boardCommentRef }');">삭제</a>
 											</c:if>
 										</td>
 									</tr>
