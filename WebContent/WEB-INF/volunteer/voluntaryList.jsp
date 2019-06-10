@@ -4,6 +4,7 @@
 <%@ page import="volunteer.model.vo.VoluntaryRegister" %>
 <%@ page import="volunteer.model.vo.VoluntaryListData" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
@@ -33,10 +34,10 @@ $(function(){
 				<colgroup>
 					<col width="5%">
 					<col width="">
-					<col width="15%">
+					<col width="12%">
 					<col width="13%">
 					<col width="18%">
-					<col width="13%">
+					<col width="11%">
 					<col width="10%">
 				</colgroup>
 				<thead>
@@ -62,11 +63,17 @@ $(function(){
 								<td>${volunRegister.enrollDate }</td><!-- ${volunRegister.status } -->
 								<td>
 									<!-- ${volunRegister.applyNum } --> <!-- 신청한 인원 -->
-									<c:if test="${volunRegister.status eq '모집중' }">
-										<span class="volun-status ing">${volunRegister.status }</span>
+									<fmt:formatDate value="<%=new java.util.Date() %>" pattern="YYYY-MM-DD" var="today"/>
+									<c:if test="${volunRegister.volunDate >= today }">
+										<c:if test="${volunRegister.status eq '모집중' }">
+											<span class="volun-status ing">${volunRegister.status }</span>
+										</c:if>
+										<c:if test="${volunRegister.status eq '모집마감' }">
+											<span class="volun-status end">${volunRegister.status }</span>
+										</c:if>
 									</c:if>
-									<c:if test="${volunRegister.status eq '모집마감' }">
-										<span class="volun-status end">${volunRegister.status }</span>
+									<c:if test="${volunRegister.volunDate < today }">
+										<span class="volun-status end">모집마감</span>
 									</c:if>
 								</td>
 							</tr>

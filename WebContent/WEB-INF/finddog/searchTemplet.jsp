@@ -24,7 +24,7 @@
 		 	<form action="/printSearchDog">
 		 	<div class="board-search-box">
 				<select name="kind"><!-- option 세부항목은 각자 알아서 넣으시면 됩니다. -->
-					<option value="content">품종</option>
+					<option>품종</option>
 					<c:forEach items="${kind }" var="k">
 						<option value="${k.code }">${k.kind }</option>
 					</c:forEach>
