@@ -16,26 +16,27 @@ public class AdoptionBoardService {
 		int numPerPage = 12;
 		int totalCount = new AdoptionBoardDao().totalCount(conn);
 		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
+		System.out.println("입양후기 service: "+totalPage);
 		int start = (reqPage-1)*numPerPage+1;
 		int end = reqPage*numPerPage;
 		ArrayList<AdoptionBoard> list = new AdoptionBoardDao().adoptionBoardAll(conn,start,end);
 		String pageNavi = "";
-		int pageNaviSize = 10;
+		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		if(pageNo!=1) {
-			pageNavi+="<a href='/siAdoptionBoard?reqPage="+(pageNo-1)+"'>이전</a>";
+			pageNavi+="<a class='paging-arrow prev-arrow' href='/siAdoptionBoard?reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
 		}
 		int i = 1;
 		while(!(i++>pageNaviSize || pageNo>totalPage)) {
 			if(reqPage==pageNo) {
-				pageNavi+="<span>"+pageNo+"</span>";
+				pageNavi+="<span class='cur'>"+pageNo+"</span>";
 			}else {
 				pageNavi+="<a href='/siAdoptionBoard?reqPage="+pageNo+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
 		if(pageNo<=totalPage) {
-			pageNavi+="<a href='/siAdoptionBoard?reqPage="+pageNo+"'>다음</a>";
+			pageNavi+="<a class='paging-arrow next-arrow' href='/siAdoptionBoard?reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
 		}
 		JDBCTemplete.close(conn);
 		AdoptionBoardPageData ap = new AdoptionBoardPageData(list,pageNavi);
@@ -121,22 +122,22 @@ public class AdoptionBoardService {
 			}
 		}
 		String pageNavi = "";
-		int pageNaviSize = 10;
+		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		if(pageNo!=1) {
-			pageNavi+="<a href='/siAdoptionBoardSearch?reqPage="+(pageNo-1)+"&searchWord="+searchType+"&keyword="+searchKeyword+"'>이전</a>";
+			pageNavi+="<a class='paging-arrow prev-arrow' href='/siAdoptionBoardSearch?reqPage="+(pageNo-1)+"&searchWord="+searchType+"&keyword="+searchKeyword+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
 		}
 		int i = 1;
 		while(!(i++>pageNaviSize || pageNo>totalPage)) {
 			if(reqPage==pageNo) {
-				pageNavi+="<span>"+pageNo+"</span>";
+				pageNavi+="<span class='cur'>"+pageNo+"</span>";
 			}else {
 				pageNavi+="<a href='/siAdoptionBoardSearch?reqPage="+pageNo+"&searchWord="+searchType+"&keyword="+searchKeyword+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
 		if(pageNo<=totalPage) {
-			pageNavi+="<a href='/siAdoptionBoardSearch?reqPage="+pageNo+"&searchWord="+searchType+"&keyword="+searchKeyword+"'>다음</a>";
+			pageNavi+="<a class='paging-arrow next-arrow' href='/siAdoptionBoardSearch?reqPage="+pageNo+"&searchWord="+searchType+"&keyword="+searchKeyword+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
 		}
 		JDBCTemplete.close(conn);
 		AdoptionBoardPageData ap = new AdoptionBoardPageData(list,pageNavi);

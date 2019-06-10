@@ -62,12 +62,11 @@
 					<div id="gnbBg"></div>
 					<ul class="clearfix">
 						<li class="gnb01">
-							<a href="">입양</a>
+							<a href="/dogAdopList">입양</a>
 							<div class="gnb-2dep">
 								<ul>
-									<li><a href="/searchDog">입양하기</a></li>
-									<li><a href="/findShelter">전국 보호소 찾기</a></li><!-- /bk.jsp -->
-									<li><a href="/dogAdopList">입양(유기견리스트_bk)</a></li>
+									<li><a href="/dogAdopList">입양하기</a></li>
+									<li><a href="/findShelter">전국 보호소 찾기</a></li>
 								</ul>
 							</div>
 						</li>

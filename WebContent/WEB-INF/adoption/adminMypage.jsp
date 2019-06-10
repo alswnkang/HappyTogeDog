@@ -45,6 +45,11 @@
 						<td>${ba.result }</td>
 					</tr>
 				</c:forEach>
+				<c:if test="${empty bp.list }">
+					<tr height="100px">
+						<td colspan="8">예약내역이 없습니다.</td>
+					</tr>
+				</c:if>
 			</table>
 			<div class="paging">${bp.pageNavi}</div>
 		</div>

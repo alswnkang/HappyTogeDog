@@ -233,6 +233,14 @@ body { background-color:#fff; }
 .main-adopt-review-list .txt-thum h5 > span{display:inline-block; max-width:50%; white-space:nowrap; text-overflow:ellipsis; overflow:hidden;}
 .main-adopt-review-list .txt-thum h5 > span:first-child{float:left;}
 .main-adopt-review-list .txt-thum h5 > span:last-child{float:right;}
+/* 입양후기가 없을때 */
+.main-adopt-review-list > li.review-none{position:relative; float:none; width:100%; }
+.main-adopt-review-list > li.review-none > span{display:inline-block; position:absolute; top:50%; left:50%; }
+.main-adopt-review-list > li.review-none > span.paw1{margin:-5px 0 0 95px; 
+width:46px; height:49px; background:url(/img/favicon.png) no-repeat center center; background-size:contain; opacity:0.5;}
+.main-adopt-review-list > li.review-none > span.paw2{margin:-35px 0 0 120px; transform:scaleX(-1);
+width:26px; height:29px; background:url(/img/favicon.png) no-repeat center center; background-size:contain; opacity:0.5;}
+.main-adopt-review-list > li.review-none > p{position:relative; padding:100px 0; font-size:18px; color:#2d2d2d; text-align:center;}
 
 /* ****************** Main :: 하단 영역 :: 공지사항&봉사활동 / 후원 ********************** */
 #mainBottomBox{background:#eee; padding:30px 0;}

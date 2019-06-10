@@ -20,22 +20,22 @@ public class NoticeService {
 		int end = reqPage*numPerPage;
 		ArrayList<Notice> list = new NoticeDao().noticeAll(conn,start,end);
 		String pageNavi = "";
-		int pageNaviSize = 10;
+		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		if(pageNo!=1) {
-			pageNavi+="<a href='/siNotice?reqPage="+(pageNo-1)+"'>이전</a>";
+			pageNavi+="<a class='paging-arrow prev-arrow' href='/siNotice?reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
 		}
 		int i = 1;
 		while(!(i++>pageNaviSize || pageNo>totalPage)) {
 			if(reqPage==pageNo) {
-				pageNavi+="<span>"+pageNo+"</span>";
+				pageNavi+="<span class='cur'>"+pageNo+"</span>";
 			}else {
 				pageNavi+="<a href='/siNotice?reqPage="+pageNo+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
 		if(pageNo<=totalPage) {
-			pageNavi+="<a href='/siNotice?reqPage="+pageNo+"'>다음</a>";
+			pageNavi+="<a class='paging-arrow next-arrow' href='/siNotice?reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
 		}
 		JDBCTemplete.close(conn);
 		NoticePageData np = new NoticePageData(list,pageNavi);
@@ -121,22 +121,22 @@ public class NoticeService {
 			}
 		}
 		String pageNavi = "";
-		int pageNaviSize = 10;
+		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		if(pageNo!=1) {
-			pageNavi+="<a href='/siNoticeSearch?reqPage="+(pageNo-1)+"&searchWord="+searchType+"&keyword="+searchKeyword+"'>이전</a>";
+			pageNavi+="<a class='paging-arrow prev-arrow' href='/siNoticeSearch?reqPage="+(pageNo-1)+"&searchWord="+searchType+"&keyword="+searchKeyword+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
 		}
 		int i = 1;
 		while(!(i++>pageNaviSize || pageNo>totalPage)) {
 			if(reqPage==pageNo) {
-				pageNavi+="<span>"+pageNo+"</span>";
+				pageNavi+="<span class='cur'>"+pageNo+"</span>";
 			}else {
 				pageNavi+="<a href='/siNoticeSearch?reqPage="+pageNo+"&searchWord="+searchType+"&keyword="+searchKeyword+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
 		if(pageNo<=totalPage) {
-			pageNavi+="<a href='/siNoticeSearch?reqPage="+pageNo+"&searchWord="+searchType+"&keyword="+searchKeyword+"'>다음</a>";
+			pageNavi+="<a class='paging-arrow next-arrow' href='/siNoticeSearch?reqPage="+pageNo+"&searchWord="+searchType+"&keyword="+searchKeyword+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
 		}
 		JDBCTemplete.close(conn);
 		NoticePageData np = new NoticePageData(list,pageNavi);

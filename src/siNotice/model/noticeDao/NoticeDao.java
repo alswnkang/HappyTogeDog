@@ -21,10 +21,10 @@ public class NoticeDao {
 			rset = stmt.executeQuery(query);
 			if(rset.next()) {
 				result = rset.getInt("cnt");
-				if(result == 0) {
+				/*if(result == 0) {
 					result += 1;
 					// 게시물이 0개일 때 1페이지로 표시되도록 
-				}
+				}*/
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
