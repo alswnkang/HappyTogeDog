@@ -16,7 +16,7 @@ public class AdoptionBoardDao {
 		ArrayList<AdoptionBoard> list = null;
 		Statement stmt = null;
 		ResultSet rset = null;
-		String query = "SELECT rnum,board_no,board_type,board_id,board_name,board_title,board_content,board_filename,board_filepath,board_date,to_char(board_date,'yyyy/MM/dd HH:mi') as board_date2,board_count,board_secret,board_pw,board_prdcode,dog_kind,happen_city,happen_date FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD where board_Type=2 ORDER BY BOARD_NO desc) n) ";
+		String query = "SELECT rnum,board_no,board_type,board_id,board_name,board_title,board_content,board_filename,board_filepath,board_date,to_char(board_date,'yyyy/MM/dd HH:mi') as board_date2,board_count,board_secret,board_pw,board_prdcode,dog_kind,happen_city,happen_date FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD where board_Type=2 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN 1 AND 8";
 		try {
 			stmt=conn.createStatement();
 			rset = stmt.executeQuery(query);
