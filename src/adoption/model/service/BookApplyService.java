@@ -126,7 +126,7 @@ public class BookApplyService {
 	public BookApplyPageData selectList(int reqPage,String id){
 		Connection conn = JDBCTemplate.getCon();
 		ArrayList<BookApply> list = new ArrayList<BookApply>();
-		int numPerPage = 3;
+		int numPerPage = 5;
 		int totalCount = new BookApplyDao().reservationCount(conn,id);
 		System.out.println(totalCount);
 		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
@@ -194,7 +194,7 @@ public class BookApplyService {
 		System.out.println("목록 service왔다");
 		Connection conn = JDBCTemplate.getCon();
 		ArrayList<BookApply> list = new ArrayList<BookApply>();
-		int numPerPage = 3;
+		int numPerPage = 5;
 		int totalCount = new BookApplyDao().reservationCareCount(conn,code, startDay, endDay);
 		System.out.println("service().reservationCareMypage() totalCount : "+totalCount);
 		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
@@ -264,7 +264,7 @@ public class BookApplyService {
 		System.out.println("목록 service왔다");
 		Connection conn = JDBCTemplate.getCon();
 		ArrayList<BookApply> list = new ArrayList<BookApply>();
-		int numPerPage = 3;
+		int numPerPage = 5;
 		int totalCount = new BookApplyDao().adminReservationCount(conn, startDay, endDay);
 		System.out.println("service().adminReservationMypage() totalCount : "+totalCount);
 		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;

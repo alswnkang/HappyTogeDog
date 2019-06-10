@@ -200,7 +200,7 @@
 		/* 검색후 중성화여부 고정 */
 		var neuter = $('select[name=neuterYn]').data('neuter');
 		$('select[name=neuterYn]').children('option').each(function(){
-			if(kind == $(this).val()){
+			if(neuter == $(this).val()){
 				$(this).prop("selected",true);
 			}
 		});
