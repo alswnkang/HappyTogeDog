@@ -42,9 +42,7 @@
 					<button class="btn-style1" onclick="location.href='/myOrder?no=${orderInfo.no}'">주문 내역 확인</button>
 				</c:if>
 			</div>
-			
 		</div>
-		
 	</div>
 </section>
 <jsp:include page="/WEB-INF/common/footer.jsp" />

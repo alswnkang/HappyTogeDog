@@ -63,15 +63,15 @@
 								<c:if test="${order.status eq 2 }">배송중</c:if>
 								<c:if test="${order.status eq 3 }">배송완료</c:if>
 							</td>						
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-				<!-- paging -->
-		 		<div class="paging">
-		 			${orderList.pageNavi }	
-		 		</div>
-
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+	
+			<!-- paging -->
+	 		<div class="paging">
+	 			${orderList.pageNavi }	
+	 		</div>
 		</div>
 	</div>
 </section>

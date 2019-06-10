@@ -7,7 +7,7 @@
 
 <%-- Content --%>
 <section name="siSection" id="content-wrapper">
-	<div class="area">
+	<div class="area common-tbl-box" >
 		<h2 class="comm-content-tit">자유게시판</h2>
 		<div class="">
 			<table class="comm-tbl type2">
@@ -71,6 +71,7 @@
 				${bp.pageNavi }
 			</div>
 			<!-- 검색박스 -->
+			<%-- 
 			<form action="/siPreBoardSearch" method="post">
 				<div class="board-search-box">
 					<select name="searchWord">
@@ -81,6 +82,7 @@
 					<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
 				</div>
 			</form>
+			--%>
 		</div>
 	</div>
 </section>
