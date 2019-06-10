@@ -1,14 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
+<%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
-</head>
-<body>
+
+<style>
+.cmt-txt{display:inline-block; vertical-align:middle; font-size:14px; font-weight:500;}
+.cmtBtn, .reCmtBtn{display:inline-block; vertical-align:middle; font-size:14px; background:rgba(254,67,30); padding:8px 20px; color:#fff; border-radius:5px;}
+.noticeCommentContent, .noticeReCommentModify{max-width:85%;}
+.cmt-content{display:inline-block; float:left; max-width:80%;}
+.cmt-date{display:inline-block; float:right; max-width:15%;}
+.comm-tbl.view2 tr:first-child th, .comm-tbl.view2 tr:first-child td{border-top:0;}
+</style>
+
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
 			<div class="voluntary-box">
@@ -32,7 +37,7 @@
 							<td colspan="2" style="border-bottom: 0px;">
 								<a style="float:right;" href="javascript:fileDownload('${vd.n.noticeFilename }','${vd.n.noticeFilepath }');">${vd.n.noticeFilename }</a>
 								<br/>
-								<img src='/siUpload/notice/${vd.n.noticeFilename }'width="500px"/>
+								<img src='/siUpload/notice/${vd.n.noticeFilename }' width="500px"/>
 								<!-- 파일이 있으면 넘겨준 No를 기준으로 게시물의 이름을 불러와서 출력 -->
 							</td>
 						</tr>
@@ -42,8 +47,8 @@
 							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">${vd.n.noticeContent }</td>
 						</tr>
 						<tr>
-							<td colspan="2" style="border-top: 0px;">
-								<button type="button" class="cmtBtn" style="float:right;">댓글</button>
+							<td colspan="2" style="border-top: 0px;text-align:right;">
+								<button type="button" class="cmtBtn">댓글</button>
 							</td>
 						</tr>
 					</c:if>
@@ -61,8 +66,8 @@
 					<table class="comm-tbl view" id="commentTb" style="display:none;">
 						<tr>
 							<td colspan="4" style="text-align:center;">
-								댓글입력 <input type="text" name="noticeCommentContent" value="" maxlength="50"/>
-								<button type="submit">등록</button>
+								<span class="cmt-txt">댓글 입력</span>&nbsp;&nbsp;<input type="text" name="noticeCommentContent" value="" maxlength="50" class="noticeCommentContent"/>
+								<button type="submit" class="cmtBtn">등록</button>
 							</td>
 						</tr>
 					</table>
@@ -71,18 +76,18 @@
 					<form action="/siNoticeCommentUpdate" method="post">
 						<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
 						<input type="hidden" name="noticeNo" value="${vd.n.noticeNo }"/>
-						<table class="comm-tbl view">
+						<table class="comm-tbl view view2">
 							<c:if test="${list.noticeRef == vd.n.noticeNo && list.noticeCommentRef == 0 }">
 							<!-- 해당 게시글에 입력된 댓글만 출력되도록 -->
 								<input type="hidden" name="noticeCommentNo" value="${list.noticeCommentNo }"/>
 								<tr>
 									<td width="20%">${list.noticeCommentName }(${list.noticeCommentId })</td>
-									<td width="65%">
-										<span>${list.noticeCommentContent }</span>
+									<td width="65%" class="clearfix">
+										<span class="cmt-content">${list.noticeCommentContent }</span>
+										<em class="cmt-date">${list.noticeCommentDate2 }</em>
 										<input type="text" value="${list.noticeCommentContent }" name="noticeCommentContent" style="display:none;"/>
 									</td>
-									<td width="11%">
-										${list.noticeCommentDate2 }<br/>
+									<td width="10%" style="text-align:center;">
 										<c:if test="${sessionScope.member.id==list.noticeCommentId }">
 										<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
 											<button class="mdfBtn" type="button">수정</button>
@@ -98,7 +103,7 @@
 											/
 										</c:if>
 										<c:if test="${not empty sessionScope.member.id }"><!-- 로그인시 노출 -->
-											<button type="button" class="reCmtBtn">대댓글</button>
+											<button type="button" class="reCmtBtn">답글</button>
 										</c:if>
 									</td>
 								</tr>
@@ -108,11 +113,11 @@
 									<tr>
 										<td width="20%"> └─ ${clist.noticeCommentName }(${clist.noticeCommentId })</td>
 										<td width="65%">
-											<span>${clist.noticeCommentContent }</span>
-											<input type="text" value="${clist.noticeCommentContent }" class="noticeReCommentModify${clist.noticeCommentNo }" style="display:none;"/>
+											<span class="cmt-content">${clist.noticeCommentContent }</span>
+											<em class="cmt-date">${clist.noticeCommentDate2 }</em>
+											<input type="text" value="${clist.noticeCommentContent }" class="noticeReCommentModify${clist.noticeCommentNo } noticeReCommentModify" style="display:none;"/>
 										</td>
-										<td width="11%">
-											${clist.noticeCommentDate2 }<br/>
+										<td width="10%">
 											<c:if test="${clist.noticeCommentId == sessionScope.member.id }">
 												<button class="cmtrUpdate" type="button" onclick="cmtrMfy('${clist.noticeCommentRef }','${clist.noticeCommentNo }')" style="display:none;">등록</button>
 												<button class="mdfBtnr" type="button">수정</button>
@@ -130,12 +135,12 @@
 								</c:if>
 							</c:forEach>
 							<tr style="display:none;"><!-- 대댓글 버튼 클릭시 입력창 노출 -->
-								<td> -> re : ${sessionScope.member.name }(${sessionScope.member.id })</td>
+								<td> ⇒ re : ${sessionScope.member.name }(${sessionScope.member.id })</td>
 								<td>
-									<input type="text" name="noticeReCommentContent" class="noticeReCommentContent${list.noticeCommentNo }"  placeholder="대댓글을 입력하세요" maxlenth="50">
+									<input type="text" name="noticeReCommentContent" class="noticeReCommentContent${list.noticeCommentNo }"  placeholder="답글을 입력하세요" maxlenth="50">
 								</td>
 								<td>
-									<button onclick="sendReCmt('${list.noticeCommentNo }')" type="button">대댓글 등록하기</button>
+									<button onclick="sendReCmt('${list.noticeCommentNo }')" type="button" class="reCmtBtn">등록하기</button>
 								</td>
 							</tr>
 						</table>							
@@ -155,7 +160,7 @@
 			</div>
 		</div>
 	</section>
-</body>
+
 <script>
 	function sendReCmt(noticeCommentNo){	//대댓글 전송
 		var memberId = '${sessionScope.member.id }';		
@@ -231,5 +236,6 @@
 		location.href=url+'?filename='+encFilename+"&filepath="+encFilename;
 	}
 </script>
+
+<%-- Footer --%>
 <jsp:include page="/WEB-INF/common/footer.jsp" />
-</html>

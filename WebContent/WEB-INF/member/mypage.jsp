@@ -139,6 +139,7 @@
 						<td>
 							<select name="time" id="time" class="short">
 								<option id="startTime">${m.startTime }시</option>
+								<option value="07">07시</option>
 								<option value="08">08시</option>
 								<option value="09">09시</option>
 								<option value="10">10시</option>
@@ -149,10 +150,17 @@
 								<option value="15">15시</option>
 								<option value="16">16시</option>
 								<option value="17">17시</option>
+								<option value="18">18시</option>
+								<option value="19">19시</option>
+								<option value="20">20시</option>
+								<option value="21">21시</option>
+								<option value="22">22시</option>
+								<option value="23">23시</option>
 							</select> 
 							~
 							<select name="endTime" id="endTime" class="short">
 								<option id="endTime2">${m.endTime }시</option>
+								<option value="08">08시</option>
 								<option value="09">09시</option>
 								<option value="10">10시</option>
 								<option value="11">11시</option>
@@ -163,6 +171,12 @@
 								<option value="16">16시</option>
 								<option value="17">17시</option>
 								<option value="18">18시</option>
+								<option value="19">19시</option>
+								<option value="20">20시</option>
+								<option value="21">21시</option>
+								<option value="22">22시</option>
+								<option value="23">23시</option>
+								<option value="24">24시</option>
 							</select>
 						</td>
 					</tr>
@@ -255,7 +269,7 @@
 			var time = $('#time').val();
 			var no = $('#time').children().eq();
 			
-			for(var i=0;i<11;i++){
+			for(var i=0;i<17;i++){
 			
 				if(time>=$('#endTime').children().eq(i).val()){
 					$('#endTime').children().eq(i).css('display','none');
@@ -266,7 +280,7 @@
 		});
 		$('#endTime').change(function(){
 			var endTime = $('#endTime').val();
-			for(var j=0;j<11;j++){
+			for(var j=0;j<17;j++){
 			if(endTime<=$('#time').children().eq(j).val()){
 				$('#time').children().eq(j).css('display','none');
 			}else if(endTime>=$('#time').children().eq(j).val()){

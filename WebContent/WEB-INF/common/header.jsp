@@ -62,12 +62,11 @@
 					<div id="gnbBg"></div>
 					<ul class="clearfix">
 						<li class="gnb01">
-							<a href="">입양</a>
+							<a href="/dogAdopList">입양</a>
 							<div class="gnb-2dep">
 								<ul>
-									<li><a href="/searchDog">입양하기</a></li>
-									<li><a href="/findShelter">전국 보호소 찾기</a></li><!-- /bk.jsp -->
-									<li><a href="/dogAdopList">입양(유기견리스트_bk)</a></li>
+									<li><a href="/dogAdopList">입양하기</a></li>
+									<li><a href="/findShelter">전국 보호소 찾기</a></li>
 								</ul>
 							</div>
 						</li>
@@ -89,7 +88,10 @@
 								<ul>
 									<li><a href="/sponsorship">후원하기</a></li>
 									<li><a href="/qnaList">Q&A</a></li>
-									<li><a href="/findOrder.jsp">주문조회</a></li>
+									<!-- 주문조회 메뉴는 비회원일때만 노출됩니다. -->
+									<c:if test="${empty sessionScope.member }">
+										<li><a href="/findOrder.jsp">주문조회</a></li>
+									</c:if>
 								</ul>
 							</div>
 						</li>

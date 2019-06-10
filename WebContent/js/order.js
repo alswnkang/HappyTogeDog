@@ -60,6 +60,21 @@ $(function(){
 		
 	});
 	
+	/* 상품 상세페이지 수량,가격 표시 */
+	var chkPrice = $('input[name=chkPrice]').val();
+	
+	$('#realAmount').text(addComma($('input[name=amount].num').val()));
+	
+	$('input[name=amount].num').keyup(function(){
+		
+		$('#limitPrice').text(addComma($(this).val()*chkPrice)+"원 ( "+addComma($(this).val()*1)+" X "+addComma(chkPrice)+" )");
+		$('#realAmount').text(addComma($(this).val()*1));
+	});
+	
+	$('input[name=price].num').keyup(function(){
+		$('#realPrice').text(addComma($(this).val()*1));
+	});
+	
 	
 });
 
@@ -70,8 +85,11 @@ function list(reqPage){
 	search.submit();
 }
 
-
-
+/* 숫자 형식 */
+function addComma(num) {
+	var regexp = /\B(?=(\d{3})+(?!\d))/g;
+	return num.toString().replace(regexp, ',');
+}
 
 /* 검색 기간 설정 */
 function setDay(period){
