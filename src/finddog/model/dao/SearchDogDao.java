@@ -182,35 +182,44 @@ public class SearchDogDao {
 		// TODO Auto-generated method stub
 		//보완 필요
 		String city="";
+		String kindcode="";
 		if(sDay.equals("")||sDay==null) {
 			sDay=preMonth();
 		}
 		if(eDay.equals("")||eDay==null) {
 			eDay=date();
 		}
-		if(cityCode.equals("")||cityCode==null) {
+		if(cityCode.equals("도시")||cityCode==null) {
 			city="";
 		}else {
 			city="and happen_city=".concat(cityCode);
 		}
-		
+		if(kind.equals("품종")||kind==null) {
+			kindcode="";
+		}else {
+			kindcode=" and dog_kind=".concat(kind);
+		}
+		System.out.println(kind+"???");
 		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		System.out.println("여기는 겟리스트 도착");
-		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ? and board_type=3 and dog_kind=? "+city+" and happen_date>?  and happen_date<=?";
+		String query ="SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ? and board_type=3"+kindcode+city+" and happen_date>? and happen_date<=?";
 		System.out.println(query);
 		
 		try {
 			pstmt=conn.prepareStatement(query);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
-			pstmt.setString(3, kind);
-			pstmt.setString(4, sDay);
-			pstmt.setString(5, eDay);
+			pstmt.setString(3, sDay);
+			pstmt.setString(4, eDay);
+		
+			
+
 			rset = pstmt.executeQuery();
 			list = new ArrayList<Board>();
 			while(rset.next()) {
+				System.out.println("들어왔어요!!!!!");
 				System.out.println("리스트담았어요");
 				Board b = new Board();
 				b.setBoardRnum(rset.getInt("rnum"));

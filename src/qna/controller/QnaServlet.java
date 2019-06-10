@@ -45,6 +45,8 @@ public class QnaServlet extends HttpServlet {
 		prdList.add(new ProductVO(1));
 		prdList.add(new ProductVO(2));
 		
+		request.setAttribute("prdList", prdList);
+		
 		HttpSession session = request.getSession(false);
 		Member member = (Member)session.getAttribute("member");
 		
@@ -156,7 +158,7 @@ public class QnaServlet extends HttpServlet {
 				}
 				SearchVO search = new SearchVO(reqPage, null, null, null, null, searchType, searchVal,null);
 				request.setAttribute("search", search);
-				request.setAttribute("prdList", prdList);
+				//request.setAttribute("prdList", prdList);
 				request.setAttribute("qna", qna);
 				CommentVO comment = new CommentService().selectComment(boardNo);
 				request.setAttribute("comment", comment);
@@ -213,7 +215,7 @@ public class QnaServlet extends HttpServlet {
 		}else if(action.equals("regiQna")) {
 			String prdCode = request.getParameter("prdCode");
 			request.setAttribute("prdCode", prdCode);
-			request.setAttribute("prdList", prdList);
+			//request.setAttribute("prdList", prdList);
 			request.getRequestDispatcher("/WEB-INF/qna/qnaRegister.jsp").forward(request, response);
 		
 		/* Q&A 등록 */		
@@ -279,7 +281,7 @@ public class QnaServlet extends HttpServlet {
 			try {
 				QnaVO qna = new QnaService().selectQna(boardNo);
 				request.setAttribute("qna", qna);
-				request.setAttribute("prdList", prdList);
+				//request.setAttribute("prdList", prdList);
 				request.getRequestDispatcher("/WEB-INF/qna/qnaModify.jsp").forward(request, response);
 			} catch (SQLException e) {
 				System.out.println("SQL에러 ㅠ");

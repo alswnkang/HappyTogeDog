@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
-
+<%pageContext.setAttribute("newLineChar", "\n"); %>
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
 			<div class="voluntary-box">
@@ -34,7 +35,7 @@
 								<img src='/siUpload/adoptionBoard/${vd.a.adoptionBoardFilename }'width="500px"/>
 								<!-- 파일이 있으면 넘겨준 No를 기준으로 게시물의 이름을 불러와서 출력 -->
 								<br/><br/><br/>
-								${vd.a.adoptionBoardContent }
+								${fn:replace(vd.a.adoptionBoardContent,newLineChar,"<br/>")}
 							</td>
 						</tr>
 							<tr>
@@ -52,7 +53,7 @@
 									<img src='/siUpload/adoptionBoard/${vd.a.adoptionBoardFilename }'width="500px"/>
 									<!-- 파일이 있으면 넘겨준 No를 기준으로 게시물의 이름을 불러와서 출력 -->
 									<br/><br/><br/>
-									${vd.a.adoptionBoardContent }
+									${fn:replace(vd.a.adoptionBoardContent,newLineChar,"<br/>")}
 								</td>
 							</tr>
 						</c:if>

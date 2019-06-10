@@ -45,24 +45,7 @@
 						<tr>
 							<th>발견시간</th>
 							<th>
-								<select name="shappenDateY" style="width:100px;">
-									<option>년</option>
-									<c:forEach items="${yList }" var="y"  varStatus="i">
-										<option value="${y }">${y }</option>
-									</c:forEach>
-								</select>년
-								<select name="shappenDateM" style="width:50px;">
-									<option>월</option>
-									<c:forEach items="${mList }" var="y"  varStatus="i">
-										<option value="${y }">${y }</option>
-									</c:forEach>
-								</select>월
-								<select name="shappenDateD" style="width:50px;">
-									<option>일</option>
-									<c:forEach items="${dList }" var="y"  varStatus="i">
-										<option value="${y }">${y }</option>
-									</c:forEach>
-								</select>일
+								<input type="date" name="startDay" class="datepicker search-day">
 							</th>
 							
 						</tr>
@@ -82,7 +65,7 @@
 					</table>
 					<div class="common-tbl-btn-group">
 						<button type="submit" class="btn-style1">등록하기</button>
-						<button type="reset" class="btn-style2" onclick="location.href='/findBoard'">취소</button>
+						<button type="reset" class="btn-style2" onclick="location.href='/takeBoard'">취소</button>
 					</div>
 				</form>
 			</div>
