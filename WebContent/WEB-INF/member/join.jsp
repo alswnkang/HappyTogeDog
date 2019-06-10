@@ -192,9 +192,10 @@
 							<input type="text" name="code" id="code" class="middle" placeholder="코드를 입력해주세요">
 						</td>
 					</tr>
+					<input type="hidden" id="code_re"> 
 					</c:if>
 				</table>
-				<input type="hidden" id="code_re"> 
+				
 			</div>
 			<div class="common-tbl-btn-group">
 				<button type="submit" value="회원가입" class="btn-style1" id="sub">회원가입</button>
