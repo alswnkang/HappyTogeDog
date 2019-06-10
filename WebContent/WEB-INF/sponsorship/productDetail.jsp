@@ -42,7 +42,7 @@
 			
 			<div class="tab clearfix">
 				<a href="javascript:$('#detail')[0].scrollIntoView();">상세설명</a>
-				<a href="javascript:$('#qna')[0].scrollIntoView();">Q&A</a>
+				<a href="javascript:$('#qna')[0].scrollIntoView();">Q &amp; A</a>
 			</div>
 			<div id="detail" class="product-bottom">
 				<p class="main-comm-tit">상세설명</p>
@@ -69,7 +69,7 @@
 						<br>
 						<img id="SEDOC-1515764157033--387637738_image_1_img" class="se_mediaImage __se_img_el" src="https://shop-phinf.pstatic.net/20180112_273/101057211_1515759412425uukrm_JPEG/%C5%EB%B0%E81.jpg" width="60%" data-attachment-id="Idlc2ePKD-k_2Kx85UkDtaA2CPoY" alt="">
 						<br>
-						<p class="se_textarea"><!-- SE3-TEXT { --><span><br></span><span><br></span><span><span style="color: rgb(0, 0, 0);">2016년, 8만9천 마리의 유기&nbsp;·&nbsp;유실동물들이 보호소로 구조됐고</span><br></span><span><span style="color: rgb(0, 0, 0);">그 중<span>&nbsp;</span></span><strong style=" color: rgb(0, 0, 0)">25%는 자연사, 20%는 안락사</strong><span style="color: rgb(0, 0, 0);"><span>&nbsp;</span>되었습니다.</span><br></span><span><span style="color: rgb(0, 0, 0);">매 년 지자체 보호소로 구조된</span><br></span><span><span style="color: rgb(0, 0, 0);"></span><u style=" color: rgb(0, 0, 0)"><strong>40%이상의 동물들은 보호소를</strong></u><br></span><span><u style=" color: rgb(0, 0, 0)"><strong>벗어나지 못하고 죽어가고 있습니다.</strong></u></span><span><br></span><span><br></span><span></span><!-- } SE3-TEXT --></p>
+						<p class="se_textarea"><!-- SE3-TEXT { --><span><br></span><span><br></span><span><span style="color: rgb(0, 0, 0);">2016년, 8만9천 마리의 유기&nbsp;·&nbsp;유실동물들이 보호소로 구조됐고</span><br></span><span><span style="color: rgb(0, 0, 0);">그 중<span>&nbsp;</span></span><strong style=" color: rgb(0, 0, 0)">25%는 자연사, 20%는 안락사</strong><span style="color: rgb(0, 0, 0);"><span>&nbsp;</span>되었습니다.</span><br></span><span><span style="color: rgb(0, 0, 0);">매 년 지자체 보호소로 구조된</span><br></span><span><span style="color: rgb(0, 0, 0);"></span><strong>40%이상의 동물들은 보호소를</strong><br></span><span><strong>벗어나지 못하고 죽어가고 있습니다.</strong></span><span><br></span><span><br></span><span></span><!-- } SE3-TEXT --></p>
 						<h5 class="se_textarea"><!-- SE3-TEXT { -->유기동물들을 구하는<br>'해피투게독 굿즈'를 소개합니다.<!-- } SE3-TEXT --></h5>
 						<p class="se_textarea"><!-- SE3-TEXT { --><b>Q.</b><span><b>&nbsp;</b></span><strong>해피투게독 굿즈로 정말 유기동물들을 구할 수 있나요?</strong><br><b>A.</b> 네. 할 수 있습니다!<span>&nbsp;</span><span><strong>해피투게독 굿즈 펀딩 수익금은</strong><br></span><span><strong></strong></span>해피투게독를 통해 입양된<span>&nbsp;</span><span><strong>유기동물들의 건강검진비 지원</strong><br></span><span><strong></strong></span>그리고 해피투게독 봉사자들에 의해 구조된<span>&nbsp;</span><strong>유기동물들의 치료</strong><span>를 위해 사용됩니다.<br></span><span><br></span><span></span><!-- } SE3-TEXT --></p>
 						<img id="SEDOC-1515764157033--387637738_image_4_img" class="se_mediaImage __se_img_el" src="https://shop-phinf.pstatic.net/20180112_232/101057211_1515759715544cPvSF_JPEG/97be951e-681e-4184-bef4-532143df1ec4.jpeg" width="60%" data-attachment-id="IvyobHWbNXajxCgUqHLPz9x1jMcQ" alt="">
@@ -89,7 +89,7 @@
 					<button class="btn-style1" onclick="location.href='/sponsorship'">목록으로</button>
 				</p>
 			<div id="qna" class="product-bottom">
-				<p class="main-comm-tit">Q&A</p>
+				<p class="main-comm-tit">Q &amp; A</p>
 				<table class="comm-tbl type2">
 					<colgroup>
 						<%--<col width="5%">--%>

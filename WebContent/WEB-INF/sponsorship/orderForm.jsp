@@ -39,7 +39,6 @@
 				</table>
 			</div>
 			
-			
 			<form id="orderForm">
 				<input type="hidden" name="orderNo">
 				<input type="hidden" name="productName" value="${prd.prdName }">
@@ -147,11 +146,8 @@
 						</tr>
 					</table>
 				</div>
-				
 			</form>
-	
 		</div>
-		
 	</div>
 </section>
 
