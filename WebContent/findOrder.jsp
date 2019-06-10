@@ -10,8 +10,8 @@
 <section id="content-wrapper">
 	<div class="area">
 		<div class="find-order">
-			<p class="main-comm-tit">GUEST LOGIN</p>
-			<p class="order-no">비회원은 주문번호로 주문조회가 가능합니다.</p>
+			<p class="main-comm-tit">주문조회</p>
+			<p class="order-no">주문번호와 핸드폰 번호로 주문조회가 가능합니다.</p>
 			<table>
 				<tr>
 					<td>주문번호</td><td><input type="text" name="no" class="num"></td>

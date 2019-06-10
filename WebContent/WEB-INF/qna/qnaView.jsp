@@ -95,7 +95,7 @@
 					<%-- 로그인 한 상태 --%>
 					<c:if test="${not empty sessionScope.member}">
 						<%-- 내 글일 때만 수정 삭제 버튼 보임 --%>
-						<c:if test="${sessionScope.member.id eq qna.boardId && sessionScope.member.memberLevel eq 2}">
+						<c:if test="${sessionScope.member.id eq qna.boardId || sessionScope.member.memberLevel eq 2}">
 							<%-- 답변이 없을 때만 수정 가능 --%>
 							<c:if test="${empty comment.boardCommentContent}">
 								<button class="btn-style1 sm" onclick="location.href='/modifyQna?boardNo=${qna.boardNo }'">수정</button>

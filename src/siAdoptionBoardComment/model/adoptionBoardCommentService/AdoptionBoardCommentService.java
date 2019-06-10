@@ -32,9 +32,31 @@ public class AdoptionBoardCommentService {
 		JDBCTemplete.close(conn);
 		return result;
 	}
+	public int reCommentUpdate(String adoptionBoardCommentContent,int adoptionBoardCommentNo,int adoptionBoardCommentRef) {
+		Connection conn = JDBCTemplete.getConnection();
+		int result = new AdoptionBoardCommentDao().reCommentUpdate(conn,adoptionBoardCommentContent,adoptionBoardCommentNo,adoptionBoardCommentRef);
+		if(result>0) {
+			JDBCTemplete.commit(conn);
+		}else {
+			JDBCTemplete.rollback(conn);
+		}
+		JDBCTemplete.close(conn);
+		return result;
+	}
 	public int commentUpdate(String memberId,String adoptionBoardCommentContent,int adoptionBoardCommentNo) {
 		Connection conn = JDBCTemplete.getConnection();
 		int result = new AdoptionBoardCommentDao().commentUpdate(conn,memberId,adoptionBoardCommentContent,adoptionBoardCommentNo);
+		if(result>0) {
+			JDBCTemplete.commit(conn);
+		}else {
+			JDBCTemplete.rollback(conn);
+		}
+		JDBCTemplete.close(conn);
+		return result;
+	}
+	public int reCommentDelete(int adoptionBoardCommentNo,int adoptionBoardCommentRef) {
+		Connection conn = JDBCTemplete.getConnection();
+		int result = new AdoptionBoardCommentDao().reCommentDelete(conn,adoptionBoardCommentNo,adoptionBoardCommentRef);
 		if(result>0) {
 			JDBCTemplete.commit(conn);
 		}else {

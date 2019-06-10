@@ -6,12 +6,12 @@
 
 <jsp:include page="/WEB-INF/common/header.jsp" />
 <link rel="stylesheet" type="text/css" href="/css/style.css">
-<script type="text/javascript" src="/js/script.js"></script>
+<script type="text/javascript" src="/js/order.js"></script>
 
 <%-- Content --%>
 <section id="content-wrapper">
 	<div class="area">
-		<div class="product clear-float">
+		<div class="product clearfix">
 			<div class="product-top clearfix">
 				<div class="product-img">
 					<img src="/img/${prd.prdImg }">

@@ -201,97 +201,97 @@
 					<h2 class="main-comm-tit">입양 후기</h2>
 					<ul class="main-adopt-review-list clearfix"><!-- 입양후기는 최소/최대 8개가 노출됩니다. -->
 						<li>
-							<a href="">
+							<a href="/siAdoptionBoardView?adoptionBoardNo=2">
 								<div class="img-thum">
-									<span style="background:url('/img/no_detail_img.gif') no-repeat center center; background-size:cover;"></span>
+									<span style="background:url('/siUpload/adoptionBoard/20180422_174924429_849.jpg') no-repeat center center; background-size:cover;"></span>
 								</div>
 								<div class="txt-thum">
-									<h3>입양 후기 제목이 들어갑니다.</h3>
-									<p>입양 후기 내용이 들어갑니다.입양 후기 내용이 들어갑니다.입양 후기 내용이 들어갑니다.</p>
+									<h3>입양 후기1</h3>
+									<p>1</p>
 									<h5 class="clearfix"><span>작성자</span><span>2019-05-23</span></h5>
 								</div>
 							</a>
 						</li>
 						<li>
-							<a href="">
+							<a href="/siAdoptionBoardView?adoptionBoardNo=64">
 								<div class="img-thum">
-									<span style="background:url('/img/no_detail_img.gif') no-repeat center center; background-size:cover;"></span>
+									<span style="background:url('/siUploade/adoptionBoard/20180422_174743637_226.jpg') no-repeat center center; background-size:cover;"></span>
 								</div>
 								<div class="txt-thum">
-									<h3>입양 후기 제목이 들어갑니다.입양 후기 제목이 들어갑니다.</h3>
-									<p>입양 후기 내용이 들어갑니다.입양 후기 내용이 들어갑니다.입양 후기 내용이 들어갑니다.</p>
+									<h3>입양 후기2</h3>
+									<p>2</p>
 									<h5 class="clearfix"><span>작성자</span><span>2019-05-23</span></h5>
 								</div>
 							</a>
 						</li>
 						<li>
-							<a href="">
+							<a href="/siAdoptionBoardView?adoptionBoardNo=65">
 								<div class="img-thum">
-									<span style="background:url('/img/no_detail_img.gif') no-repeat center center; background-size:cover;"></span>
+									<span style="background:url('/siUploade/adoptionBoard/') no-repeat center center; background-size:cover;"></span>
 								</div>
 								<div class="txt-thum">
-									<h3>입양 후기 제목이 들어갑니다.</h3>
-									<p>입양 후기 내용이 들어갑니다.입양 후기 내용이 들어갑니다.입양 후기 내용이 들어갑니다.</p>
+									<h3>입양 후기3</h3>
+									<p>3</p>
 									<h5 class="clearfix"><span>작성자</span><span>2019-05-23</span></h5>
 								</div>
 							</a>
 						</li>
 						<li>
-							<a href="">
+							<a href="/siAdoptionBoardView?adoptionBoardNo=66">
 								<div class="img-thum">
-									<span style="background:url('/img/no_detail_img.gif') no-repeat center center; background-size:cover;"></span>
+									<span style="background:url('/siUploade/adoptionBoard/') no-repeat center center; background-size:cover;"></span>
 								</div>
 								<div class="txt-thum">
-									<h3>입양 후기 제목이 들어갑니다.입양 후기 제목이 들어갑니다.</h3>
-									<p>입양 후기 내용이 들어갑니다.입양 후기 내용이 들어갑니다.입양 후기 내용이 들어갑니다.</p>
+									<h3>입양 후기4</h3>
+									<p>4</p>
 									<h5 class="clearfix"><span>작성자</span><span>2019-05-23</span></h5>
 								</div>
 							</a>
 						</li>
 						<li>
-							<a href="">
+							<a href="/siAdoptionBoardView?adoptionBoardNo=67">
 								<div class="img-thum">
-									<span style="background:url('/img/no_detail_img.gif') no-repeat center center; background-size:cover;"></span>
+									<span style="background:url('/siUploade/adoptionBoard/') no-repeat center center; background-size:cover;"></span>
 								</div>
 								<div class="txt-thum">
-									<h3>입양 후기 제목이 들어갑니다.</h3>
-									<p>입양 후기 내용이 들어갑니다.입양 후기 내용이 들어갑니다.입양 후기 내용이 들어갑니다.</p>
+									<h3>입양 후기5</h3>
+									<p>5</p>
 									<h5 class="clearfix"><span>작성자</span><span>2019-05-23</span></h5>
 								</div>
 							</a>
 						</li>
 						<li>
-							<a href="">
+							<a href="/siAdoptionBoardView?adoptionBoardNo=68">
 								<div class="img-thum">
-									<span style="background:url('/img/no_detail_img.gif') no-repeat center center; background-size:cover;"></span>
+									<span style="background:url('/siUploade/adoptionBoard/') no-repeat center center; background-size:cover;"></span>
 								</div>
 								<div class="txt-thum">
-									<h3>입양 후기 제목이 들어갑니다.입양 후기 제목이 들어갑니다.</h3>
-									<p>입양 후기 내용이 들어갑니다.입양 후기 내용이 들어갑니다.입양 후기 내용이 들어갑니다.</p>
+									<h3>입양 후기6</h3>
+									<p>6</p>
 									<h5 class="clearfix"><span>작성자</span><span>2019-05-23</span></h5>
 								</div>
 							</a>
 						</li>
 						<li>
-							<a href="">
+							<a href="/siAdoptionBoardView?adoptionBoardNo=69">
 								<div class="img-thum">
-									<span style="background:url('/img/no_detail_img.gif') no-repeat center center; background-size:cover;"></span>
+									<span style="background:url('/siUploade/adoptionBoard/') no-repeat center center; background-size:cover;"></span>
 								</div>
 								<div class="txt-thum">
-									<h3>입양 후기 제목이 들어갑니다.</h3>
-									<p>입양 후기 내용이 들어갑니다.입양 후기 내용이 들어갑니다.입양 후기 내용이 들어갑니다.</p>
+									<h3>입양 후기7</h3>
+									<p>7</p>
 									<h5 class="clearfix"><span>작성자</span><span>2019-05-23</span></h5>
 								</div>
 							</a>
 						</li>
 						<li>
-							<a href="">
+							<a href="/siAdoptionBoardView?adoptionBoardNo=70">
 								<div class="img-thum">
-									<span style="background:url('/img/no_detail_img.gif') no-repeat center center; background-size:cover;"></span>
+									<span style="background:url('/siUploade/adoptionBoard/') no-repeat center center; background-size:cover;"></span>
 								</div>
 								<div class="txt-thum">
-									<h3>입양 후기 제목이 들어갑니다.입양 후기 제목이 들어갑니다.</h3>
-									<p>입양 후기 내용이 들어갑니다.입양 후기 내용이 들어갑니다.입양 후기 내용이 들어갑니다.</p>
+									<h3>입양 후기8</h3>
+									<p>8</p>
 									<h5 class="clearfix"><span>작성자</span><span>2019-05-23</span></h5>
 								</div>
 							</a>
@@ -314,33 +314,33 @@
 								<div id="B-con01" class="tab-con">
 									<ul class="main-board-list"><!-- 공지사항 게시물은 최소 5개, 최대 5개가 노출됩니다.(최신순) -->
 										<li>
-											<a href="" class="clearfix">
-												<p>공지사항 내용이 들어갑니다아ㅏㅏㅏㅏㅏㅏ공지사항 내용이 들어갑니다아ㅏㅏㅏㅏㅏㅏ</p>
-												<span>2019-05-23</span>
+											<a href="/siNoticeView?noticeNo=3" class="clearfix">
+												<p>공지사항1</p>
+												<span>2019/06/04 06:47</span>
 											</a>
 										</li>
 										<li>
-											<a href="" class="clearfix">
-												<p>공지사항 내용이 들어갑니다아ㅏㅏㅏㅏㅏㅏ공지사항 내용이 들어갑니다아ㅏㅏㅏㅏㅏㅏ</p>
-												<span>2019-05-23</span>
+											<a href="/siNoticeView?noticeNo=21" class="clearfix">
+												<p>공지사항2</p>
+												<span>2019/06/05 12:12</span>
 											</a>
 										</li>
 										<li>
-											<a href="" class="clearfix">
-												<p>공지사항 내용이 들어갑니다아ㅏㅏㅏㅏㅏㅏ공지사항 내용이 들어갑니다아ㅏㅏㅏㅏㅏㅏ</p>
-												<span>2019-05-23</span>
+											<a href="/siNoticeView?noticeNo=61" class="clearfix">
+												<p>공지사항3</p>
+												<span>2019/06/07 09:33</span>
 											</a>
 										</li>
 										<li>
-											<a href="" class="clearfix">
-												<p>공지사항 내용이 들어갑니다아ㅏㅏㅏㅏㅏㅏ공지사항 내용이 들어갑니다아ㅏㅏㅏㅏㅏㅏ</p>
-												<span>2019-05-23</span>
+											<a href="/siNoticeView?noticeNo=62" class="clearfix">
+												<p>공지사항4</p>
+												<span>2019/06/07 09:33</span>
 											</a>
 										</li>
 										<li>
-											<a href="" class="clearfix">
-												<p>공지사항 내용이 들어갑니다아ㅏㅏㅏㅏㅏㅏ공지사항 내용이 들어갑니다아ㅏㅏㅏㅏㅏㅏ</p>
-												<span>2019-05-23</span>
+											<a href="/siNoticeView?noticeNo=63" class="clearfix">
+												<p>공지사항5</p>
+												<span>2019/06/07 09:33</span>
 											</a>
 										</li>
 									</ul>
