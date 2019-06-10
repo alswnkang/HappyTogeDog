@@ -21,9 +21,9 @@ public class BoardDao {
 			rset = stmt.executeQuery(query);
 			if(rset.next()) {
 				result = rset.getInt("cnt");
-				if(result == 0) {
+				/*if(result == 0) {
 					result += 1;
-				}
+				}*/
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -126,7 +126,7 @@ public class BookApplyService {
 	public BookApplyPageData selectList(int reqPage,String id){
 		Connection conn = JDBCTemplate.getCon();
 		ArrayList<BookApply> list = new ArrayList<BookApply>();
-		int numPerPage = 5;
+		int numPerPage = 10;
 		int totalCount = new BookApplyDao().reservationCount(conn,id);
 		System.out.println(totalCount);
 		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
@@ -135,11 +135,10 @@ public class BookApplyService {
 		list = new BookApplyDao().selectList(conn, start, end, id);
 		
 		String pageNavi ="";
-		int pageNaviSize = 3;
+		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		
 		if(pageNo!=1) {
-			/*pageNavi += "<a class='paging-arrow prev-arrow' href='/reservationMypage?reqPage=1'><<</a>";*/
 			pageNavi += "<a class='paging-arrow prev-arrow' href='/reservationMypage?reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
 		}
 		int i = 1;
@@ -153,7 +152,6 @@ public class BookApplyService {
 		}
 		if(pageNo <= totalPage) {
 			pageNavi += "<a class='paging-arrow next-arrow' href='/reservationMypage?reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
-			/*pageNavi += "<a class='paging-arrow next-arrow' href='/reservationMypage?reqPage="+totalPage+"'>>></a>";*/
 		}
 		JDBCTemplate.close(conn);
 		BookApplyPageData bp = new BookApplyPageData(list, pageNavi);
@@ -194,7 +192,7 @@ public class BookApplyService {
 		System.out.println("목록 service왔다");
 		Connection conn = JDBCTemplate.getCon();
 		ArrayList<BookApply> list = new ArrayList<BookApply>();
-		int numPerPage = 5;
+		int numPerPage = 10;
 		int totalCount = new BookApplyDao().reservationCareCount(conn,code, startDay, endDay);
 		System.out.println("service().reservationCareMypage() totalCount : "+totalCount);
 		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
@@ -203,11 +201,10 @@ public class BookApplyService {
 		list = new BookApplyDao().reservationCareList(conn, start, end, code, startDay, endDay);
 		System.out.println("Dao에서 리스트 구해옴");
 		String pageNavi ="";
-		int pageNaviSize = 3;
+		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		
 		if(pageNo!=1) {
-			/*pageNavi += "<a class='paging-arrow prev-arrow' href='/reservationMypage?reqPage=1'><<</a>";*/
 			pageNavi += "<a class='paging-arrow prev-arrow' href='/reservationCareMypage?startDay="+startDay+"&endDay="+endDay+"&reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
 		}
 		int i = 1;
@@ -221,7 +218,6 @@ public class BookApplyService {
 		}
 		if(pageNo <= totalPage) {
 			pageNavi += "<a class='paging-arrow next-arrow' href='/reservationCareMypage?startDay="+startDay+"&endDay="+endDay+"&reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
-			/*pageNavi += "<a class='paging-arrow next-arrow' href='/reservationMypage?reqPage="+totalPage+"'>>></a>";*/
 		}
 		JDBCTemplate.close(conn);
 		BookApplyPageData bp = new BookApplyPageData(list, pageNavi);
@@ -261,10 +257,9 @@ public class BookApplyService {
 		if(endDay==null) {
 			endDay="";
 		}
-		System.out.println("목록 service왔다");
 		Connection conn = JDBCTemplate.getCon();
 		ArrayList<BookApply> list = new ArrayList<BookApply>();
-		int numPerPage = 5;
+		int numPerPage = 10;
 		int totalCount = new BookApplyDao().adminReservationCount(conn, startDay, endDay);
 		System.out.println("service().adminReservationMypage() totalCount : "+totalCount);
 		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
@@ -273,7 +268,7 @@ public class BookApplyService {
 		list = new BookApplyDao().adminReservationList(conn, start, end, startDay, endDay);
 		System.out.println("Dao에서 리스트 구해옴");
 		String pageNavi ="";
-		int pageNaviSize = 3;
+		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		
 		if(pageNo!=1) {
