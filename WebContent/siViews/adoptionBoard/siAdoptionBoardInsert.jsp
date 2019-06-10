@@ -29,12 +29,16 @@
 							<td><input type="text" name="adoptionBoardTitle" placeholder="글 제목" maxlength="50"/></td>
 						</tr>
 						<tr>
+							<th style="text-align:center;">작성자</th>
+							<td>${sessionScope.member.name }</td>
+						</tr>
+						<tr>
 							<th style="text-align:center;">파일첨부</th>
 							<td><input type="file" name="adoptionBoardFilename"/></td>
 						</tr>
 						<tr>
 							<th height="100" style="text-align:center;">내용</th>
-							<td><textarea rows="10" type="text" name="adoptionBoardContent" placeholder="글 내용" maxlength="2048"></textarea></td>
+							<td><textarea rows="30" type="text" name="adoptionBoardContent" placeholder="글 내용" style="resize:none" maxlength="2048"></textarea></td>
 						</tr>
 					</table>
 					<div class="common-tbl-btn-group">
