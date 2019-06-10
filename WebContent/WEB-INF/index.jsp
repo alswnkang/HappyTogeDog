@@ -206,40 +206,40 @@
 									<span style="background:url('/siUpload/adoptionBoard/20180422_174924429_849.jpg') no-repeat center center; background-size:cover;"></span>
 								</div>
 								<div class="txt-thum">
-									<h3>입양 후기1</h3>
+									<h3><c:out value="/siAdoptionBoardView?adoptionBoardTitle=후기게시판"/></h3>
 									<p>1</p>
-									<h5 class="clearfix"><span>작성자</span><span>2019-05-23</span></h5>
+									<h5 class="clearfix"><span>${list.adoptionBoardName }</span><span>2019-05-23</span></h5>
 								</div>
 							</a>
 						</li>
 						<li>
-							<a href="/siAdoptionBoardView?adoptionBoardNo=64">
+							<a href="/siAdoptionBoardView?adoptionBoardNo=64&adoptionBoardName=한국동물구조관리협회&adoptionBoardDate2=2019/06/07 09:39&adoptionBoardContent=후기 2번 글&adoptionBoardTitle=후기2">
 								<div class="img-thum">
-									<span style="background:url('/siUploade/adoptionBoard/20180422_174743637_226.jpg') no-repeat center center; background-size:cover;"></span>
+									<span style="background:url('/siUpload/adoptionBoard/20180422_174743637_226.jpg') no-repeat center center; background-size:cover;"></span>
 								</div>
 								<div class="txt-thum">
-									<h3>입양 후기2</h3>
-									<p>2</p>
-									<h5 class="clearfix"><span>작성자</span><span>2019-05-23</span></h5>
+									<h3>${adoptionBoardTitle }</a></h3>
+									<p>adoptionBoardContent</p>
+									<h5 class="clearfix"><span>adoptionBoardName</span><span>adoptionBoardDate2</span></h5>
 								</div>
 							</a>
 						</li>
 						<li>
-							<a href="/siAdoptionBoardView?adoptionBoardNo=65">
+							<a href="/siAdoptionBoardView?adoptionBoardNo=65&adoptionBoardTilte=${vd.a.adoptionBoardTitle }">
 								<div class="img-thum">
-									<span style="background:url('/siUploade/adoptionBoard/') no-repeat center center; background-size:cover;"></span>
+									<span style="background:url('/siUpload/adoptionBoard/') no-repeat center center; background-size:cover;"></span>
 								</div>
 								<div class="txt-thum">
-									<h3>입양 후기3</h3>
-									<p>3</p>
-									<h5 class="clearfix"><span>작성자</span><span>2019-05-23</span></h5>
+									<h3></h3>
+									<p>adoptionBoardContent</p>
+									<h5 class="clearfix"><span>adoptionBoardName</span><span>2019-05-23</span></h5>
 								</div>
 							</a>
 						</li>
 						<li>
 							<a href="/siAdoptionBoardView?adoptionBoardNo=66">
 								<div class="img-thum">
-									<span style="background:url('/siUploade/adoptionBoard/') no-repeat center center; background-size:cover;"></span>
+									<span style="background:url('/siUpload/adoptionBoard/') no-repeat center center; background-size:cover;"></span>
 								</div>
 								<div class="txt-thum">
 									<h3>입양 후기4</h3>
@@ -251,7 +251,7 @@
 						<li>
 							<a href="/siAdoptionBoardView?adoptionBoardNo=67">
 								<div class="img-thum">
-									<span style="background:url('/siUploade/adoptionBoard/') no-repeat center center; background-size:cover;"></span>
+									<span style="background:url('/siUpload/adoptionBoard/') no-repeat center center; background-size:cover;"></span>
 								</div>
 								<div class="txt-thum">
 									<h3>입양 후기5</h3>
@@ -263,7 +263,7 @@
 						<li>
 							<a href="/siAdoptionBoardView?adoptionBoardNo=68">
 								<div class="img-thum">
-									<span style="background:url('/siUploade/adoptionBoard/') no-repeat center center; background-size:cover;"></span>
+									<span style="background:url('/siUpload/adoptionBoard/') no-repeat center center; background-size:cover;"></span>
 								</div>
 								<div class="txt-thum">
 									<h3>입양 후기6</h3>
@@ -275,7 +275,7 @@
 						<li>
 							<a href="/siAdoptionBoardView?adoptionBoardNo=69">
 								<div class="img-thum">
-									<span style="background:url('/siUploade/adoptionBoard/') no-repeat center center; background-size:cover;"></span>
+									<span style="background:url('/siUpload/adoptionBoard/') no-repeat center center; background-size:cover;"></span>
 								</div>
 								<div class="txt-thum">
 									<h3>입양 후기7</h3>
@@ -287,7 +287,7 @@
 						<li>
 							<a href="/siAdoptionBoardView?adoptionBoardNo=70">
 								<div class="img-thum">
-									<span style="background:url('/siUploade/adoptionBoard/') no-repeat center center; background-size:cover;"></span>
+									<span style="background:url('/siUpload/adoptionBoard/') no-repeat center center; background-size:cover;"></span>
 								</div>
 								<div class="txt-thum">
 									<h3>입양 후기8</h3>

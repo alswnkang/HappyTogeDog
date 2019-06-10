@@ -23,7 +23,7 @@ public class MainServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+//		ArrayLisy<AdoptionBoard> adiptionBoardList = new  
 		/* 메인 :: 후원하기 상품 노출 */
 		ArrayList<ProductVO> prdList = new ArrayList<ProductVO>();
 		prdList.add(new ProductVO(0));
