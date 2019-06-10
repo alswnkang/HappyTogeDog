@@ -168,7 +168,7 @@
 						<c:if test='${sessionScope.member.id==vd.n.noticeId || sessionScope.member.id eq "admin" }'>
 							<button type="button" id="noticeDelBtn" class="btn-style3">삭제</button>
 						</c:if>
-						<button type="button" class="btn-style2" onclick="location.href='/siNotice'">목록으로 이동</button>
+						<button type="button" class="btn-style2" onclick="location.href='/siNotice'">목록으로</button>
 					</div>
 				</form>
 			</div>

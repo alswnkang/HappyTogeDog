@@ -156,7 +156,7 @@
 							<button type="button" id="boardDelBtn" class="btn-style3">삭제</button>
 							<!-- 게시글 번호를 siPreBoardDelete?boardNo 서블릿에 전달-->
 						</c:if>
-						<button type="button" class="btn-style2" onclick="location.href='/siPreBoard'">목록으로 이동</button>
+						<button type="button" class="btn-style2" onclick="location.href='/siPreBoard'">목록으로</button>
 					</div>
 				</form>
 			</div>

@@ -4,7 +4,9 @@
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
-
+<style>
+	.viewOne{cursor:pointer;}
+</style>
 <%-- Content --%>
 <section id="content-wrapper">
 		<section name="siSection">
@@ -32,10 +34,10 @@
 					</thead>
 					<tbody>
 			 			<c:forEach items="${bp.list }" var="list" varStatus="i">
-							<tr>
+							<tr onclick="location.href='/detailTakeBoard?boardNo=${list.boardNo }'" class="viewOne">
 								<td>${i.count}</td>
 								<td><img src="/siUpload/board/${list.boardFilepath }" style="height: 200px; width: 200px;"></td>
-								<td><a href="/detailTakeBoard?boardNo=${list.boardNo }">${list.boardTitle }</a></td>
+								<td>${list.boardTitle }</td>
 								<!-- name 값을 넘겨주도록 설정필요 -->
 								<td>${list.boardName }(${list.boardId })</td>
 								<td>${list.boardDate }</td>

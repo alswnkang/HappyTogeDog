@@ -84,4 +84,44 @@ public class PrintShelterService {
 		return list;
 	}
 
+	public MemberPageData printShelterFirst(int reqPage) throws SQLException {
+		// TODO Auto-generated method stub
+		Connection conn =JDBCTemplate.getCon();
+		String pageNavi ="";
+		int numPerPage =10;
+		int totalCount = new PrintShelterDao().totalCountFirst(conn);
+		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
+		
+		int start =(reqPage-1)*numPerPage+1;
+		int end = reqPage*numPerPage;
+		
+		MemberPageData spd = new PrintShelterDao().selectListFirst(conn,start,end);
+		
+		int pageNaviSize =5;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
+		
+		if(pageNo!=1) {
+			pageNavi +="<a class='paging-arrow prev-arrow' href='/findShelter?page="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";	
+		}
+		
+		int i =1;
+		while(!(i++>pageNaviSize||pageNo>totalPage)) {
+			if(reqPage==pageNo) {
+				pageNavi += "<span calss=selectPage>"+pageNo+"</span>";
+			}else {
+				pageNavi +="<a class='cur' href='/findShelter?page="+pageNo+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<a class='paging-arrow next-arrow' href='/findShelter?page="+(pageNo+1)+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
+		}
+		spd.setPageNavi(pageNavi);
+		
+		JDBCTemplate.close(conn);
+
+		
+		return spd;
+	}
+
 }

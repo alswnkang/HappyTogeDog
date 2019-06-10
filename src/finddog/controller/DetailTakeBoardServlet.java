@@ -42,6 +42,8 @@ public class DetailTakeBoardServlet extends HttpServlet {
 		request.setAttribute("vd", bvd);
 		String dogkind=bvd.getB().getDogKind();
 		String kindName= new BoardService().getDogKindName(dogkind);
+		
+		
 		request.setAttribute("kindNm", kindName);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/DetailTakeBoard.jsp");

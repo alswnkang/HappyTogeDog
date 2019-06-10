@@ -203,7 +203,7 @@ public class BoardService {
 		// TODO Auto-generated method stub
 		Connection conn = JDBCTemplete.getConnection();
 		String kindName= new BoardDao().getKindName(dogkind,conn);
-		
+		JDBCTemplete.close(conn);
 		return kindName;
 	}
 }

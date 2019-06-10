@@ -25,72 +25,73 @@ public class PrintShelterDao {
 		MemberPageData spd = null;
 		ArrayList<Member> list = null;
 		
+		
 		String query="";
 		
 		switch (city) {
 		case 2:
 			
-			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '서울%') M) WHERE RNUM BETWEEN ? AND ?";
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '서울%' and member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
 			
 			break;
 		case 14:
 			
-				query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '부산%') M) WHERE RNUM BETWEEN ? AND ?";
+				query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '부산%' and member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
 			
 			break;
 		case 15:
 			
-				query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '대구%') M) WHERE RNUM BETWEEN ? AND ?";
+				query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '대구%' and member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
 			
 			break;
 		case 6:
 			
-				query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '대전%') M) WHERE RNUM BETWEEN ? AND ?";
+				query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '대전%' and member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
 		
 			break;
 		case 10:
 			
-				query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '광주%') M) WHERE RNUM BETWEEN ? AND ?";
+				query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '광주%' and member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
 			
 			break;
 		case 50:
 			
 			break;
 		case 3:
-			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '경기%') M) WHERE RNUM BETWEEN ? AND ?";
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '경기%' and member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
 				
 		
 			break;
 	
 		case 12:
-			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '경상남%') M) WHERE RNUM BETWEEN ? AND ?";
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '경상남%' and member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
 			break;
 		case 8:
-			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '경상북%') M) WHERE RNUM BETWEEN ? AND ?";
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '경상북%' and member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
 			break;
 		case 5:
-			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '충청남%') M) WHERE RNUM BETWEEN ? AND ?";
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '충청남%' and member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
 			break;
 		case 7:
-			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '충청북%') M) WHERE RNUM BETWEEN ? AND ?";
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '충청북%' and member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
 			break;
 		case 11:
-			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '전라남%') M) WHERE RNUM BETWEEN ? AND ?";
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '전라남%' and member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
 			break;
 		case 9:
-			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '전라북%') M) WHERE RNUM BETWEEN ? AND ?";
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '전라북%' and member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
 			break;
 		case 4:
-			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '강원%') M) WHERE RNUM BETWEEN ? AND ?";
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '강원%' and member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
 			break;	
 		case 16:
-			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '세종%') M) WHERE RNUM BETWEEN ? AND ?";
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '세종%' and member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
 			break;	
 		case 1:
-			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '인천%') M) WHERE RNUM BETWEEN ? AND ?";
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '인천%' and member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
 			break;	
 		case 13:
-			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '제주%') M) WHERE RNUM BETWEEN ? AND ?";
+			query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where address like '제주%' and member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
 			break;	
 		
 		}
@@ -114,7 +115,7 @@ public class PrintShelterDao {
 			
 			System.out.println("여기들어왔나요");
 			String address=rset.getString("address");
-			
+			address=address.replace("//", "");
 			
 			m.setName(rset.getString("name"));
 			m.setPhone(rset.getString("phone"));
@@ -141,70 +142,70 @@ public class PrintShelterDao {
 		ResultSet rset= null;
 		
 
-		String query="select count(*) cnt from member where address like '서울%'";
+		String query="select count(*) cnt from member where address like '서울%' and member_level=1";
 		
 		switch (city) {
 		case 2:
 			
-			query="select count(*) cnt from member where address like '서울%'";
+			query="select count(*) cnt from member where address like '서울%' and member_level=1";
 			
 			break;
 		case 14:
 			
-			query="select count(*) cnt from member where address like '부산%'";
+			query="select count(*) cnt from member where address like '부산%' and member_level=1";
 			
 			break;
 		case 15:
 			
-			query="select count(*) cnt from member where address like '대구%'";
+			query="select count(*) cnt from member where address like '대구%' and member_level=1";
 			
 			break;
 		case 6:
 			
-			query="select count(*) cnt from member where address like '대전%'";
+			query="select count(*) cnt from member where address like '대전%' and member_level=1";
 		
 			break;
 		case 10:
 			
-			query="select count(*) cnt from member where address like '광주%'";
+			query="select count(*) cnt from member where address like '광주%' and member_level=1";
 			
 			break;
 		case 50:
 			
 			break;
 		case 3:
-			query="select count(*) cnt from member where address like '경기%'";
+			query="select count(*) cnt from member where address like '경기%' and member_level=1";
 			break;
 	
 		case 12:
-			query="select count(*) cnt from member where address like '경상남%'";
+			query="select count(*) cnt from member where address like '경상남%' and member_level=1";
 			break;
 		case 8:
-			query="select count(*) cnt from member where address like '경상북%'";
+			query="select count(*) cnt from member where address like '경상북%' and member_level=1";
 			break;
 		case 5:
-			query="select count(*) cnt from member where address like '충청남%'";
+			query="select count(*) cnt from member where address like '충청남%' and member_level=1";
 			break;
 		case 7:
-			query="select count(*) cnt from member where address like '충청북%'";
+			query="select count(*) cnt from member where address like '충청북%' and member_level=1";
 			break;
 		case 11:
-			query="select count(*) cnt from member where address like '전라남%'";
+			query="select count(*) cnt from member where address like '전라남%' and member_level=1";
 			break;
 		case 9:
-			query="select count(*) cnt from member where address like '전라북%'";;
+			query="select count(*) cnt from member where address like '전라북%' and member_level=1";
 			break;
 		case 4:
-			query="select count(*) cnt from member where address like '강원%'";
+			query="select count(*) cnt from member where address like '강원%' and member_level=1";
 			break;	
 		case 16:
-			query="select count(*) cnt from member where address like '세종%'";
+			query="select count(*) cnt from member where address like '세종%' and member_level=1";
 			break;	
 		case 1:
-			query="select count(*) cnt from member where address like '인천%'";
+			query="select count(*) cnt from member where address like '인천%' and member_level=1";
 			break;	
 		case 13:
-			query="select count(*) cnt from member where address like '제주%'";
+			query="select count(*) cnt from member where address like '제주%' and member_level=1";
 			break;	
 		
 		}
@@ -370,5 +371,82 @@ public class PrintShelterDao {
 		
 		
 		return list;
+	}
+	public int totalCountFirst(Connection conn) throws SQLException {
+		PreparedStatement pstmt = null;	
+		ResultSet rset= null;
+		
+
+		String query="select count(*) cnt from member where member_level=1";
+		pstmt= conn.prepareStatement(query);
+		
+		rset= pstmt.executeQuery();
+		
+		
+		int result=0;
+		System.out.println(query);
+		
+		if(rset.next()) {							
+				
+			System.out.println("들어옴여긴??");
+			result=rset.getInt("cnt");		
+		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+		
+	}
+	public MemberPageData selectListFirst(Connection conn, int start, int end) throws SQLException {
+		// TODO Auto-generated method stub
+		
+		PreparedStatement pstmt = null;	
+		ResultSet rset= null;
+		
+		Member m = null;
+		MemberPageData spd = null;
+		ArrayList<Member> list = null;
+		
+		String query="";
+		query="SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
+		
+		pstmt= conn.prepareStatement(query);
+		pstmt.setInt(1, start);
+		pstmt.setInt(2, end);
+		
+		
+		
+		
+		rset= pstmt.executeQuery();
+		
+		list= new ArrayList<>();
+		spd = new MemberPageData();
+		System.out.println(query);
+		
+		while(rset.next()) {							
+			m = new Member();
+			
+			System.out.println("여기들어왔나요");
+			String address=rset.getString("address");
+			address=address.replace("//", "");
+			
+			m.setName(rset.getString("name"));
+			m.setPhone(rset.getString("phone"));
+			m.setAddress(address);
+			
+			list.add(m);
+			
+		}	
+			
+		
+		
+		spd.setList(list);
+		
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
+		
+	
+		
+		return spd;
 	}
 }
