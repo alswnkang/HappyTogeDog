@@ -128,10 +128,16 @@
 								<option value="15">15시</option>
 								<option value="16">16시</option>
 								<option value="17">17시</option>
+								<option value="18">18시</option>
+								<option value="19">19시</option>
+								<option value="20">20시</option>
+								<option value="21">21시</option>
+								<option value="22">22시</option>
+								<option value="23">23시</option>
 							</select> 
 							~
 							<select name="endTime" id="endTime" class="middle">
-								<option>시간선택</option>
+								<option value="08">08시</option>
 								<option value="09">09시</option>
 								<option value="10">10시</option>
 								<option value="11">11시</option>
@@ -147,7 +153,7 @@
 								<option value="21">21시</option>
 								<option value="22">22시</option>
 								<option value="23">23시</option>
-								<option value="24">24시</option>
+								<option value="24" selected>24시</option>
 							</select>
 						</td>
 					</tr>	
@@ -180,8 +186,15 @@
 							</select>
 						</td>
 					</tr>
+					<tr>
+						<th>보호소코드 입력  <b class="star join">*</b></th>
+						<td>
+							<input type="text" name="code" id="code" class="middle" placeholder="코드를 입력해주세요">
+						</td>
+					</tr>
 					</c:if>
 				</table>
+				<input type="hidden" id="code_re"> 
 			</div>
 			<div class="common-tbl-btn-group">
 				<button type="submit" value="회원가입" class="btn-style1" id="sub">회원가입</button>
@@ -290,6 +303,8 @@
 	$("#care").change(function(){
 		$('#name').text($('#care')).val();
 		$('#name').val($('#care option:selected').text());
+		$('#code_re').val($('#care').val());
+		console.log($('#care').val());
 	});
 	$("#area").change(function(){
 		$('#careArea').val($('#area option:selected').text());
@@ -335,7 +350,7 @@
 				var time = $('#time').val();
 				var no = $('#time').children().eq();
 				
-				for(var i=0;i<11;i++){
+				for(var i=0;i<17;i++){
 					if(time>=$('#endTime').children().eq(i).val()){					
 						$('#endTime').children().eq(i).css('display','none');		//select #time 을 선택했을때 #time의 value값보다 #endTime의 value값이 작을때 작은 value의 display를 none
 					}else if(time<=$('#endTime').children().eq(i).val()){			
@@ -345,7 +360,7 @@
 			});
 			$('#endTime').change(function(){
 				var endTime = $('#endTime').val();
-				for(var j=0;j<11;j++){
+				for(var j=0;j<17;j++){
 				if(endTime<=$('#time').children().eq(j).val()){				//select #endTime을 선택했을때 #time의 value 값보다 작을때 #time의 display를 none
 					$('#time').children().eq(j).css('display','none');
 				}else if(endTime>=$('#time').children().eq(j).val()){		//select #endTime을 선택했을때 #time의 value 값보다 클때 #time의 display를 block
@@ -424,7 +439,8 @@
 		});
 		function check(){
 			var id_re = /^[a-zA-Z0-9]{4,12}$/;
-			var checkPw = /^[a-zA-Z0-9]{8,13}$/;
+			var checkPw =  /^.*(?=.{8,13})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+			var code_re = $('#code_re').val();
 			if($('#id').val() == ""){
 				alert("아이디를 입력해주세요");
 				$('#id').focus();
@@ -478,6 +494,11 @@
 			if($('#email').val() == ""){
 				alert("이메일을 입력해주세요");
 				$('#email').focus();
+				return false;
+			}
+			if(code_re != $('#code').val()){
+				alert("코드가 일치하지 않습니다");
+				$('#code').focus();
 				return false;
 			}
 		}
