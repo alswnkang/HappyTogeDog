@@ -15,7 +15,7 @@
 <%-- Content --%>
 <section id="content-wrapper">
 	<div class="area">
-		<h2 class="comm-content-tit">Q & A</h2>
+		<h2 class="comm-content-tit">Q &amp; A</h2>
 		<div class="qna-view">
 			<form action="/checkPw" method="post" onsubmit="return check(this);">
 				<input type="hidden" name="boardNo" value="${boardNo }">
@@ -33,7 +33,6 @@
 				</div>
 			</form>
 		</div>
-		
 	</div>
 </section>
 

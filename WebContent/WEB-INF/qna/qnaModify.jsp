@@ -10,7 +10,7 @@
 <%-- Content --%>
 <section id="content-wrapper">
 	<div class="area">
-		<h2 class="comm-content-tit">Q & A</h2>
+		<h2 class="comm-content-tit">Q &amp; A</h2>
 		<div id="qnaModifyBox" class="common-tbl-box">
 			<form action="/updateQna" method="post" enctype="multipart/form-data" onsubmit="return chkSubmit(this);">
 				<input type="hidden" name="boardType" value="5">
