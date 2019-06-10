@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+
+<%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
-</head>
+
 	<script>
 		$(document).ready(function(){
 			$("#delFileBtn").click(function(){
@@ -19,7 +16,7 @@
 			});
 		});
 	</script>
-<body>
+
 	<section id="content-wrapper">
 		<div class="area">
 			<h2 class="comm-content-tit">게시글 수정</h2>
@@ -68,6 +65,6 @@
 			</div>
 		</div>
 	</section>
-</body>
+	
+<%-- Footer --%>
 <jsp:include page="/WEB-INF/common/footer.jsp" />
-</html>

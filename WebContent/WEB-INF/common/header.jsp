@@ -88,7 +88,10 @@
 								<ul>
 									<li><a href="/sponsorship">후원하기</a></li>
 									<li><a href="/qnaList">Q&A</a></li>
-									<li><a href="/findOrder.jsp">주문조회</a></li>
+									<!-- 주문조회 메뉴는 비회원일때만 노출됩니다. -->
+									<c:if test="${empty sessionScope.member }">
+										<li><a href="/findOrder.jsp">주문조회</a></li>
+									</c:if>
 								</ul>
 							</div>
 						</li>
