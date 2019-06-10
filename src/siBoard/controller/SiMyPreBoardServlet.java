@@ -32,14 +32,13 @@ public class SiMyPreBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");	
 		String boardId = request.getParameter("memberId");
-		int boardType = Integer.parseInt(request.getParameter("memberLevel"));
 		int reqPage;
 		try {
 			reqPage = Integer.parseInt(request.getParameter("reqPage"));
 		}catch(NumberFormatException e) {
 			reqPage = 1;
 		}
-		BoardPageData bp = new BoardService().myBoardList(reqPage,boardId,boardType);
+		BoardPageData bp = new BoardService().myBoardList(reqPage,boardId);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/siViews/board/siMyPreBoardList.jsp");
 		request.setAttribute("bp", bp);	
 		rd.forward(request, response);

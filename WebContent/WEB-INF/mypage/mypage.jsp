@@ -63,7 +63,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="/siMyPreBoard?memberId=${sessionScope.member.id }&memberLevel=${sessionScope.member.memberLevel }">
+					<a href="/siMyPreBoard?memberId=${sessionScope.member.id }">
 						<div class="img-thum">
 							<span><img src="/img/mypage_icon05.png"></span>
 						</div>
@@ -125,7 +125,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="/siMyPreBoard?memberId=${sessionScope.member.id }&memberLevel=${sessionScope.member.memberLevel }">
+					<a href="/siMyPreBoard?memberId=${sessionScope.member.id }">
 						<div class="img-thum">
 							<span><img src="/img/mypage_icon05.png"></span>
 						</div>
