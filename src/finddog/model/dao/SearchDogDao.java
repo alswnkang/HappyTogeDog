@@ -236,6 +236,9 @@ public class SearchDogDao {
 				b.setBoardSecret(rset.getInt("board_secret"));
 				b.setBoardPw(rset.getString("board_pw"));
 				b.setBoardPrdCode(rset.getString("board_prdCode"));
+				b.setHappenCity(rset.getString("Happen_city"));
+				b.setHappenDate(rset.getString("happen_date"));
+				b.setDogKind(rset.getString("dog_kind"));
 				list.add(b);
 			}
 		} catch (SQLException e) {

@@ -16,7 +16,7 @@
 			</div>
 			<div class="dog-info-top-inner clearfix">
 				<div class="dog-info-left">
-					<img src="${vd.b.boardFilepath }" style="max-width:100%;">
+					<img src="/siUpload/board/${vd.b.boardFilepath }" style="max-width:100%;">
 				</div>
 				<div class="dog-info-right">
 					<table class="comm-tbl">
@@ -34,7 +34,7 @@
 						</tr>
 						<tr>
 							<th>품종</th>
-							<td>${vd.b.dogKind }</td>
+							<td>${kindNm }</td>
 						</tr>
 						<tr>
 							<th>작성자</th>

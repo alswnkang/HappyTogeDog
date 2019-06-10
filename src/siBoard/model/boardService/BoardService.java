@@ -168,4 +168,12 @@ public class BoardService {
 		JDBCTemplete.close(conn);
 		return result;
 	}
+
+	public String getDogKindName(String dogkind) {
+		// TODO Auto-generated method stub
+		Connection conn = JDBCTemplete.getConnection();
+		String kindName= new BoardDao().getKindName(dogkind,conn);
+		
+		return kindName;
+	}
 }
