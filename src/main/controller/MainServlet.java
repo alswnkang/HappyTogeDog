@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import siAdoptionBoard.model.adoptionBoardService.AdoptionBoardService;
 import siAdoptionBoard.model.adoptionBoardVo.AdoptionBoard;
+import siBoard.model.boardService.BoardService;
+import siBoard.model.boardVo.Board;
 import siNotice.model.noticeService.NoticeService;
 import siNotice.model.noticeVo.Notice;
 import sponsorship.model.vo.ProductVO;
