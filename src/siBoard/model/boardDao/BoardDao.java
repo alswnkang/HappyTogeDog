@@ -461,11 +461,14 @@ public class BoardDao {
 		String query = "select*from dogkind where code=?";
 		try {
 			pstmt = conn.prepareStatement(query);
-			rset = pstmt.executeQuery(query);
+
 			pstmt.setString(1,dogkind);
+			rset = pstmt.executeQuery();
+			
+			System.out.println(dogkind);
 			if(rset.next()) {
 				kindName=rset.getString("kind");
-				
+				System.out.println(kindName);
 			
 				
 			}
