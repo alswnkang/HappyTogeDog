@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
-
+<%pageContext.setAttribute("newLineChar", "\n"); %>
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
 			<div class="voluntary-box">
@@ -36,7 +37,7 @@
 					<c:if test="${not empty sessionScope.member.id }">
 					<!-- 로그인을 안하면 댓글리스트만 조회가능, 등록칸이 보이지 않도록 설정 -->
 						<tr>
-							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">${vd.b.boardContent }</td>
+							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">${fn:replace(vd.b.boardContent,newLineChar,"<br/>")}</td></td>
 						</tr>
 						<tr>
 							<td colspan="2" style="border-top: 0px;">
@@ -47,7 +48,7 @@
 					<c:if test="${empty sessionScope.member.id }">
 					<!-- 로그인을 안하면 댓글리스트만 조회가능, 등록칸이 보이지 않도록 설정 -->
 						<tr>
-							<td colspan="2" style="border-top: 0px;">${vd.b.boardContent }</td>
+							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">${fn:replace(vd.b.boardContent,newLineChar,"<br/>")}</td>
 						</tr>
 					</c:if>
 				</table>

@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
     
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
-
+<%pageContext.setAttribute("newLineChar", "\n"); %>
 <style>
 .cmt-txt{display:inline-block; vertical-align:middle; font-size:14px; font-weight:500;}
 .cmtBtn, .reCmtBtn{display:inline-block; vertical-align:middle; font-size:14px; background:rgba(254,67,30); padding:8px 20px; color:#fff; border-radius:5px;}
@@ -13,7 +14,6 @@
 .cmt-date{display:inline-block; float:right; max-width:15%;}
 .comm-tbl.view2 tr:first-child th, .comm-tbl.view2 tr:first-child td{border-top:0;}
 </style>
-
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
 			<div class="voluntary-box">
@@ -44,7 +44,7 @@
 					</c:if>
 					<c:if test="${not empty sessionScope.member.id }">
 						<tr >
-							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">${vd.n.noticeContent }</td>
+							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">${fn:replace(vd.n.noticeContent,newLineChar,"<br/>")}</td>
 						</tr>
 						<tr>
 							<td colspan="2" style="border-top: 0px;text-align:right;">
@@ -54,7 +54,7 @@
 					</c:if>
 					<c:if test="${ empty sessionScope.member.id }">
 						<tr>
-							<td colspan="2" style="border-top: 0px;">${vd.n.noticeContent }</td>
+							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">${fn:replace(vd.n.noticeContent,newLineChar,"<br/>")}</td>
 						</tr>
 					</c:if>
 				</table>
