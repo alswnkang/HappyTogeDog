@@ -9,22 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import siBoard.model.boardDao.BoardDao;
 import siBoard.model.boardService.BoardService;
-import siBoard.model.boardVo.Board;
-import siBoard.model.boardVo.BoardViewData;
 
 /**
- * Servlet implementation class DetailTakeBoardServlet
+ * Servlet implementation class TakeBoardDeleteServlet
  */
-@WebServlet(name = "DetailTakeBoard", urlPatterns = { "/detailTakeBoard" })
-public class DetailTakeBoardServlet extends HttpServlet {
+@WebServlet(name = "takeBoardDelete", urlPatterns = { "/takeBoardDelete" })
+public class TakeBoardDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DetailTakeBoardServlet() {
+    public TakeBoardDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +31,11 @@ public class DetailTakeBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		
-		int no=Integer.parseInt(request.getParameter("boardNo"));
-		BoardViewData bvd  = new BoardService().takeBoardView(no);
-		
-		request.setAttribute("vd", bvd);
-		String dogkind=bvd.getB().getDogKind();
-		String kindName= new BoardService().getDogKindName(dogkind);
-		
-		
-		request.setAttribute("kindNm", kindName);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/DetailTakeBoard.jsp");
+		request.setCharacterEncoding("utf-8");
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		int result = new BoardService().boardDelete(boardNo);
+		RequestDispatcher rd = request.getRequestDispatcher("/takeBoard");
 		rd.forward(request, response);
-		
 	}
 
 	/**

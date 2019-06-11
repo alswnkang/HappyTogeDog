@@ -115,6 +115,10 @@
 			}
 		});
 	});
+	/* 승인 여부 수정 실패 일 알람 */
+	if(${not empty msg}){
+		alert("${msg}");
+	}
 </script>
 	
 <!-- Footer -->

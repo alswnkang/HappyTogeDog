@@ -406,6 +406,38 @@ public class BoardDao {
 			rset = stmt.executeQuery(query);
 			list = new ArrayList<BoardComment>();
 			while(rset.next()) {
+				
+				BoardComment bc = new BoardComment();
+				bc.setBoardCommentNo(rset.getInt("board_comment_no"));
+				bc.setBoardCommentType(rset.getInt("board_comment_type"));
+				bc.setBoardCommentId(rset.getString("board_comment_id"));
+				bc.setBoardCommentName(rset.getString("board_comment_name"));
+				bc.setBoardCommentContent(rset.getString("board_comment_content"));
+				bc.setBoardRef(rset.getInt("board_ref"));
+				bc.setBoardCommentRef(rset.getInt("board_comment_ref"));
+				bc.setBoardCommentDate(rset.getDate("board_comment_date"));
+				bc.setBoardCommentDate2(rset.getString("board_comment_date2"));
+				list.add(bc);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(rset);
+			JDBCTemplete.close(stmt);
+		}
+		return list;
+	}
+	public ArrayList<BoardComment> takeCommentAll(Connection conn){
+		ArrayList<BoardComment> list = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		String query = "select board_comment_no,board_comment_type,board_comment_id,board_comment_name,board_comment_content,board_ref,board_comment_ref,board_comment_date,to_char(board_comment_date,'yyyy-MM-dd HH24:mi') as board_comment_date2 from board_comment where board_comment_type=4 order by board_comment_no";
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			list = new ArrayList<BoardComment>();
+			while(rset.next()) {		
 				BoardComment bc = new BoardComment();
 				bc.setBoardCommentNo(rset.getInt("board_comment_no"));
 				bc.setBoardCommentType(rset.getInt("board_comment_type"));

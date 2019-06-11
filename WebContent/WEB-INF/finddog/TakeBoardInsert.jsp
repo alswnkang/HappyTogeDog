@@ -60,7 +60,7 @@
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><textarea type="text" name="boardContent"></textarea></td>
+							<td><textarea type="text" name="boardContent" style="height: 600px;"></textarea></td>
 						</tr>
 					</table>
 					<div class="common-tbl-btn-group">

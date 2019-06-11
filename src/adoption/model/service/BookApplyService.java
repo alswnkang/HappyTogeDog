@@ -63,7 +63,7 @@ public class BookApplyService {
 	}
 	
 	//도시 코드, 코드 가져오기
-	public ArrayList<cityCode> getCityCode() {
+	public ArrayList<cityCode> getCityCode() throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
 		ArrayList<cityCode> list = new BookApplyDao().getCityCode(conn);
 		JDBCTemplate.close(conn);
@@ -71,7 +71,7 @@ public class BookApplyService {
 	}
 		
 	//도시코드 받아서 지역구리스트 가져오기
-	public ArrayList<cityCode> getAreaCode(String cityCode) {
+	public ArrayList<cityCode> getAreaCode(String cityCode) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
 		ArrayList<cityCode> list = new BookApplyDao().getCityCode(conn,cityCode);
 		JDBCTemplate.close(conn);
@@ -79,7 +79,7 @@ public class BookApplyService {
 	}
 	
 	//크기선택에 따른 품종 가져오기
-	public ArrayList<DogKind> getKind(String dogsize) {
+	public ArrayList<DogKind> getKind(String dogsize) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
 		ArrayList<DogKind> list = new BookApplyDao().getKind(conn,dogsize);
 		JDBCTemplate.close(conn);
@@ -89,7 +89,7 @@ public class BookApplyService {
 	/////////////////////////////////////////////////일반회원 유기견 입양 방문 신청///////////////////////////////////////////////////////////
 
 	//보호소 방문가능시간,보호소코드 가져오기
-	public ArrayList<String> careTime(String careNm) {
+	public ArrayList<String> careTime(String careNm) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
 		ArrayList<String> list = new BookApplyDao().careTime(conn, careNm);
 		JDBCTemplate.close(conn);
@@ -109,7 +109,7 @@ public class BookApplyService {
 	}
 		
 	//예약된 방문 시간 구해오기
-	public ArrayList<String> possibleTime(String visitDate, String careNm){
+	public ArrayList<String> possibleTime(String visitDate, String careNm) throws SQLException{
 		Connection conn = JDBCTemplate.getCon();
 		ArrayList<String> list = new BookApplyDao().possibleTime(conn,visitDate, careNm);
 		JDBCTemplate.close(conn);
@@ -120,7 +120,7 @@ public class BookApplyService {
 	/////////////////////////////////////////////////일반회원 마이페이지///////////////////////////////////////////////////////////
 	
 	//일반회원 마이페이지에 방문예약 신청리스트 보여주기
-	public BookApplyPageData selectList(int reqPage,String id){
+	public BookApplyPageData selectList(int reqPage,String id) throws SQLException{
 		Connection conn = JDBCTemplate.getCon();
 		ArrayList<BookApply> list = new ArrayList<BookApply>();
 		int numPerPage = 10;
@@ -156,7 +156,7 @@ public class BookApplyService {
 	}
 
 	//일반회원이 방문예약 신청내역 내용 확인
-	public BookApply myViewOne(int no, String id) {
+	public BookApply myViewOne(int no, String id) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
 		BookApply b = new BookApplyDao().myViewOne(conn ,no, id);
 		JDBCTemplate.close(conn);
@@ -164,7 +164,7 @@ public class BookApplyService {
 	}
 	
 	//일반회원이 방문예약 신청 취소
-	public int cancelReservation(int no) {
+	public int cancelReservation(int no) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
 		int result = new BookApplyDao().cancelReservation(conn, no);
 		if(result>0) {
@@ -228,7 +228,7 @@ public class BookApplyService {
 	}
 	
 	//보호소회원이 예약상태 업데이트
-	public int updateStatus(int status,int no) {
+	public int updateStatus(int status,int no) throws SQLException {
 		System.out.println("방문예약상태(service) : "+status);
 		Connection conn = JDBCTemplate.getCon();
 		int result = new BookApplyDao().updateStatus(conn, status, no);
@@ -244,7 +244,7 @@ public class BookApplyService {
 	/////////////////////////////////////////////////관리자 마이페이지///////////////////////////////////////////////////////////
 	
 	//관리자가 방문예약 신청 리스트 확인
-	public BookApplyPageData adminReservationMypage(int reqPage, String startDay, String endDay) {
+	public BookApplyPageData adminReservationMypage(int reqPage, String startDay, String endDay) throws SQLException {
 		if(startDay==null) {
 			startDay="";
 		}
@@ -286,7 +286,7 @@ public class BookApplyService {
 	}
 	
 	//관리자가 방문예약 신청내역 내용 확인
-	public BookApply adminViewOne(int no) {
+	public BookApply adminViewOne(int no) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
 		System.out.println("no: "+no);
 		BookApply b = new BookApplyDao().adminViewOne(conn ,no);

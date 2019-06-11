@@ -47,6 +47,8 @@ public class PrintShelterServlet extends HttpServlet {
 			// TODO: handle exception
 			page=1;
 		}
+		
+		
 		System.out.println(city);
 		MemberPageData mpd = new MemberPageData();
 		

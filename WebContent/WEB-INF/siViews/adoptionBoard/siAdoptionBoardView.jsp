@@ -29,16 +29,16 @@
 					<!-- 파일이 있을 때 -->
 						<c:if test="${not empty sessionScope.member.id }">
 						<!-- 로그인 된 경우 사진과 내용, 댓글 버튼 노출 -->
-						<tr>
-							<td colspan="2" style="text-align:center;border-bottom: 0px;">
-								<a style="float:right;" href="javascript:fileDownload('${vd.a.adoptionBoardFilename }','${vd.a.adoptionBoardFilepath }');">${vd.a.adoptionBoardFilename }</a>
-								<br/>
-								<img src='/siUpload/adoptionBoard/${vd.a.adoptionBoardFilename }'width="500px"/>
-								<!-- 파일이 있으면 넘겨준 No를 기준으로 게시물의 이름을 불러와서 출력 -->
-								<br/><br/><br/>
-								${fn:replace(vd.a.adoptionBoardContent,newLineChar,"<br/>")}
-							</td>
-						</tr>
+							<tr>
+								<td colspan="2" style="text-align:center;border-bottom: 0px;">
+									<a style="float:right;" href="javascript:fileDownload('${vd.a.adoptionBoardFilename }','${vd.a.adoptionBoardFilepath }');">${vd.a.adoptionBoardFilename }</a>
+									<br/>
+									<img src='/siUpload/adoptionBoard/${vd.a.adoptionBoardFilename }'width="500px"/>
+									<!-- 파일이 있으면 넘겨준 No를 기준으로 게시물의 이름을 불러와서 출력 -->
+									<br/><br/><br/>
+									${fn:replace(vd.a.adoptionBoardContent,newLineChar,"<br/>")}
+								</td>
+							</tr>
 							<tr>
 								<td colspan="2" class="cmtBtn" style="border-top: 0px;">
 									<button type="button" style="float:right;">댓글</button>
@@ -94,7 +94,6 @@
 							<td colspan="4" style="text-align:center">
 								댓글입력 <input type="text" name="adoptionBoardCommentContent" value=""/>
 								<button type="submit">등록</button>
-								/
 								<button type="button" class="cancelBtn">취소</button>
 							</td>
 						</tr>
@@ -119,16 +118,13 @@
 										<c:if test="${sessionScope.member.id==list.adoptionBoardCommentId }">
 										<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
 											<button class="mdfBtn" type="button">수정</button>
-											<button type="text" style="display:none;">/</button>
+											<button class="cmtUpdate" type="button" style="display:none;">등록</button>
 											<button class="cancelBtn" type="reset" style="display:none;">취소</button>
-											/
 											<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.adoptionBoardCommentNo }');">삭제</a>
-											/
 										</c:if>
 										<c:if test="${sessionScope.member.id!=list.adoptionBoardCommentId && sessionScope.member.id eq 'admin' }">
 										<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
 											<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.adoptionBoardCommentNo }');">삭제</a>
-											/
 										</c:if>
 										<c:if test="${not empty sessionScope.member.id }"><!-- 로그인시 노출 -->
 											<button type="button" class="reCmtBtn">답글</button>
@@ -149,9 +145,7 @@
 											<c:if test="${clist.adoptionBoardCommentId == sessionScope.member.id }">
 												<button class="cmtrUpdate" type="button" onclick="cmtrMfy('${clist.adoptionBoardCommentRef }','${clist.adoptionBoardCommentNo }')" style="display:none;">등록</button>
 												<button class="mdfBtnr" type="button">수정</button>
-												<button type="text" style="display:none;">/</button>
 												<button class="cancelBtnr" type="reset" style="display:none;">취소</button>
-												/
 												<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.adoptionBoardCommentNo }','${clist.adoptionBoardCommentRef }');">삭제</a>
 											</c:if>
 											<c:if test="${sessionScope.member.id!=clist.adoptionBoardCommentId && sessionScope.member.id eq 'admin' }">
@@ -169,7 +163,6 @@
 								</td>
 								<td>
 									<button onclick="sendReCmt('${list.adoptionBoardCommentNo }')" type="button">등록</button>
-									/
 									<button class="reCmtBtnr" type="button" >취소</button>
 								</td>
 							</tr>
@@ -195,13 +188,15 @@
 <script>
 	$(document).ready(function(){	//댓글 입력 취소	
 		$('.cancelBtn').click(function(){
-			$('#commentTb').hide();
+			$('#commentTb').hide(); 
+			$('[name=adoptionBoardCommentContent]').val('');
 		});
 	});
 	$(document).ready(function(){	//대댓글 입력 취소	
 		$('.reCmtBtnr').click(function(){
 			$(this).parent().parent().hide();
-			$('.reCmtBtn').show();
+			$(this).parent().prev().children().val('');
+			$(this).parent().parent().prev().prev().children().eq(4).last().show();
 		});
 	});
 	function sendReCmt(adoptionBoardCommentNo){	//대댓글 전송
@@ -224,23 +219,26 @@
 	};
 	$(document).ready(function(){	//대댓글 입력 tr 노출
 		$('.reCmtBtn').click(function(){
-			$(this).hide();
 			$(this).parent().parent().parent().children().last().show();
 		});
 	});
 	$(document).ready(function(){	// 댓글 입력창 노출
 		$('.cmtBtn').click(function(){
-			$('#commentTb').show();
+			$(this).parent().parent().parent().next().children().eq(4).show();
 		});
 	});
 	$(document).ready(function(){	//댓글 수정,취소 버튼  
 		$('.mdfBtn').click(function(){
 			$(this).parent().prev().children().eq(0).hide();
 			$(this).parent().prev().children().eq(1).show();
-			$(this).html('등록').attr("class","cmtUpdate");
 			$(this).nextAll().show();
+			$(this).hide();
 			$('.cancelBtn').click(function(){
-				location.href='/siAdoptionBoardView?adoptionBoardNo='+${vd.a.adoptionBoardNo };
+				$(this).parent().prev().children().eq(0).show();
+				$(this).parent().prev().children().eq(1).hide();
+				$(this).prev().hide();
+				$(this).prev().prev().show();
+				$(this).hide();
 			});
 			$(".cmtUpdate").click(function(){
 				$(this).parents('form').submit();
@@ -252,10 +250,14 @@
 			$(this).parent().prev().children().eq(0).hide();
 			$(this).parent().prev().children().eq(1).show();
 			$(this).hide();
-			$('.cmtrUpdate').show();
+			$(this).prev().show();
 			$(this).nextAll().show();
 			$('.cancelBtnr').click(function(){
-				location.href='/siAdoptionBoardView?adoptionBoardNo='+${vd.a.adoptionBoardNo };
+				$(this).parent().prev().children().eq(0).show();
+				$(this).parent().prev().children().eq(1).hide();
+				$(this).prev().show();
+				$(this).prev().prev().hide();
+				$(this).hide();
 			});
 		});
 	});

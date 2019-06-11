@@ -1,8 +1,10 @@
 package adoption.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,10 +30,17 @@ public class GetKindServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String dogsize = request.getParameter("dogsize");
 		System.out.println("강아지크기 : "+dogsize);
-		ArrayList<DogKind> list = new BookApplyService().getKind(dogsize);
-		response.setContentType("application/json");
-		response.setCharacterEncoding("utf-8");
-		new Gson().toJson(list,response.getWriter());
+		ArrayList<DogKind> list;
+		try {
+			list = new BookApplyService().getKind(dogsize);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+			new Gson().toJson(list,response.getWriter());
+		} catch (SQLException e) {
+			RequestDispatcher rd = request.getRequestDispatcher("/error/sqlError.jsp");
+			request.setAttribute("msg", "SQL 에러가 발생했습니다.");
+			rd.forward(request, response);
+		}
 	}
 
 	/**
