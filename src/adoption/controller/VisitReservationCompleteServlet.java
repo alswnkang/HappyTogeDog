@@ -73,7 +73,7 @@ public class VisitReservationCompleteServlet extends HttpServlet {
 			}
 		} catch (SQLException e) {
 			RequestDispatcher rd = request.getRequestDispatcher("/error/sqlError.jsp");
-			request.setAttribute("msg", "SQL 구문 에러 발생");
+			request.setAttribute("msg", "SQL 에러가 발생했습니다.");
 			rd.forward(request, response);
 		}
 		
