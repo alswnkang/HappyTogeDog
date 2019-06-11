@@ -27,7 +27,7 @@
 					</tr>
 					<c:if test="${not empty vd.b.boardFilename }">
 						<tr>
-							<td colspan="2" style="border-bottom: 0px;">
+							<td colspan="2" style="border-bottom: 0px;text-align: center;">
 								<a style="float:right;" href="javascript:fileDownload('${vd.b.boardFilename }','${vd.b.boardFilepath }')">${vd.b.boardFilename }</a>
 								<br/>
 								<img src='/siUpload/board/${vd.b.boardFilename }'width="500px"/>
@@ -38,7 +38,7 @@
 					<c:if test="${not empty sessionScope.member.id }">
 					<!-- 로그인을 안하면 댓글리스트만 조회가능, 등록칸이 보이지 않도록 설정 -->
 						<tr>
-							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">${fn:replace(vd.b.boardContent,newLineChar,"<br/>")}</td>
+							<td colspan="2" style="border-bottom: 0px;border-top: 0px;text-align: center;">${fn:replace(vd.b.boardContent,newLineChar,"<br/>")}</td>
 						</tr>
 						<tr>
 							<td colspan="2" style="border-top: 0px;">
@@ -50,7 +50,7 @@
 					<c:if test="${empty sessionScope.member.id }">
 					<!-- 로그인을 안하면 댓글리스트만 조회가능, 등록칸이 보이지 않도록 설정 -->
 						<tr>
-							<td colspan="2" style="border-top: 0px;">${fn:replace(vd.b.boardContent,newLineChar,"<br/>")}</td>
+							<td colspan="2" style="border-top: 0px;text-align: center;">${fn:replace(vd.b.boardContent,newLineChar,"<br/>")}</td>
 						</tr>
 					</c:if>
 				</table>
