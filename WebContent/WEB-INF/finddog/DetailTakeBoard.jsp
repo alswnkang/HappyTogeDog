@@ -6,46 +6,30 @@
 
 <link rel="stylesheet" type="text/css" href="/css/adoption_bk.css">
 <jsp:include page="/WEB-INF/common/header.jsp" />
-<%-- Content --%>
 
+<style>
+.comm-tbl{max-width:none;}
+.comm-tbl.view tr:first-child th, .comm-tbl.view tr:first-child td{border-top:0;}
+</style>
+<%-- Content --%>
 <section id="content-wrapper">
 		<div class="area">
-		<div id="DetailTake" class="common-box">
+		<div id="DetailTake" class="">
 			<div class="common-tbl-btn-group type2">
 			</div>
 			<div class="voluntary-box">
-	
-					<table class="comm-tbl">
-						<colgroup>
-							<col width="50%">
-							<col width="30%">
-							<col width="/">
-							
-						</colgroup>
-						<tr>
-							<th colspan="2" style="text-align:center;">${vd.b.boardTitle }</th>
-						</tr>
-						
-						<tr>
-							<td>작성자 : ${vd.b.boardName }(${vd.b.boardId })</td>
-							<td>작성일 : (${vd.b.boardDate2 })
-						</tr>
-						<colgroup>
-							<col width="20%">
-							<col width="20%">
-							<col width="20%">
-							<col width="20%">
-						</colgroup>
-						<tr>
-							<td>품종 : ${kindNm }</td>
-							<td>시간 : ${vd.b.happenDate }</td>
-							
-						</tr>
-					
-						
-						
-						
-						
+				<table class="comm-tbl" style="border-bottom:2px solid #ddd; ">
+					<tr>
+						<th colspan="2" style="text-align:center;">${vd.b.boardTitle }</th>
+					</tr>
+					<tr>
+						<td width="50%">작성자 : ${vd.b.boardName }(${vd.b.boardId })</td>
+						<td width="50%">작성일 : ${vd.b.boardDate2 }
+					</tr>
+					<tr>
+						<td>품종 : ${kindNm }</td>
+						<td>시간 : ${vd.b.happenDate }</td>
+					</tr>
 					<c:if test="${not empty vd.b.boardFilename }">
 					<!-- 파일이 있을 때 -->
 						<c:if test="${not empty sessionScope.member.id }">
@@ -80,25 +64,21 @@
 							</tr>
 						</c:if>
 					</c:if>
-				
-				
-						
-
+				</table>
+				<form action="/takeBoardCommentInsert" method="post">
+					<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
+					<input type="hidden" name="memberName" value="${sessionScope.member.name }"/>
+					<input type="hidden" name="boardNo" value="${vd.b.boardNo }"/>
+					<input type="hidden" name="boardType" value="4"/>
+					<table class="comm-tbl view" id="commentTb" style="display:none;">
+						<tr>
+							<td colspan="4" style="text-align:center">
+								댓글입력 <input type="text" name="boardCommentContent" value=""/>
+								<button type="submit">등록</button>
+							</td>
+						</tr>
 					</table>
-					<form action="/takeBoardCommentInsert" method="post">
-						<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
-						<input type="hidden" name="memberName" value="${sessionScope.member.name }"/>
-						<input type="hidden" name="boardNo" value="${vd.b.boardNo }"/>
-						<input type="hidden" name="boardType" value="4"/>
-						<table class="comm-tbl view" id="commentTb" style="display:none;">
-							<tr>
-								<td colspan="4" style="text-align:center">
-									댓글입력 <input type="text" name="boardCommentContent" value=""/>
-									<button type="submit">등록</button>
-								</td>
-							</tr>
-						</table>
-					</form>
+				</form>
 				
 				<c:forEach items="${vd.list }" var="list">
 					<form action="/takeCommentUpdate" method="post">
