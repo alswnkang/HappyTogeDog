@@ -16,11 +16,11 @@
 		<div id="qnaListBox">
 			<table class="comm-tbl type2">
 				<colgroup>
+					<col width="3%">
 					<col width="5%">
-					<col width="10%">
 					<col width="">
-					<col width="15%">
-					<col width="15%">
+					<col width="10%">
+					<col width="10%">
 				</colgroup>
 				<thead>
 					<tr>
@@ -43,12 +43,14 @@
 						<tr>
 							<td>${qna.boardRnum }</td>
 							<td>
-								<c:if test="${qna.boardCount eq 0 }">
-									<span class="volun-status ing">답변대기</span>
-								</c:if>
-								<c:if test="${qna.boardCount eq 1 }">
-									<span class="volun-status end">답변완료</span>
-								</c:if>
+								<c:choose>
+									<c:when test="${qna.boardCount eq 0 }">
+										<span class="volun-status ing">답변대기</span>
+									</c:when>
+									<c:otherwise>
+										<span class="volun-status end">답변완료</span>
+									</c:otherwise>
+								</c:choose>
 							</td>
 							<td>
 								<p class="volun-tit">
@@ -60,26 +62,20 @@
 									</c:if>
 									<a href="javascript:view(${qna.boardNo });">
 										${qna.boardTitle }
-										<c:if test="${qna.boardSecret eq 1 }"><img src="/img/lock.png"></c:if>
+										<c:if test="${qna.boardSecret eq 1 }"><img src="/img/lock.png"></c:if><%-- 비밀글 아이콘 --%>
 										<c:set var="today"><fmt:formatDate value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd" /></c:set>
-										<c:if test="${qna.boardDate eq today }"><img src="/img/new.png"></c:if>
+										<c:if test="${qna.boardDate eq today }"><img src="/img/new.png"></c:if><%-- NEW 아이콘 --%>
 									</a>
 								</p>
 							</td>
 							<td>
-								<%-- 이름이 1글자 --%>
-								<c:if test="${fn:length(qna.boardName) eq 1 }">
-									${fn:substring(qna.boardName,0,1) }
-								</c:if>
-								<%-- 이름이 2글자 --%>
-								<c:if test="${fn:length(qna.boardName) eq 2 }">
-									${fn:substring(qna.boardName,0,1) }*
-								</c:if>
-								<%-- 이름이 2글자 이상 --%>
-								<c:if test="${fn:length(qna.boardName) > 2 }">
-									${fn:substring(qna.boardName,0,2) }<c:forEach var="i" begin="1"  end="${fn:length(qna.boardName) - 2 }">*</c:forEach>
-								</c:if>
-								
+								<c:choose>
+									<c:when test="${fn:length(qna.boardName) eq 1 }">${fn:substring(qna.boardName,0,1) }</c:when>
+									<c:when test="${fn:length(qna.boardName) eq 2 }">${fn:substring(qna.boardName,0,1) }*</c:when>
+									<c:otherwise>
+										${fn:substring(qna.boardName,0,2) }<c:forEach var="i" begin="1"  end="${fn:length(qna.boardName) - 2 }">*</c:forEach>
+									</c:otherwise>
+								</c:choose>
 								<c:if test="${not empty qna.boardId}">
 									<br>(${qna.boardId })
 								</c:if>
@@ -89,19 +85,15 @@
 					</c:forEach>
 				</tbody>
 			</table>
-					
-			<c:if test="${not empty sessionScope.member}">
-				<c:if test="${sessionScope.member.memberLevel ne 2}">
+
+			<c:choose>
+				<c:when test="${empty sessionScope.member || sessionScope.member.memberLevel ne 2}">
 					<div class="common-tbl-btn-group" style="text-align: right;">
-						<button class="btn-style1 sm" onclick="location.href='/regiQna'">작성</button>
+						<button class="btn-style1 sm" onclick="location.href='/regiQna'">글쓰기</button>
 					</div>
-				</c:if>
-			</c:if>
-			<c:if test="${empty sessionScope.member}">
-				<div class="common-tbl-btn-group" style="text-align: right;">
-					<button class="btn-style1 sm" onclick="location.href='/regiQna'">작성</button>
-				</div>
-			</c:if>
+				</c:when>
+				<c:otherwise />
+			</c:choose>
 			
 			<!-- paging -->
 			<div class="paging">

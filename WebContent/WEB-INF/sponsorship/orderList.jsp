@@ -44,7 +44,7 @@
 				</form>
 			</div>
 				
-			<p class="total">총 주문 수 : ${total.count } / 총 후원 금액 : <fmt:formatNumber value="${total.price }" pattern="#,###" /> 원<%--<a style="float:right;" href="/dataBackup">insert문 출력</a> --%></p>
+			<p class="total">총 주문 수 : ${total.count } / 총 후원 금액 : <fmt:formatNumber value="${total.price }" pattern="#,###" /> 원</p>
 			<table class="comm-tbl type2">
 				<colgroup>
 					<col width="15%">
