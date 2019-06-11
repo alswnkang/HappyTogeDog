@@ -31,7 +31,8 @@ public class DogAdopListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf"
+				+ "-8");
 		//유기견 목록에서 조건검색을 했을 경우
 		String cityCode = request.getParameter("city");
 		String gunCode = request.getParameter("gun");

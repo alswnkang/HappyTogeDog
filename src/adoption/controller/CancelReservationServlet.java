@@ -1,6 +1,7 @@
 package adoption.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,15 +33,22 @@ public class CancelReservationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println("신청취소 서블릿/ 넘버: "+no);
-		int result = new BookApplyService().cancelReservation(no);
-		if(result>0) {
-			request.setAttribute("loc", "/reservationMypage");
-		}else {
-			request.setAttribute("msg", "방문예약 신청 취소 실패했습니다.");
-			request.setAttribute("loc", "/reservationMypage");
+		int result;
+		try {
+			result = new BookApplyService().cancelReservation(no);
+			if(result>0) {
+				request.setAttribute("loc", "/reservationMypage");
+			}else {
+				request.setAttribute("msg", "방문예약 신청 취소 실패했습니다.");
+				request.setAttribute("loc", "/reservationMypage");
+			}
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+			rd.forward(request, response);
+		} catch (SQLException e) {
+			RequestDispatcher rd = request.getRequestDispatcher("/error/sqlError.jsp");
+			request.setAttribute("msg", "SQL 에러가 발생했습니다.");
+			rd.forward(request, response);
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
-		rd.forward(request, response);
 	}
 
 	/**

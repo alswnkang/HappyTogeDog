@@ -1,6 +1,7 @@
 package adoption.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -41,6 +42,10 @@ public class AdminReservMypageViewServlet extends HttpServlet {
 			e.printStackTrace();
 			/*RequestDispatcher rd = request.getRequestDispatcher("/error/sqlError.jsp");
 			rd.forward(request, response);*/
+		} catch (SQLException e) {
+			RequestDispatcher rd = request.getRequestDispatcher("/error/sqlError.jsp");
+			request.setAttribute("msg", "SQL 에러가 발생했습니다.");
+			rd.forward(request, response);
 		}
 	}
 
