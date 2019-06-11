@@ -11,10 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import adoption.model.vo.SearchDogPageData;
 import finddog.model.service.SearchDogService;
 import finddog.model.vo.Kind;
 import openApi.model.dao.OpenApiDao;
 import openApi.model.vo.cityCode;
+import siBoard.model.boardVo.BoardPageData;
 
 /**
  * Servlet implementation class searchDogAllServlet
@@ -37,31 +39,65 @@ public class SearchDogAllServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
+
+		int count =0;
+		String kind = "";
+		String cityCode= "";
+		String sDay="";
+		String eDay="";
+		System.out.println(sDay+","+eDay);
 		
-		ArrayList<Integer> mlist = new ArrayList<>();
-		ArrayList<Integer> ylist = new ArrayList<>();
-		ArrayList<Integer> dlist = new ArrayList<>();
+	
+	
+		int page;
+		try {
+			page = Integer.parseInt(request.getParameter("page"));
+		}catch(NumberFormatException e){ // 처음요청시 숫자가 아니므로 1을 줘서 첫페이지로 향하게한다.
+			page = 1;
+		}
+		int page2;
+		try {
+			page2 = Integer.parseInt(request.getParameter("page2"));
+		}catch(NumberFormatException e){ // 처음요청시 숫자가 아니므로 1을 줘서 첫페이지로 향하게한다.
+			page2 = 1;
+		}
+		
+		
+		boolean b= true;
+		SearchDogPageData sdpd = new SearchDogPageData();
+		while(b) {
+			sdpd = new SearchDogService().selectListAPI(page,page2,sDay,eDay,kind,cityCode);
+			if(!sdpd.getList().isEmpty()) {
+				if(sdpd.getList().size()==8) { //8개의 리스트를답을때까지 반복
+					count++;
+					b=false;
+					if(count==10) {
+						b=false;
+					}
+				}else if(sdpd.getList().size()==7||sdpd.getList().size()==6||sdpd.getList().size()==5||sdpd.getList().size()==4||sdpd.getList().size()==3||sdpd.getList().size()==2||sdpd.getList().size()==1){
+					count++;
+					if(count==10) {
+						b=false;
+					}
+				}
+			}else {
+				break;
+			}
+		
+			
+		}
+		
+		
+
 		ArrayList<cityCode> city=null;	
-		ArrayList<Kind> kind = new ArrayList<>();
+		ArrayList<Kind> kindds = new ArrayList<>();
 		
 		city=new OpenApiDao().getCityCode();
 		
 		
-		for(int i=0;i<10;i++) {
-			ylist.add(2010+i);
-		}
-		
-		for(int i=1;i<13;i++) {
-			mlist.add(i);
-		
-		}
-		for(int i=0;i<31;i++) {
-			dlist.add(i);
-		}
-		
 		
 		try {
-			kind= new SearchDogService().getKindCode();
+			kindds= new SearchDogService().getKindCode();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -70,11 +106,26 @@ public class SearchDogAllServlet extends HttpServlet {
 		
 		
 		
-		request.setAttribute("mList", mlist);
-		request.setAttribute("yList", ylist);
-		request.setAttribute("dList", dlist);
-		request.setAttribute("kind", kind);
+
+		request.setAttribute("kind", kindds);
 		request.setAttribute("city", city);
+		
+		
+		
+		
+		
+		BoardPageData sdpd2 = new BoardPageData();
+		
+		
+		sdpd2 = new SearchDogService().selectListAllDB(page,page2, sDay, eDay, kind, cityCode);
+		
+		
+		
+		
+		
+		request.setAttribute("sdpd2", sdpd2);
+		request.setAttribute("sdpd", sdpd);   //pagedata저장
+		
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/searchTemplet.jsp");
 		rd.forward(request, response);
