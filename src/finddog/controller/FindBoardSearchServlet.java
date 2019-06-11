@@ -9,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import siBoard.model.boardDao.BoardDao;
-import siBoard.model.boardService.BoardService;
-import siBoard.model.boardVo.Board;
-import siBoard.model.boardVo.BoardViewData;
+import finddog.model.service.SearchDogService;
+import siBoard.model.boardVo.BoardPageData;
 
 /**
- * Servlet implementation class DetailTakeBoardServlet
+ * Servlet implementation class FindBoardSearchServlet
  */
-@WebServlet(name = "DetailTakeBoard", urlPatterns = { "/detailTakeBoard" })
-public class DetailTakeBoardServlet extends HttpServlet {
+@WebServlet(name = "FindBoardSearch", urlPatterns = { "/findBoardSearch" })
+public class FindBoardSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DetailTakeBoardServlet() {
+    public FindBoardSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,24 +32,35 @@ public class DetailTakeBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("utf-8");
+		String search = request.getParameter("searchWord");
+		String word=request.getParameter("keyword");
+		BoardPageData bp=null;
+		int reqPage;
+		int type=4;
+		int sel=0;
+		try {
+			reqPage = Integer.parseInt(request.getParameter("reqPage"));
+		}catch(NumberFormatException e) {
+			reqPage = 1;
+		}
+		//sel==1이면 이름 sel==2이면 제목
+		if(search.equals("boardName")) {
+			//이름 검색
+			sel=1;
+			 bp = new SearchDogService().findSearchBoard(reqPage,type,word,sel);
+			
+			
+		}else if(search.equals("boardTitle")) {
+			//제목검색
+			sel=2;
+			bp = new SearchDogService().findSearchBoard(reqPage,type,word,sel);
+			
+		}
 		
-		int no=Integer.parseInt(request.getParameter("boardNo"));
+		request.setAttribute("bp", bp);	
 		
-		
-		BoardViewData bvd  = new BoardService().takeBoardView(no);
-		
-		request.setAttribute("vd", bvd);
-		String dogkind=bvd.getB().getDogKind();
-		String kindName= new BoardService().getDogKindName(dogkind);
-		
-		
-		request.setAttribute("kindNm", kindName);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/DetailTakeBoard.jsp");
-		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/FindBoard.jsp");
 		rd.forward(request, response);
-		
 	}
 
 	/**

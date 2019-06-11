@@ -9,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import siBoard.model.boardDao.BoardDao;
 import siBoard.model.boardService.BoardService;
-import siBoard.model.boardVo.Board;
 import siBoard.model.boardVo.BoardViewData;
 
 /**
- * Servlet implementation class DetailTakeBoardServlet
+ * Servlet implementation class DetailFindBoardServlet
  */
-@WebServlet(name = "DetailTakeBoard", urlPatterns = { "/detailTakeBoard" })
-public class DetailTakeBoardServlet extends HttpServlet {
+@WebServlet(name = "DetailFindBoard", urlPatterns = { "/detailFindBoard" })
+public class DetailFindBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DetailTakeBoardServlet() {
+    public DetailFindBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,10 +46,9 @@ public class DetailTakeBoardServlet extends HttpServlet {
 		
 		request.setAttribute("kindNm", kindName);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/DetailTakeBoard.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/DetailFindBoard.jsp");
 		
 		rd.forward(request, response);
-		
 	}
 
 	/**
