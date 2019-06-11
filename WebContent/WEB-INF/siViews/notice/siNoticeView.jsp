@@ -50,7 +50,9 @@
 					</c:if>
 					<c:if test="${not empty sessionScope.member.id }">
 						<tr >
-							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">${fn:replace(vd.n.noticeContent,newLineChar,"<br/>")}</td>
+							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">
+								<pre>${fn:replace(vd.n.noticeContent,newLineChar,"<br/>")}</pre>
+							</td>
 						</tr>
 						<tr>
 							<td colspan="2" style="border-top: 0px;text-align:right;">
@@ -61,7 +63,9 @@
 					</c:if>
 					<c:if test="${empty sessionScope.member }">
 						<tr>
-							<td colspan="2" style="border-top: 0px;">${fn:replace(vd.n.noticeContent,newLineChar,"<br/>")}</td>
+							<td colspan="2" style="border-top: 0px;">
+								<pre>${fn:replace(vd.n.noticeContent,newLineChar,"<br/>")}</pre>
+							</td>
 						</tr>
 					</c:if>
 				</table>
@@ -89,10 +93,10 @@
 								<input type="hidden" name="noticeCommentNo" value="${list.noticeCommentNo }"/>
 								<tr>
 									<td width="20%">${list.noticeCommentName }(${list.noticeCommentId })</td>
-									<td width="65%" class="clearfix">
-										<span class="cmt-content">${list.noticeCommentContent }</span>
+									<td width="65%" class="clearfix">${clist.noticeCommentContent }
+										<pre><c:out value="${list.noticeCommentContent }" escapeXml="true"/></pre>
 										<em class="cmt-date">${list.noticeCommentDate2 }</em>
-										<input type="text" value="${list.noticeCommentContent }" name="noticeCommentContent" class="noticeCommentContent" style="display:none;"/>
+										<input type="text" value="<c:out value="${list.noticeCommentContent }" escapeXml="true"/>" class="noticeCommentContent" name="noticeCommentContent" style="display:none;"/>
 									</td>
 									<%-- 회원일때만 노출 --%>
 									<c:if test="${not empty sessionScope.member }">
@@ -124,9 +128,9 @@
 									<tr>
 										<td width="20%"> └─ ${clist.noticeCommentName }(${clist.noticeCommentId })</td>
 										<td width="65%">
-											<span class="cmt-content">${clist.noticeCommentContent }</span>
+											<pre class="cmt-content"><c:out value="${clist.noticeCommentContent }" escapeXml="true"/></pre>
 											<em class="cmt-date">${clist.noticeCommentDate2 }</em>
-											<input type="text" value="${clist.noticeCommentContent }" class="noticeReCommentModify${clist.noticeCommentNo } noticeReCommentModify" style="display:none;"/>
+											<input type="text" value="<c:out value="${clist.noticeCommentContent }" escapeXml="true"/>" class="noticeReCommentModify${clist.noticeCommentNo } noticeReCommentModify" style="display:none;"/>
 										</td>
 										<%-- 회원일때만 노출 --%>
 										<c:if test="${not empty sessionScope.member }">
@@ -197,8 +201,8 @@
 		var memberName = '${sessionScope.member.name }';
 		var noticeCommentContent = $(".noticeReCommentContent"+noticeCommentNo).val();
 		location.href="/siNoticeReCommentInsert?noticeType=0"+"&noticeRef="+${vd.n.noticeNo }
-			+"&memberId="+memberId+"&memberName="+memberName+"&noticeCommentContent="+noticeCommentContent
-			+"&noticeNo="+${vd.n.noticeNo }+"&noticeCommentRef="+noticeCommentNo;
+			+"&memberId="+memberId+"&memberName="+memberName+"&noticeNo="+${vd.n.noticeNo }
+			+"&noticeCommentRef="+noticeCommentNo+"&noticeCommentContent="+encodeURI(noticeCommentContent);
 	}
 	function rcmtDelBtn(noticeCommentNo,noticeCommentRef){//대댓글 삭제확인
 		if(confirm("답글을 삭제하시겠습니까?")){

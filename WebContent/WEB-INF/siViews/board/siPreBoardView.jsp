@@ -5,7 +5,7 @@
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
-<%pageContext.setAttribute("newLineChar", "\n"); %>
+<%pageContext.setAttribute("newLineChar", "/n"); %>			
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
 			<h2 class="main-comm-tit">자유게시판</h2>
@@ -38,7 +38,9 @@
 					<c:if test="${not empty sessionScope.member.id }">
 					<!-- 로그인을 안하면 댓글리스트만 조회가능, 등록칸이 보이지 않도록 설정 -->
 						<tr>
-							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">${fn:replace(vd.b.boardContent,newLineChar,"<br/>")}</td>
+							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">
+								<pre>${fn:replace(vd.b.boardContent,newLineChar,"<br/>")}</pre>
+							</td>
 						</tr>
 						<tr>
 							<td colspan="2" style="border-top: 0px;">
@@ -50,7 +52,9 @@
 					<c:if test="${empty sessionScope.member.id }">
 					<!-- 로그인을 안하면 댓글리스트만 조회가능, 등록칸이 보이지 않도록 설정 -->
 						<tr>
-							<td colspan="2" style="border-top: 0px;">${fn:replace(vd.b.boardContent,newLineChar,"<br/>")}</td>
+							<td colspan="2" style="border-top: 0px;">
+								<pre>${fn:replace(vd.b.boardContent,newLineChar,"<br/>")}</pre>
+							</td>
 						</tr>
 					</c:if>
 				</table>
@@ -80,8 +84,8 @@
 								<tr>
 									<td width="20%">${list.boardCommentName }(${list.boardCommentId })</td>
 									<td width="65%">
-										<span>${list.boardCommentContent }</span>
-										<input type="text" value="${list.boardCommentContent }" name="boardCommentContent" style="display:none;"/>
+										<pre><c:out value="${list.boardCommentContent }" escapeXml="true"/></pre>
+										<input type="text" value="<c:out value="${list.boardCommentContent }" escapeXml="true"/>" name="boardCommentContent" style="display:none;"/>
 									</td>
 									<td width="11%">
 										${list.boardCommentDate2 }<br/>
@@ -111,8 +115,8 @@
 									<tr>
 										<td width="20%"> └─ ${clist.boardCommentName }(${clist.boardCommentId })</td>
 										<td width="65%">
-											<span>${clist.boardCommentContent }</span>
-											<input type="text" value="${clist.boardCommentContent }" class="boardReCommentModify${clist.boardCommentNo }" style="display:none;"/>
+											<pre><c:out value="${clist.boardCommentContent }" escapeXml="true"/></pre>
+											<input type="text" value="<c:out value="${clist.boardCommentContent }" escapeXml="true"/>" class="boardReCommentModify${clist.boardCommentNo }" style="display:none;"/>
 										</td>
 										<td width="11%">
 											${clist.boardCommentDate2 }<br/>
@@ -135,7 +139,7 @@
 							<tr style="display:none;"><!-- 대댓글 버튼 클릭시 입력창 노출 -->
 								<td> -> re : ${sessionScope.member.name }(${sessionScope.member.id })</td>
 								<td>
-									<input type="text" name="boardReCommentContent" class="boardReCommentContent${list.boardCommentNo }"  placeholder="대댓글을 입력하세요" maxlenth="50">
+									<input type="text" name="boardReCommentContent" class="boardReCommentContent${list.boardCommentNo }"  placeholder="답글을 입력하세요" maxlenth="50">
 								</td>
 								<td>
 									<button onclick="sendReCmt('${list.boardCommentNo }')" type="button">등록</button>
@@ -185,8 +189,8 @@
 		var memberName = '${sessionScope.member.name }';
 		var boardCommentContent = $(".boardReCommentContent"+boardCommentNo).val();
 		location.href="/siPreBoardReCommentInsert?boardType=1"+"&boardRef="+${vd.b.boardNo }
-			+"&memberId="+memberId+"&memberName="+memberName+"&boardCommentContent="+boardCommentContent
-			+"&boardNo="+${vd.b.boardNo }+"&boardCommentRef="+boardCommentNo;
+			+"&memberId="+memberId+"&memberName="+memberName+"&boardNo="+${vd.b.boardNo }
+			+"&boardCommentRef="+boardCommentNo+"&boardCommentContent="+encodeURI(boardCommentContent);
 	}
 	function rcmtDelBtn(boardCommentNo,boardCommentRef){//대댓글 삭제확인
 		if(confirm("답글을 삭제하시겠습니까?")){
