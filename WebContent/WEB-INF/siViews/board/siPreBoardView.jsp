@@ -63,6 +63,8 @@
 							<td colspan="4" style="text-align:center">
 								댓글입력 <input type="text" name="boardCommentContent" value=""/>
 								<button type="submit">등록</button>
+								/
+								<button type="button" class="cancelBtn">취소</button>
 							</td>
 						</tr>
 					</table>
@@ -98,7 +100,7 @@
 											/
 										</c:if>
 										<c:if test="${not empty sessionScope.member.id }"><!-- 로그인시 노출 -->
-											<button type="button" class="reCmtBtn">대댓글</button>
+											<button type="button" class="reCmtBtn">답글</button>
 										</c:if>
 									</td>
 								</tr>	
@@ -135,7 +137,9 @@
 									<input type="text" name="boardReCommentContent" class="boardReCommentContent${list.boardCommentNo }"  placeholder="대댓글을 입력하세요" maxlenth="50">
 								</td>
 								<td>
-									<button onclick="sendReCmt('${list.boardCommentNo }')" type="button">대댓글 등록하기</button>
+									<button onclick="sendReCmt('${list.boardCommentNo }')" type="button">등록</button>
+									/
+									<button class="reCmtBtnr" type="button" >취소</button>
 								</td>
 							</tr>
 						</table>
@@ -160,6 +164,17 @@
 	</section>
 
 <script>
+	$(document).ready(function(){	//댓글 입력 취소	
+		$('.cancelBtn').click(function(){
+			$('#commentTb').hide();
+		});
+	});
+	$(document).ready(function(){	//대댓글 입력 취소	
+		$('.reCmtBtnr').click(function(){
+			$(this).parent().parent().hide();
+			$('.reCmtBtn').show();
+		});
+	});
 	function sendReCmt(boardCommentNo){	//대댓글 전송
 		var memberId = '${sessionScope.member.id }';		
 		var memberName = '${sessionScope.member.name }';
