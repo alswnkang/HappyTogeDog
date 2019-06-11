@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
 
@@ -20,14 +21,14 @@
 					</thead>
 					
 					<tbody>
-						<c:forEach items="${list }" var="i">
+						<c:forEach items="${mpd.list }" var="i">
 							<tr>
 								<td>${i.name }</td>
-								<td>${i.address }</td>
+								<td>${fn:split(i.address,'//')[0]}</td>
 								<td>${i.phone }</td>
 							</tr>
 						</c:forEach>
-						<c:if test="${empty list }">
+						<c:if test="${empty mpd.list }">
 							<tr height="100px">
 								<td colspan="3">검색하신 보호소가 없습니다.</td>
 							</tr>
@@ -35,15 +36,17 @@
 					</tbody>
 				</table>
 				<!-- paging -->
-				
+				<div class="paging">
+					${mpd.pageNavi }
+		 		</div>
 				
 		 		<!-- 검색박스 -->
 		 		<div class="board-search-box">
 		 			<form action="/nameSearchShelter" method="get">
-						<select name="type"><!-- option 세부항목은 각자 알아서 넣으시면 됩니다. -->
+						<select name="type" style="display:none;"><!-- option 세부항목은 각자 알아서 넣으시면 됩니다. -->
 							<option value="name">보호소명</option>
 						</select>
-						<input placeholder="검색어를 입력해주세요." type="search" name="keyword" class="search-word" value="${param.keyword }">
+						<input placeholder="보호소명을 입력해주세요." type="search" name="keyword" class="search-word" value="${keyword}">
 						<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
 					</form>
 				</div>

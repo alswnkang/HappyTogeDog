@@ -35,22 +35,19 @@
 					</tbody>
 					
 				</table>
+				
 				<!-- paging -->
-				
-				
-				
 				<div class="paging">
-				
 					${spd.pageNavi }
-		 		
 		 		</div>
+		 		
 		 		<!-- 검색박스 -->
 		 		<div class="board-search-box">
 		 			<form action="/nameSearchShelter" method="get">
-						<select name="type"><!-- option 세부항목은 각자 알아서 넣으시면 됩니다. -->
+						<select name="type" style="display:none;"><!-- option 세부항목은 각자 알아서 넣으시면 됩니다. -->
 							<option value="name">보호소명</option>
 						</select>
-						<input placeholder="검색어를 입력해주세요." type="search" name="keyword" class="search-word">
+						<input placeholder="보호소명을 입력해주세요." type="search" name="keyword" class="search-word">
 						<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
 					</form>
 				</div>

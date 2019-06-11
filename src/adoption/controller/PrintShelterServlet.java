@@ -59,7 +59,6 @@ public class PrintShelterServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(mpd.getList().size());
 		request.setAttribute("spd", mpd);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/findShelter.jsp");

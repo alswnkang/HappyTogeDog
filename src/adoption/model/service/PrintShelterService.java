@@ -53,35 +53,39 @@ public class PrintShelterService {
 		return spd;
 	}
 
-	public int addShelter(Member m) throws SQLException {
+	public MemberPageData getSearchName(String key, int reqPage) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection conn = JDBCTemplate.getCon();
+		String pageNavi ="";
+		int numPerPage =10;
+		int totalCount = new PrintShelterDao().searchNameCount(conn,key);
+		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
+		int start =(reqPage-1)*numPerPage+1;
+		int end = reqPage*numPerPage;
+		ArrayList<Member> list = new PrintShelterDao().getSearchName(conn,key,start,end);
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		
-		int result=new PrintShelterDao().addShelter(conn, m);
-		
+		if(pageNo!=1) {
+			pageNavi += "<a class='paging-arrow prev-arrow' href='/nameSearchShelter?page="+(pageNo-1)+"&keyword="+key+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
+		}
+		int i = 1;
+		while(!(i++>pageNaviSize||pageNo>totalPage)) {
+			if(reqPage==pageNo) {
+				pageNavi += "<span class='cur'>"+pageNo+"</span>";
+			}else {
+				pageNavi +="<a href='/nameSearchShelter?page="+pageNo+"&keyword="+key+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<a class='paging-arrow next-arrow' href='/nameSearchShelter?page="+pageNo+"&keyword="+key+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
+		}
 		JDBCTemplate.close(conn);
-		return result;
-	}
-
-	public ArrayList<Shelter> getAllList() throws SQLException {
-		// TODO Auto-generated method stub
-		
-		Connection conn = JDBCTemplate.getCon();
-		
-		ArrayList<Shelter> list=new PrintShelterDao().getAllList(conn);
-		
 		JDBCTemplate.close(conn);
-		return list;
-	}
-
-	public ArrayList<Member> getSearchName(String key) throws SQLException {
-		// TODO Auto-generated method stub
-		Connection conn = JDBCTemplate.getCon();
+		MemberPageData mpd = new MemberPageData(list,pageNavi);
+		return mpd;
 		
-		ArrayList<Member> list = new PrintShelterDao().getSearchName(conn,key);
-		
-		JDBCTemplate.close(conn);
-		return list;
 	}
 
 	public MemberPageData printShelterFirst(int reqPage) throws SQLException {
@@ -114,7 +118,7 @@ public class PrintShelterService {
 			pageNo++;
 		}
 		if(pageNo <= totalPage) {
-			pageNavi += "<a class='paging-arrow next-arrow' href='/findShelter?page="+(pageNo+1)+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
+			pageNavi += "<a class='paging-arrow next-arrow' href='/findShelter?page="+(pageNo)+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
 		}
 		spd.setPageNavi(pageNavi);
 		
