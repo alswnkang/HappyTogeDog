@@ -218,8 +218,8 @@
 			$('.cancelBtn').click(function(){
 				$(this).parent().prev().children().eq(0).show();
 				$(this).parent().prev().children().eq(2).hide();
-				$('.mdfBtn').show();
-				$('.cmtrUpdate').hide();
+				$(this).prev().hide();
+				$(this).prev().prev().show();
 				$(this).hide();
 			});
 			$(".cmtrUpdate").click(function(){
@@ -237,8 +237,8 @@
 			$('.cancelBtnr').click(function(){
 				$(this).parent().prev().children().eq(0).show();
 				$(this).parent().prev().children().eq(2).hide();
-				$('.mdfBtnr').show();
-				$('.cmtrUpdate').hide();
+				$(this).prev().show();
+				$(this).prev().prev().hide();
 				$(this).hide();
 			});
 		});

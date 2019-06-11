@@ -25,22 +25,20 @@
 						<td>작성자 : ${vd.a.adoptionBoardName }(${vd.a.adoptionBoardId })</td>
 						<td>작성일 : ${vd.a.adoptionBoardDate2 }</td>
 					</tr>
-					
-					
 					<c:if test="${not empty vd.a.adoptionBoardFilename }">
 					<!-- 파일이 있을 때 -->
 						<c:if test="${not empty sessionScope.member.id }">
 						<!-- 로그인 된 경우 사진과 내용, 댓글 버튼 노출 -->
-						<tr>
-							<td colspan="2" style="text-align:center;border-bottom: 0px;">
-								<a style="float:right;" href="javascript:fileDownload('${vd.a.adoptionBoardFilename }','${vd.a.adoptionBoardFilepath }');">${vd.a.adoptionBoardFilename }</a>
-								<br/>
-								<img src='/siUpload/adoptionBoard/${vd.a.adoptionBoardFilename }'width="500px"/>
-								<!-- 파일이 있으면 넘겨준 No를 기준으로 게시물의 이름을 불러와서 출력 -->
-								<br/><br/><br/>
-								${fn:replace(vd.a.adoptionBoardContent,newLineChar,"<br/>")}
-							</td>
-						</tr>
+							<tr>
+								<td colspan="2" style="text-align:center;border-bottom: 0px;">
+									<a style="float:right;" href="javascript:fileDownload('${vd.a.adoptionBoardFilename }','${vd.a.adoptionBoardFilepath }');">${vd.a.adoptionBoardFilename }</a>
+									<br/>
+									<img src='/siUpload/adoptionBoard/${vd.a.adoptionBoardFilename }'width="500px"/>
+									<!-- 파일이 있으면 넘겨준 No를 기준으로 게시물의 이름을 불러와서 출력 -->
+									<br/><br/><br/>
+									${fn:replace(vd.a.adoptionBoardContent,newLineChar,"<br/>")}
+								</td>
+							</tr>
 							<tr>
 								<td colspan="2" class="cmtBtn" style="border-top: 0px;">
 									<button type="button" style="float:right;">댓글</button>
@@ -190,7 +188,7 @@
 <script>
 	$(document).ready(function(){	//댓글 입력 취소	
 		$('.cancelBtn').click(function(){
-			$('#commentTb').hide();
+			$('#commentTb').hide(); 
 			$('[name=adoptionBoardCommentContent]').val('');
 		});
 	});
@@ -198,7 +196,7 @@
 		$('.reCmtBtnr').click(function(){
 			$(this).parent().parent().hide();
 			$(this).parent().prev().children().val('');
-			$('.reCmtBtn').show();
+			$(this).parent().parent().prev().prev().children().eq(4).last().show();
 		});
 	});
 	function sendReCmt(adoptionBoardCommentNo){	//대댓글 전송
@@ -226,7 +224,7 @@
 	});
 	$(document).ready(function(){	// 댓글 입력창 노출
 		$('.cmtBtn').click(function(){
-			$('#commentTb').show();
+			$(this).parent().parent().parent().next().children().eq(4).show();
 		});
 	});
 	$(document).ready(function(){	//댓글 수정,취소 버튼  
@@ -252,7 +250,7 @@
 			$(this).parent().prev().children().eq(0).hide();
 			$(this).parent().prev().children().eq(1).show();
 			$(this).hide();
-			$('.cmtrUpdate').show();
+			$(this).prev().show();
 			$(this).nextAll().show();
 			$('.cancelBtnr').click(function(){
 				$(this).parent().prev().children().eq(0).show();
