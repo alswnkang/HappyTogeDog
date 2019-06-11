@@ -8,10 +8,12 @@
 <%pageContext.setAttribute("newLineChar", "\n"); %>
 <style>
 .cmt-txt{display:inline-block; vertical-align:middle; font-size:14px; font-weight:500;}
-.cmtBtn, .reCmtBtn, .cmtDelBtn, .rcmtDelBtn, 
+/* .cmtBtn, .reCmtBtn, .cmtDelBtn, .rcmtDelBtn, 
 .cmtrUpdate, .mdfBtnr, .cancelBtnr{display:inline-block; vertical-align:middle; font-size:13px; background:rgba(254,67,30); padding:5px 10px; color:#fff; border-radius:5px;}
 .cmtBtn.big, .reCmtBtn.big, .reCmtBtn.big{font-size:14px; padding:8px 20px;}
-.cmtDelBtn, .rcmtDelBtn, .cmtDelBtn:hover, .rcmtDelBtn:hover{background:#444; color:#fff;}
+.cmtDelBtn, .rcmtDelBtn, .cmtDelBtn:hover, .rcmtDelBtn:hover{background:#444; color:#fff;} */
+.applyBtn{display:inline-block; vertical-align:middle; font-size:13px; background:rgba(254,67,30); padding:5px 10px; color:#fff; border-radius:5px;}
+.cancelBtn2{background:#444; color:#fff;}
 .noticeCommentContent, .noticeReCommentModify{max-width:85%;}
 .cmt-content{display:inline-block; float:left; max-width:80%;}
 .cmt-date{display:inline-block; float:right; max-width:15%;}
@@ -71,8 +73,8 @@
 						<tr>
 							<td colspan="4" style="text-align:center;">
 								<span class="cmt-txt">댓글 입력</span>&nbsp;&nbsp;<input type="text" name="noticeCommentContent" value="" maxlength="50" class="noticeCommentContent"/>
-								<button type="submit" class="cmtBtn">등록</button>
-								<button type="button" class="cancelBtn">취소</button>
+								<button type="submit" class="cmtBtn applyBtn">등록</button>
+								<button type="button" class="cmtDelBtn cancelBtn">취소</button>
 							</td>
 						</tr>
 					</table>
@@ -98,16 +100,21 @@
 											<c:if test="${sessionScope.member.id==list.noticeCommentId }">
 											<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
 												<button class="mdfBtn" type="button">수정</button>
-												<button class="cmtrUpdate" type="button" style="display:none;">등록</button>
+												<button class="cmtUpdate" type="button" style="display:none;">등록</button>
+												<button style="display:none;">|</button>
 												<button class="cancelBtn" type="reset" style="display:none;">취소</button>
+												|
 												<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.noticeCommentNo }');">삭제</a>
+												|
+
 											</c:if>
 											<c:if test="${sessionScope.member.id!=list.noticeCommentId && sessionScope.member.id eq 'admin' }">
 											<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
 												<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.noticeCommentNo }');">삭제</a>
+												|
 											</c:if>
 											<c:if test="${not empty sessionScope.member.id }"><!-- 로그인시 노출 -->
-												<button type="button" class="reCmtBtn big">답글</button>
+												<button type="button" class="reCmtBtn">답글</button>
 											</c:if>
 										</td>
 									</c:if>
@@ -129,6 +136,8 @@
 													<button class="cmtrUpdate" type="button" onclick="cmtrMfy('${clist.noticeCommentRef }','${clist.noticeCommentNo }')" style="display:none;">등록</button>
 													<button class="mdfBtnr" type="button">수정</button>
 													<button class="cancelBtnr" type="reset" style="display:none;">취소</button>
+													|
+
 													<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.noticeCommentNo }','${clist.noticeCommentRef }');">삭제</a>
 												</c:if>
 												<c:if test="${sessionScope.member.id!=clist.noticeCommentId && sessionScope.member.id eq 'admin' }">
@@ -146,7 +155,7 @@
 									<input type="text" name="noticeReCommentContent" class="noticeReCommentContent${list.noticeCommentNo }"  placeholder="답글을 입력하세요" maxlenth="50">
 								</td>
 								<td style="text-align:center;">
-									<button onclick="sendReCmt('${list.noticeCommentNo }')" type="button" class="reCmtBtn big">등록</button>
+									<button onclick="sendReCmt('${list.noticeCommentNo }')" type="button" class="reCmtBtn">등록</button>
 									<button class="reCmtBtnr" type="button" >취소</button>
 								</td>
 							</tr>

@@ -38,14 +38,18 @@ public class SiNoticeCommentInsertServlet extends HttpServlet {
 		int noticeRef = Integer.parseInt(request.getParameter("noticeNo"));
 		NoticeComment nc = new NoticeComment(0, noticeCommentType, noticeCommentId, noticeCommentName, noticeCommentContent, noticeRef, 0, null,null);
 		int result = new NoticeCommentService().commentInsert(nc);
-		String view = "";
-		if(result>0) {
-			view = "/siNoticeView?noticeNo="+noticeRef;
-		}else {
-			view = "/siNoticeView?noticeNo="+noticeRef;
-		}
-		RequestDispatcher rd = request.getRequestDispatcher(view);
-		rd.forward(request, response);
+		
+		response.sendRedirect("/siNoticeView?noticeNo="+noticeRef);
+		
+//		String view = "";
+//		if(result>0) {
+//			view = "/siNoticeView?noticeNo="+noticeRef;
+//		}else {
+//			view = "/siNoticeView?noticeNo="+noticeRef;
+//		}
+//		
+//		RequestDispatcher rd = request.getRequestDispatcher(view);
+//		rd.forward(request, response);
 	}
 
 	/**
