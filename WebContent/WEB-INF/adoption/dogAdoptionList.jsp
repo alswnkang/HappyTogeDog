@@ -66,7 +66,12 @@
 						<input type="hidden" name="specialMark" value="${m.specialMark }">
 						<input type="hidden" name="neuterYn" value="${m.neuterYn }">
 						<input type="hidden" name="filename" value="${m.filename }">
-						<input type="hidden" name="city" value="${city}">
+						<input type="hidden" name="city">
+						<input type="hidden" name="gun">
+						<input type="hidden" name="dogsize">
+						<input type="hidden" name="kindCd">
+						<input type="hidden" name="neuter">
+						<input type="hidden" name="reqPage" value="${reqPage}">
 						<a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo">		<!-- 보호소명 보내기 -->
 							<div class="img-thum">
 								<span style="background:url('${m.filename }') no-repeat center center; background-size:cover;"></span>
@@ -205,6 +210,13 @@
 				$(this).prop("selected",true);
 			}
 		});
+		
+		/* 검색내용 input value에 넣어서 보내주기 */
+		$('input[name=city]').val($('select[name=city]').data('city'));
+		$('input[name=gun]').val($('select[name=gun]').data('gun'));
+		$('input[name=dogsize]').val($('select[name=dogsize]').data('size'));
+		$('input[name=kindCd]').val($('select[name=kindCd]').data('kind'));
+		$('input[name=neuter]').val($('select[name=neuterYn]').data('neuter'));
 		
 	});
 </script>

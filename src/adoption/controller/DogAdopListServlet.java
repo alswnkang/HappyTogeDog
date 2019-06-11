@@ -70,6 +70,7 @@ public class DogAdopListServlet extends HttpServlet {
 		request.setAttribute("kindCd", kindCd);
 		request.setAttribute("dogsize", dogsize);
 		request.setAttribute("neuterYn", neuterYn);
+		request.setAttribute("reqPage", reqPage);
 		request.setAttribute("sdpd", sdpd);   //pagedata저장
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/dogAdoptionList.jsp");	//유기견 리스트 페이지로 이동
 		rd.forward(request, response);

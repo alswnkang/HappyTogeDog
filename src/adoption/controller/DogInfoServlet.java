@@ -43,9 +43,13 @@ public class DogInfoServlet extends HttpServlet {
 		String specialMark = request.getParameter("specialMark");	//특이사항
 		String neuterYn = request.getParameter("neuterYn");			//중성화여부
 		String filename = request.getParameter("filename");			//이미지 사진
-		System.out.println(sexCd);		
-		System.out.println(neuterYn);
-		System.out.println("받아와지나?"+request.getParameter("city"));
+		//검색값 넘겨받음
+		String city = request.getParameter("city");
+		String gun = request.getParameter("gun");
+		String dogsize = request.getParameter("dogsize");
+		String dogkind = request.getParameter("kindCd");
+		String neuter = request.getParameter("neuter");
+		String reqPage = request.getParameter("reqPage");
 		//보호소 방문가능시간,보호소코드 가져오기
 		ArrayList<String> careList;
 		try {
@@ -53,7 +57,13 @@ public class DogInfoServlet extends HttpServlet {
 			DogList dl = new DogList(age,careAddr,careNm,careTel,filename,kindCd,sexCd,specialMark,neuterYn);
 			request.setAttribute("dl", dl);
 			request.setAttribute("careList", careList);		//보호소코드,보호소방문가능시간
-			System.out.println(careList);		
+			//검색조건 보내기
+			request.setAttribute("cityCode", city);
+			request.setAttribute("gun", gun);
+			request.setAttribute("dogsize", dogsize);
+			request.setAttribute("kindCd", dogkind);
+			request.setAttribute("neuterYn", neuter);
+			request.setAttribute("reqPage", reqPage);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/dogInfo.jsp");
 			rd.forward(request, response);
 		} catch (SQLException e) {
