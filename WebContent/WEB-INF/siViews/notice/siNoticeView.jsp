@@ -74,7 +74,6 @@
 							<td colspan="4" style="text-align:center;">
 								<span class="cmt-txt">댓글 입력</span>&nbsp;&nbsp;<input type="text" name="noticeCommentContent" value="" maxlength="50" class="noticeCommentContent"/>
 								<button type="submit" class="cmtBtn applyBtn">등록</button>
-								
 								<button type="button" class="cmtDelBtn cancelBtn">취소</button>
 							</td>
 						</tr>
@@ -107,6 +106,7 @@
 												|
 												<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.noticeCommentNo }');">삭제</a>
 												|
+
 											</c:if>
 											<c:if test="${sessionScope.member.id!=list.noticeCommentId && sessionScope.member.id eq 'admin' }">
 											<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
@@ -135,9 +135,9 @@
 												<c:if test="${clist.noticeCommentId == sessionScope.member.id }">
 													<button class="cmtrUpdate" type="button" onclick="cmtrMfy('${clist.noticeCommentRef }','${clist.noticeCommentNo }')" style="display:none;">등록</button>
 													<button class="mdfBtnr" type="button">수정</button>
-													<button style="display:none;">/</button>
 													<button class="cancelBtnr" type="reset" style="display:none;">취소</button>
 													|
+
 													<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.noticeCommentNo }','${clist.noticeCommentRef }');">삭제</a>
 												</c:if>
 												<c:if test="${sessionScope.member.id!=clist.noticeCommentId && sessionScope.member.id eq 'admin' }">
@@ -156,7 +156,6 @@
 								</td>
 								<td style="text-align:center;">
 									<button onclick="sendReCmt('${list.noticeCommentNo }')" type="button" class="reCmtBtn">등록</button>
-									
 									<button class="reCmtBtnr" type="button" >취소</button>
 								</td>
 							</tr>
@@ -230,12 +229,9 @@
 				$(this).parent().prev().children().eq(2).hide();
 				$('.mdfBtn').show();
 				$('.cmtrUpdate').hide();
-				$(this).prev().hide();
-				$(this).prev().prev().hide();
 				$(this).hide();
-				/* location.href='/siNoticeView?noticeNo='+${vd.n.noticeNo }; */
 			});
-			$(".cmtUpdate").click(function(){
+			$(".cmtrUpdate").click(function(){
 				$(this).parents('form').submit();
 			});
 		});
@@ -252,10 +248,7 @@
 				$(this).parent().prev().children().eq(2).hide();
 				$('.mdfBtnr').show();
 				$('.cmtrUpdate').hide();
-				$('.mdfBtnr').next().hide();
-				$(this).prev().hide();
 				$(this).hide();
-				/* location.href='/siNoticeView?noticeNo='+${vd.n.noticeNo }; */
 			});
 		});
 	});
