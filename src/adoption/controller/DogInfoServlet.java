@@ -1,6 +1,7 @@
 package adoption.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -45,13 +46,20 @@ public class DogInfoServlet extends HttpServlet {
 		System.out.println(sexCd);		
 		System.out.println(neuterYn);
 		//보호소 방문가능시간,보호소코드 가져오기
-		ArrayList<String> careList = new BookApplyService().careTime(careNm);
-		DogList dl = new DogList(age,careAddr,careNm,careTel,filename,kindCd,sexCd,specialMark,neuterYn);
-		request.setAttribute("dl", dl);
-		request.setAttribute("careList", careList);		//보호소코드,보호소방문가능시간
-		System.out.println(careList);		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/dogInfo.jsp");
-		rd.forward(request, response);
+		ArrayList<String> careList;
+		try {
+			careList = new BookApplyService().careTime(careNm);
+			DogList dl = new DogList(age,careAddr,careNm,careTel,filename,kindCd,sexCd,specialMark,neuterYn);
+			request.setAttribute("dl", dl);
+			request.setAttribute("careList", careList);		//보호소코드,보호소방문가능시간
+			System.out.println(careList);		
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/dogInfo.jsp");
+			rd.forward(request, response);
+		} catch (SQLException e) {
+			RequestDispatcher rd = request.getRequestDispatcher("/error/sqlError.jsp");
+			request.setAttribute("msg", "SQL 에러가 발생했습니다.");
+			rd.forward(request, response);
+		}
 	}
 
 	/**

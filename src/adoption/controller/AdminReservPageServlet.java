@@ -48,6 +48,10 @@ public class AdminReservPageServlet extends HttpServlet {
 			e.printStackTrace();
 			/*RequestDispatcher rd = request.getRequestDispatcher("/error/sqlerror.jsp");
 			rd.forward(request, response);*/
+		} catch (SQLException e) {
+			RequestDispatcher rd = request.getRequestDispatcher("/error/sqlError.jsp");
+			request.setAttribute("msg", "SQL 에러가 발생했습니다.");
+			rd.forward(request, response);
 		}
 	}
 
