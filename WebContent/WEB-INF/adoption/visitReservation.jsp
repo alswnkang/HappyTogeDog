@@ -98,6 +98,21 @@
 							</td>
 						</tr>
 					</table>
+					<br>
+					<table class="comm-tbl view" >
+						<tr style="display: none;"></tr>
+						<tr>
+							<td>
+								<p>입양절차 안내
+									입양상담은 법적 공고기간 10일 이후부터 진행됩니다.<br>
+									입양신청서가 접수되면, 입양업무 담당자가 서류심사를 한 후, 입양이 가능하다고 판단된 분께만 개별연락을 드리며,<br>
+									1차 전화상담, 2차 방문상담 후 입양여부를 최종 결정하게 됩니다.<br>
+									또한, 미성년자나 대학생의 경우는 부모님의 동의여부를 확인해야만 입양이 가능합니다.<br>
+									입양이 결정된 경우, 보호소를 방문하실 때는 신분증과 입양동물의 운송에 필요한 물품(이동가방, 목걸이, 리드줄 등)을 지참하시고<br>
+									선택하신 방문시간까지 방문해 주셔야 합니다.</p>
+							</td>
+						</tr>
+					</table>
 					<div class="common-tbl-btn-group">
 						<button type="submit" class="btn-style1">등록</button>
 						<button type="button" class="btn-style2" onclick="history.back();">취소</button>
