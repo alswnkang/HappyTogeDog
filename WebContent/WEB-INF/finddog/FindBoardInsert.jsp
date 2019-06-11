@@ -32,7 +32,7 @@
 							</th>
 						</tr>
 						<tr>
-							<th>잃어버린 날짜</th>
+							<th>잃어버린 도시</th>
 							<th>
 								<select name="happenCity">
 									<option>도시</option>
@@ -43,7 +43,7 @@
 							</th>
 						</tr>
 						<tr>
-							<th>발견시간</th>
+							<th>잃어버린 날짜</th>
 							<th>
 								<input type="date" name="startDay" class="datepicker search-day">
 							</th>
