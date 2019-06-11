@@ -39,8 +39,9 @@
 								</td>
 							</tr>
 							<tr>
-								<td colspan="2" class="cmtBtn" style="border-top: 0px;">
-									<button type="button" style="float:right;">댓글</button>
+								<td colspan="2" style="border-top: 0px;">
+									<button type="button" style="float:right;display:block;"class="cmtBtn">댓글</button>
+									<button type="button" style="float:right;display:none;" class="cancelBtn">취소</button>
 								</td>
 							</tr>
 						</c:if>
@@ -69,7 +70,8 @@
 							</tr>
 							<tr>
 								<td colspan="2" class="cmtBtn" style="border-top: 0px;">
-									<button type="button" style="float:right;">댓글</button>
+									<button type="button" style="float:right;display:block;">댓글</button>
+									<button type="button" style="display:none;" class="cancelBtn">취소</button>
 								</td>
 							</tr>
 						</c:if>
@@ -93,8 +95,6 @@
 							<td colspan="4" style="text-align:center">
 								<span class="cmt-txt">댓글입력</span>&nbsp;&nbsp;<input style="width:88%;" type="text" name="adoptionBoardCommentContent" value="" maxlength="50" />
 								<button type="submit">등록</button>
-								|
-								<button type="button" class="cancelBtn">취소</button>
 							</td>
 						</tr>
 					</table>
@@ -169,7 +169,7 @@
 								</td>
 								<td>
 									<button onclick="sendReCmt('${list.adoptionBoardCommentNo }')" type="button">등록</button>
-									|
+									<span>|</span>
 									<button class="reCmtBtnr" type="button" >취소</button>
 								</td>
 							</tr>
@@ -193,12 +193,14 @@
 	</section>
 
 <script>
-	$(document).ready(function(){	//댓글 입력 취소	
+ 	$(document).ready(function(){	//댓글 입력 취소	
 		$('.cancelBtn').click(function(){
 			$('#commentTb').hide(); 
 			$('[name=adoptionBoardCommentContent]').val('');
+			$(this).hide();
+			$(this).prev().show();
 		});
-	});
+	}); 
 	$(document).ready(function(){	//대댓글 입력 취소	
 		$('.reCmtBtnr').click(function(){
 			$(this).parent().parent().hide();
@@ -215,13 +217,17 @@
 			+"&adoptionBoardNo="+${vd.a.adoptionBoardNo }+"&adoptionBoardCommentRef="+adoptionBoardCommentNo;
 	}
 	function rcmtDelBtn(adoptionBoardCommentNo,adoptionBoardCommentRef){//대댓글 삭제확인
-		if(confirm("댓글을 삭제하시겠습니까?")){
+		if(confirm("답글을 삭제하시겠습니까?")){
 			location.href="/siAdoptionBoardReCommentDelete?adoptionBoardCommentNo="+adoptionBoardCommentNo+"&adoptionBoardNo="+${vd.a.adoptionBoardNo }+"&adoptionBoardCommentRef="+adoptionBoardCommentRef;
+		}else{
+			location.href="/siAdoptionBoardView?adoptionBoardNo="+${vd.a.adoptionBoardNo };
 		}
 	};
 	function cmtDelBtn(adoptionBoardCommentNo){ //댓글 삭제확인
 		if(confirm("댓글을 삭제하시겠습니까?")){
 			location.href="/siAdoptionBoardCommentDelete?adoptionBoardCommentNo="+adoptionBoardCommentNo+"&adoptionBoardNo="+${vd.a.adoptionBoardNo };
+		}else{
+			location.href="/siAdoptionBoardView?adoptionBoardNo="+${vd.a.adoptionBoardNo };
 		}
 	};
 	$(document).ready(function(){	//대댓글 입력 tr 노출
@@ -231,7 +237,9 @@
 	});
 	$(document).ready(function(){	// 댓글 입력창 노출
 		$('.cmtBtn').click(function(){
-			$(this).parent().parent().parent().next().children().eq(4).toggle();
+			$(this).hide();
+			$(this).next().show();
+			$(this).parent().parent().parent().parent().next().children().eq(4).show();
 		});
 	});
 	$(document).ready(function(){	//댓글 수정,취소 버튼  

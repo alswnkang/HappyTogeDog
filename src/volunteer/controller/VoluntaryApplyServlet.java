@@ -57,8 +57,9 @@ public class VoluntaryApplyServlet extends HttpServlet {
 		}else {
 			if(result == -1) {
 				request.setAttribute("msg", "해당 공고의 신청 인원이 초과하였습니다.");
-			}
+			}else {
 			request.setAttribute("msg", "해당 공고의 신청이 실패했습니다.");
+			}
 		}
 		
 		request.setAttribute("loc", "/voluntaryView?no="+no);
