@@ -69,7 +69,7 @@
 						<input type="hidden" name="city">
 						<input type="hidden" name="gun">
 						<input type="hidden" name="dogsize">
-						<input type="hidden" name="kindCd">
+						<input type="hidden" name="dogkind">
 						<input type="hidden" name="neuter">
 						<input type="hidden" name="reqPage" value="${reqPage}">
 						<a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo">		<!-- 보호소명 보내기 -->
@@ -215,7 +215,7 @@
 		$('input[name=city]').val($('select[name=city]').data('city'));
 		$('input[name=gun]').val($('select[name=gun]').data('gun'));
 		$('input[name=dogsize]').val($('select[name=dogsize]').data('size'));
-		$('input[name=kindCd]').val($('select[name=kindCd]').data('kind'));
+		$('input[name=dogkind]').val($('select[name=kindCd]').data('kind'));
 		$('input[name=neuter]').val($('select[name=neuterYn]').data('neuter'));
 		
 	});

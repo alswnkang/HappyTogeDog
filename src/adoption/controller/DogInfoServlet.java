@@ -47,7 +47,7 @@ public class DogInfoServlet extends HttpServlet {
 		String city = request.getParameter("city");
 		String gun = request.getParameter("gun");
 		String dogsize = request.getParameter("dogsize");
-		String dogkind = request.getParameter("kindCd");
+		String dogkind = request.getParameter("dogkind");
 		String neuter = request.getParameter("neuter");
 		String reqPage = request.getParameter("reqPage");
 		//보호소 방문가능시간,보호소코드 가져오기
@@ -61,7 +61,7 @@ public class DogInfoServlet extends HttpServlet {
 			request.setAttribute("cityCode", city);
 			request.setAttribute("gun", gun);
 			request.setAttribute("dogsize", dogsize);
-			request.setAttribute("kindCd", dogkind);
+			request.setAttribute("dogkind", dogkind);
 			request.setAttribute("neuterYn", neuter);
 			request.setAttribute("reqPage", reqPage);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/dogInfo.jsp");
