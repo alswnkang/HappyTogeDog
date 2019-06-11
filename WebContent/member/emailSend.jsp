@@ -42,7 +42,7 @@
 			</tr>
 			<tr>
 				<td colspan="2" style="text-align:center;">
-					<input type="text" name="serverNum" id="serverNum" value="${num }" class="short"><!-- 서버 인증번호 -->
+					<input type="hidden" name="serverNum" id="serverNum" value="${num }" class="short"><!-- 서버 인증번호 -->
 					<div class="common-tbl-btn-group join-btn-group">
 						<button type="button" id="btn" class="btn-style2 small">확인</button>
 					</div>
@@ -93,7 +93,7 @@
 				  updateTimer();
 				}
 
-				countdown('countdown', 10);	 // second base
+				countdown('countdown', 300);	 // second base
 			
 			
 			}
