@@ -34,7 +34,7 @@
 					</thead>
 					<tbody>
 			 			<c:forEach items="${bp.list }" var="list" varStatus="i">
-							<tr onclick="location.href='/detailTakeBoard?boardNo=${list.boardNo }'" class="viewOne">
+							<tr onclick="location.href='/detailTakeBoard?boardNo=${list.boardNo }&param=2'" class="viewOne">
 								<td>${i.count}</td>
 								<td><img src="/siUpload/board/${list.boardFilepath }" style="height: 200px; width: 200px;"></td>
 								<td>${list.boardTitle }</td>
