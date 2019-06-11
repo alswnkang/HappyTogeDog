@@ -165,7 +165,7 @@
 							<!-- 게시글 번호를 siPreBoardDelete?boardNo 서블릿에 전달-->
 						</c:if>
 								
-						<button type="button" class="btn-style2" onclick="location.href='/takeBoard'">목록으로</button>
+						<button type="button" class="btn-style2" onclick="location.href='/findBoard'">목록으로</button>
 	
 					</div>
 				</form>
