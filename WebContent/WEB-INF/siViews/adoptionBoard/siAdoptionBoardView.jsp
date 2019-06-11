@@ -94,7 +94,6 @@
 							<td colspan="4" style="text-align:center">
 								댓글입력 <input type="text" name="adoptionBoardCommentContent" value=""/>
 								<button type="submit">등록</button>
-								/
 								<button type="button" class="cancelBtn">취소</button>
 							</td>
 						</tr>
@@ -120,16 +119,12 @@
 										<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
 											<button class="mdfBtn" type="button">수정</button>
 											<button class="cmtUpdate" type="button" style="display:none;">등록</button>
-											<button style="display:none;">/</button>
 											<button class="cancelBtn" type="reset" style="display:none;">취소</button>
-											/
 											<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.adoptionBoardCommentNo }');">삭제</a>
-											/
 										</c:if>
 										<c:if test="${sessionScope.member.id!=list.adoptionBoardCommentId && sessionScope.member.id eq 'admin' }">
 										<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
 											<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.adoptionBoardCommentNo }');">삭제</a>
-											/
 										</c:if>
 										<c:if test="${not empty sessionScope.member.id }"><!-- 로그인시 노출 -->
 											<button type="button" class="reCmtBtn">답글</button>
@@ -150,9 +145,7 @@
 											<c:if test="${clist.adoptionBoardCommentId == sessionScope.member.id }">
 												<button class="cmtrUpdate" type="button" onclick="cmtrMfy('${clist.adoptionBoardCommentRef }','${clist.adoptionBoardCommentNo }')" style="display:none;">등록</button>
 												<button class="mdfBtnr" type="button">수정</button>
-												<button style="display:none;">/</button>
 												<button class="cancelBtnr" type="reset" style="display:none;">취소</button>
-												/
 												<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.adoptionBoardCommentNo }','${clist.adoptionBoardCommentRef }');">삭제</a>
 											</c:if>
 											<c:if test="${sessionScope.member.id!=clist.adoptionBoardCommentId && sessionScope.member.id eq 'admin' }">
@@ -170,7 +163,6 @@
 								</td>
 								<td>
 									<button onclick="sendReCmt('${list.adoptionBoardCommentNo }')" type="button">등록</button>
-									/
 									<button class="reCmtBtnr" type="button" >취소</button>
 								</td>
 							</tr>
@@ -244,12 +236,9 @@
 			$('.cancelBtn').click(function(){
 				$(this).parent().prev().children().eq(0).show();
 				$(this).parent().prev().children().eq(1).hide();
-				$('.mdfBtn').show();
-				$('.cmtrUpdate').hide();
 				$(this).prev().hide();
-				$(this).prev().prev().hide();
+				$(this).prev().prev().show();
 				$(this).hide();
-				/* location.href='/siAdoptionBoardView?adoptionBoardNo='+${vd.a.adoptionBoardNo }; */
 			});
 			$(".cmtUpdate").click(function(){
 				$(this).parents('form').submit();
@@ -266,13 +255,9 @@
 			$('.cancelBtnr').click(function(){
 				$(this).parent().prev().children().eq(0).show();
 				$(this).parent().prev().children().eq(1).hide();
-				$('.mdfBtnr').show();
-				$('.cmtrUpdate').hide();
-				$('.mdfBtnr').next().eq(0).show();
-				$('.mdfBtnr').next().eq(1).hide();
-				$('.cancelBtnr').prev().eq(0).hide();
+				$(this).prev().show();
+				$(this).prev().prev().hide();
 				$(this).hide();
-				/* location.href='/siAdoptionBoardView?adoptionBoardNo='+${vd.a.adoptionBoardNo }; */
 			});
 		});
 	});
