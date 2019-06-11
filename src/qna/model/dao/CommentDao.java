@@ -14,8 +14,7 @@ public class CommentDao {
 		CommentVO comment = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = "select board_comment_content,TO_CHAR(board_comment_date,'YYYY/MM/DD HH24:MI:SS') as time from board_comment where board_ref=? ";
-		
+		String sql = "select board_comment_content,TO_CHAR(board_comment_date,'YYYY-MM-DD HH24:MI:SS') as time from board_comment where board_ref=? ";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, boardNo);
 		rset = pstmt.executeQuery();
@@ -26,6 +25,7 @@ public class CommentDao {
 		}
 		JDBCTemplate.close(rset);
 		JDBCTemplate.close(pstmt);
+		
 		return comment;
 	}
 
@@ -38,6 +38,7 @@ public class CommentDao {
 		pstmt.setInt(2, comment.getBoardRef());
 		result = pstmt.executeUpdate();
 		JDBCTemplate.close(pstmt);
+		
 		return result;
 	}
 
@@ -49,6 +50,7 @@ public class CommentDao {
 		pstmt.setInt(1, comment.getBoardRef());
 		result = pstmt.executeUpdate();
 		JDBCTemplate.close(pstmt);
+		
 		return result;
 	}
 

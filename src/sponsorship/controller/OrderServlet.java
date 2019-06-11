@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
-import java.util.Random;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -23,12 +22,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 import com.oreilly.servlet.MultipartRequest;
 
 import member.mail.MailAuth;
-import member.model.Service.MemberService;
 import member.model.vo.Member;
 import sponsorship.model.service.OrderService;
 import sponsorship.model.vo.*;
@@ -52,12 +50,10 @@ public class OrderServlet extends HttpServlet {
 		prdList.add(new ProductVO(1));
 		prdList.add(new ProductVO(2));
 		
-		HttpSession session = request.getSession(false);
-		Member member = (Member)session.getAttribute("member");
+		Member member = (Member)request.getSession(false).getAttribute("member");
 	
 		/* 주문서 작성 페이지 */	
 		if(action.equals("order")) {
-			//TODO 상품코드 없을때 예외처리하기
 			int prdCode = Integer.parseInt(request.getParameter("prdCode"));
 			String amount = request.getParameter("amount");
 			String price = request.getParameter("price");
@@ -65,12 +61,11 @@ public class OrderServlet extends HttpServlet {
 			request.setAttribute("amount", amount);
 			request.setAttribute("price", price);
 			request.setAttribute("prd", prdList.get(prdCode));
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/orderForm.jsp");
-			rd.forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/sponsorship/orderForm.jsp").forward(request, response);
 			
 		/* 주문등록(AJAX) */
 		}else if(action.equals("orderIng")) {
-			//TODO 예외처리 하기
+
 			String root = getServletContext().getRealPath("/");//절대경로
 			String saveDirectory = root+"upload";
 			MultipartRequest mRequest = new MultipartRequest(request, saveDirectory, "utf-8");
@@ -100,19 +95,17 @@ public class OrderServlet extends HttpServlet {
 				response.setCharacterEncoding("utf-8");
 				PrintWriter out = response.getWriter();
 				if(result>0){
-					
-					
 					out.print("/orderEnd?no="+no);
 				}else{
 					out.print("fail");
 				}
 			} catch (SQLException e) {
-				System.out.println("SQL에러 ㅠ");
+				request.setAttribute("msg", "SQL에러가 발생했습니다.");
+				request.getRequestDispatcher("/error/sqlError.jsp").forward(request, response);
 			}
 			
 		/* 주문 완료 페이지 */
 		}else if(action.equals("orderEnd")) {
-			//TODO 예외처리 필요
 			String no = request.getParameter("no");
 			try {
 				OrderInfoVO orderInfo = new OrderService().selectOrder(no);
@@ -256,7 +249,8 @@ public class OrderServlet extends HttpServlet {
 				request.setAttribute("orderInfo", orderInfo);
 				request.getRequestDispatcher("/WEB-INF/sponsorship/orderSuc.jsp").forward(request, response);
 			} catch (SQLException e) {
-				System.out.println("SQL에러 ㅠ");
+				request.setAttribute("msg", "SQL에러가 발생했습니다.");
+				request.getRequestDispatcher("/error/sqlError.jsp").forward(request, response);
 			}
 			
 		/* 비회원 주문 조회  */
@@ -273,7 +267,8 @@ public class OrderServlet extends HttpServlet {
 					out.print("fail");
 				}
 			} catch (SQLException e) {
-				System.out.println("SQL에러 ㅠ");
+				request.setAttribute("msg", "SQL에러가 발생했습니다.");
+				request.getRequestDispatcher("/error/sqlError.jsp").forward(request, response);
 			}
 			
 		/* 나의 주문내역 상세 페이지 */
@@ -287,7 +282,8 @@ public class OrderServlet extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/myOrder.jsp");
 				rd.forward(request, response);
 			} catch (SQLException e) {
-				System.out.println("SQL에러 ㅠ");
+				request.setAttribute("msg", "SQL에러가 발생했습니다.");
+				request.getRequestDispatcher("/error/sqlError.jsp").forward(request, response);
 			}
 		
 		/* 나의 후원내역 페이지 */
@@ -324,7 +320,8 @@ public class OrderServlet extends HttpServlet {
 					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sponsorship/myOrderList.jsp");
 					rd.forward(request, response);
 				} catch (SQLException e) {
-					System.out.println("SQL에러 ㅠ");
+					request.setAttribute("msg", "SQL에러가 발생했습니다.");
+					request.getRequestDispatcher("/error/sqlError.jsp").forward(request, response);
 				}	
 			}else {
 				request.setAttribute("msg", "로그인 후 이용해주세요");

@@ -20,7 +20,6 @@ public class QnaVO {
 	private String boardPrdcode;
 	public QnaVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public QnaVO(int boardRnum, int boardNo, int boardType, String boardId, String boardName, String boardTitle,
 			String boardContent, String boardFilename, String boardFilepath, Date boardDate, int boardCount,

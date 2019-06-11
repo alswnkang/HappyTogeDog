@@ -5,13 +5,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
@@ -40,15 +38,17 @@ public class QnaServlet extends HttpServlet {
 		String[] url = request.getRequestURL().toString().split("/");
 		String action = url[url.length-1];
 		
+		/* Q&A 파일 업로드 경로 */
+		String saveDirectory = getServletContext().getRealPath("/")+"upload/qna";
+		
+		/* 상품 정보 */
 		ArrayList<ProductVO> prdList = new ArrayList<ProductVO>();
 		prdList.add(new ProductVO(0));
 		prdList.add(new ProductVO(1));
 		prdList.add(new ProductVO(2));
-		
 		request.setAttribute("prdList", prdList);
 		
-		HttpSession session = request.getSession(false);
-		Member member = (Member)session.getAttribute("member");
+		Member member = (Member)request.getSession(false).getAttribute("member");
 		
 		/* Q&A 게시판 리스트 */
 		if(action.equals("qnaList")){
@@ -71,7 +71,8 @@ public class QnaServlet extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/qna/qnaList.jsp").forward(request, response);
 				
 			} catch (SQLException e) {
-				System.out.println("SQL에러 ㅠ");
+				request.setAttribute("msg", "SQL에러가 발생했습니다.");
+				request.getRequestDispatcher("/error/sqlError.jsp").forward(request, response);
 			}
 			
 		/* 나의 Q&A 게시판 리스트 */	
@@ -92,7 +93,8 @@ public class QnaServlet extends HttpServlet {
 					request.getRequestDispatcher("/WEB-INF/qna/myQnaList.jsp").forward(request, response);
 					
 				} catch (SQLException e) {
-					System.out.println("SQL에러 ㅠ");
+					request.setAttribute("msg", "SQL에러가 발생했습니다.");
+					request.getRequestDispatcher("/error/sqlError.jsp").forward(request, response);
 				}
 			}else {
 				request.setAttribute("msg", "로그인 후 이용해주세요");
@@ -158,13 +160,13 @@ public class QnaServlet extends HttpServlet {
 				}
 				SearchVO search = new SearchVO(reqPage, null, null, null, null, searchType, searchVal,null);
 				request.setAttribute("search", search);
-				//request.setAttribute("prdList", prdList);
 				request.setAttribute("qna", qna);
 				CommentVO comment = new CommentService().selectComment(boardNo);
 				request.setAttribute("comment", comment);
 				request.getRequestDispatcher("/WEB-INF/qna/qnaView.jsp").forward(request, response);
 			} catch (SQLException e) {
-				System.out.println("SQL에러 ㅠ");
+				request.setAttribute("msg", "SQL에러가 발생했습니다.");
+				request.getRequestDispatcher("/error/sqlError.jsp").forward(request, response);
 			}
 			
 		/* Q&A 비밀번호 체크  페이지 */	
@@ -206,7 +208,8 @@ public class QnaServlet extends HttpServlet {
 					}
 					
 				} catch (SQLException e) {
-					System.out.println("SQL에러 ㅠ");
+					request.setAttribute("msg", "SQL에러가 발생했습니다.");
+					request.getRequestDispatcher("/error/sqlError.jsp").forward(request, response);
 				}
 				
 			}
@@ -215,7 +218,6 @@ public class QnaServlet extends HttpServlet {
 		}else if(action.equals("regiQna")) {
 			String prdCode = request.getParameter("prdCode");
 			request.setAttribute("prdCode", prdCode);
-			//request.setAttribute("prdList", prdList);
 			request.getRequestDispatcher("/WEB-INF/qna/qnaRegister.jsp").forward(request, response);
 		
 		/* Q&A 등록 */		
@@ -226,9 +228,7 @@ public class QnaServlet extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/qna/passwordPage.jsp").forward(request, response);
 				return ;
 			}
-			String saveDirectory = getServletContext().getRealPath("/")+"upload/qna";
-			MultipartRequest mRequest = new MultipartRequest(request, saveDirectory,10*1024*1024,"utf-8",new DefaultFileRenamePolicy());
-			
+			MultipartRequest mRequest = new MultipartRequest(request, saveDirectory,10*1024*1024,"utf-8",new DefaultFileRenamePolicy());		
 			
 			int boardType;
 			try {
@@ -249,21 +249,17 @@ public class QnaServlet extends HttpServlet {
 			String boardPw = mRequest.getParameter("boardPw");
 			String boardContent = mRequest.getParameter("boardContent").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>");
 			
-			String boardFilename = mRequest.getOriginalFileName("filename");//기존 파일명
+			String boardFilename = mRequest.getOriginalFileName("filename");
 			String boardFilepath = mRequest.getFilesystemName("filename");
 			
 			QnaVO qna = new QnaVO(0, 0, boardType, boardId, boardName, boardTitle, boardContent, boardFilename, boardFilepath, null, 0, boardSecret, boardPw, boardPrdcode);
 			
 			try {
-				int result = new QnaService().insertQna(qna);
-				if(result>0) {
-					System.out.println("등록 성공");
-				}else {
-					System.out.println("뇨우");
-				}
+				new QnaService().insertQna(qna);
 				response.sendRedirect("/qnaList");
 			} catch (SQLException e) {
-				System.out.println("SQL에러 ㅠ");
+				request.setAttribute("msg", "SQL에러가 발생했습니다.");
+				request.getRequestDispatcher("/error/sqlError.jsp").forward(request, response);
 			}
 			
 		/* Q&A 수정 페이지 이동 */		
@@ -281,10 +277,10 @@ public class QnaServlet extends HttpServlet {
 			try {
 				QnaVO qna = new QnaService().selectQna(boardNo);
 				request.setAttribute("qna", qna);
-				//request.setAttribute("prdList", prdList);
 				request.getRequestDispatcher("/WEB-INF/qna/qnaModify.jsp").forward(request, response);
 			} catch (SQLException e) {
-				System.out.println("SQL에러 ㅠ");
+				request.setAttribute("msg", "SQL에러가 발생했습니다.");
+				request.getRequestDispatcher("/error/sqlError.jsp").forward(request, response);
 			}
 			
 		/* Q&A 수정 */		
@@ -295,7 +291,6 @@ public class QnaServlet extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/qna/passwordPage.jsp").forward(request, response);
 				return ;
 			}
-			String saveDirectory = getServletContext().getRealPath("/")+"upload/qna";
 			MultipartRequest mRequest = new MultipartRequest(request, saveDirectory,10*1024*1024,"utf-8",new DefaultFileRenamePolicy());
 			
 			int boardNo;
@@ -336,8 +331,7 @@ public class QnaServlet extends HttpServlet {
 				if(oldFilename != null) {
 					
 					File delFile = new File(saveDirectory+"/"+oldFilepath);
-					boolean bool = delFile.delete();
-					//System.out.println(bool?"삭제 완료":"삭제 실패");
+					System.out.println("파일 삭제됐나요? : "+delFile.delete());
 				}
 			
 			//첨부 파일이 없으면
@@ -348,8 +342,7 @@ public class QnaServlet extends HttpServlet {
 					boardFilepath = oldFilepath;
 				}else {
 					File delFile = new File(saveDirectory+"/"+oldFilepath);
-					boolean bool = delFile.delete();
-					//System.out.println(bool?"삭제 완료":"삭제 실패");
+					System.out.println("파일 삭제됐나요? : "+delFile.delete());
 				}
 
 			}
@@ -359,14 +352,13 @@ public class QnaServlet extends HttpServlet {
 			try {
 				int result = new QnaService().updateQna(qna);
 				if(result>0) {
-					System.out.println("수정 성공");
 					response.sendRedirect("/qnaView?boardNo="+boardNo);
 				}else {
-					System.out.println("비밀번호 틀렸나봐");
 					response.sendRedirect("/modifyQna?boardNo="+boardNo);
 				}
 			} catch (SQLException e) {
-				System.out.println("SQL에러 ㅠ");
+				request.setAttribute("msg", "SQL에러가 발생했습니다.");
+				request.getRequestDispatcher("/error/sqlError.jsp").forward(request, response);
 			}
 			
 		/* Q&A 삭제 */
@@ -391,35 +383,23 @@ public class QnaServlet extends HttpServlet {
 				int result = new QnaService().deleteQna(boardNo,boardPw);
 				if(result>0) {
 					if(qna.getBoardFilepath() != null) {
-						String saveDirectory = getServletContext().getRealPath("/")+"upload/qna";
 						File delFile = new File(saveDirectory+"/"+qna.getBoardFilepath());
-						boolean bool = delFile.delete();
+						System.out.println("파일 삭제됐나요? : "+delFile.delete());
 					}
-					System.out.println("삭제 성공");
 					response.sendRedirect("/qnaList");
 				}else {
-					System.out.println("삭제 실패");
 					response.sendRedirect("/qnaView?boardNo="+boardNo);
 				}
 			} catch (SQLException e) {
-				System.out.println("SQL에러 ㅠ");
+				request.setAttribute("msg", "SQL에러가 발생했습니다.");
+				request.getRequestDispatcher("/error/sqlError.jsp").forward(request, response);
 			}
 			
 		}
 		
 	}
 	
-	
-	public void page(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		
-		String[] url = request.getHeader("REFERER").toString().split("/");
-		String pageName = url[url.length-1];
 
-		request.setAttribute("msg", "잘못된 접근입니다.");
-		request.setAttribute("loc", "/"+pageName);
-		request.getRequestDispatcher("/WEB-INF/qna/passwordPage.jsp").forward(request, response);
-		
-	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

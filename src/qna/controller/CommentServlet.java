@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.vo.Member;
 import qna.model.service.CommentService;
 import qna.model.vo.CommentVO;
 
@@ -21,35 +22,35 @@ public class CommentServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		Member member = (Member)request.getSession(false).getAttribute("member");
 		
-		String[] url = request.getRequestURL().toString().split("/");
-		String action = url[url.length-1];
+		String boardRef = request.getParameter("boardRef");
+		String boardCommentContent = request.getParameter("boardCommentContent").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>");
+		CommentVO comment = new CommentVO(0, 3, boardCommentContent, Integer.parseInt(boardRef), null);
 		
-		//TODO 관리자 아닐때 예외처리
-		if(action.equals("insertComment")) {
-			String boardRef = request.getParameter("boardRef");
-			String boardCommentContent = request.getParameter("boardCommentContent").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>");
-			CommentVO comment = new CommentVO(0, 3, boardCommentContent, Integer.parseInt(boardRef), null);
-			
+		if(member!=null && member.getMemberLevel()==2) {
 			try {
 				int result = new CommentService().insertComment(comment);
-				if(result>0) {
-					System.out.println("등록 성공");
-				}else {
-					System.out.println("실패");
+				if(result<1) {
+					System.out.println("Q&A 답변 등록 실패~~~");
 				}
 				response.sendRedirect("/qnaView?boardNo="+boardRef);
 			} catch (SQLException e) {
-				System.out.println("SQL에러 ㅠ");
+				request.setAttribute("msg", "SQL에러가 발생했습니다.");
+				request.getRequestDispatcher("/error/sqlError.jsp").forward(request, response);
 			}
 			
-			
-			
+		/* 관리자 아닐때 예외처리 */
+		}else {
+			request.setAttribute("msg", "답변 권한이 없습니다. 로그인상태를 확인해주세요.");
+			request.setAttribute("loc", "/qnaList");
+			request.getRequestDispatcher("/WEB-INF/common/msg.jsp").forward(request, response);
 		}
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		doGet(request, response);
 	}
 

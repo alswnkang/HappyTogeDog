@@ -45,6 +45,7 @@ public class DogInfoServlet extends HttpServlet {
 		String filename = request.getParameter("filename");			//이미지 사진
 		System.out.println(sexCd);		
 		System.out.println(neuterYn);
+		System.out.println("받아와지나?"+request.getParameter("city"));
 		//보호소 방문가능시간,보호소코드 가져오기
 		ArrayList<String> careList;
 		try {

@@ -12,7 +12,7 @@ import qna.model.service.QnaService;
 import qna.model.vo.QnaVO;
 import sponsorship.model.vo.*;
 
-@WebServlet(name = "Product", urlPatterns = { "/sponsorship", "/viewProduct", })
+@WebServlet(name = "Product", urlPatterns = { "/sponsorship", "/viewProduct" })
 public class ProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -50,9 +50,9 @@ public class ProductServlet extends HttpServlet {
 					ArrayList<QnaVO> qnaList = new QnaService().selectQna(1,5,new SearchVO(0, null, null, null, null, null, null, code));
 					request.setAttribute("qnaList", qnaList);
 				} catch (SQLException e) {
-					System.out.println("SQL에러 ㅠ");
+					request.setAttribute("msg", "SQL에러가 발생했습니다.");
+					request.getRequestDispatcher("/error/sqlError.jsp").forward(request, response);
 				}
-				
 				request.getRequestDispatcher("/WEB-INF/sponsorship/productDetail.jsp").forward(request, response);
 			}
 		}

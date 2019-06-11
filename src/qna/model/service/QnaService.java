@@ -14,29 +14,22 @@ public class QnaService {
 
 	public QnaListVO selectQna(SearchVO search) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
-		
 		int reqPage = search.getReqPage();
 		int total = 0;
-
 		total = new QnaDao().totalCount(conn,search);
-		
 		int pageNum = 10;
 		int totalPage = (total%pageNum==0)?(total/pageNum):(total/pageNum)+1;
-		
-		
 		int start = (reqPage*pageNum-pageNum)+1;
 		int end  = reqPage*pageNum;
-		ArrayList<QnaVO> qnainfoList = null;
-
-		qnainfoList = new QnaDao().selectQna(conn,start,end,search);
+		/* 리스트 */
+		ArrayList<QnaVO> qnainfoList = new QnaDao().selectQna(conn,start,end,search);
 		
+		/* 페이지 네비 */
 		int totalNavi = 5;
 		String pageNavi = "";
-		
 		int pageNo = ((reqPage-1)/totalNavi)*totalNavi+1;
 		if(pageNo != 1) {
-			pageNavi += "<a class='paging-arrow prev-arrow' href='javascript:list("+(pageNo-1)+");'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a> ";
-			
+			pageNavi += "<a class='paging-arrow prev-arrow' href='javascript:list("+(pageNo-1)+");'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a> ";	
 		}
 		int i = 1;
 		while(!(i++>totalNavi || pageNo>totalPage)) {
@@ -50,7 +43,7 @@ public class QnaService {
 		if(pageNo <= totalPage) {
 			pageNavi += "<a class='paging-arrow next-arrrow' href='javascript:list("+pageNo+");'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
 		}
-		
+
 		QnaListVO qnaList = new QnaListVO(qnainfoList, pageNavi);
 		JDBCTemplate.close(conn);
 		return qnaList;
