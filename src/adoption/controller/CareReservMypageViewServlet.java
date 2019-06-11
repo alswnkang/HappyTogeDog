@@ -42,9 +42,9 @@ public class CareReservMypageViewServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/careReservationView.jsp");
 			rd.forward(request, response);
 		} catch (SQLException e) {
-			e.printStackTrace();
-			/*RequestDispatcher rd = request.getRequestDispatcher("/error/sqlError.jsp");
-			rd.forward(request, response);*/
+			RequestDispatcher rd = request.getRequestDispatcher("/error/sqlError.jsp");
+			request.setAttribute("msg", "SQL 에러가 발생했습니다.");
+			rd.forward(request, response);
 		}
 	}
 

@@ -11,6 +11,36 @@ import siBoardComment.model.boardCommentVo.BoardComment;
 import siTemplete.JDBCTemplete;
 
 public class BoardService {
+	public BoardPageData myBoardList(int reqPage,String boardId){
+		Connection conn = JDBCTemplete.getConnection();
+		int numPerPage = 10;
+		int totalCount = new BoardDao().totalCount(conn);
+		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
+		int start = (reqPage-1)*numPerPage+1;
+		int end = reqPage*numPerPage;
+		ArrayList<Board> list = new BoardDao().myBoardList(conn,start,end,boardId);
+		String pageNavi = "";
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
+		if(pageNo!=1) {
+			pageNavi+="<a class='paging-arrow prev-arrow' href='/siMyPreBoard?reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";
+		}
+		int i = 1;
+		while(!(i++>pageNaviSize || pageNo>totalPage)) {
+			if(reqPage==pageNo) {
+				pageNavi+="<span class='cur'>"+pageNo+"</span>";
+			}else {
+				pageNavi+="<a href='/siMyPreBoard?reqPage="+pageNo+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
+		if(pageNo<=totalPage) {
+			pageNavi+="<a class='paging-arrow next-arrow' href='/siMyPreBoard?reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
+		}
+		JDBCTemplete.close(conn);
+		BoardPageData bp = new BoardPageData(list,pageNavi);
+		return bp;
+	}
 	public BoardPageData boardAll(int reqPage){
 		Connection conn = JDBCTemplete.getConnection();
 		int numPerPage = 10;
@@ -68,6 +98,24 @@ public class BoardService {
 		BoardViewData vd = new BoardViewData(list,b);
 		return vd;
 	}
+	
+	public BoardViewData takeBoardView(int boardNo) {
+		Connection conn = JDBCTemplete.getConnection();
+		int result = new BoardDao().boardCount(conn, boardNo);
+		//카운트를 증가 시키기위해 Dao에 update를 하나 추가
+		if(result>0) {
+			JDBCTemplete.commit(conn);
+		}else {
+			JDBCTemplete.rollback(conn);
+		}
+		Board b = new BoardDao().boardView(conn, boardNo);
+		ArrayList<BoardComment> list = new BoardDao().takeCommentAll(conn);
+		JDBCTemplete.close(conn);
+		BoardViewData vd = new BoardViewData(list,b);
+		return vd;
+	}
+	
+	
 	public int boardUpdate(int boardNo, String boardTitle, String boardContent, String boardFilename, String boardFilepath) {
 		Connection conn = JDBCTemplete.getConnection();
 		int result= new BoardDao().boardUpdate(conn, boardNo, boardTitle, boardContent, boardFilename, boardFilepath);
@@ -173,7 +221,7 @@ public class BoardService {
 		// TODO Auto-generated method stub
 		Connection conn = JDBCTemplete.getConnection();
 		String kindName= new BoardDao().getKindName(dogkind,conn);
-		
+		JDBCTemplete.close(conn);
 		return kindName;
 	}
 }

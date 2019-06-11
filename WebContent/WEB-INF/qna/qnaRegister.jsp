@@ -9,7 +9,7 @@
 <%-- Content --%>
 <section id="content-wrapper">
 	<div class="area">
-		<h2 class="comm-content-tit">Q & A</h2>
+		<h2 class="comm-content-tit">Q &amp; A</h2>
 		<div id="qnaRegisterBox" class="common-tbl-box">
 			<form action="/insertQna" method="post" enctype="multipart/form-data" onsubmit="return chkSubmit(this);">
 				<input type="hidden" name="boardType" value="5">
@@ -67,7 +67,7 @@
 					</tr>
 				</table>
 				<div class="common-tbl-btn-group">
-					<button type="submit" class="btn-style1">등록</button><button type="button" class="btn-style2" onclick="location.href='/qnaList'">목록으로</button>
+					<button type="submit" class="btn-style1">등록</button><button type="button" class="btn-style2" onclick="history.back();">취소</button>
 				</div>
 			</form>
 		</div>

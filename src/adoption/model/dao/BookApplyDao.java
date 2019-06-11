@@ -30,16 +30,16 @@ public class BookApplyDao {
 		String today = date();			//오늘
 		String preMonth = preMonth();	//육개월전
 		String sql="";
-		if(cityCode!=null && cityCode!=""){
+		if(cityCode!=null && !cityCode.equals("")){
 			sql += "&upr_cd="+cityCode;
 		}
-		if(gunCode!=null && gunCode!=""){
+		if(gunCode!=null && !gunCode.equals("")){
 			sql += "&org_cd="+gunCode;
 		}
-		if(kindCd!=null && kindCd!=""){
+		if(kindCd!=null && !kindCd.equals("")){
 			sql += "&kind="+kindCd;
 		}
-		if(neuterYn!=null && neuterYn!=""){
+		if(neuterYn!=null && !neuterYn.equals("")){
 			sql += "&neuter_yn="+neuterYn;
 		}
 		ArrayList<DogList> list = null;
@@ -123,8 +123,6 @@ public class BookApplyDao {
 		return list;
 	}
 	private static String getTagValue(String tag, Element eElement) {
-		//System.out.println(eElement.getElementsByTagName(tag));		
-//		System.out.println(eElement.getElementsByTagName(tag).item(0).toString());
 		NodeList nlList = eElement.getElementsByTagName(tag).item(0).getChildNodes();
 		Node nValue = (Node) nlList.item(0);
 		if (nValue == null)
@@ -133,115 +131,89 @@ public class BookApplyDao {
 	}
 	
 	//전체 도시 리스트 가져오기
-	public ArrayList<cityCode> getCityCode(Connection conn) {
+	public ArrayList<cityCode> getCityCode(Connection conn) throws SQLException {
 		Statement stmt =null;
 		ResultSet rset = null;
 		ArrayList<cityCode> list = null;
 		String query = "select * from city";
-		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
-			list = new ArrayList<cityCode>();
-			int i=0;
-			while(rset.next()) {
-				i++;
-				cityCode c = new cityCode();
-				c.setCityCode(rset.getString("city_code"));
-				c.setCityName(rset.getString("city_name"));
-				System.out.println("도시 담은 수: "+i);
-				list.add(c);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(stmt);
+		stmt = conn.createStatement();
+		rset = stmt.executeQuery(query);
+		list = new ArrayList<cityCode>();
+		int i=0;
+		while(rset.next()) {
+			i++;
+			cityCode c = new cityCode();
+			c.setCityCode(rset.getString("city_code"));
+			c.setCityName(rset.getString("city_name"));
+			System.out.println("도시 담은 수: "+i);
+			list.add(c);
 		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(stmt);
 		return list;
 	}
 	
 	//도시코드로 지역구 리스트 가져오기
-	public ArrayList<cityCode> getCityCode(Connection conn, String cityCode) {
+	public ArrayList<cityCode> getCityCode(Connection conn, String cityCode) throws SQLException {
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
 		ArrayList<cityCode> list = null;
 		String query = "select * from area where citycode=?";
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, cityCode);
-			rset = pstmt.executeQuery();
-			list = new ArrayList<cityCode>();
-			while(rset.next()) {
-				cityCode c = new cityCode();
-				c.setDistrict(rset.getString("areacode"));
-				c.setDistrictName(rset.getString("areaname"));
-				list.add(c);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, cityCode);
+		rset = pstmt.executeQuery();
+		list = new ArrayList<cityCode>();
+		while(rset.next()) {
+			cityCode c = new cityCode();
+			c.setDistrict(rset.getString("areacode"));
+			c.setDistrictName(rset.getString("areaname"));
+			list.add(c);
 		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
 		return list;
 	}
 	
 	//강이지 크기 받아서 해당 품종 가져오기
-	public ArrayList<DogKind> getKind(Connection conn, String dogsize) {
+	public ArrayList<DogKind> getKind(Connection conn, String dogsize) throws SQLException {
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
 		ArrayList<DogKind> list = null;
 		String query = "select * from dogkind where dogsize=?";
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, dogsize);
-			rset = pstmt.executeQuery();
-			list = new ArrayList<DogKind>();
-			while(rset.next()) {
-				DogKind d = new DogKind();
-				d.setCode(rset.getString("code"));
-				d.setKind(rset.getString("kind"));
-				d.setDogsize(rset.getString("dogsize"));
-				list.add(d);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, dogsize);
+		rset = pstmt.executeQuery();
+		list = new ArrayList<DogKind>();
+		while(rset.next()) {
+			DogKind d = new DogKind();
+			d.setCode(rset.getString("code"));
+			d.setKind(rset.getString("kind"));
+			d.setDogsize(rset.getString("dogsize"));
+			list.add(d);
 		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
 		return list;
 	}
 	
 	///////////////////////////////////////////////일반회원 유기견 입양 방문 신청///////////////////////////////////////////////////////////
 	
 	//보호소 방문가능시간,보호소 코드 가져오기
-	public ArrayList<String> careTime(Connection conn, String careNm) {
+	public ArrayList<String> careTime(Connection conn, String careNm) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<String> list=null;
 		String query = "select code,possible_time from member where name=?";
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, careNm);
-			rset=pstmt.executeQuery();
-			list = new ArrayList<String>();
-			if(rset.next()) {
-				list.add(rset.getString("code"));
-				list.add(rset.getString("possible_time"));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, careNm);
+		rset=pstmt.executeQuery();
+		list = new ArrayList<String>();
+		if(rset.next()) {
+			list.add(rset.getString("code"));
+			list.add(rset.getString("possible_time"));
 		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
 		return list;
 	}
 		
@@ -269,145 +241,112 @@ public class BookApplyDao {
 	}
 	
 	//예약된 방문 시간 구해오기
-	public ArrayList<String> possibleTime(Connection conn, String visitDate, String careNm) {
+	public ArrayList<String> possibleTime(Connection conn, String visitDate, String careNm) throws SQLException {
 		System.out.println("2Dao");
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
 		ArrayList<String> list = new ArrayList<String>();
 		String query = "select visit_time from book_apply join member using(code) where visit_date=? and member.name=? and status!=2";
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, visitDate);
-			pstmt.setString(2, careNm);
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				list.add(rset.getString("visit_time"));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, visitDate);
+		pstmt.setString(2, careNm);
+		rset = pstmt.executeQuery();
+		while(rset.next()) {
+			list.add(rset.getString("visit_time"));
 		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
 		return list;
 	}
 	
 	///////////////////////////////////////////////일반회원 마이페이지/////////////////////////////////////////////////////////
 	
 	//일반회원 방문예약 신청 내역 갯수 구하기
-	public int reservationCount(Connection conn,String id){
+	public int reservationCount(Connection conn,String id) throws SQLException{
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
 		String query = "select count(*) as cnt from book_apply Join member using(code) where book_apply.id=?";
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, id);
-			rset=pstmt.executeQuery();
-			if(rset.next()) {
-				result = rset.getInt("cnt");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, id);
+		rset=pstmt.executeQuery();
+		if(rset.next()) {
+			result = rset.getInt("cnt");
 		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
 		return result;
 	}
 	
 	//일반회원 방문예약 신청 리스트 가져오기
-	public ArrayList<BookApply> selectList(Connection conn, int start, int end, String id){
+	public ArrayList<BookApply> selectList(Connection conn, int start, int end, String id) throws SQLException{
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
 		ArrayList<BookApply> list = new ArrayList<BookApply>();
 		String query = "select * from (select rownum as rnum, b.* from (select ba.no, m.name careNm, ba.id, ba.name, ba.visit_date, ba.visit_time, ba.apply_date, ba.status from ((select * from book_apply order by 1 desc)ba) Join member m Using(code) where ba.id=?) b) where rnum BETWEEN ? and ?";
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, id);
-			pstmt.setInt(2, start);
-			pstmt.setInt(3, end);
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				BookApply ba = new BookApply();
-				ba.setRnum(rset.getInt("rnum"));
-				ba.setNo(rset.getInt("no"));
-				ba.setCode(rset.getString("careNm"));	//보호소 코드에 보호소 이름 넣기
-				ba.setVisitDate(rset.getDate("visit_date"));
-				ba.setVisitTime(rset.getString("visit_time"));
-				ba.setApplyDate(rset.getDate("apply_date"));
-				ba.setStatus(rset.getInt("status"));
-				list.add(ba);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, id);
+		pstmt.setInt(2, start);
+		pstmt.setInt(3, end);
+		rset = pstmt.executeQuery();
+		while(rset.next()) {
+			BookApply ba = new BookApply();
+			ba.setRnum(rset.getInt("rnum"));
+			ba.setNo(rset.getInt("no"));
+			ba.setCode(rset.getString("careNm"));	//보호소 코드에 보호소 이름 넣기
+			ba.setVisitDate(rset.getDate("visit_date"));
+			ba.setVisitTime(rset.getString("visit_time"));
+			ba.setApplyDate(rset.getDate("apply_date"));
+			ba.setStatus(rset.getInt("status"));
+			list.add(ba);
 		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
 		return list;
 	}
 	
 	//일반회원 방문예약 페이지 하나 보기
-	public BookApply myViewOne(Connection conn, int no, String id) {
+	public BookApply myViewOne(Connection conn, int no, String id) throws SQLException {
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
-		System.out.println("리스트 내용 no(DAO) : "+no);
 		String query = "select * from (select rownum as rnum, b.* from (select ba.no, m.name careNm, ba.id, ba.name, ba.phone, ba.visit_date, ba.visit_time, ba.apply_date, ba.status,ba.yard, ba.animal,ba.family,ba.experience, ba.avg_time from ((select * from book_apply order by 1 desc)ba) Join member m Using(code) where ba.id=?) b) where no=?";
 		BookApply ba = null;
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, id);
-			pstmt.setInt(2, no);
-			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				ba = new BookApply();
-				ba.setRnum(rset.getInt("rnum"));
-				ba.setNo(rset.getInt("no"));
-				ba.setCode(rset.getString("careNm"));	//보호소이름 코드에 저장하기
-				ba.setId(rset.getString("id"));
-				ba.setName(rset.getString("name"));
-				ba.setPhone(rset.getString("phone"));
-				ba.setVisitDate(rset.getDate("visit_date"));
-				ba.setVisitTime(rset.getString("visit_time"));
-				ba.setApplyDate(rset.getDate("apply_date"));
-				ba.setStatus(rset.getInt("status"));
-				ba.setYard(rset.getString("yard"));
-				ba.setAnimal(rset.getString("animal"));
-				ba.setFamily(rset.getString("family"));
-				ba.setExperience(rset.getString("experience"));
-				ba.setAvgTime(rset.getString("avg_time"));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, id);
+		pstmt.setInt(2, no);
+		rset = pstmt.executeQuery();
+		if(rset.next()) {
+			ba = new BookApply();
+			ba.setRnum(rset.getInt("rnum"));
+			ba.setNo(rset.getInt("no"));
+			ba.setCode(rset.getString("careNm"));	//보호소이름 코드에 저장하기
+			ba.setId(rset.getString("id"));
+			ba.setName(rset.getString("name"));
+			ba.setPhone(rset.getString("phone"));
+			ba.setVisitDate(rset.getDate("visit_date"));
+			ba.setVisitTime(rset.getString("visit_time"));
+			ba.setApplyDate(rset.getDate("apply_date"));
+			ba.setStatus(rset.getInt("status"));
+			ba.setYard(rset.getString("yard"));
+			ba.setAnimal(rset.getString("animal"));
+			ba.setFamily(rset.getString("family"));
+			ba.setExperience(rset.getString("experience"));
+			ba.setAvgTime(rset.getString("avg_time"));
 		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
 		return ba;
 	}
 	
 	//일반회원 보호소 방문예약 취소
-	public int cancelReservation(Connection conn, int no) {
+	public int cancelReservation(Connection conn, int no) throws SQLException {
 		PreparedStatement pstmt =null;
 		int result=0;
 		String query = "update book_apply set status=3 where no=?";
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, no);
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(pstmt);
-		}
+		pstmt = conn.prepareStatement(query);
+		pstmt.setInt(1, no);
+		result = pstmt.executeUpdate();
+		JDBCTemplate.close(pstmt);
 		return result;
 	}
 	
@@ -415,8 +354,6 @@ public class BookApplyDao {
 	
 	//보호소 회원 방문예약리스트 갯수 구하기
 	public int reservationCareCount(Connection conn, String code,String startDay, String endDay) throws SQLException {
-		System.out.println("갯수 구하기Dao");
-		System.out.println(code);
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
@@ -441,8 +378,6 @@ public class BookApplyDao {
 	
 	//보호소회원 방문예약 신청내역 리스트 확인
 	public ArrayList<BookApply> reservationCareList(Connection conn, int start, int end, String code, String startDay, String endDay) throws SQLException {
-		System.out.println("리스트구하기 Dao");
-		System.out.println(start);
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
 		ArrayList<BookApply> list = new ArrayList<BookApply>();
@@ -482,7 +417,6 @@ public class BookApplyDao {
 	public BookApply viewOne(Connection conn, int no) throws SQLException {
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
-		System.out.println("리스트 내용 no(DAO) : "+no);
 		String query = "select * from (select ROWNUM as rNum,b.* from (select * from book_apply order by 1 desc) b) where no=?";
 		pstmt = conn.prepareStatement(query);
 		pstmt.setInt(1, no);
@@ -511,28 +445,22 @@ public class BookApplyDao {
 	}
 	
 	//보호소 회원이 예약상태 업데이트
-	public int updateStatus(Connection conn, int status, int no) {
+	public int updateStatus(Connection conn, int status, int no) throws SQLException {
 		PreparedStatement pstmt =null;
 		int result=0;
 		String query = "update book_apply set status=? where no=?";
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, status);
-			pstmt.setInt(2, no);
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(pstmt);
-		}
+		pstmt = conn.prepareStatement(query);
+		pstmt.setInt(1, status);
+		pstmt.setInt(2, no);
+		result = pstmt.executeUpdate();
+		JDBCTemplate.close(pstmt);
 		return result;
 	}
 	
 	///////////////////////////////////////////////관리자 마이페이지/////////////////////////////////////////////////////////
 	
 	//관리자가 방문예약리스트 갯수 구하기
-	public int adminReservationCount(Connection conn, String startDay, String endDay) {
+	public int adminReservationCount(Connection conn, String startDay, String endDay) throws SQLException {
 		Statement stmt = null;
 		ResultSet rset = null;
 		int result = 0;
@@ -548,25 +476,18 @@ public class BookApplyDao {
 		}
 		String query = "select count(*) as cnt from book_apply"+sql;
 		System.out.println(query);
-		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
-			if(rset.next()) {
-				result = rset.getInt("cnt");
-			}
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(stmt);
+		stmt = conn.createStatement();
+		rset = stmt.executeQuery(query);
+		if(rset.next()) {
+			result = rset.getInt("cnt");
 		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(stmt);
 		return result;
 	}
 	
 	//관리자가 방문예약 신청내역 리스트 확인
-	public ArrayList<BookApply> adminReservationList(Connection conn, int start, int end, String startDay,String endDay) {
-		System.out.println(start);
+	public ArrayList<BookApply> adminReservationList(Connection conn, int start, int end, String startDay,String endDay) throws SQLException {
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
 		ArrayList<BookApply> list = new ArrayList<BookApply>();
@@ -581,73 +502,59 @@ public class BookApplyDao {
 			sql += " where TO_CHAR(visit_date,'yyyy-mm-dd')<='"+endDay+"'";
 		}
 		String query = "select * from (select rownum as rnum, b.* from (select ba.no, m.name careNm, ba.id, ba.name,ba.phone, ba.visit_date, ba.visit_time, ba.apply_date, ba.status from ((select * from book_apply"+ sql +" order by 1 desc)ba) Join member m Using(code)) b) where rnum BETWEEN ? and ?";
-		
 		System.out.println(query);
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				BookApply ba = new BookApply();
-				ba.setRnum(rset.getInt("rnum"));
-				ba.setNo(rset.getInt("no"));
-				ba.setCode(rset.getString("careNm"));	//보호소 코드에 보호소 이름 넣기
-				ba.setId(rset.getString("id"));
-				ba.setName(rset.getString("name"));
-				ba.setPhone(rset.getString("phone"));
-				ba.setVisitDate(rset.getDate("visit_date"));
-				ba.setVisitTime(rset.getString("visit_time"));
-				ba.setApplyDate(rset.getDate("apply_date"));
-				ba.setStatus(rset.getInt("status"));
-				list.add(ba);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
+		pstmt = conn.prepareStatement(query);
+		pstmt.setInt(1, start);
+		pstmt.setInt(2, end);
+		rset = pstmt.executeQuery();
+		while(rset.next()) {
+			BookApply ba = new BookApply();
+			ba.setRnum(rset.getInt("rnum"));
+			ba.setNo(rset.getInt("no"));
+			ba.setCode(rset.getString("careNm"));	//보호소 코드에 보호소 이름 넣기
+			ba.setId(rset.getString("id"));
+			ba.setName(rset.getString("name"));
+			ba.setPhone(rset.getString("phone"));
+			ba.setVisitDate(rset.getDate("visit_date"));
+			ba.setVisitTime(rset.getString("visit_time"));
+			ba.setApplyDate(rset.getDate("apply_date"));
+			ba.setStatus(rset.getInt("status"));
+			list.add(ba);
 		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
 		return list;
 	}
 	
 	//관리자가 방문예약 리스트 내용 확인
-	public BookApply adminViewOne(Connection conn, int no) {
+	public BookApply adminViewOne(Connection conn, int no) throws SQLException {
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
-		System.out.println("리스트 내용 no(DAO) : "+no);
 		String query = "select * from (select rownum as rnum, b.* from (select ba.no, m.name careNm, ba.id, ba.name, ba.phone, ba.visit_date, ba.visit_time, ba.apply_date, ba.status,ba.yard, ba.animal,ba.family,ba.experience, ba.avg_time from ((select * from book_apply order by 1 desc)ba) Join member m Using(code)) b) where no=?";
 		BookApply ba = null;
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, no);
-			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				ba = new BookApply();
-				ba.setRnum(rset.getInt("rnum"));
-				ba.setNo(rset.getInt("no"));
-				ba.setCode(rset.getString("careNm"));	//보호소이름 코드에 저장하기
-				ba.setId(rset.getString("id"));
-				ba.setName(rset.getString("name"));
-				ba.setPhone(rset.getString("phone"));
-				ba.setVisitDate(rset.getDate("visit_date"));
-				ba.setVisitTime(rset.getString("visit_time"));
-				ba.setApplyDate(rset.getDate("apply_date"));
-				ba.setStatus(rset.getInt("status"));
-				ba.setYard(rset.getString("yard"));
-				ba.setAnimal(rset.getString("animal"));
-				ba.setFamily(rset.getString("family"));
-				ba.setExperience(rset.getString("experience"));
-				ba.setAvgTime(rset.getString("avg_time"));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
+		pstmt = conn.prepareStatement(query);
+		pstmt.setInt(1, no);
+		rset = pstmt.executeQuery();
+		if(rset.next()) {
+			ba = new BookApply();
+			ba.setRnum(rset.getInt("rnum"));
+			ba.setNo(rset.getInt("no"));
+			ba.setCode(rset.getString("careNm"));	//보호소이름 코드에 저장하기
+			ba.setId(rset.getString("id"));
+			ba.setName(rset.getString("name"));
+			ba.setPhone(rset.getString("phone"));
+			ba.setVisitDate(rset.getDate("visit_date"));
+			ba.setVisitTime(rset.getString("visit_time"));
+			ba.setApplyDate(rset.getDate("apply_date"));
+			ba.setStatus(rset.getInt("status"));
+			ba.setYard(rset.getString("yard"));
+			ba.setAnimal(rset.getString("animal"));
+			ba.setFamily(rset.getString("family"));
+			ba.setExperience(rset.getString("experience"));
+			ba.setAvgTime(rset.getString("avg_time"));
 		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
 		return ba;
 	}
 	public String date() {

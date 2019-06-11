@@ -8,6 +8,7 @@
 <%pageContext.setAttribute("newLineChar", "\n"); %>
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
+			<h2 class="main-comm-tit">자유게시판</h2>
 			<div class="voluntary-box">
 				<!-- 자유게시판 게시글 조회 -->
 				<table class="comm-tbl view">
@@ -62,10 +63,12 @@
 							<td colspan="4" style="text-align:center">
 								댓글입력 <input type="text" name="boardCommentContent" value=""/>
 								<button type="submit">등록</button>
+								<button type="button" class="cancelBtn">취소</button>
 							</td>
 						</tr>
 					</table>
 				</form>
+		
 				<c:forEach items="${vd.list }" var="list" varStatus="i">
 					<form action="/siPreBoardCommentUpdate" method="post">
 						<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
@@ -85,19 +88,16 @@
 										<c:if test="${sessionScope.member.id==list.boardCommentId }">
 										<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
 											<button class="mdfBtn" type="button">수정</button>
-											<button type="text" style="display:none;">/</button>
+											<button class="cmtUpdate" type="button" style="display:none;">등록</button>
 											<button class="cancelBtn" type="reset" style="display:none;">취소</button>
-											/
 											<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.boardCommentNo }');">삭제</a>
-											/
 										</c:if>
 										<c:if test="${sessionScope.member.id!=list.boardCommentId && sessionScope.member.id eq 'admin' }">
 										<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
-											<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.boardCommentNo }');">삭제2</a>
-											/
+											<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.boardCommentNo }');">삭제</a>
 										</c:if>
 										<c:if test="${not empty sessionScope.member.id }"><!-- 로그인시 노출 -->
-											<button type="button" class="reCmtBtn">대댓글</button>
+											<button type="button" class="reCmtBtn">답글</button>
 										</c:if>
 									</td>
 								</tr>	
@@ -115,14 +115,12 @@
 											<c:if test="${clist.boardCommentId == sessionScope.member.id }">
 												<button class="cmtrUpdate" type="button" onclick="cmtrMfy('${clist.boardCommentRef }','${clist.boardCommentNo }')" style="display:none;">등록</button>
 												<button class="mdfBtnr" type="button">수정</button>
-												<button type="text" style="display:none;">/</button>
 												<button class="cancelBtnr" type="reset" style="display:none;">취소</button>
-												/
 												<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.boardCommentNo }','${clist.boardCommentRef }');">삭제</a>
 											</c:if>
 											<c:if test="${sessionScope.member.id!=clist.boardCommentId && sessionScope.member.id eq 'admin' }">
 											<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
-												<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.boardCommentNo }','${clist.boardCommentRef }');">삭제2</a>
+												<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.boardCommentNo }','${clist.boardCommentRef }');">삭제</a>
 											</c:if>
 										</td>
 									</tr>
@@ -134,7 +132,8 @@
 									<input type="text" name="boardReCommentContent" class="boardReCommentContent${list.boardCommentNo }"  placeholder="대댓글을 입력하세요" maxlenth="50">
 								</td>
 								<td>
-									<button onclick="sendReCmt('${list.boardCommentNo }')" type="button">대댓글 등록하기</button>
+									<button onclick="sendReCmt('${list.boardCommentNo }')" type="button">등록</button>
+									<button class="reCmtBtnr" type="button" >취소</button>
 								</td>
 							</tr>
 						</table>
@@ -151,7 +150,7 @@
 							<button type="button" id="boardDelBtn" class="btn-style3">삭제</button>
 							<!-- 게시글 번호를 siPreBoardDelete?boardNo 서블릿에 전달-->
 						</c:if>
-						<button type="button" class="btn-style2" onclick="location.href='/siPreBoard'">목록으로 이동</button>
+						<button type="button" class="btn-style2" onclick="location.href='/siPreBoard'">목록으로</button>
 					</div>
 				</form>
 			</div>
@@ -159,6 +158,19 @@
 	</section>
 
 <script>
+	$(document).ready(function(){	//댓글 입력 취소	
+		$('.cancelBtn').click(function(){
+			$('#commentTb').hide();
+			$('[name=boardCommentContent]').val('');
+		});
+	});
+	$(document).ready(function(){	//대댓글 입력 취소	
+		$('.reCmtBtnr').click(function(){
+			$(this).parent().parent().hide();
+			$(this).parent().prev().children().val('');
+			$('.reCmtBtn').show();
+		});
+	});
 	function sendReCmt(boardCommentNo){	//대댓글 전송
 		var memberId = '${sessionScope.member.id }';		
 		var memberName = '${sessionScope.member.name }';
@@ -179,7 +191,6 @@
 	};
 	$(document).ready(function(){	//대댓글 입력 tr 노출
 		$('.reCmtBtn').click(function(){
-			$(this).hide();
 			$(this).parent().parent().parent().children().last().show();
 		});
 	});
@@ -192,10 +203,14 @@
 		$('.mdfBtn').click(function(){
 			$(this).parent().prev().children().eq(0).hide();
 			$(this).parent().prev().children().eq(1).show();
-			$(this).html('등록').attr("class","cmtUpdate");
 			$(this).nextAll().show();
+			$(this).hide();
 			$('.cancelBtn').click(function(){
-				location.href='/siPreBoardView?boardNo='+${vd.b.boardNo };
+				$(this).parent().prev().children().eq(0).show();
+				$(this).parent().prev().children().eq(1).hide();
+				$(this).prev().hide();
+				$(this).prev().prev().show();
+				$(this).hide();
 			});
 			$(".cmtUpdate").click(function(){
 				$(this).parents('form').submit();
@@ -207,10 +222,14 @@
 			$(this).parent().prev().children().eq(0).hide();
 			$(this).parent().prev().children().eq(1).show();
 			$(this).hide();
-			$('.cmtrUpdate').show();
+			$(this).prev().show();
 			$(this).nextAll().show();
 			$('.cancelBtnr').click(function(){
-				location.href='/siPreBoardView?boardNo='+${vd.b.boardNo };
+				$(this).parent().prev().children().eq(0).show();
+				$(this).parent().prev().children().eq(1).hide();
+				$(this).prev().show();
+				$(this).prev().prev().hide();
+				$(this).hide();
 			});
 		});
 	});
