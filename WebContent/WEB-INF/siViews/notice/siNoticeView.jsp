@@ -99,7 +99,8 @@
 											<c:if test="${sessionScope.member.id==list.noticeCommentId }">
 											<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
 												<button class="mdfBtn" type="button">수정</button>
-												<button type="text" style="display:none;">/</button>
+												<button class="cmtUpdate" type="button" style="display:none;">등록</button>
+												<button style="display:none;">/</button>
 												<button class="cancelBtn" type="reset" style="display:none;">취소</button>
 												/
 												<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.noticeCommentNo }');">삭제</a>
@@ -132,7 +133,7 @@
 												<c:if test="${clist.noticeCommentId == sessionScope.member.id }">
 													<button class="cmtrUpdate" type="button" onclick="cmtrMfy('${clist.noticeCommentRef }','${clist.noticeCommentNo }')" style="display:none;">등록</button>
 													<button class="mdfBtnr" type="button">수정</button>
-													<button type="text" style="display:none;">/</button>
+													<button style="display:none;">/</button>
 													<button class="cancelBtnr" type="reset" style="display:none;">취소</button>
 													/
 													<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.noticeCommentNo }','${clist.noticeCommentRef }');">삭제</a>
@@ -178,11 +179,13 @@
 	$(document).ready(function(){	//댓글 입력 취소	
 		$('.cancelBtn').click(function(){
 			$('#commentTb').hide();
+			$('[name=noticeCommentContent]').val('');
 		});
 	});
 	$(document).ready(function(){	//대댓글 입력 취소	
 		$('.reCmtBtnr').click(function(){
 			$(this).parent().parent().hide();
+			$(this).parent().prev().children().val('');
 			$('.reCmtBtn').show();
 		});
 	});
@@ -206,7 +209,6 @@
 	};
 	$(document).ready(function(){	//대댓글 입력 tr 노출
 		$('.reCmtBtn').click(function(){
-			$(this).hide();
 			$(this).parent().parent().parent().children().last().show();
 		});
 	});
@@ -219,10 +221,17 @@
 		$('.mdfBtn').click(function(){
 			$(this).parent().prev().children().eq(0).hide();
 			$(this).parent().prev().children().eq(2).show();
-			$(this).html('등록').attr("class","cmtUpdate");
 			$(this).nextAll().show();
+			$(this).hide();
 			$('.cancelBtn').click(function(){
-				location.href='/siNoticeView?noticeNo='+${vd.n.noticeNo };
+				$(this).parent().prev().children().eq(0).show();
+				$(this).parent().prev().children().eq(2).hide();
+				$('.mdfBtn').show();
+				$('.cmtrUpdate').hide();
+				$(this).prev().hide();
+				$(this).prev().prev().hide();
+				$(this).hide();
+				/* location.href='/siNoticeView?noticeNo='+${vd.n.noticeNo }; */
 			});
 			$(".cmtUpdate").click(function(){
 				$(this).parents('form').submit();
@@ -237,7 +246,14 @@
 			$('.cmtrUpdate').show();
 			$(this).nextAll().show();
 			$('.cancelBtnr').click(function(){
-				location.href='/siNoticeView?noticeNo='+${vd.n.noticeNo };
+				$(this).parent().prev().children().eq(0).show();
+				$(this).parent().prev().children().eq(2).hide();
+				$('.mdfBtnr').show();
+				$('.cmtrUpdate').hide();
+				$('.mdfBtnr').next().hide();
+				$(this).prev().hide();
+				$(this).hide();
+				/* location.href='/siNoticeView?noticeNo='+${vd.n.noticeNo }; */
 			});
 		});
 	});
