@@ -66,6 +66,7 @@
 						<input type="hidden" name="specialMark" value="${m.specialMark }">
 						<input type="hidden" name="neuterYn" value="${m.neuterYn }">
 						<input type="hidden" name="filename" value="${m.filename }">
+						<input type="hidden" name="city" value="${city}">
 						<a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo">		<!-- 보호소명 보내기 -->
 							<div class="img-thum">
 								<span style="background:url('${m.filename }') no-repeat center center; background-size:cover;"></span>
