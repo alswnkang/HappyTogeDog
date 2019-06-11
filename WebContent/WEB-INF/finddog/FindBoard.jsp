@@ -32,6 +32,7 @@
 					</thead>
 					<tbody>
 			 			<c:forEach items="${bp.list }" var="list" varStatus="i">
+
 							<tr onclick="location.href='/detailTakeBoard?boardNo=${list.boardNo }'" class="viewOne">
 								<td>${list.boardRnum}</td>
 								<td><img src="/siUpload/board/${list.boardFilepath }" style="height: 200px; width: 200px;"></td>

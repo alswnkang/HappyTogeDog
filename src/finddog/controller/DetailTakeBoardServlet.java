@@ -34,9 +34,11 @@ public class DetailTakeBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		request.setCharacterEncoding("utf-8");
 		
 		int no=Integer.parseInt(request.getParameter("boardNo"));
+		int param=Integer.parseInt(request.getParameter("param"));
+		
 		BoardViewData bvd  = new BoardService().takeBoardView(no);
 		
 		request.setAttribute("vd", bvd);
@@ -45,8 +47,9 @@ public class DetailTakeBoardServlet extends HttpServlet {
 		
 		
 		request.setAttribute("kindNm", kindName);
-		
+		request.setAttribute("param", param);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/DetailTakeBoard.jsp");
+		
 		rd.forward(request, response);
 		
 	}

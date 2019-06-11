@@ -60,7 +60,7 @@
 					</table>
 					<div class="common-tbl-btn-group">
 						<button type="submit" class="btn-style1">수정하기</button>
-						<button type="reset" class="btn-style2" onclick="location.href='/siPreBoardView?boardNo=${board.boardNo }'">취소</button>
+						<button type="reset" class="btn-style2" onclick="location.href='/detailTakeBoard?boardNo=${board.boardNo }'">취소</button>
 					</div>
 				</form>
 			</div>
