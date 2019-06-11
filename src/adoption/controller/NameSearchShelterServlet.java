@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import adoption.model.service.PrintShelterService;
 import member.model.vo.Member;
+import member.model.vo.MemberPageData;
 
 /**
  * Servlet implementation class NameSearchShelterServlet
@@ -37,20 +38,22 @@ public class NameSearchShelterServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String key=request.getParameter("keyword");
+		int page;
+		try {	
+			page = Integer.parseInt(request.getParameter("page"));
+		}catch (NumberFormatException e) {
+			// TODO: handle exception
+			page=1;
+		}
 		System.out.println(key);
-		ArrayList<Member> list=null;
+		MemberPageData mpd = new MemberPageData();
 		try {
-			list = new PrintShelterService().getSearchName(key);
-			
-			System.out.println(list.get(0).getName());
+			mpd = new PrintShelterService().getSearchName(key,page);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		request.setAttribute("list", list);
-		
+		request.setAttribute("mpd", mpd);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/NameSearchShelter.jsp");
 		rd.forward(request, response);
 	}

@@ -40,7 +40,7 @@
 					</tr>
 					<c:if test="${not empty vd.n.noticeFilename }">
 						<tr>
-							<td colspan="2" style="border-bottom: 0px;">
+							<td colspan="2" style="border-bottom: 0px;text-align: center;">
 								<a style="float:right;" href="javascript:fileDownload('${vd.n.noticeFilename }','${vd.n.noticeFilepath }');">${vd.n.noticeFilename }</a>
 								<br/>
 								<img src='/siUpload/notice/${vd.n.noticeFilename }' width="500px"/>
@@ -49,8 +49,8 @@
 						</tr>
 					</c:if>
 					<c:if test="${not empty sessionScope.member.id }">
-						<tr >
-							<td colspan="2" style="border-bottom: 0px;border-top: 0px;">
+						<tr>
+							<td colspan="2" style="border-bottom: 0px;border-top: 0px;text-align: center;">
 								<pre>${fn:replace(vd.n.noticeContent,newLineChar,"<br/>")}</pre>
 							</td>
 						</tr>
@@ -63,7 +63,7 @@
 					</c:if>
 					<c:if test="${empty sessionScope.member }">
 						<tr>
-							<td colspan="2" style="border-top: 0px;">
+							<td colspan="2" style="border-top: 0px;text-align: center;">
 								<pre>${fn:replace(vd.n.noticeContent,newLineChar,"<br/>")}</pre>
 							</td>
 						</tr>
