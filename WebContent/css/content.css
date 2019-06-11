@@ -124,15 +124,15 @@
 .find-shelter-right-box .map > a{display:inline-block; width:18px; height:22px; background:url(/img/map_icon_2.png) no-repeat; background-position:0 -22px; position:absolute;}
 .find-shelter-right-box .map > a.on, .find-shelter-right-box .map > a:hover{background-position:0 0;}
 .find-shelter-right-box .map > a.on .loc-name, .find-shelter-right-box .map > a:hover .loc-name{display:block;}
-.find-shelter-right-box .map > a.loc01{left:30px; top:114px;} /*인천*/
-.find-shelter-right-box .map > a.loc02{left:51px; top:108px;} /*서울*/
-.find-shelter-right-box .map > a.loc03{left:53px; top:79px;} /*경기도*/
-.find-shelter-right-box .map > a.loc04{left:131px; top:102px;} /*강원도*/
-.find-shelter-right-box .map > a.loc05{left:35px; top:188px;} /*충청남도*/
-.find-shelter-right-box .map > a.loc06{left:72px; top:202px;} /*대전*/
-.find-shelter-right-box .map > a.loc07{left:91px; top:171px;} /*충청북도*/
-.find-shelter-right-box .map > a.loc08{right:39px; top:204px;} /*경상북도*/
-.find-shelter-right-box .map > a.loc09{left:55px; bottom:150px;} /*전라북도*/
+.find-shelter-right-box .map > a.loc1{left:30px; top:114px;} /*인천*/
+.find-shelter-right-box .map > a.loc2{left:51px; top:108px;} /*서울*/
+.find-shelter-right-box .map > a.loc3{left:53px; top:79px;} /*경기도*/
+.find-shelter-right-box .map > a.loc4{left:131px; top:102px;} /*강원도*/
+.find-shelter-right-box .map > a.loc5{left:35px; top:188px;} /*충청남도*/
+.find-shelter-right-box .map > a.loc6{left:72px; top:202px;} /*대전*/
+.find-shelter-right-box .map > a.loc7{left:91px; top:171px;} /*충청북도*/
+.find-shelter-right-box .map > a.loc8{right:39px; top:204px;} /*경상북도*/
+.find-shelter-right-box .map > a.loc9{left:55px; bottom:150px;} /*전라북도*/
 .find-shelter-right-box .map > a.loc10{left:30px; bottom:106px;} /*광주*/
 .find-shelter-right-box .map > a.loc11{left:60px; bottom:87px;} /*전라남도*/
 .find-shelter-right-box .map > a.loc12{left:124px; bottom:115px;} /*경상남도*/
@@ -141,9 +141,9 @@
 .find-shelter-right-box .map > a.loc15{right:59px; bottom:152px;} /*대구*/
 .find-shelter-right-box .map > a.loc16{left:65px; top:180px;} /*세종시*/
 .find-shelter-right-box .map > a .loc-name{position:absolute; top:-51px; left:9px; display:none; width:74px; height:49px; background:url(/img/map_txt_2.png) no-repeat; text-align:center; line-height:25px; font-size:12px; color:#3e3e3e; font-weight:500; z-index:9;}
-.find-shelter-right-box .map > a.loc01 .loc-name,
-.find-shelter-right-box .map > a.loc06 .loc-name,
-.find-shelter-right-box .map > a.loc09 .loc-name,
+.find-shelter-right-box .map > a.loc1 .loc-name,
+.find-shelter-right-box .map > a.loc6 .loc-name,
+.find-shelter-right-box .map > a.loc9 .loc-name,
 .find-shelter-right-box .map > a.loc10 .loc-name,
 .find-shelter-right-box .map > a.loc11 .loc-name,
 .find-shelter-right-box .map > a.loc15 .loc-name{background:url(/img/map_txt_3.png) no-repeat; left:-65px;}
