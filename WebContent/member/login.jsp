@@ -11,6 +11,9 @@
 		<h2 class="comm-content-tit">로그인</h2>
 		<div id="loginBox" class="common-tbl-box" style="padding-bottom:50px;"><!-- class="common-tbl-box" id는 바꿔서 복붙 -->
 			<form action="/login" method="post">
+				<%-- 이전 페이지 url 가져오기
+				<input type="hidden" name="url" value="<%=request.getHeader("referer").split("localhost/")[1]%>">
+				--%>
 				<div class="login-inner clearfix">
 					<div class="login-tbl-box">
 						<table class="comm-tbl login-tbl">

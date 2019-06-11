@@ -32,8 +32,9 @@
 					</thead>
 					<tbody>
 			 			<c:forEach items="${bp.list }" var="list" varStatus="i">
-							<tr onclick="location.href='/detailTakeBoard?boardNo=${list.boardNo }'" class="viewOne">
-								<td>${i.count}</td>
+
+							<tr onclick="location.href='/detailFindBoard?boardNo=${list.boardNo }'" class="viewOne">
+								<td>${list.boardRnum}</td>
 								<td><img src="/siUpload/board/${list.boardFilepath }" style="height: 200px; width: 200px;"></td>
 								<td>${list.boardTitle }</td>
 								<!-- name 값을 넘겨주도록 설정필요 -->
@@ -61,7 +62,7 @@
 				<div class="paging">
 					${bp.pageNavi }
 				</div>
-				<form action="/takeBoardSearch" method="post">
+				<form action="/findBoardSearch" method="post">
 					<div class="board-search-box">
 						<select name="searchWord">
 							<option value="boardName">작성자</option>

@@ -1,29 +1,28 @@
 package finddog.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import finddog.model.service.SearchDogService;
-import member.model.vo.cityCode;
-import openApi.model.dao.OpenApiDao;
+import siBoard.model.boardService.BoardService;
+import siBoard.model.boardVo.BoardViewData;
 
 /**
- * Servlet implementation class TesttestServlet
+ * Servlet implementation class DetailFindBoardServlet
  */
-@WebServlet(name = "Testtest", urlPatterns = { "/testtest" })
-public class TesttestServlet extends HttpServlet {
+@WebServlet(name = "DetailFindBoard", urlPatterns = { "/detailFindBoard" })
+public class DetailFindBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TesttestServlet() {
+    public DetailFindBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,25 +32,23 @@ public class TesttestServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("utf-8");
 		
-		ArrayList<openApi.model.vo.cityCode> list=null;
-		while(true) {
-			list=new OpenApiDao().getCityCode();
-			if(list.size()>10) {
-				break;
-			}
-		}
-		
-		for(int i=0;i<17;i++) {
-			String city=list.get(i).getCityCode();
-			System.out.println(city);
-			ArrayList<openApi.model.vo.cityCode> list2= new OpenApiDao().getAreaCode(city);
-			
-		
-		}
+		int no=Integer.parseInt(request.getParameter("boardNo"));
 		
 		
+		BoardViewData bvd  = new BoardService().takeBoardView(no);
 		
+		request.setAttribute("vd", bvd);
+		String dogkind=bvd.getB().getDogKind();
+		String kindName= new BoardService().getDogKindName(dogkind);
+		
+		
+		request.setAttribute("kindNm", kindName);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/DetailFindBoard.jsp");
+		
+		rd.forward(request, response);
 	}
 
 	/**

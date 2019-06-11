@@ -7,7 +7,6 @@ public class OrderUpdate {
 	private int status;
 	public OrderUpdate() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public OrderUpdate(String no, String deilveryNum, int status) {
 		super();

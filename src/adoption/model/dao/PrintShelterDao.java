@@ -229,149 +229,53 @@ public class PrintShelterDao {
 		
 		return result;
 	}
-	public int addShelter(Connection conn, Member m) throws SQLException {
-		// TODO Auto-generated method stub
-		PreparedStatement pstmt = null;
-		String query = "insert into shelter values(?,?,?,?,?)";
-		
-		pstmt=conn.prepareStatement(query);
-		
-		pstmt.setString(1, m.getCode());
-		pstmt.setString(2, m.getName());
-		pstmt.setString(3, m.getPhone());
-		pstmt.setString(4, m.getAddress());
-
-		int city=0;
-		int result=0;
-		String[] array = m.getAddress().split(" ");
-		//city
 	
-		switch (array[0]) {
-		case "서울특별시":
-			city=2;
-			break;
-		case "부산광역시":
-			city=14;
-			break;
-		case "대구광역시":
-			city=15;
-			break;
-		case "대전광역시":
-			city=6;
-			break;
-		case "광주광역시":
-			city=10;
-			break;
-		case "울산광역시":
-			break;
-		case "경기도":
-			city=3;
-			break;
-		case "경상남도":
-			city=12;
-			break;
-		case "경상북도":
-			city=8;
-			break;
-		case "충청남도":
-			city=5;
-			break;
-		case "충청북도":
-			city=7;
-			break;
-		case "전라남도":
-			city=11;
-			break;
-		case "전라북도":
-			city=9;
-			break;
-		case "강원도":
-			city=4;
-			break;	
-		case "세종특별시":
-			city=16;
-			break;	
-		case "인천광역시":
-			city=1;
-			break;	
-		case "제주특별시":
-			city=13;
-			break;	
-		
-		}
-		
-		
-		pstmt.setInt(5, city);
-		
-		
-		result=pstmt.executeUpdate();
-		JDBCTemplate.close(pstmt);
-		
-		
-		return result;
-		
-		
-	}
-	public ArrayList<Shelter> getAllList(Connection conn) throws SQLException {
-		// TODO Auto-generated method stub
-		ArrayList<Shelter>list =null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String query = "select * from shelter";
-		
-		
-		
-		pstmt= conn.prepareStatement(query);
-		rset = pstmt.executeQuery();
-		list = new ArrayList<>();
-		
-		while(rset.next()) {
-			Shelter s = new Shelter();
-			s.setAddr(rset.getString("addr"));
-			s.setCode(rset.getString("code"));
-			s.setName(rset.getString("name"));
-			s.setPhone(rset.getString("phone"));
-			s.setLevel(rset.getInt("lev"));
-			list.add(s);
-		}
-		
-		JDBCTemplate.close(rset);
-		JDBCTemplate.close(pstmt);
-		
-		
-		return list;
-	}
-	public ArrayList<Member> getSearchName(Connection conn, String key) throws SQLException {
-		// TODO Auto-generated method stub
-		
+	
+	public ArrayList<Member> getSearchName(Connection conn, String key, int start, int end) throws SQLException {
 		ArrayList<Member>list =null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from member";
-		
-		
-		
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where name like ? and member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
 		pstmt= conn.prepareStatement(query);
+		pstmt.setString(1, "%"+key+"%");
+		pstmt.setInt(2, start);
+		pstmt.setInt(3, end);
 		rset = pstmt.executeQuery();
-		list = new ArrayList<>();
-		
+		list = new ArrayList<Member>();
 		while(rset.next()) {
 			Member s = new Member();
 			s.setAddress(rset.getString("address"));
 			s.setName(rset.getString("name"));
 			s.setPhone(rset.getString("phone"));
-			
-			if(rset.getString("name").contains(key)) {
-				list.add(s);
-			}		
+			list.add(s);
 		}
-		
 		JDBCTemplate.close(rset);
 		JDBCTemplate.close(pstmt);
-		
-		
 		return list;
 	}
+	
+	public int searchNameCount(Connection conn, String key) {
+		PreparedStatement pstmt = null;	
+		ResultSet rset= null;
+		int result=0;
+		String query="select count(*) cnt from member where name like ? and member_level=1";
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setString(1, "%"+key+"%");
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	
 	public int totalCountFirst(Connection conn) throws SQLException {
 		PreparedStatement pstmt = null;	
 		ResultSet rset= null;
@@ -449,4 +353,5 @@ public class PrintShelterDao {
 		
 		return spd;
 	}
+	
 }

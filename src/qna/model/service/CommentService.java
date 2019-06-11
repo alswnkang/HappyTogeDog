@@ -20,6 +20,7 @@ public class CommentService {
 		Connection conn = JDBCTemplate.getCon();
 		int result = new CommentDao().insertComment(conn,comment);
 		if(result>0) {
+			/* 답변이 등록되면 답변 상태 업데이트 */
 			result = new CommentDao().updateAnswer(conn,comment);
 			if(result>0) {
 				JDBCTemplate.commit(conn);

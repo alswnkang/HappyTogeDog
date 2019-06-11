@@ -8,7 +8,6 @@ public class OrderListVO {
 	private String pageNavi;
 	public OrderListVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public OrderListVO(ArrayList<OrderInfoVO> orderinfoList, String pageNavi) {
 		super();

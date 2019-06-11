@@ -9,7 +9,6 @@ public class QnaListVO {
 	private String pageNavi;
 	public QnaListVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public QnaListVO(ArrayList<QnaVO> qnainfoList, String pageNavi) {
 		super();

@@ -16,7 +16,6 @@ public class OrderService {
 
 	public int insertOrder(OrderInfoVO orderInfo) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
-
 		int result = new OrderDao().insertOrder(conn,orderInfo);
 		if(result>0){
 			JDBCTemplate.commit(conn);
@@ -37,17 +36,17 @@ public class OrderService {
 	
 	public OrderListVO selectOrder(SearchVO search) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
-		
 		int reqPage = search.getReqPage();
 		int total = new OrderDao().totalCount(conn,search);
-		
-		int pageNum = 10;// 게시물 개수
+		int pageNum = 10;
 		int totalPage = (total%pageNum==0)?(total/pageNum):(total/pageNum)+1;
 		int start = (reqPage*pageNum-pageNum)+1;
 		int end  = reqPage*pageNum;
+		/* 리스트 */
 		ArrayList<OrderInfoVO> orderinfoList = new OrderDao().selectOrder(conn,start,end,search);
 		
-		int totalNavi = 5;//네비 개수
+		/* 페이지 네비 */
+		int totalNavi = 5;
 		String pageNavi = "";
 		int pageNo = ((reqPage-1)/totalNavi)*totalNavi+1;
 		if(pageNo != 1) {
@@ -89,7 +88,6 @@ public class OrderService {
 
 	public int updateOrder(OrderUpdate updateInfo) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
-		
 		int result = 0;
 		if(updateInfo.getDeilveryNum() == null){
 			result = new OrderDao().updateStatus(conn,updateInfo);

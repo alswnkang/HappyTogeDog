@@ -67,6 +67,7 @@ public class SearchDogDao {
 
 	public ArrayList<DogList> getList(int page, String sDay, String eDay, String kind, String cityCode) {
 		// TODO Auto-generated method stub
+		System.out.println("APIGETLIST : "+page);
 		ArrayList<DogList> list = null;
 		try {
 			String kinds="";
@@ -204,7 +205,7 @@ public class SearchDogDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		System.out.println("여기는 겟리스트 도착");
-		String query ="SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ? and board_type=3"+kindcode+city+" and happen_date>? and happen_date<=?";
+		String query ="SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD where board_type=3 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?"+kindcode+city+" and happen_date>? and happen_date<=?";
 		System.out.println(query);
 		
 		try {
@@ -393,6 +394,158 @@ public class SearchDogDao {
 		cal.add(Calendar.MONTH, -6);
 		System.out.println("preMonth메소드 : "+date.format(cal.getTime()));
 		return date.format(cal.getTime());
+	}
+
+	public int getTotalCount(int page, String sDay, String eDay, String kind, String cityCode) {
+		// TODO Auto-generated method stub
+		
+		int result=0;
+		ArrayList<DogList> list = null;
+		try {
+			String kinds="";
+			String cityCo="";
+			while (true) {
+				
+				if(sDay.equals("")||sDay==null) {
+					sDay=preMonth();
+				}
+				if(eDay.equals("")||eDay==null) {
+					eDay=date();
+				}
+				if(kind.equals("")||kind==null) {
+					kinds="&kind=".concat(kind);
+				}
+				if(cityCode.equals("")||cityCode==null) {
+					cityCo="&upr_cd=".concat(cityCode);
+				}
+				// parsing할 url 지정(API 키 포함해서)
+				System.out.println(sDay+","+eDay+"진짜이상하네");
+				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde="+sDay+"&endde="+eDay+"&pageNo="
+						+ page
+						+kinds+cityCo+"&upkind=417000&numOfRows=8&ServiceKey=9foRMY8t3j0MRIsmBCTWOiLUVaW4yJivGOtPfYE9x8yYsPcPCkCUZgGm39bZZGdQQc1ZT9MN87KHULUH8aLpMg%3D%3D";
+				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+				Document doc = dBuilder.parse(url);
+				// root tag
+				doc.getDocumentElement().normalize();
+				System.out.println("Root element :" + doc.getDocumentElement().getNodeName()); // XML의 최상위 tag값 가져오기
+				System.out.println(url);
+				// 파싱할 tag
+				NodeList nList = doc.getElementsByTagName("body");
+				// System.out.println("파싱할 리스트 수 : "+ nList.getLength());
+				int count = 0;
+				list = new ArrayList<DogList>();
+				for (int temp = 0; temp < nList.getLength(); temp++) {
+					DogList dl = new DogList();
+					Node nNode = nList.item(temp);
+					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+						Element eElement = (Element) nNode;
+						System.out.println("######################");
+						// System.out.println(eElement.getTextContent()); getTextContent(): 전체 정보
+						result=Integer.parseInt(getTagValue("totalCount", eElement));
+						count++;
+						System.out.println("데이터 담은수:" + count);
+						list.add(dl);
+					} // for end
+				} // if end
+				System.out.println("page number : " + page);
+				break;
+			} // while end
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public int totalSearchCount(Connection conn, int type, String word, int sel) {
+		// TODO Auto-generated method stub
+		//sel==1이면 이름 sel==2이면 제목z
+		PreparedStatement stmt = null;
+		ResultSet rset = null;
+		String query="";
+		int result = 0;
+		if(sel==1) {
+			query = "select count(*) as cnt from board where board_type=? and board_name like '%"+word+"%'";
+		}else if(sel==2) {
+			query = "select count(*) as cnt from board where board_type=? and board_title like '%"+word+"%'";
+		}
+		
+		System.out.println("여기는 토탈카운트 도착word:"+word );
+		try {
+			stmt = conn.prepareStatement(query);
+			stmt.setInt(1, type);
+			rset = stmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(rset);
+			JDBCTemplete.close(stmt);
+		}
+		return result;
+		
+	}
+
+	public ArrayList<Board> takeSearchBoard(Connection conn, int start, int end, int type, String word, int sel) {
+		// TODO Auto-generated method stub
+		//sel==1이면 이름 sel==2이면 제목z
+
+
+		
+		ArrayList<Board> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query="";
+		
+		if(sel==1) {
+			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD where board_type=? and board_name like '%"+word+"%' ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ? ";
+		}else if(sel==2) {
+			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD where board_type=? and board_title like '%"+word+"%' ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ? ";
+		}
+		
+		
+		
+		
+		
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, type);
+			
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<Board>();
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBoardRnum(rset.getInt("rnum"));
+				b.setBoardNo(rset.getInt("board_no"));
+				b.setBoardType(rset.getInt("board_Type"));
+				b.setBoardId(rset.getString("board_id"));
+				b.setBoardName(rset.getString("board_Name"));
+				b.setBoardTitle(rset.getString("board_title"));
+				b.setBoardContent(rset.getString("board_content"));
+				b.setBoardFilename(rset.getString("board_filename"));
+				b.setBoardFilepath(rset.getString("board_filepath"));
+				b.setBoardDate(rset.getDate("board_date"));
+				b.setBoardCount(rset.getInt("board_count"));
+				b.setBoardSecret(rset.getInt("board_secret"));
+				b.setBoardPw(rset.getString("board_pw"));
+				b.setBoardPrdCode(rset.getString("board_prdCode"));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(rset);
+			JDBCTemplete.close(pstmt);
+		}
+		return list;
 	}
 
 }

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import qna.model.vo.QnaVO;
-import sponsorship.model.vo.OrderInfoVO;
 import sponsorship.model.vo.SearchVO;
 
 public class QnaDao {
@@ -29,9 +28,7 @@ public class QnaDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-
 		String sql = "select count(*) as cnt from board where board_type=5 "+makeQuery(search);
-		
 		pstmt = conn.prepareStatement(sql);
 		rset = pstmt.executeQuery();
 		if(rset.next()){
@@ -39,7 +36,6 @@ public class QnaDao {
 		}
 		JDBCTemplate.close(rset);
 		JDBCTemplate.close(pstmt);
-		
 		return result;
 	}
 
@@ -48,7 +44,6 @@ public class QnaDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = "select * from (select rownum rnum,b.* from (select * from board where board_type=5 "+makeQuery(search)+" order by board_date desc) b ) where rnum between ? and ? ";
-		
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, start);
 		pstmt.setInt(2, end);
@@ -83,7 +78,6 @@ public class QnaDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = "select * from board where board_no=? ";
-		
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, boardNo);
 		rset = pstmt.executeQuery();
@@ -105,6 +99,7 @@ public class QnaDao {
 		}
 		JDBCTemplate.close(rset);
 		JDBCTemplate.close(pstmt);
+		
 		return qna;
 	}
 
@@ -113,7 +108,6 @@ public class QnaDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = "select * from board where board_no=? and board_pw=?";
-		
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, boardNo);
 		pstmt.setString(2, boardPw);
@@ -135,6 +129,7 @@ public class QnaDao {
 		}
 		JDBCTemplate.close(rset);
 		JDBCTemplate.close(pstmt);
+		
 		return qna;
 	}
 
@@ -155,6 +150,7 @@ public class QnaDao {
 		pstmt.setString(10, qna.getBoardPrdcode());
 		result = pstmt.executeUpdate();
 		JDBCTemplate.close(pstmt);
+		
 		return result;
 	}
 
@@ -180,6 +176,7 @@ public class QnaDao {
 		}
 		result = pstmt.executeUpdate();
 		JDBCTemplate.close(pstmt);
+		
 		return result;
 	}
 
@@ -199,6 +196,7 @@ public class QnaDao {
 		}
 		result = pstmt.executeUpdate();
 		JDBCTemplate.close(pstmt);
+		
 		return result;
 	}
 

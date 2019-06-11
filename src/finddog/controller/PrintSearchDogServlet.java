@@ -46,16 +46,26 @@ public class PrintSearchDogServlet extends HttpServlet {
 		String eDay=request.getParameter("endDay");
 		System.out.println(sDay+","+eDay);
 		
+	
+	
 		int page;
 		try {
 			page = Integer.parseInt(request.getParameter("page"));
 		}catch(NumberFormatException e){ // 처음요청시 숫자가 아니므로 1을 줘서 첫페이지로 향하게한다.
 			page = 1;
 		}
+		int page2;
+		try {
+			page2 = Integer.parseInt(request.getParameter("page2"));
+		}catch(NumberFormatException e){ // 처음요청시 숫자가 아니므로 1을 줘서 첫페이지로 향하게한다.
+			page2 = 1;
+		}
+		
+		
 		boolean b= true;
 		SearchDogPageData sdpd = new SearchDogPageData();
 		while(b) {
-			sdpd = new SearchDogService().selectList(page,sDay,eDay,kind,cityCode);
+			sdpd = new SearchDogService().selectListAPI(page,page2,sDay,eDay,kind,cityCode);
 			if(!sdpd.getList().isEmpty()) {
 				if(sdpd.getList().size()==8) { //8개의 리스트를답을때까지 반복
 					count++;
@@ -102,7 +112,7 @@ public class PrintSearchDogServlet extends HttpServlet {
 		
 		BoardPageData sdpd2 = new BoardPageData();
 		
-		sdpd2 = new SearchDogService().selectListDB(page, sDay, eDay, kind, cityCode);
+		sdpd2 = new SearchDogService().selectListDB(page,page2, sDay, eDay, kind, cityCode);
 		
 		
 		

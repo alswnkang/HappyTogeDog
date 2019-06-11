@@ -47,6 +47,8 @@ public class PrintShelterServlet extends HttpServlet {
 			// TODO: handle exception
 			page=1;
 		}
+		
+		
 		System.out.println(city);
 		MemberPageData mpd = new MemberPageData();
 		
@@ -57,7 +59,6 @@ public class PrintShelterServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(mpd.getList().size());
 		request.setAttribute("spd", mpd);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/findShelter.jsp");

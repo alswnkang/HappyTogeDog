@@ -27,14 +27,13 @@
 							<p class="option">수량<input type="text" name="amount" class="num" value="1"> 개</p>
 							<p class="option">금액<input type="text" name="price" class="num"> 원</p>
 							<p class="price type2"><span>총 수량  <b><span id="realAmount">0</span> 개</b></span> / &nbsp;&nbsp;<span>총 금액 <b><span id="realPrice">0</span> 원</b></span></p>
-							<c:if test="${not empty sessionScope.member}">
-								<c:if test="${sessionScope.member.memberLevel ne 2}">
+							<c:choose>
+								<%-- 관리자 제외하고 후원 가능 --%>
+								<c:when test="${empty sessionScope.member || sessionScope.member.memberLevel ne 2}">
 									<p class="order-btn-box"><button type="submit" class="order-btn">후원하기</button></p>
-								</c:if>
-							</c:if>
-							<c:if test="${empty sessionScope.member}">
-								<p class="order-btn-box"><button type="submit" class="order-btn">후원하기</button></p>
-							</c:if>
+								</c:when>
+								<c:otherwise />
+							</c:choose>
 						</div>
 					</form>
 				</div>	
@@ -161,14 +160,12 @@
 				</table>
 				<p class="common-tbl-btn-group right">
 					<button class="btn-style2" onclick="location.href='/qnaList'">더보기</button>
-					<c:if test="${not empty sessionScope.member}">
-						<c:if test="${sessionScope.member.memberLevel ne 2}">
-							<button class="btn-style2" onclick="location.href='/regiQna?prdCode=${prd.prdCode}'">작성하기</button>
-						</c:if>
-					</c:if>
-					<c:if test="${empty sessionScope.member}">
-						<button class="btn-style2" onclick="location.href='/regiQna?prdCode=${prd.prdCode}'">작성하기</button>
-					</c:if>
+					<c:choose>
+						<c:when test="${empty sessionScope.member || sessionScope.member.memberLevel ne 2}">
+							<button class="btn-style2" onclick="location.href='/regiQna?prdCode=${prd.prdCode}'">글쓰기</button>
+						</c:when>
+						<c:otherwise />
+					</c:choose>
 				</p>
 			</div>
 		</div>
