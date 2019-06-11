@@ -180,6 +180,73 @@ public class SearchDogService {
 		SearchDogPageData sdpd = new SearchDogPageData(list,pageNavi);
 		return sdpd;
 	}
+
+	public BoardPageData takeSearchBoard(int reqPage, int type, String word, int sel) {
+		// TODO Auto-generated method stub
+		Connection conn = JDBCTemplete.getConnection();
+		//sel==1이면 이름 sel==2이면 제목
+		int numPerPage = 10;
+		int totalCount = new SearchDogDao().totalSearchCount(conn,type,word,sel);
+		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
+		int start = (reqPage-1)*numPerPage+1;
+		int end = reqPage*numPerPage;
+		ArrayList<Board> list = new SearchDogDao().takeSearchBoard(conn,start,end,type,word,sel);
+		String pageNavi = "";
+		int pageNaviSize = 10;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
+		if(pageNo!=1) {
+			pageNavi+="<a href='/takeBoard?reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px'></a>";
+		}
+		int i = 1;
+		while(!(i++>pageNaviSize || pageNo>totalPage)) {
+			if(reqPage==pageNo) {
+				pageNavi+="<span>"+pageNo+"</span>";
+			}else {
+				pageNavi+="<a href='/takeBoard?reqPage="+pageNo+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
+		if(pageNo<=totalPage) {
+			pageNavi+="<a href='/takeBoard?reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px'></a>";
+		}
+		JDBCTemplete.close(conn);
+		BoardPageData bp = new BoardPageData(list,pageNavi);
+		return bp;
+	}
+
+	public BoardPageData findSearchBoard(int reqPage, int type, String word, int sel) {
+		// TODO Auto-generated method stub
+		
+		Connection conn = JDBCTemplete.getConnection();
+		//sel==1이면 이름 sel==2이면 제목
+		int numPerPage = 10;
+		int totalCount = new SearchDogDao().totalSearchCount(conn,type,word,sel);
+		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
+		int start = (reqPage-1)*numPerPage+1;
+		int end = reqPage*numPerPage;
+		ArrayList<Board> list = new SearchDogDao().takeSearchBoard(conn,start,end,type,word,sel);
+		String pageNavi = "";
+		int pageNaviSize = 10;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
+		if(pageNo!=1) {
+			pageNavi+="<a href='/takeBoard?reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px'></a>";
+		}
+		int i = 1;
+		while(!(i++>pageNaviSize || pageNo>totalPage)) {
+			if(reqPage==pageNo) {
+				pageNavi+="<span>"+pageNo+"</span>";
+			}else {
+				pageNavi+="<a href='/takeBoard?reqPage="+pageNo+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
+		if(pageNo<=totalPage) {
+			pageNavi+="<a href='/takeBoard?reqPage="+pageNo+"'><img src='/img/right_arrow.png' style='width:30px;height:30px'></a>";
+		}
+		JDBCTemplete.close(conn);
+		BoardPageData bp = new BoardPageData(list,pageNavi);
+		return bp;
+	}
 	
 
 

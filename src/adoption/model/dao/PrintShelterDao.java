@@ -231,36 +231,49 @@ public class PrintShelterDao {
 	}
 	
 	
-	public ArrayList<Member> getSearchName(Connection conn, String key) throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public ArrayList<Member> getSearchName(Connection conn, String key, int start, int end) throws SQLException {
 		ArrayList<Member>list =null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from member where member_level=1";
-		
-		
-		
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where name like ? and member_level=1) M) WHERE RNUM BETWEEN ? AND ?";
 		pstmt= conn.prepareStatement(query);
+		pstmt.setString(1, "%"+key+"%");
+		pstmt.setInt(2, start);
+		pstmt.setInt(3, end);
 		rset = pstmt.executeQuery();
-		list = new ArrayList<>();
-		
+		list = new ArrayList<Member>();
 		while(rset.next()) {
 			Member s = new Member();
 			s.setAddress(rset.getString("address"));
 			s.setName(rset.getString("name"));
 			s.setPhone(rset.getString("phone"));
-			
-			if(rset.getString("name").contains(key)) {
-				list.add(s);
-			}		
+			list.add(s);
 		}
-		
 		JDBCTemplate.close(rset);
 		JDBCTemplate.close(pstmt);
-		
-		
 		return list;
+	}
+	
+	public int searchNameCount(Connection conn, String key) {
+		PreparedStatement pstmt = null;	
+		ResultSet rset= null;
+		int result=0;
+		String query="select count(*) cnt from member where name like ? and member_level=1";
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setString(1, "%"+key+"%");
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
 	}
 	
 	public int totalCountFirst(Connection conn) throws SQLException {
@@ -340,4 +353,5 @@ public class PrintShelterDao {
 		
 		return spd;
 	}
+	
 }

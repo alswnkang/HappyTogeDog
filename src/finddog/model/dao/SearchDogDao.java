@@ -456,6 +456,97 @@ public class SearchDogDao {
 		}
 		return result;
 	}
+	
+	public int totalSearchCount(Connection conn, int type, String word, int sel) {
+		// TODO Auto-generated method stub
+		//sel==1이면 이름 sel==2이면 제목z
+		PreparedStatement stmt = null;
+		ResultSet rset = null;
+		String query="";
+		int result = 0;
+		if(sel==1) {
+			query = "select count(*) as cnt from board where board_type=? and board_name like '%"+word+"%'";
+		}else if(sel==2) {
+			query = "select count(*) as cnt from board where board_type=? and board_title like '%"+word+"%'";
+		}
+		
+		System.out.println("여기는 토탈카운트 도착word:"+word );
+		try {
+			stmt = conn.prepareStatement(query);
+			stmt.setInt(1, type);
+			rset = stmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(rset);
+			JDBCTemplete.close(stmt);
+		}
+		return result;
+		
+	}
+
+	public ArrayList<Board> takeSearchBoard(Connection conn, int start, int end, int type, String word, int sel) {
+		// TODO Auto-generated method stub
+		//sel==1이면 이름 sel==2이면 제목z
+
+
+		
+		ArrayList<Board> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query="";
+		
+		if(sel==1) {
+			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD where board_type=? and board_name like '%"+word+"%' ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ? ";
+		}else if(sel==2) {
+			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD where board_type=? and board_title like '%"+word+"%' ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ? ";
+		}
+		
+		
+		
+		
+		
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, type);
+			
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<Board>();
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBoardRnum(rset.getInt("rnum"));
+				b.setBoardNo(rset.getInt("board_no"));
+				b.setBoardType(rset.getInt("board_Type"));
+				b.setBoardId(rset.getString("board_id"));
+				b.setBoardName(rset.getString("board_Name"));
+				b.setBoardTitle(rset.getString("board_title"));
+				b.setBoardContent(rset.getString("board_content"));
+				b.setBoardFilename(rset.getString("board_filename"));
+				b.setBoardFilepath(rset.getString("board_filepath"));
+				b.setBoardDate(rset.getDate("board_date"));
+				b.setBoardCount(rset.getInt("board_count"));
+				b.setBoardSecret(rset.getInt("board_secret"));
+				b.setBoardPw(rset.getString("board_pw"));
+				b.setBoardPrdCode(rset.getString("board_prdCode"));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(rset);
+			JDBCTemplete.close(pstmt);
+		}
+		return list;
+	}
 
 }
 

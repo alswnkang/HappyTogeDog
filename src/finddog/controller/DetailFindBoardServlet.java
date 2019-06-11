@@ -1,8 +1,6 @@
-package adoption.controller;
+package finddog.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,25 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import adoption.model.service.PrintShelterService;
-import member.model.vo.Member;
-import member.model.vo.MemberPageData;
+import siBoard.model.boardService.BoardService;
+import siBoard.model.boardVo.BoardViewData;
 
 /**
- * Servlet implementation class NameSearchShelterServlet
+ * Servlet implementation class DetailFindBoardServlet
  */
-@WebServlet(name = "NameSearchShelter", urlPatterns = { "/nameSearchShelter" })
-public class NameSearchShelterServlet extends HttpServlet {
+@WebServlet(name = "DetailFindBoard", urlPatterns = { "/detailFindBoard" })
+public class DetailFindBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NameSearchShelterServlet() {
+    public DetailFindBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
-        
-        
     }
 
 	/**
@@ -37,24 +32,22 @@ public class NameSearchShelterServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String key=request.getParameter("keyword");
-		int page;
-		try {	
-			page = Integer.parseInt(request.getParameter("page"));
-		}catch (NumberFormatException e) {
-			// TODO: handle exception
-			page=1;
-		}
-		System.out.println(key);
-		MemberPageData mpd = new MemberPageData();
-		try {
-			mpd = new PrintShelterService().getSearchName(key,page);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		request.setAttribute("mpd", mpd);
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/adoption/NameSearchShelter.jsp");
+		request.setCharacterEncoding("utf-8");
+		
+		int no=Integer.parseInt(request.getParameter("boardNo"));
+		
+		
+		BoardViewData bvd  = new BoardService().takeBoardView(no);
+		
+		request.setAttribute("vd", bvd);
+		String dogkind=bvd.getB().getDogKind();
+		String kindName= new BoardService().getDogKindName(dogkind);
+		
+		
+		request.setAttribute("kindNm", kindName);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/DetailFindBoard.jsp");
+		
 		rd.forward(request, response);
 	}
 
