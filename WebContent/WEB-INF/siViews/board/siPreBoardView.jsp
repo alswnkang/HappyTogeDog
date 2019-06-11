@@ -67,6 +67,7 @@
 						</tr>
 					</table>
 				</form>
+		
 				<c:forEach items="${vd.list }" var="list" varStatus="i">
 					<form action="/siPreBoardCommentUpdate" method="post">
 						<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>

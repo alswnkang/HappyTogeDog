@@ -98,6 +98,24 @@ public class BoardService {
 		BoardViewData vd = new BoardViewData(list,b);
 		return vd;
 	}
+	
+	public BoardViewData takeBoardView(int boardNo) {
+		Connection conn = JDBCTemplete.getConnection();
+		int result = new BoardDao().boardCount(conn, boardNo);
+		//카운트를 증가 시키기위해 Dao에 update를 하나 추가
+		if(result>0) {
+			JDBCTemplete.commit(conn);
+		}else {
+			JDBCTemplete.rollback(conn);
+		}
+		Board b = new BoardDao().boardView(conn, boardNo);
+		ArrayList<BoardComment> list = new BoardDao().takeCommentAll(conn);
+		JDBCTemplete.close(conn);
+		BoardViewData vd = new BoardViewData(list,b);
+		return vd;
+	}
+	
+	
 	public int boardUpdate(int boardNo, String boardTitle, String boardContent, String boardFilename, String boardFilepath) {
 		Connection conn = JDBCTemplete.getConnection();
 		int result= new BoardDao().boardUpdate(conn, boardNo, boardTitle, boardContent, boardFilename, boardFilepath);

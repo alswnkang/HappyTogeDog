@@ -25,6 +25,8 @@
 						<td>작성자 : ${vd.a.adoptionBoardName }(${vd.a.adoptionBoardId })</td>
 						<td>작성일 : ${vd.a.adoptionBoardDate2 }</td>
 					</tr>
+					
+					
 					<c:if test="${not empty vd.a.adoptionBoardFilename }">
 					<!-- 파일이 있을 때 -->
 						<c:if test="${not empty sessionScope.member.id }">

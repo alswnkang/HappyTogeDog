@@ -9,22 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import siBoard.model.boardDao.BoardDao;
-import siBoard.model.boardService.BoardService;
-import siBoard.model.boardVo.Board;
-import siBoard.model.boardVo.BoardViewData;
+import siAdoptionBoardComment.model.adoptionBoardCommentService.AdoptionBoardCommentService;
 
 /**
- * Servlet implementation class DetailTakeBoardServlet
+ * Servlet implementation class TakeBoardCommentDeleteServlet
  */
-@WebServlet(name = "DetailTakeBoard", urlPatterns = { "/detailTakeBoard" })
-public class DetailTakeBoardServlet extends HttpServlet {
+@WebServlet(name = "takeBoardCommentDelete", urlPatterns = { "/takeBoardCommentDelete" })
+public class TakeBoardCommentDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DetailTakeBoardServlet() {
+    public TakeBoardCommentDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +31,18 @@ public class DetailTakeBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		
-		int no=Integer.parseInt(request.getParameter("boardNo"));
-		BoardViewData bvd  = new BoardService().takeBoardView(no);
-		
-		request.setAttribute("vd", bvd);
-		String dogkind=bvd.getB().getDogKind();
-		String kindName= new BoardService().getDogKindName(dogkind);
-		
-		
-		request.setAttribute("kindNm", kindName);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/DetailTakeBoard.jsp");
+		request.setCharacterEncoding("utf-8");
+		int adoptionBoardCommentNo = Integer.parseInt(request.getParameter("boardCommentNo"));
+		int adoptionBoardNo = Integer.parseInt(request.getParameter("boardNo"));
+		int result = new AdoptionBoardCommentService().commentDelete(adoptionBoardCommentNo);
+		String view = "";
+		if(result>0) {
+			view = "/detailTakeBoard?boardNo="+adoptionBoardNo;
+		}else {	
+			view = "/detailTakeBoard?boardNo="+adoptionBoardNo;
+		}
+		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
-		
 	}
 
 	/**

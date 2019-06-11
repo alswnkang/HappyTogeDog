@@ -9,22 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import siBoard.model.boardDao.BoardDao;
-import siBoard.model.boardService.BoardService;
-import siBoard.model.boardVo.Board;
-import siBoard.model.boardVo.BoardViewData;
+import siBoardComment.model.boardCommentService.BoardCommentService;
 
 /**
- * Servlet implementation class DetailTakeBoardServlet
+ * Servlet implementation class TakeBoardReCommentUpdateServlet
  */
-@WebServlet(name = "DetailTakeBoard", urlPatterns = { "/detailTakeBoard" })
-public class DetailTakeBoardServlet extends HttpServlet {
+@WebServlet("/TakeBoardReCommentUpdateServlet")
+public class TakeBoardReCommentUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DetailTakeBoardServlet() {
+    public TakeBoardReCommentUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +31,23 @@ public class DetailTakeBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		
-		int no=Integer.parseInt(request.getParameter("boardNo"));
-		BoardViewData bvd  = new BoardService().takeBoardView(no);
-		
-		request.setAttribute("vd", bvd);
-		String dogkind=bvd.getB().getDogKind();
-		String kindName= new BoardService().getDogKindName(dogkind);
-		
-		
-		request.setAttribute("kindNm", kindName);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/DetailTakeBoard.jsp");
+		request.setCharacterEncoding("utf-8");
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		String boardCommentContent = request.getParameter("boardCommentContent");
+		System.out.println(boardCommentContent);
+		int boardCommentNo = Integer.parseInt(request.getParameter("boardCommentNo"));	
+		System.out.println(boardCommentNo);
+		int boardCommentRef = Integer.parseInt(request.getParameter("boardCommentRef"));	
+		System.out.println(boardCommentRef);	
+		int result = new BoardCommentService().reCommentUpdate(boardCommentContent,boardCommentNo,boardCommentRef);
+		String view = "";
+		if(result>0) {
+			view = "/detailTakeBoard?boardNo="+boardNo;
+		}else {
+			view = "/detailTakeBoard?boardNo="+boardNo;
+		}
+		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
-		
 	}
 
 	/**
