@@ -11,13 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import main.model.service.MainService;
 import main.model.vo.MainVO;
-import siAdoptionBoard.model.adoptionBoardService.AdoptionBoardService;
-import siAdoptionBoard.model.adoptionBoardVo.AdoptionBoard;
-import siNotice.model.noticeService.NoticeService;
-import siNotice.model.noticeVo.Notice;
 import sponsorship.model.vo.ProductVO;
-import volunteer.model.service.VoluntaryService;
-import volunteer.model.vo.VoluntaryRegister;
 
 @WebServlet(name = "Main", urlPatterns = { "/main" })
 public class MainServlet extends HttpServlet {
@@ -28,20 +22,7 @@ public class MainServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		/* 메인 :: 후기게시판 게시글 노출 */
-//		ArrayList<AdoptionBoard> adoptionBoardList = new AdoptionBoardService().adoptionBoardList();
-//		request.setAttribute("adoptionBoardList", adoptionBoardList);
-//
-//		/* 메인 :: 공지사항 게시글 노출 */
-//		ArrayList<Notice> noticeList = new NoticeService().noticeList();
-//		request.setAttribute("noticeList", noticeList);
-//		
-//		/* 메인 :: 봉사활동 게시판 공고 노출 */
-//		ArrayList<VoluntaryRegister> volunList = new VoluntaryService().mainVoluntaryList();
-//		request.setAttribute("volunList", volunList);
-		
+
 		
 		MainVO main = new MainService().mainList();
 		request.setAttribute("adoptionBoardList", main.getAdoptionBoardList());
