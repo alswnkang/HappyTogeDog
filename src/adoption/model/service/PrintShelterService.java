@@ -30,20 +30,20 @@ public class PrintShelterService {
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		
 		if(pageNo!=1) {
-			pageNavi +="<a class='paging-arrow prev-arrow' href='/printShelter?page="+(pageNo-1)+"&city="+city+"'>이전</a>";	
+			pageNavi +="<a class='paging-arrow prev-arrow' href='/printShelter?page="+(pageNo-1)+"&city="+city+"'><img src='/img/left_arrow.png' style='width:30px;height:30px;'></a>";	
 		}
 		
 		int i =1;
 		while(!(i++>pageNaviSize||pageNo>totalPage)) {
 			if(reqPage==pageNo) {
-				pageNavi += "<span calss=selectPage>"+pageNo+"</span>";
+				pageNavi += "<span class='cur'>"+pageNo+"</span>";
 			}else {
-				pageNavi +="<a class='cur' href='/printShelter?page="+pageNo+"&city="+city+"'>"+pageNo+"</a>";
+				pageNavi +="<a href='/printShelter?page="+pageNo+"&city="+city+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
 		if(pageNo <= totalPage) {
-			pageNavi += "<a class='paging-arrow next-arrow' href='/printShelter?page="+(pageNo+1)+"&city="+city+"'>다음</a>";
+			pageNavi += "<a class='paging-arrow next-arrow' href='/printShelter?page="+(pageNo)+"&city="+city+"'><img src='/img/right_arrow.png' style='width:30px;height:30px;'></a>";
 		}
 		spd.setPageNavi(pageNavi);
 		
@@ -107,9 +107,9 @@ public class PrintShelterService {
 		int i =1;
 		while(!(i++>pageNaviSize||pageNo>totalPage)) {
 			if(reqPage==pageNo) {
-				pageNavi += "<span calss=selectPage>"+pageNo+"</span>";
+				pageNavi += "<span class='cur'>"+pageNo+"</span>";
 			}else {
-				pageNavi +="<a class='cur' href='/findShelter?page="+pageNo+"'>"+pageNo+"</a>";
+				pageNavi +="<a href='/findShelter?page="+pageNo+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
