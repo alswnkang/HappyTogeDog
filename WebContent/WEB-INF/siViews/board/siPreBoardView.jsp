@@ -14,7 +14,7 @@
 				<table class="comm-tbl view">
 					<colgroup>
 						<col width="20%">
-						<col width="3%">
+						<col width="4%">
 						<col width="/">
 						<col width="100%">
 					</colgroup>
@@ -61,8 +61,9 @@
 					<table class="comm-tbl view" id="commentTb" style="display:none;">
 						<tr>
 							<td colspan="4" style="text-align:center">
-								댓글입력 <input type="text" name="boardCommentContent" value=""/>
+								댓글입력 <input style="width:88%;" type="text" name="boardCommentContent" value=""/>
 								<button type="submit">등록</button>
+								|
 								<button type="button" class="cancelBtn">취소</button>
 							</td>
 						</tr>
@@ -89,11 +90,15 @@
 										<!-- 댓글 작성자일 때 수정/삭제 가능하도록 -->
 											<button class="mdfBtn" type="button">수정</button>
 											<button class="cmtUpdate" type="button" style="display:none;">등록</button>
+											<button style="display:none;">|</button>
 											<button class="cancelBtn" type="reset" style="display:none;">취소</button>
+											|
 											<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.boardCommentNo }');">삭제</a>
+											|
 										</c:if>
 										<c:if test="${sessionScope.member.id!=list.boardCommentId && sessionScope.member.id eq 'admin' }">
 										<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
+											|
 											<a href="#" class="cmtDelBtn" onclick="cmtDelBtn('${list.boardCommentNo }');">삭제</a>
 										</c:if>
 										<c:if test="${not empty sessionScope.member.id }"><!-- 로그인시 노출 -->
@@ -115,11 +120,14 @@
 											<c:if test="${clist.boardCommentId == sessionScope.member.id }">
 												<button class="cmtrUpdate" type="button" onclick="cmtrMfy('${clist.boardCommentRef }','${clist.boardCommentNo }')" style="display:none;">등록</button>
 												<button class="mdfBtnr" type="button">수정</button>
+												<button style="display:none;">|</button>
 												<button class="cancelBtnr" type="reset" style="display:none;">취소</button>
+												|
 												<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.boardCommentNo }','${clist.boardCommentRef }');">삭제</a>
 											</c:if>
 											<c:if test="${sessionScope.member.id!=clist.boardCommentId && sessionScope.member.id eq 'admin' }">
 											<!-- 작성자가 아니면서 id가 admin인 경우 댓글을 삭제 가능하도록 -->
+												|
 												<a href="#" class="rcmtDelBtn" onclick="rcmtDelBtn('${clist.boardCommentNo }','${clist.boardCommentRef }');">삭제</a>
 											</c:if>
 										</td>
@@ -133,6 +141,7 @@
 								</td>
 								<td>
 									<button onclick="sendReCmt('${list.boardCommentNo }')" type="button">등록</button>
+									|
 									<button class="reCmtBtnr" type="button" >취소</button>
 								</td>
 							</tr>
@@ -209,7 +218,8 @@
 				$(this).parent().prev().children().eq(0).show();
 				$(this).parent().prev().children().eq(1).hide();
 				$(this).prev().hide();
-				$(this).prev().prev().show();
+				$(this).prev().prev().hide();
+				$(this).prev().prev().prev().show();
 				$(this).hide();
 			});
 			$(".cmtUpdate").click(function(){
@@ -227,8 +237,9 @@
 			$('.cancelBtnr').click(function(){
 				$(this).parent().prev().children().eq(0).show();
 				$(this).parent().prev().children().eq(1).hide();
-				$(this).prev().show();
-				$(this).prev().prev().hide();
+				$(this).prev().hide();
+				$(this).prev().prev().show();
+				$(this).prev().prev().prev().hide();
 				$(this).hide();
 			});
 		});
