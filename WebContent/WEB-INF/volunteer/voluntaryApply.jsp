@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<script type="text/javascript" src="/js/script.js"></script><!-- script.js -->
 <section class="modal-content">
 	<h1>봉사활동 신청하기</h1>
 	<div class="modal-inner-con">
 		<div class="modal-inner">
 			<div class="voluntary-bottom-inner">
-				<form action="/voluntaryApply?no=${vr.no }" method="post">
+				<form action="/voluntaryApply?no=${vr.no }" method="post" onsubmit="return numCheck();">
 					<input type="hidden" name="possiblePerson" value="${vr.person }"> <!-- 봉사 가능 인원수 -->
 					<input type="hidden" name="applyNum" value="${vr.applyNum }"> <!-- 봉사 신청한 인원수 -->
 					<table class="comm-tbl"><!-- 봉사활동 신청은 회원 전용 -->
@@ -66,5 +68,18 @@ $(document).ready(function  () {
 		$modalWrap.fadeOut();
 		return false;
 	});
+	
 });
+
+function numCheck(){
+	var num = $('input[type=text].num').val();
+	if(num==0){
+		alert('1명 이상을 입력해주세요.');
+		$(this).val('');
+		return false;
+	}else{
+		return true;
+	}
+	
+}
 </script>
