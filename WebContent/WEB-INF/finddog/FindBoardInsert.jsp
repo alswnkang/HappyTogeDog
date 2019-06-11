@@ -32,7 +32,7 @@
 							</th>
 						</tr>
 						<tr>
-							<th>발견지역</th>
+							<th>잃어버린 날짜</th>
 							<th>
 								<select name="happenCity">
 									<option>도시</option>
