@@ -122,7 +122,7 @@
 	}
 	//목록으로 버튼 누를 시 뒤로가기
 	function goBack(){
-		location.href="/dogAdopList";
+		location.href="/dogAdopList?city=${cityCode}&gun=${gun}&kindCd=${kindCd}&dogsize=${dogsize}&neuterYn=${neuterYn}&reqPage=${reqPage}";
 	}
 
 
