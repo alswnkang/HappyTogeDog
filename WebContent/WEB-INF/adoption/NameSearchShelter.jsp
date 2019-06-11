@@ -26,11 +26,16 @@
 								<td>${i.address }</td>
 								<td>${i.phone }</td>
 							</tr>
-						</c:forEach>	
+						</c:forEach>
+						<c:if test="${empty list }">
+							<tr height="100px">
+								<td colspan="3">검색하신 보호소가 없습니다.</td>
+							</tr>
+						</c:if>	
 					</tbody>
-					
 				</table>
-			
+				<!-- paging -->
+				
 				
 				
 				

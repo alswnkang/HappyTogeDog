@@ -27,6 +27,11 @@
 								<td>${i.phone }</td>
 							</tr>
 						</c:forEach>	
+						<c:if test="${empty spd.list }">
+							<tr height="100px">
+								<td colspan="3">해당 지역의 보호소가 없습니다.</td>
+							</tr>
+						</c:if>
 					</tbody>
 					
 				</table>

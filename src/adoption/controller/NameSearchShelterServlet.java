@@ -42,7 +42,6 @@ public class NameSearchShelterServlet extends HttpServlet {
 		try {
 			list = new PrintShelterService().getSearchName(key);
 			
-			System.out.println(list.get(0).getName());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
