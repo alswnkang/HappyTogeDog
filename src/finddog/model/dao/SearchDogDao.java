@@ -247,9 +247,7 @@ public class SearchDogDao {
 			pstmt.setInt(2, end);
 			pstmt.setString(3, sDay);
 			pstmt.setString(4, eDay);
-		
 			
-
 			rset = pstmt.executeQuery();
 			list = new ArrayList<Board>();
 			while(rset.next()) {
@@ -273,6 +271,8 @@ public class SearchDogDao {
 				b.setHappenCity(rset.getString("Happen_city"));
 				b.setHappenDate(rset.getString("happen_date"));
 				b.setDogKind(rset.getString("dog_kind"));
+				
+				
 				list.add(b);
 			}
 		} catch (SQLException e) {
