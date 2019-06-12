@@ -147,7 +147,10 @@ public class SearchDogService {
 
 	public SearchDogPageData selectListAPI(int page2, int page, String sDay, String eDay, String kind, String cityCode) {
 		// TODO Auto-generated method stub
+		System.out.println("sDay:"+sDay+"eDay:"+eDay+"kind:"+kind+"cityCode:"+cityCode);
 		ArrayList<DogList> list= new SearchDogDao().getList(page2,sDay,eDay,kind,cityCode);
+		
+		
 		int reqPage=page2;
 		String pageNavi="";
 		int numPerPage = 4;

@@ -20,6 +20,32 @@
 	<div class="area">
 		<h2 class="comm-content-tit">실종 유기견 찾기</h2>
 		<div id="searchDog" class=""><!-- id는 바꿔서 복붙 -->
+			 		<!-- 검색박스 -->
+	 		 	<!-- 검색박스 -->
+		 	<form action="/printSearchDog">
+		 	<div class="board-search-box">
+				<select name="kind"><!-- option 세부항목은 각자 알아서 넣으시면 됩니다. -->
+					<option value="content">품종</option>
+					<c:forEach items="${kind }" var="k">
+						<option value="${k.code }">${k.kind }</option>
+					</c:forEach>
+				</select>
+				<select name="happenCity" style="margin-right:7px;">
+					<option>도시</option>
+					<c:forEach items="${city }" var="c">
+						<option value="${c.cityCode }">${c.cityName }</option>
+					</c:forEach>
+				</select>
+				<input type="date" name="startDay" class="datepicker search-day"> ~ <input type="date" name="endDay" class="datepicker search-day">
+				<button type="submit" class="bbs-search-btn" title="검색" style="margin-left:5px;"><img src="/img/search_icon.png" style="width:30px;"></button>
+			</div>
+			</form>
+		
+		
+		
+		
+		
+		
 			<table class="comm-tbl type2"><!-- 신청목록게시판은 한페이지에 게시물 최대 10개 노출 -->
 				<colgroup>
 					<col width="5%">
@@ -139,26 +165,7 @@
 				${sdpd2.pageNavi }
 	 		</div>
 	 		
-	 		<!-- 검색박스 -->
-	 		 	<!-- 검색박스 -->
-		 	<form action="/printSearchDog">
-		 	<div class="board-search-box">
-				<select name="kind"><!-- option 세부항목은 각자 알아서 넣으시면 됩니다. -->
-					<option value="content">품종</option>
-					<c:forEach items="${kind }" var="k">
-						<option value="${k.code }">${k.kind }</option>
-					</c:forEach>
-				</select>
-				<select name="happenCity" style="margin-right:7px;">
-					<option>도시</option>
-					<c:forEach items="${city }" var="c">
-						<option value="${c.cityCode }">${c.cityName }</option>
-					</c:forEach>
-				</select>
-				<input type="date" name="startDay" class="datepicker search-day"> ~ <input type="date" name="endDay" class="datepicker search-day">
-				<button type="submit" class="bbs-search-btn" title="검색" style="margin-left:5px;"><img src="/img/search_icon.png" style="width:30px;"></button>
-			</div>
-			</form>
+
 			
 		</div>
 	</div>

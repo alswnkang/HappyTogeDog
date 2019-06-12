@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import adoption.model.service.FindDogService;
 import adoption.model.vo.SearchDogPageData;
+import finddog.model.dao.SearchDogDao;
 import finddog.model.service.SearchDogService;
 import finddog.model.vo.Kind;
 import openApi.model.dao.OpenApiDao;
@@ -40,18 +41,35 @@ public class PrintSearchDogServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+
 		int count =0;
 		String kind = request.getParameter("kind");
-		String cityCode= request.getParameter("happenCity");
+		String cityCode=request.getParameter("happenCity");
+		
 		String sDay=request.getParameter("startDay");
 		String eDay=request.getParameter("endDay");
+		
+		if(sDay==null||sDay.equals("")||sDay.equals(null)) {
+			sDay=new SearchDogDao().preMonth();
+		}
+		if(eDay==null||eDay.equals("")||eDay.equals(null)) {
+			eDay=new SearchDogDao().date();
+		}
+		if(kind==null||kind.equals("")||kind.equals(null)) {
+			kind="";
+		}
+		if(cityCode==null||cityCode.equals("")||cityCode.equals(null)) {
+			cityCode="";
+		}
+		
+		
+		
 		System.out.println(sDay+","+eDay);
-		System.out.println("해픈시티가 왜넘어오나요");
-		System.out.println(cityCode);
+		
 		if(kind.equals("content")) {
 			kind="";
 		}
-		if(cityCode.equals(",")) {
+		if(cityCode.equals(",")||cityCode.equals("도시")) {
 			cityCode="";
 		}
 	
