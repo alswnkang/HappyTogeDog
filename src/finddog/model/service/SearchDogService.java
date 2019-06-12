@@ -80,7 +80,7 @@ public class SearchDogService {
 		int end = reqPage*numPerPage;
 		ArrayList<Board> list= new SearchDogDao().getListDB(reqPage,sDay,eDay,kind,cityCode,conn,start,end);
 		
-		int pageNaviSize = 10;
+		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		if(pageNo!=1) {
 			pageNavi+="<a href='/printSearchDog?startDay="+sDay+"&endDay="+eDay+"&kind="+kind+"&happenCity="+cityCode+"&page2="+pageNo+"&page="+page+"'>이전</a>";
@@ -88,7 +88,7 @@ public class SearchDogService {
 		int i = 1;
 		while(!(i++>pageNaviSize || pageNo>totalPage)) {
 			if(reqPage==pageNo) {
-				pageNavi+="<span>"+pageNo+"</span>";
+				pageNavi+="<span class='cur'>"+pageNo+"</span>";
 			}else {
 				pageNavi+="<a href='/printSearchDog?startDay="+sDay+"&endDay="+eDay+"&kind="+kind+"&happenCity="+cityCode+"&page2="+pageNo+"&page="+page+"'>"+pageNo+"</a>";
 			}
@@ -123,7 +123,7 @@ public class SearchDogService {
 		int end = reqPage*numPerPage;
 		ArrayList<Board> list = new SearchDogDao().takeBoard(conn,start,end,type);
 		String pageNavi = "";
-		int pageNaviSize = 10;
+		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		if(pageNo!=1) {
 			pageNavi+="<a href='/takeBoard?reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px'></a>";
@@ -131,7 +131,7 @@ public class SearchDogService {
 		int i = 1;
 		while(!(i++>pageNaviSize || pageNo>totalPage)) {
 			if(reqPage==pageNo) {
-				pageNavi+="<span>"+pageNo+"</span>";
+				pageNavi+="<span class='cur'>"+pageNo+"</span>";
 			}else {
 				pageNavi+="<a href='/takeBoard?reqPage="+pageNo+"'>"+pageNo+"</a>";
 			}
@@ -145,13 +145,12 @@ public class SearchDogService {
 		return bp;
 	}
 
-	public SearchDogPageData selectListAPI(int page, int page2, String sDay, String eDay, String kind,
-			String cityCode) {
+	public SearchDogPageData selectListAPI(int page, int page2, String sDay, String eDay, String kind, String cityCode) {
 		// TODO Auto-generated method stub
 		ArrayList<DogList> list= new SearchDogDao().getList(page,sDay,eDay,kind,cityCode);
 		int reqPage=page;
 		String pageNavi="";
-		int numPerPage=8;
+		int numPerPage = 4;
 		System.out.println(page+sDay+kind+cityCode+eDay);
 		
 		int totalCount=new SearchDogDao().getTotalCount(page,sDay,eDay,kind,cityCode);
@@ -159,7 +158,7 @@ public class SearchDogService {
 		System.out.println("API총갯수는"+totalCount);
 		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
 		
-		int pageNaviSize = 10;
+		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		if(pageNo!=1) {
 			pageNavi+="<a href='/printSearchDog?startDay="+sDay+"&endDay="+eDay+"&kind="+kind+"&happenCity="+cityCode+"&page2="+page2+"&page="+(pageNo-1)+"'>이전</a>";
@@ -167,7 +166,7 @@ public class SearchDogService {
 		int i = 1;
 		while(!(i++>pageNaviSize || pageNo>totalPage)) {
 			if(reqPage==pageNo) {
-				pageNavi+="<span>"+pageNo+"</span>";
+				pageNavi+="<span class='cur'>"+pageNo+"</span>";
 			}else {
 				pageNavi+="<a href='/printSearchDog?startDay="+sDay+"&endDay="+eDay+"&kind="+kind+"&happenCity="+cityCode+"&page2="+page2+"&page="+pageNo+"'>"+pageNo+"</a>";
 			}
@@ -193,7 +192,7 @@ public class SearchDogService {
 		int end = reqPage*numPerPage;
 		ArrayList<Board> list = new SearchDogDao().takeSearchBoard(conn,start,end,type,word,sel);
 		String pageNavi = "";
-		int pageNaviSize = 10;
+		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		if(pageNo!=1) {
 			pageNavi+="<a href='/takeBoard?reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px'></a>";
@@ -201,7 +200,7 @@ public class SearchDogService {
 		int i = 1;
 		while(!(i++>pageNaviSize || pageNo>totalPage)) {
 			if(reqPage==pageNo) {
-				pageNavi+="<span>"+pageNo+"</span>";
+				pageNavi+="<span class='cur'>"+pageNo+"</span>";
 			}else {
 				pageNavi+="<a href='/takeBoard?reqPage="+pageNo+"'>"+pageNo+"</a>";
 			}
@@ -227,7 +226,7 @@ public class SearchDogService {
 		int end = reqPage*numPerPage;
 		ArrayList<Board> list = new SearchDogDao().takeSearchBoard(conn,start,end,type,word,sel);
 		String pageNavi = "";
-		int pageNaviSize = 10;
+		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		if(pageNo!=1) {
 			pageNavi+="<a href='/takeBoard?reqPage="+(pageNo-1)+"'><img src='/img/left_arrow.png' style='width:30px;height:30px'></a>";
@@ -235,7 +234,7 @@ public class SearchDogService {
 		int i = 1;
 		while(!(i++>pageNaviSize || pageNo>totalPage)) {
 			if(reqPage==pageNo) {
-				pageNavi+="<span>"+pageNo+"</span>";
+				pageNavi+="<span class='cur'>"+pageNo+"</span>";
 			}else {
 				pageNavi+="<a href='/takeBoard?reqPage="+pageNo+"'>"+pageNo+"</a>";
 			}
@@ -263,7 +262,7 @@ public class SearchDogService {
 		int end = reqPage*numPerPage;
 		ArrayList<Board> list = new SearchDogDao().takeBoard(conn,start,end,type);
 		String pageNavi = "";
-		int pageNaviSize = 10;
+		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		if(pageNo!=1) {
 			pageNavi+="<a href='/printSearchDog?startDay="+sDay+"&endDay="+eDay+"&kind="+kind+"&happenCity="+cityCode+"&page2="+page2+"&page="+(pageNo-1)+"'>이전</a>";
@@ -271,7 +270,7 @@ public class SearchDogService {
 		int i = 1;
 		while(!(i++>pageNaviSize || pageNo>totalPage)) {
 			if(reqPage==pageNo) {
-				pageNavi+="<span>"+pageNo+"</span>";
+				pageNavi+="<span class='cur'>"+pageNo+"</span>";
 			}else {
 				pageNavi+="<a href='/printSearchDog?startDay="+sDay+"&endDay="+eDay+"&kind="+kind+"&happenCity="+cityCode+"&page2="+page2+"&page="+pageNo+"'>"+pageNo+"</a>";
 			}

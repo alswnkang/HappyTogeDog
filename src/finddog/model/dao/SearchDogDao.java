@@ -90,7 +90,7 @@ public class SearchDogDao {
 				System.out.println(sDay+","+eDay+"진짜이상하네");
 				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde="+sDay+"&endde="+eDay+"&pageNo="
 						+ page
-						+kinds+cityCo+"&upkind=417000&numOfRows=8&ServiceKey=9foRMY8t3j0MRIsmBCTWOiLUVaW4yJivGOtPfYE9x8yYsPcPCkCUZgGm39bZZGdQQc1ZT9MN87KHULUH8aLpMg%3D%3D";
+						+kinds+cityCo+"&upkind=417000&numOfRows=4&ServiceKey=9foRMY8t3j0MRIsmBCTWOiLUVaW4yJivGOtPfYE9x8yYsPcPCkCUZgGm39bZZGdQQc1ZT9MN87KHULUH8aLpMg%3D%3D";
 				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
 				Document doc = dBuilder.parse(url);

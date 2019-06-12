@@ -199,7 +199,7 @@
 				<!-- 입양 후기 영역 -->
 				<div id="mainAdoptReviewBox">
 					<h2 class="main-comm-tit">입양 후기</h2>
-					<ul class="main-adopt-review-list clearfix"><!-- 입양후기는 최소/최대 8개가 노출됩니다. -->
+					<ul class="main-adopt-review-list clearfix main"><!-- 입양후기는 최소/최대 8개가 노출됩니다. -->
 						<c:forEach items="${adoptionBoardList }" var="list">
 							<li>
 								<a href="/siAdoptionBoardView?adoptionBoardNo=${list.adoptionBoardNo }">

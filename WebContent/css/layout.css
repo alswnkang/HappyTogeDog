@@ -229,6 +229,7 @@ body { background-color:#fff; }
 .main-adopt-review-list{padding-top:20px;}
 .main-adopt-review-list > li{float:left; width:252px; margin-bottom:25px; margin-left:64px;}
 .main-adopt-review-list > li:first-child, .main-adopt-review-list > li:nth-child(4n+1){margin-left:0;}
+.main-adopt-review-list > li > a{display:block;}
 .main-adopt-review-list .img-thum{position:relative; border:1px solid #ddd; padding-top:100%;}
 .main-adopt-review-list .img-thum > span{position:absolute; top:0; left:0; right:0; bottom:0; display:block;}
 .main-adopt-review-list .txt-thum{padding:10px 0;}
@@ -238,6 +239,10 @@ body { background-color:#fff; }
 .main-adopt-review-list .txt-thum h5 > span{display:inline-block; max-width:50%; white-space:nowrap; text-overflow:ellipsis; overflow:hidden;}
 .main-adopt-review-list .txt-thum h5 > span:first-child{float:left;}
 .main-adopt-review-list .txt-thum h5 > span:last-child{float:right;}
+/* 오버시 효과 */
+.main-adopt-review-list.main .txt-thum h5 > span:last-child{padding-right:5px;}
+.main-adopt-review-list.main > li > a{position:relative; top:0; left:0; box-shadow:0 0 0 none; transition:all 0.4s;}
+.main-adopt-review-list.main > li:hover > a{top:-7px; left:-7px; transition:all 0.4s; box-shadow:5px 5px 7px #ddd;}
 /* 입양후기가 없을때 */
 .main-adopt-review-list > li.review-none{position:relative; float:none; width:100%; }
 .main-adopt-review-list > li.review-none > span{display:inline-block; position:absolute; top:50%; left:50%; }
