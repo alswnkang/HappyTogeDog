@@ -296,9 +296,6 @@
 				location.href="/siNoticeView?noticeNo="+${vd.n.noticeNo };
 			}
 		});
-/* 		var noticeCommentContent2 = $('.noticeReCommentModify'+noticeCommentNo).val();
-		location.href="/siNoticeReCommentUpdate?&noticeNo="+${vd.n.noticeNo }+"&noticeCommentRef="
-				+noticeCommentRef+"&noticeCommentNo="+noticeCommentNo+"&noticeCommentContent="+noticeCommentContent2; */
 	}
 	$(document).ready(function(){	//게시글 삭제확인
 		$('#noticeDelBtn').click(function(){
