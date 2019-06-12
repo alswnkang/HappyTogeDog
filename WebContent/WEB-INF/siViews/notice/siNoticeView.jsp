@@ -246,8 +246,11 @@
 			$(this).parent().prev().children().eq(0).hide();
 			$(this).parent().prev().children().eq(2).show();
 			$(this).nextAll().show();
-			$('.cancelBtn').nextAll().hide();
 			$(this).hide();
+			$(this).next().next().next().next().hide();
+			$(this).next().next().next().next().next().hide();
+			$(this).next().next().next().next().next().next().hide();
+			$(this).next().next().next().next().next().next().next().hide();
 			$('.cancelBtn').click(function(){
 				$(this).parent().prev().children().eq(0).show();
 				$(this).parent().prev().children().eq(2).hide();
@@ -269,7 +272,8 @@
 			$(this).hide();
 			$(this).prev().show();
 			$(this).nextAll().show();
-			$('.cancelBtnr').nextAll().hide();
+			$(this).next().next().next().hide();
+			$(this).next().next().next().next().hide();
 			$('.cancelBtnr').click(function(){
 				$(this).parent().prev().children().eq(0).show();
 				$(this).parent().prev().children().eq(2).hide();
