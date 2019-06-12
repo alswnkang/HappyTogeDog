@@ -29,7 +29,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String id = m.getId();
-		String query = "insert into member values(?,?,?,?,?,?,?,null,?,?)";
+		String query = "insert into member values(?,?,?,?,?,?,?,null,?,?,sysdate)";
 		pstmt= conn.prepareStatement(query);
 		System.out.println("dao!!!!");
 		pstmt.setString(1, m.getId());
@@ -61,7 +61,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String id = m.getId();
-		String query = "insert into member values(?,?,?,?,?,?,?,?,?,?)";
+		String query = "insert into member values(?,?,?,?,?,?,?,?,?,?,sysdate)";
 		
 		pstmt= conn.prepareStatement(query);
 		
@@ -215,7 +215,7 @@ public class MemberDao {
 		ResultSet rset = null;
 		Member m = null;
 		ArrayList<Member> list = new ArrayList<Member>();
-		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where not member_level='2' order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where not member_level='2' order by member_level, enroll_date desc) M) WHERE RNUM BETWEEN ? AND ?";
 		pstmt = conn.prepareStatement(query);
 		pstmt.setInt(1, start);
 		pstmt.setInt(2, end);
@@ -265,11 +265,11 @@ public class MemberDao {
 		switch (select) {
 		case 1:
 			if(user == 0) {
-				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? and id like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? and id like ? order by member_level, enroll_date desc) M) WHERE RNUM BETWEEN ? AND ?";
 			}else if(user == 1) {
-				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? and id like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? and id like ? order by member_level, enroll_date desc) M) WHERE RNUM BETWEEN ? AND ?";
 			}else if(user == 2) {
-				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where not member_level=? and id like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where not member_level=? and id like ? order by member_level, enroll_date desc) M) WHERE RNUM BETWEEN ? AND ?";
 			}
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, user);
@@ -280,11 +280,11 @@ public class MemberDao {
 			break;
 		case 2:
 			if(user == 0) {
-				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? and name like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? and name like ? order by member_level, enroll_date desc) M) WHERE RNUM BETWEEN ? AND ?";
 			}else if(user == 1) {
-				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? and name like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? and name like ? order by member_level, enroll_date desc) M) WHERE RNUM BETWEEN ? AND ?";
 			}else if(user == 2) {
-				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where not member_level=? and name like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where not member_level=? and name like ? order by member_level, enroll_date desc) M) WHERE RNUM BETWEEN ? AND ?";
 			}
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, user);
@@ -295,11 +295,11 @@ public class MemberDao {
 			break;
 		case 3:
 			if(user == 0) {
-				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? and code like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? and code like ? order by member_level, enroll_date desc) M) WHERE RNUM BETWEEN ? AND ?";
 			}else if(user == 1) {
-				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? and code like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? and code like ? order by member_level, enroll_date desc) M) WHERE RNUM BETWEEN ? AND ?";
 			}else if(user == 2) {
-				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where not member_level=? and code like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where not member_level=? and code like ? order by member_level, enroll_date desc) M) WHERE RNUM BETWEEN ? AND ?";
 			}
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, user);
