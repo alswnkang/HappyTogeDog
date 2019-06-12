@@ -29,10 +29,14 @@
 						</colgroup>
 						<tr>
 							<th>제목</th>
-							<td><input type="text" name="boardTitle" value="${board.boardTitle }"></td>
+							<td><input type="text" name="boardTitle" value="${board.boardTitle }" placeholder="글 제목"></td>
 						</tr>
 						<tr>
-							<th>파일첨부</th>
+							<th style="text-align:center;">작성자</th>
+							<td>${sessionScope.member.name }</td>
+						</tr>
+						<tr>
+							<th style="text-align:center;">파일첨부</th>
 							<td>
 								<input type="hidden" name="status" id="status" value="stay">
 								<!-- 삭제 유무 판단용 input태그 -->
@@ -53,13 +57,13 @@
 							</td>
 						</tr>
 						<tr>
-							<th>내용</th>
-							<td><textarea name="boardContent">${board.boardContent }</textarea></td>
+								<th style="text-align:center;">내용</th>
+							<td><textarea name="boardContent" rows="30" style="resize:none;" placeholder="글 내용" maxlength="2048">${board.boardContent }</textarea></td>
 						</tr>
 					</table>
 					<div class="common-tbl-btn-group">
 						<button type="submit" class="btn-style1">수정하기</button>
-						<button type="reset" class="btn-style2" onclick="history.back();">취소</button>
+						<button type="reset" class="btn-style2" onclick="location.href='/detailFindBoard?boardNo=${board.boardNo }'">취소</button>
 					</div>
 				</form>
 			</div>

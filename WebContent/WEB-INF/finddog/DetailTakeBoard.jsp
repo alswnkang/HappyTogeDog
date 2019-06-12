@@ -14,6 +14,7 @@
 <%-- Content --%>
 <section id="content-wrapper">
 		<div class="area">
+		<h2 class="comm-content-tit">보호중인 유기견</h2>
 		<div id="DetailTake" class="">
 			<div class="common-tbl-btn-group type2">
 			</div>

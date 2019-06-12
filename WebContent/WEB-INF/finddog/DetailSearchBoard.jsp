@@ -14,6 +14,7 @@
 <%-- Content --%>
 <section id="content-wrapper">
 		<div class="area">
+		
 		<div id="DetailTake" class="">
 			<div class="common-tbl-btn-group type2">
 			</div>
