@@ -70,7 +70,7 @@ $(document).ready(function  () {
 	});
 	
 });
-
+// 0명 방지
 function numCheck(){
 	var num = $('input[type=text].num').val();
 	if(num==0){
