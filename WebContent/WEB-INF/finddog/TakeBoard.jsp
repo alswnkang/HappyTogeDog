@@ -26,9 +26,9 @@
 						<tr>
 							<th>No.</th>
 							<th>사진</th>
-							<th>게시글 제목</th>
+							<th>제목</th>
 							<th>작성자</th>
-							<th>날짜/시간</th>
+							<th>작성일</th>
 							<th>조회수</th>
 						</tr>
 					</thead>
