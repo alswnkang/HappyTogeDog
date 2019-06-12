@@ -38,7 +38,7 @@
 						<tr>
 							<th style="text-align:center;">파일첨부</th>
 							<td>
-								<input type="hidden" name="status" id="status" value="stay">
+								<input type="hidden" name="status" id="status" value="stay" required="required">
 								<!-- 삭제 유무 판단용 input태그 -->
 								<c:choose>
 									<c:when test="${not empty board.boardFilepath }">

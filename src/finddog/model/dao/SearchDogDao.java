@@ -90,16 +90,44 @@ public class SearchDogDao {
 				System.out.println(sDay+","+eDay+"진짜이상하네");
 				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde="+sDay+"&endde="+eDay+"&pageNo="
 						+ page
-						+kinds+cityCo+"&upkind=417000&numOfRows=4&ServiceKey=9foRMY8t3j0MRIsmBCTWOiLUVaW4yJivGOtPfYE9x8yYsPcPCkCUZgGm39bZZGdQQc1ZT9MN87KHULUH8aLpMg%3D%3D";
+						+kinds+cityCo+"&upkind=417000&numOfRows=4&ServiceKey=aLiSUfKw3hrZNSZrqXuG6iJtNr0ufMlgmB8Y%2Fh93hFuOk5E%2Brl8bd8mxxl%2Fcga%2B6i2CP7lD5%2BGBnLYmmVm%2BkFw%3D%3D";
+				
+				//9foRMY8t3j0MRIsmBCTWOiLUVaW4yJivGOtPfYE9x8yYsPcPCkCUZgGm39bZZGdQQc1ZT9MN87KHULUH8aLpMg%3D%3D
+				
 				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
 				Document doc = dBuilder.parse(url);
 				// root tag
-				doc.getDocumentElement().normalize();
-				System.out.println("Root element :" + doc.getDocumentElement().getNodeName()); // XML의 최상위 tag값 가져오기
+			
 
+				NodeList nList2;
+				
+				while(true) {	//null이 나올경우 오류발생하기 때문에 not null일 때까지 반목문실행
+					doc = dBuilder.parse(url);
+					// root tag
+					doc.getDocumentElement().normalize();
+					System.out.println("Root element :" + doc.getDocumentElement().getNodeName()); // XML의 최상위 tag값 가져오기
+					
+					//총 유기견 마리수 구하기(totalCount)
+					nList2 = doc.getElementsByTagName("body");
+					if(nList2.item(0) !=null) {
+						break;
+					}
+				}
+				Node nNode2 = nList2.item(0);
+				Element eElement2 = (Element) nNode2;
+				System.out.println("API에서 totalCount: "+getTagValue("totalCount",eElement2));
+				String totalCount = getTagValue("totalCount",eElement2);
+				
+				
+				
 				// 파싱할 tag
 				NodeList nList = doc.getElementsByTagName("item");
+				
+				doc.getDocumentElement().normalize();
+				System.out.println("Root element :" + doc.getDocumentElement().getNodeName()); // XML의 최상위 tag값 가져오기
+				
+				
 				// System.out.println("파싱할 리스트 수 : "+ nList.getLength());
 				int count = 0;
 				list = new ArrayList<DogList>();
@@ -128,6 +156,7 @@ public class SearchDogDao {
 						dl.setNoticeSdt(getTagValue("noticeSdt", eElement));
 						dl.setProcessState(getTagValue("processState", eElement));
 						dl.setNeuterYn(getTagValue("neuterYn", eElement));
+						dl.setTotalCount(Integer.parseInt(totalCount));
 						count++;
 						System.out.println("데이터 담은수:" + count);
 						list.add(dl);
@@ -428,6 +457,9 @@ public class SearchDogDao {
 				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
 				Document doc = dBuilder.parse(url);
 				// root tag
+				
+				System.out.println("totalcCount"+url);
+				
 				doc.getDocumentElement().normalize();
 				System.out.println("Root element :" + doc.getDocumentElement().getNodeName()); // XML의 최상위 tag값 가져오기
 				System.out.println(url);

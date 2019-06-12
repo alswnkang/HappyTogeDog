@@ -31,7 +31,7 @@
 						<td>품종 : ${kindNm }</td>
 						<td>발견 날짜 : ${vd.b.happenDate }</td>
 					</tr>
-					<c:if test="${not empty vd.b.boardFilename }">
+					
 					<!-- 파일이 있을 때 -->
 						<c:if test="${not empty sessionScope.member.id }">
 						<!-- 로그인 된 경우 사진과 내용, 댓글 버튼 노출 -->
@@ -39,7 +39,9 @@
 							<td colspan="2" style="text-align:center;border-bottom: 0px;">
 								<a style="float:right;" href="javascript:fileDownload('${vd.b.boardFilename }','${vd.b.boardFilepath }');">${vd.b.boardFilename }</a>
 								<br/>
-								<img src='/siUpload/board/${vd.b.boardFilename }'width="500px"/>
+								<c:if test="${not empty vd.b.boardFilename }">
+									<img src='/siUpload/board/${vd.b.boardFilename }'width="500px"/>
+								</c:if>
 								<!-- 파일이 있으면 넘겨준 No를 기준으로 게시물의 이름을 불러와서 출력 -->
 								<br/><br/><br/>
 								${fn:replace(vd.b.boardContent,newLineChar,"<br/>")}
@@ -64,7 +66,7 @@
 								</td>
 							</tr>
 						</c:if>
-					</c:if>
+					
 				</table>
 				<form action="/takeBoardCommentInsert" method="post">
 					<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
