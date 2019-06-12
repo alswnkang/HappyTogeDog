@@ -28,7 +28,7 @@
 					</tr>
 					<tr>
 						<td>품종 : ${kindNm }</td>
-						<td>시간 : ${vd.b.happenDate }</td>
+						<td>발견 날짜 : ${vd.b.happenDate }</td>
 					</tr>
 					<c:if test="${not empty vd.b.boardFilename }">
 					<!-- 파일이 있을 때 -->

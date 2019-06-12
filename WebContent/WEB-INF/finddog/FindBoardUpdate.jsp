@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
 <jsp:include page="/WEB-INF/common/header.jsp" />
@@ -20,7 +19,7 @@
 
 	<section id="content-wrapper">
 		<div class="area">
-			<h2 class="comm-content-tit">게시글 수정</h2>
+			<h2 class="comm-content-tit">강아지를 찾습니다</h2>
 			<div class="common-tbl-box">
 				<form action="/findBoardUpdateAddion?boardNo=${board.boardNo }" method="post" enctype="multipart/form-data">
 					<table class="comm-tbl">
@@ -60,7 +59,7 @@
 					</table>
 					<div class="common-tbl-btn-group">
 						<button type="submit" class="btn-style1">수정하기</button>
-						<button type="reset" class="btn-style2" onclick="location.href='/detailTakeBoard?boardNo=${board.boardNo }'">취소</button>
+						<button type="reset" class="btn-style2" onclick="history.back();">취소</button>
 					</div>
 				</form>
 			</div>

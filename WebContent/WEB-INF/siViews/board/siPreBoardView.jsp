@@ -5,7 +5,7 @@
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
-<%pageContext.setAttribute("newLineChar", "/n"); %>			
+<%pageContext.setAttribute("newLineChar", "/n"); %>	
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
 			<h2 class="main-comm-tit">자유게시판</h2>
@@ -19,6 +19,7 @@
 						<col width="100%">
 					</colgroup>
 					<tr>
+						<button class="2333">ddd</button>
 						<th colspan="2" style="text-align:center;">${vd.b.boardTitle }</th>
 					</tr>
 					<tr>
@@ -260,8 +261,8 @@
 	});
 	function cmtrMfy(boardCommentRef,boardCommentNo){	//대댓글 수정
 		var boardCommentContent2 = $('.boardReCommentModify'+boardCommentNo).val();
-		location.href="/siPreBoardReCommentUpdate?boardCommentContent="+boardCommentContent2
-			+"&boardNo="+${vd.b.boardNo }+"&boardCommentRef="+boardCommentRef+"&boardCommentNo="+boardCommentNo;
+		location.href="/siPreBoardReCommentUpdate?&boardNo="+${vd.b.boardNo }
+		+"&boardCommentRef="+boardCommentRef+"&boardCommentNo="+boardCommentNo+"&boardCommentContent="+boardCommentContent2;
 	}
 	$(document).ready(function(){	//게시글 삭제 확인
 		$('#boardDelBtn').click(function(){
