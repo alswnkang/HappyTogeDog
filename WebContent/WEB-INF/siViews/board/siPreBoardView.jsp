@@ -5,7 +5,6 @@
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
-<c:set var="bCon" value="'['+${vd.b.boardContent }+']'"/>
 <%pageContext.setAttribute("newLineChar", "/n"); %>	
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
