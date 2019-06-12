@@ -7,7 +7,7 @@
 
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
-			<h2 class="comm-content-tit">게시글 작성</h2>
+			<h2 class="comm-content-tit">강아지를 찾습니다</h2>
 			<div class="common-tbl-box">
 				<form action="/findBoardEnroll" method="post" enctype="multipart/form-data"><!-- 파일 첨부를 하기위해 enctype 설정 -->
 					<input type="hidden" name="boardType" value="4"/>
@@ -45,7 +45,7 @@
 						<tr>
 							<th>잃어버린 날짜</th>
 							<th>
-								<input type="text" name="startDay" class="datepicker search-day short" autocomplete="off" required="required">
+								<input type="text" name="startDay" class="datepicker3 search-day short" autocomplete="off" required="required">
 							</th>
 							
 						</tr>
@@ -65,7 +65,7 @@
 					</table>
 					<div class="common-tbl-btn-group">
 						<button type="submit" class="btn-style1">등록하기</button>
-						<button type="reset" class="btn-style2" onclick="location.href='/takeBoard'">취소</button>
+						<button type="reset" class="btn-style2" onclick="history.back();">취소</button>
 					</div>
 				</form>
 			</div>

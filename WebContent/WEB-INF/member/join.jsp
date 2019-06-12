@@ -305,7 +305,7 @@
 		$('#name').text($('#care').val());
 		$('#name').val($('#care option:selected').text());
 		$('#code_re').val($('#care').val());
-		console.log($('#care').val());
+		
 	});
 	$("#area").change(function(){
 		$('#careArea').val($('#area option:selected').text());

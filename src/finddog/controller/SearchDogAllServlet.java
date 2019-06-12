@@ -68,13 +68,13 @@ public class SearchDogAllServlet extends HttpServlet {
 		while(b) {
 			sdpd = new SearchDogService().selectListAPI(page,page2,sDay,eDay,kind,cityCode);
 			if(!sdpd.getList().isEmpty()) {
-				if(sdpd.getList().size()==8) { //8개의 리스트를답을때까지 반복
+				if(sdpd.getList().size()==4) { //8개의 리스트를답을때까지 반복
 					count++;
 					b=false;
 					if(count==10) {
 						b=false;
 					}
-				}else if(sdpd.getList().size()==7||sdpd.getList().size()==6||sdpd.getList().size()==5||sdpd.getList().size()==4||sdpd.getList().size()==3||sdpd.getList().size()==2||sdpd.getList().size()==1){
+				}else if(sdpd.getList().size()==3||sdpd.getList().size()==2||sdpd.getList().size()==1){
 					count++;
 					if(count==10) {
 						b=false;

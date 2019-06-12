@@ -254,27 +254,63 @@ public class MemberDao {
 		JDBCTemplate.close(rset);
 		return result;
 	}
-	
-	public ArrayList<Member> searchUser(int start,int end,int select,String search) throws SQLException{
+
+	public ArrayList<Member> seeUser(int start,int end,int user,int select,String search) throws SQLException{
 		Connection conn = JDBCTemplate.getCon();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Member m = null;
 		String query= "";
 		ArrayList<Member> list = new ArrayList<Member>();
-		if(select == 1) {
-			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where id like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
-		}else if(select == 2) {
-			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where name like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
-		}else if(select == 3) {
-			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where code=? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+		switch (select) {
+		case 1:
+			if(user == 0) {
+				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? and id like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+			}else if(user == 1) {
+				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? and id like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+			}else if(user == 2) {
+				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where not member_level=? and id like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+			}
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, user);
+			pstmt.setString(2, "%"+search+"%" );
+			pstmt.setInt(3, start);
+			pstmt.setInt(4, end);
+			rset = pstmt.executeQuery();
+			break;
+		case 2:
+			if(user == 0) {
+				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? and name like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+			}else if(user == 1) {
+				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? and name like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+			}else if(user == 2) {
+				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where not member_level=? and name like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+			}
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, user);
+			pstmt.setString(2, "%"+search+"%" );
+			pstmt.setInt(3, start);
+			pstmt.setInt(4, end);
+			rset = pstmt.executeQuery();
+			break;
+		case 3:
+			if(user == 0) {
+				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? and code like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+			}else if(user == 1) {
+				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? and code like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+			}else if(user == 2) {
+				query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where not member_level=? and code like ? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+			}
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, user);
+			pstmt.setString(2, "%"+search+"%" );
+			pstmt.setInt(3, start);
+			pstmt.setInt(4, end);
+			rset = pstmt.executeQuery();
+			break;
+		default:
+			break;
 		}
-		
-		pstmt = conn.prepareStatement(query);
-		pstmt.setString(1, "%"+search+"%");
-		pstmt.setInt(2, start);
-		pstmt.setInt(3, end);
-		rset = pstmt.executeQuery();
 		while(rset.next()) {
 			m = new Member();
 			m.setId(rset.getString("id"));
@@ -294,84 +330,56 @@ public class MemberDao {
 		JDBCTemplate.close(conn);
 		return list;
 	}
-	public int searchCount(int select,String search) throws SQLException {
+	public int seeUserCount(int user,int select,String search) throws SQLException {
 		Connection conn = JDBCTemplate.getCon();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
 		String query = "";
-		if(select == 1) {
-			query = "select count(*) cnt from member where id like ?";
-		}else if(select == 2) {
-			query = "select count(*) cnt from member where name like ?";
-		}else if(select == 3) {
-			query = "select count(*) cnt from member where code=?";
-		}
-		pstmt = conn.prepareStatement(query);
-		pstmt.setString(1, "%"+search+"%");
-		rset = pstmt.executeQuery();
-		if(rset.next()) {
-		result = rset.getInt("cnt");
-		}
-		JDBCTemplate.close(pstmt);
-		JDBCTemplate.close(rset);
-		return result;
-	}
-	public ArrayList<Member> seeUser(int start,int end,int user) throws SQLException{
-		Connection conn = JDBCTemplate.getCon();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		Member m = null;
-		String query= "";
-		ArrayList<Member> list = new ArrayList<Member>();
-		if(user == 0) {
-			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
-		}else if(user == 1) {
-			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where member_level=? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
-		}else if(user == 2) {
-			query = "SELECT * FROM (SELECT ROWNUM AS RNUM, M.*FROM (select * from member where not member_level=? order by member_level) M) WHERE RNUM BETWEEN ? AND ?";
+		switch (select) {
+		case 1:
+			if(user == 0) {
+				query = "select count(*) cnt from member where member_level = ? and id like ?";
+			}else if(user == 1) {
+				query = "select count(*) cnt from member where member_level = ? and id like ?";
+			}else if(user == 2) {
+				query = "select count(*) cnt from member where not member_level = ? and id like ?";
+			}
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, user);
+			pstmt.setString(2, "%"+search+"%");
+			rset = pstmt.executeQuery();
+			break;
+		case 2:
+			if(user == 0) {
+				query = "select count(*) cnt from member where member_level = ? and name like ?";
+			}else if(user == 1) {
+				query = "select count(*) cnt from member where member_level = ? and name like ?";
+			}else if(user == 2) {
+				query = "select count(*) cnt from member where not member_level = ? and name like ?";
+			}
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, user);
+			pstmt.setString(2, "%"+search+"%");
+			rset = pstmt.executeQuery();
+			break;
+		case 3:
+			if(user == 0) {
+				query = "select count(*) cnt from member where member_level = ? and code like ?";
+			}else if(user == 1) {
+				query = "select count(*) cnt from member where member_level = ? and code like ?";
+			}else if(user == 2) {
+				query = "select count(*) cnt from member where not member_level = ? and code like ?";
+			}
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, user);
+			pstmt.setString(2, "%"+search+"%");
+			rset = pstmt.executeQuery();
+			break;
+		default:
+			break;
 		}
 		
-		pstmt = conn.prepareStatement(query);
-		pstmt.setInt(1, user);
-		pstmt.setInt(2, start);
-		pstmt.setInt(3, end);
-		rset = pstmt.executeQuery();
-		while(rset.next()) {
-			m = new Member();
-			m.setId(rset.getString("id"));
-			m.setPw(rset.getString("pw"));
-			m.setCode(rset.getString("code"));
-			m.setName(rset.getString("name"));
-			m.setPhone(rset.getString("phone"));
-			m.setPost(rset.getString("post"));
-			m.setAddress(rset.getString("address"));
-			m.setPossibleTime(rset.getString("possible_time"));
-			m.setEmail(rset.getString("email"));
-			m.setMemberLevel(rset.getInt("member_level"));
-			list.add(m);
-		}
-		JDBCTemplate.close(rset);
-		JDBCTemplate.close(pstmt);
-		JDBCTemplate.close(conn);
-		return list;
-	}
-	public int seeUserCount(int user) throws SQLException {
-		Connection conn = JDBCTemplate.getCon();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		int result = 0;
-		String query = "";
-		if(user == 0) {
-			query = "select count(*) cnt from member where member_level = ?";
-		}else if(user == 1) {
-			query = "select count(*) cnt from member where member_level = ?";
-		}else if(user == 2) {
-			query = "select count(*) cnt from member where not member_level = ?";
-		}
-		pstmt = conn.prepareStatement(query);
-		pstmt.setInt(1, user);
-		rset = pstmt.executeQuery();
 		if(rset.next()) {
 		result = rset.getInt("cnt");
 		}

@@ -41,6 +41,12 @@ public class SeeUserServlet extends HttpServlet {
 		System.out.println(user);
 		HttpSession session = request.getSession(false);
 		String id = ((Member)session.getAttribute("member")).getId();
+		int select = Integer.parseInt(request.getParameter("select"));
+		String search = request.getParameter("search");
+		System.out.println(select+"셀렉트");
+		if(search == null) {
+			search = "";
+		}
 		int reqPage;
 		try {
 			reqPage = Integer.parseInt(request.getParameter("reqPage"));
@@ -49,9 +55,11 @@ public class SeeUserServlet extends HttpServlet {
 		}
 		try {
 			if(id.equals("admin")) {
-				MemberPageData pd = new MemberService().seeUser(reqPage,user);
+				MemberPageData pd = new MemberService().seeUser(reqPage,user,select,search);
 				request.setAttribute("pd", pd);
 				request.setAttribute("user", user);
+				request.setAttribute("select", select);
+				request.setAttribute("search", search);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/member/adminPage.jsp");
 				rd.forward(request, response);
 			}else {
