@@ -45,7 +45,7 @@
 						<tr>
 							<th>발견날짜</th>
 							<th>
-								<input type="text" name="startDay" class="datepicker search-day short" autocomplete="off" required="required">
+								<input type="text" name="startDay" class="datepicker3 search-day short" autocomplete="off" required="required">
 							</th>
 							
 						</tr>
