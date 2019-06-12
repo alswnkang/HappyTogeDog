@@ -33,6 +33,7 @@ public class VoluntaryUpdateServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		int no = Integer.parseInt(request.getParameter("no"));
 		VoluntaryRegister vr = new VoluntaryService().voluntaryView(no);
+		vr.setDetail(vr.getDetail().replaceAll("<br>", "\r\n"));
 		if(vr != null) {
 			request.setAttribute("vr", vr);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/volunteer/voluntaryUpdate.jsp");
