@@ -50,6 +50,42 @@
 							<p id="p_checkPw_re" style="display:none">비밀번호가 일치하지 않습니다</p>
 						</td>
 					</tr>
+					<c:if test="${level == 1}">
+					<tr>
+						<th>시 선택 <b class="star join">*</b></th> 
+						<td>
+							<select name="city" id="city">
+								<option>도시선택</option>
+								<c:forEach items="${list }" var="m" varStatus="i">
+										<option value="${m.cityCode }">${m.cityName }</option>
+								</c:forEach>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>구 선택 <b class="star join">*</b></th>
+						<td>
+							<select name="area" id="area">
+								<option>지역구선택</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>보호소 선택  <b class="star join">*</b></th>
+						<td>
+							<select name="care" id="care">
+								<option>보호소선택</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>보호소코드 입력  <b class="star join">*</b></th>
+						<td>
+							<input type="text" name="code" id="code" class="middle" placeholder="코드를 입력해주세요">
+						</td>
+					</tr>
+					<input type="hidden" id="code_re"> 
+					</c:if>
 					<tr>
 						<th>이름 <b class="star join">*</b></th>
 						<td><input type="text" name="name" id="name"></td>
@@ -158,42 +194,7 @@
 						</td>
 					</tr>	
 					</c:if>	
-					<c:if test="${level == 1}">
-					<tr>
-						<th>시 선택 <b class="star join">*</b></th> 
-						<td>
-							<select name="city" id="city">
-								<option>도시선택</option>
-								<c:forEach items="${list }" var="m" varStatus="i">
-										<option value="${m.cityCode }">${m.cityName }</option>
-								</c:forEach>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<th>구 선택 <b class="star join">*</b></th>
-						<td>
-							<select name="area" id="area">
-								<option>지역구선택</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<th>보호소 선택  <b class="star join">*</b></th>
-						<td>
-							<select name="care" id="care">
-								<option>보호소선택</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<th>보호소코드 입력  <b class="star join">*</b></th>
-						<td>
-							<input type="text" name="code" id="code" class="middle" placeholder="코드를 입력해주세요">
-						</td>
-					</tr>
-					<input type="hidden" id="code_re"> 
-					</c:if>
+					
 				</table>
 				
 			</div>
