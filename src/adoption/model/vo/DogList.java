@@ -19,8 +19,17 @@ public class DogList {
 	private String noticeSdt;	//공고시작일
 	private String processState;//입양상태
 	private String neuterYn;	//중성화여부
+	private int totalCount;
 	
 	
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+
 	public DogList() {
 		super();
 		// TODO Auto-generated constructor stub

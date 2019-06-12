@@ -14,6 +14,9 @@
 					$("#status").val("delete");
 				}
 			});
+			
+			
+			
 		});
 	</script>
 
@@ -35,10 +38,11 @@
 							<th style="text-align:center;">작성자</th>
 							<td>${sessionScope.member.name }</td>
 						</tr>
+						
 						<tr>
 							<th style="text-align:center;">파일첨부</th>
 							<td>
-								<input type="hidden" name="status" id="status" value="stay">
+								<input type="hidden" name="status" id="status" value="stay" required="required">
 								<!-- 삭제 유무 판단용 input태그 -->
 								<c:choose>
 									<c:when test="${not empty board.boardFilepath }">
@@ -56,6 +60,7 @@
 								</c:choose>
 							</td>
 						</tr>
+						
 						<tr>
 							<th style="text-align:center;">내용</th>
 							<td><textarea name="boardContent" rows="30" style="resize:none;" placeholder="글 내용" maxlength="2048">${board.boardContent }</textarea></td>
@@ -69,6 +74,7 @@
 			</div>
 		</div>
 	</section>
+
 
 <%-- Footer --%>
 <jsp:include page="/WEB-INF/common/footer.jsp" />

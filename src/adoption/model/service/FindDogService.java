@@ -1,10 +1,16 @@
 package adoption.model.service;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import adoption.model.dao.FindDogDao;
 import adoption.model.vo.DogList;
 import adoption.model.vo.SearchDogPageData;
+import common.JDBCTemplate;
+import finddog.model.dao.SearchDogDao;
+import finddog.model.vo.Kind;
+import openApi.model.vo.cityCode;
 
 public class FindDogService {
 	
@@ -40,6 +46,16 @@ public class FindDogService {
 		}
 		SearchDogPageData sdpd = new SearchDogPageData(list,pageNavi);
 		return sdpd;
+	}
+
+	public ArrayList<cityCode> getCityCode() throws SQLException {
+		// TODO Auto-generated method stub
+		Connection conn =JDBCTemplate.getCon();
+		ArrayList<cityCode> list = new FindDogDao().getCityCode(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
 	}
 	
 

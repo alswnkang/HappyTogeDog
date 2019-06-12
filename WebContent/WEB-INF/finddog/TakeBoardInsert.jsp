@@ -7,7 +7,7 @@
 
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
-			<h2 class="comm-content-tit">게시글 작성</h2>
+			<h2 class="comm-content-tit">보호중인 유기견</h2>
 			<div class="common-tbl-box">
 				<form action="/takeBoardEnroll" method="post" enctype="multipart/form-data"><!-- 파일 첨부를 하기위해 enctype 설정 -->
 					<input type="hidden" name="boardType" value="3"/>

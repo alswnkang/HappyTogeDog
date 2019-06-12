@@ -1,5 +1,10 @@
 package adoption.model.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -11,6 +16,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import adoption.model.vo.DogList;
+import common.JDBCTemplate;
+import finddog.model.vo.Kind;
+import openApi.model.vo.cityCode;
 
 public class FindDogDao {
 
@@ -79,5 +87,29 @@ public class FindDogDao {
 		if (nValue == null)
 			return null;
 		return nValue.getNodeValue();
+	}
+
+	public ArrayList<cityCode> getCityCode(Connection conn) throws SQLException {
+		// TODO Auto-generated method stub
+		Statement stmt =null;
+		ResultSet rset = null;
+		ArrayList<cityCode> list = null;
+		String query = "select * from city";
+		stmt = conn.createStatement();
+		rset = stmt.executeQuery(query);
+		list = new ArrayList<cityCode>();
+		int i=0;
+		while(rset.next()) {
+			i++;
+			cityCode c = new cityCode();
+			c.setCityCode(rset.getString("city_code"));
+			c.setCityName(rset.getString("city_name"));
+			System.out.println("도시 담은 수: "+i);
+			System.out.println(c.getCityName());
+			list.add(c);
+		}
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(stmt);
+		return list;
 	}
 }
