@@ -98,7 +98,7 @@
 							</div>
 						</li>
 						<li class="gnb04">
-							<a href="/takeBoard">실종유기견찾기</a>
+							<a href="/searchDogAll">실종유기견찾기</a>
 							<div class="gnb-2dep">
 								<ul>
 									<li><a href="/searchDogAll">실종 유기견 찾기</a></li>
