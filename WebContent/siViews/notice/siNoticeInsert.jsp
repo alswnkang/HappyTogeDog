@@ -2,9 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
 <jsp:include page="/WEB-INF/common/header.jsp" />
-
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
 			<h2 class="comm-content-tit">게시글 작성</h2>
@@ -31,7 +29,14 @@
 						</tr>
 						<tr>
 							<th style="text-align:center;">파일첨부</th>
-							<td><input type="file" name="noticeFilename"/></td>
+							<td>
+								<div class="filebox">
+									<input type="text" id="fileName" style="width:80%"/>
+									<label for="noticeFile">파일 업로드</label>
+									<input type="file" id="noticeFile" name="noticeFilename" 
+									onchange="javascript: document.getElementById('fileName').value = this.value.replace(/c:\\fakepath\\/i, '')" />
+								</div>
+							</td>
 						</tr>
 						<tr>
 							<th height="100" style="text-align:center;">내용</th>
@@ -46,5 +51,38 @@
 			</div>
 		</div>
 	</section>
-
+	<style>
+		.filebox label {
+			  display: inline-block;
+			  padding: .5em .75em;
+			  color: #fff;
+			  font-size: inherit;
+			  line-height: normal;
+			  vertical-align: middle;
+			  background-color: #5cb85c;
+			  cursor: pointer;
+			  border: 1px solid #4cae4c;
+			  border-radius: .25em;
+			  -webkit-transition: background-color 0.2s;
+			  transition: background-color 0.2s;
+		}
+		.filebox label:hover {
+		  background-color: #6ed36e;
+		}
+		
+		.filebox label:active {
+		  background-color: #367c36;
+		}
+		
+		.filebox input[type="file"] {
+		  position: absolute;
+		  width: 1px;
+		  height: 1px;
+		  padding: 0;
+		  margin: -1px;
+		  overflow: hidden;
+		  clip: rect(0, 0, 0, 0);
+		  border: 0;
+		}
+	</style>
 <jsp:include page="/WEB-INF/common/footer.jsp" />

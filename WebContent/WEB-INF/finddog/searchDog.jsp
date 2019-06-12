@@ -171,8 +171,6 @@
 				${sdpd2.pageNavi }
 	 		</div>
 	 		
-
-			
 		</div>
 	</div>
 </section>
