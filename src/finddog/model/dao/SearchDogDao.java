@@ -70,8 +70,8 @@ public class SearchDogDao {
 		System.out.println("APIGETLIST : "+page);
 		ArrayList<DogList> list = null;
 		try {
-			String kinds="";
-			String cityCo="";
+			String kinds="&kind=";
+			String cityCo="&upr_cd=";
 			while (true) {
 				
 				if(sDay.equals("")||sDay==null) {
@@ -81,18 +81,21 @@ public class SearchDogDao {
 					eDay=date();
 				}
 				if(kind.equals("")||kind==null) {
-					kinds="&kind=".concat(kind);
+					
+					kinds="";
 				}
 				if(cityCode.equals("")||cityCode==null) {
-					cityCo="&upr_cd=".concat(cityCode);
+					cityCo="";
 				}
 				// parsing할 url 지정(API 키 포함해서)
 				System.out.println(sDay+","+eDay+"진짜이상하네");
 				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde="+sDay+"&endde="+eDay+"&pageNo="
 						+ page
-						+kinds+cityCo+"&upkind=417000&numOfRows=4&ServiceKey=aLiSUfKw3hrZNSZrqXuG6iJtNr0ufMlgmB8Y%2Fh93hFuOk5E%2Brl8bd8mxxl%2Fcga%2B6i2CP7lD5%2BGBnLYmmVm%2BkFw%3D%3D";
+						+kinds+kind+cityCo+cityCode+"&upkind=417000&numOfRows=4&ServiceKey=aLiSUfKw3hrZNSZrqXuG6iJtNr0ufMlgmB8Y%2Fh93hFuOk5E%2Brl8bd8mxxl%2Fcga%2B6i2CP7lD5%2BGBnLYmmVm%2BkFw%3D%3D";
 				
 				//9foRMY8t3j0MRIsmBCTWOiLUVaW4yJivGOtPfYE9x8yYsPcPCkCUZgGm39bZZGdQQc1ZT9MN87KHULUH8aLpMg%3D%3D
+				System.out.println("url경로입니다 "+url);
+				
 				
 				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
@@ -244,9 +247,7 @@ public class SearchDogDao {
 			pstmt.setInt(2, end);
 			pstmt.setString(3, sDay);
 			pstmt.setString(4, eDay);
-		
 			
-
 			rset = pstmt.executeQuery();
 			list = new ArrayList<Board>();
 			while(rset.next()) {
@@ -270,6 +271,8 @@ public class SearchDogDao {
 				b.setHappenCity(rset.getString("Happen_city"));
 				b.setHappenDate(rset.getString("happen_date"));
 				b.setDogKind(rset.getString("dog_kind"));
+				
+				
 				list.add(b);
 			}
 		} catch (SQLException e) {
