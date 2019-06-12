@@ -57,10 +57,29 @@
 						<tr>
 							<th>연락처 <b class="star">*</b></th>
 							<td>
-								<c:set var="phone" value="${fn:split(sessionScope.member.phone,'-') }" />
+								<c:set var="phone" value="${fn:split(sessionScope.member.phone,'-')[0] }" />
 								<select name="phone1" class="phone short">
+									<option value="${phone }" selected>${phone }</option>
+									<option value="02">02</option>
+									<option value="031">031</option>
+									<option value="032">032</option>
+									<option value="033">033</option>
+									<option value="041">041</option>
+									<option value="042">042</option>
+									<option value="043">043</option>
+									<option value="044">044</option>
+									<option value="051">051</option>
+									<option value="052">052</option>
+									<option value="053">053</option>
+									<option value="054">054</option>
+									<option value="055">055</option>
+									<option value="061">061</option>
+									<option value="062">062</option>
+									<option value="063">063</option>
+									<option value="064">064</option>
 									<option value="010">010</option>
 									<option value="011">011</option>
+									<option value="016">016</option>
 								</select>
 								 - <input type="text" name="phone2" class="phone num short" maxlength="4" value="${fn:split(sessionScope.member.phone,'-')[1] }"> 
 								 - <input type="text" name="phone3" class="phone num short" maxlength="4" value="${fn:split(sessionScope.member.phone,'-')[2] }">
@@ -92,8 +111,27 @@
 							<th>연락처 <b class="star">*</b></th>
 							<td>
 								<select name="receivePhone1" class="short phone">
+									<option value="" selected></option>
+									<option value="02">02</option>
+									<option value="031">031</option>
+									<option value="032">032</option>
+									<option value="033">033</option>
+									<option value="041">041</option>
+									<option value="042">042</option>
+									<option value="043">043</option>
+									<option value="044">044</option>
+									<option value="051">051</option>
+									<option value="052">052</option>
+									<option value="053">053</option>
+									<option value="054">054</option>
+									<option value="055">055</option>
+									<option value="061">061</option>
+									<option value="062">062</option>
+									<option value="063">063</option>
+									<option value="064">064</option>
 									<option value="010">010</option>
 									<option value="011">011</option>
+									<option value="016">016</option>
 								</select>
 								 - <input type="text" name="receivePhone2" class="phone num short" maxlength="4"> 
 								 - <input type="text" name="receivePhone3" class="phone num short" maxlength="4">

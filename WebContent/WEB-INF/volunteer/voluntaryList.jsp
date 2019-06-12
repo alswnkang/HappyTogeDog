@@ -63,7 +63,7 @@ $(function(){
 								<td>${volunRegister.enrollDate }</td><!-- ${volunRegister.status } -->
 								<td>
 									<!-- ${volunRegister.applyNum } --> <!-- 신청한 인원 -->
-									<fmt:formatDate value="<%=new java.util.Date() %>" pattern="YYYY-MM-DD" var="today"/>
+									<c:set var="today"><fmt:formatDate value="<%=new java.util.Date() %>" pattern="yyyy-MM-dd"/></c:set>
 									<c:if test="${volunRegister.volunDate >= today }">
 										<c:if test="${volunRegister.status eq '모집중' }">
 											<span class="volun-status ing">${volunRegister.status }</span>
