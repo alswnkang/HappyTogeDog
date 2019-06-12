@@ -155,8 +155,15 @@ public class SearchDogService {
 		String pageNavi="";
 		int numPerPage = 4;
 		System.out.println(page+sDay+kind+cityCode+eDay);
+		int totalCount=0;
+		if(list.isEmpty()) {
+			totalCount=0;
+		}else {
+			totalCount=list.get(0).getTotalCount();
+		}
+
 		
-		int totalCount=list.get(0).getTotalCount();
+		
 		//네비바 생성
 		System.out.println("API총갯수는"+totalCount);
 		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;

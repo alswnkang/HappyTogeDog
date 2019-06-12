@@ -95,12 +95,12 @@ public class PrintSearchDogServlet extends HttpServlet {
 				if(sdpd.getList().size()==4) { 
 					count++;
 					b=false;
-					if(count==2) {
+					if(count==1) {
 						b=false;
 					}
 				}else if(sdpd.getList().size()==3||sdpd.getList().size()==2||sdpd.getList().size()==1){
 					count++;
-					if(count==2) {
+					if(count==1) {
 						b=false;
 					}
 				}
