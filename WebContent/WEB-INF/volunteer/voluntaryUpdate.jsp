@@ -4,6 +4,7 @@
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
+<script type="text/javascript" src="/js/script.js"></script><!-- script.js -->
 
 <%-- Content --%>
 <section id="content-wrapper">
@@ -11,7 +12,7 @@
 		<h2 class="comm-content-tit">봉사활동 공고 수정</h2>
 		<div id="voluntaryRegisterBox" class="common-tbl-box">
 			<!-- 봉사활동 수정하기 -->
-			<form action="/voluntaryUpdateEnd" method="post" enctype="multipart/form-data">
+			<form action="/voluntaryUpdateEnd" method="post" enctype="multipart/form-data" onsubmit="return numCheck();">
 				<table class="comm-tbl">
 					<input type="hidden" name="no" value="${vr.no }">
 					<colgroup>
@@ -28,26 +29,26 @@
 					</tr>
 					<tr>
 						<th>봉사활동 공고 제목</th>
-						<td><input type="text" name="title" value="${vr.title }"></td>
+						<td><input type="text" name="title" value="${vr.title }" required></td>
 					</tr>				
 					<tr>
 						<th>봉사 날짜</th>
-						<td><input type="text" id="datepicker" name="volunDate" value="${vr.volunDate }"></td>
+						<td><input type="text" id="datepicker2" name="volunDate" value="${vr.volunDate }" required></td>
 					</tr>
 					<tr>
 						<th>봉사 시간</th>
 						<td>
-							<input type="text" name="volunTime1" class="short num" value="${vr.startTime }"> 시&nbsp;&nbsp;~&nbsp;&nbsp;<input type="text" name="volunTime2" class="short num" value="${vr.endTime }"> 시 &nbsp;&nbsp;
+							<input type="text" name="volunTime1" class="short num" value="${vr.startTime }" required> 시&nbsp;&nbsp;~&nbsp;&nbsp;<input type="text" name="volunTime2" class="short num" value="${vr.endTime }" required> 시 &nbsp;&nbsp;
 							(ex. 9시 ~ 15시)
 						</td>
 					</tr>
 					<tr>
 						<th>봉사 가능 인원 수</th>
-						<td><input type="text" name="person" class="short num" value="${vr.person }"> 명</td>
+						<td><input type="text" name="person" class="short num" value="${vr.person }" required> 명</td>
 					</tr>
 					<tr>
 						<th>봉사 상세설명</th>
-						<td><textarea name="detail" rows="10">${vr.detail }</textarea></td>
+						<td><textarea name="detail" rows="10" required>${vr.detail }</textarea></td>
 					</tr>
 					<tr>
 						<th>첨부파일</th>
@@ -70,7 +71,7 @@
 					</tr>
 				</table>
 				<div class="common-tbl-btn-group">
-					<button type="submit" class="btn-style1">수정</button><button type="reset" class="btn-style2">취소</button>
+					<button type="submit" class="btn-style1">수정</button><button type="reset" class="btn-style2" onclick="goBack();">취소</button>
 				</div>
 			</form>
 		</div>
@@ -87,5 +88,23 @@ $(document).ready(function(){
 			$("#fileStatus").val("delete");
 		}
 	});
-})
+});
+
+//목록으로 버튼 누를시 뒤로가기
+function goBack(){
+	window.history.back();
+};
+
+//0명 방지
+function numCheck(){
+	var num = $('input[type=text].num').val();
+	if(num==0){
+		alert('1명 이상을 입력해주세요.');
+		$(this).val('');
+		return false;
+	}else{
+		return true;
+	}
+	
+}
 </script>

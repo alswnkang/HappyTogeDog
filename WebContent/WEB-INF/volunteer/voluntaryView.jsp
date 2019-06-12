@@ -75,8 +75,8 @@
 					</tr>
 				</table>
 				<div class="common-tbl-btn-group" style="text-align:right;">
-					<fmt:formatDate value="<%=new java.util.Date() %>" pattern="YYYY-MM-DD" var="today"/>
-					<c:if test="${vr.volunDate >= today }">
+					<c:set var="today"><fmt:formatDate value="<%=new java.util.Date() %>" pattern="yyyy-MM-dd"/></c:set>
+					<c:if test="${vr.volunDate != today }">
 						<c:if test="${vr.status eq '모집중' }">
 							<c:if test="${not empty member && member.memberLevel == 0 }">
 								<button type="button" class="btn-style1" onclick="javascript:layerLoad('/voluntaryApplyForm?no=${vr.no}');">신청하기</button><!-- 신청 마감시 버튼 변경->신청 마감 누르면 alert('신청이 마감되었습니다.') -->
