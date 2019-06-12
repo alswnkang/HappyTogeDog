@@ -7,7 +7,7 @@
 
 <%-- Header --%>
 <jsp:include page="/WEB-INF/common/header.jsp" />
-<script src="/js/test.js"></script>
+
 
 <style>
 .board-search-box{margin-bottom:30px;}
@@ -21,7 +21,7 @@
 		<div id="searchDog" class=""><!-- id는 바꿔서 복붙 -->
 			<!-- 검색박스 -->
 		 	<form action="/printSearchDog">
-			 	<div class="board-search-box">
+			 	<div class="board-search-box" style="margin-bottom:20px">
 			 		
 			 		<select name="happenCity" style="margin-right:7px;">
 						<option>도시</option>

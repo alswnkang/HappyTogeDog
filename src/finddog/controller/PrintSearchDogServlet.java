@@ -2,6 +2,7 @@ package finddog.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -137,17 +138,24 @@ public class PrintSearchDogServlet extends HttpServlet {
 		
 		
 		
+		
+		DecimalFormat formatter = new DecimalFormat("####-##-##");
+		
+		
 
 		request.setAttribute("kind", kindds);
+		request.setAttribute("kinda", kind);
 		request.setAttribute("city", city);
-		
+		request.setAttribute("sDay", sDay);
+		request.setAttribute("eDay", eDay);
+		request.setAttribute("citya", cityCode);
 		
 		BoardPageData sdpd2 = new BoardPageData();
 		
 		sdpd2 = new SearchDogService().selectListDB(page2,page, sDay, eDay, kind, cityCode);
 		
 		
-		
+		System.out.println("sDay:"+sDay+"eDay:"+eDay);
 		
 		
 		request.setAttribute("sdpd2", sdpd2);
