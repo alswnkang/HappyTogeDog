@@ -272,8 +272,8 @@
 	});
 	function cmtrMfy(noticeCommentRef,noticeCommentNo){//대댓글 수정
 		var noticeCommentContent2 = $('.noticeReCommentModify'+noticeCommentNo).val();
-		location.href="/siNoticeReCommentUpdate?noticeCommentContent="+noticeCommentContent2
-			+"&noticeNo="+${vd.n.noticeNo }+"&noticeCommentRef="+noticeCommentRef+"&noticeCommentNo="+noticeCommentNo;
+		location.href="/siNoticeReCommentUpdate?&noticeNo="+${vd.n.noticeNo }+"&noticeCommentRef="
+				+noticeCommentRef+"&noticeCommentNo="+noticeCommentNo+"&noticeCommentContent="+noticeCommentContent2;
 	}
 	$(document).ready(function(){	//게시글 삭제확인
 		$('#noticeDelBtn').click(function(){

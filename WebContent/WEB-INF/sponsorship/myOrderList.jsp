@@ -21,7 +21,7 @@
 					&nbsp;<button type="button" onclick="setDay(1);" class="bbs-search-btn period" title="검색">1개월</button>
 					&nbsp;<button type="button" onclick="setDay(3);" class="bbs-search-btn period" title="검색">3개월</button>
 					&nbsp;<button type="button" onclick="setDay(6);" class="bbs-search-btn period" title="검색">6개월</button>
-					&nbsp;<input type="search" name="startDay" class="datepicker search-day" value="${search.startDay }"> ~ <input type="search" name="endDay" class="datepicker search-day" value="${search.endDay }"> 			
+					&nbsp;<input type="search" name="startDay" class="datepicker search-day" value="${search.startDay }" autocomplete="off"> ~ <input type="search" name="endDay" class="datepicker search-day" value="${search.endDay }" autocomplete="off"> 			
 					&nbsp;<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
 				</form>
 			</div>

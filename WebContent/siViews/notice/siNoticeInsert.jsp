@@ -1,15 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <jsp:include page="/WEB-INF/common/header.jsp" />
-</head>
-<body>
+
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
 			<h2 class="comm-content-tit">게시글 작성</h2>
@@ -28,7 +23,7 @@
 						</colgroup>
 						<tr>
 							<th style="text-align:center;">제목</th>
-							<td><input type="text" name="noticeTitle" placeholder="글 제목" maxlength="50"/></td>
+							<td><input type="text" name="noticeTitle" placeholder="글 제목" maxlength="50" required="required"></td>
 						</tr>
 						<tr>
 							<th style="text-align:center;">작성자</th>
@@ -40,7 +35,7 @@
 						</tr>
 						<tr>
 							<th height="100" style="text-align:center;">내용</th>
-							<td><textarea rows="30" type="text" name="noticeContent" placeholder="글 내용" style="resize:none" maxlength="2048"></textarea></td>
+							<td><textarea rows="30" type="text" name="noticeContent" placeholder="글 내용" style="resize:none" maxlength="2048" required="required"></textarea></td>
 						</tr>
 					</table>
 					<div class="common-tbl-btn-group">
@@ -51,6 +46,5 @@
 			</div>
 		</div>
 	</section>
-</body>
+
 <jsp:include page="/WEB-INF/common/footer.jsp" />
-</html>

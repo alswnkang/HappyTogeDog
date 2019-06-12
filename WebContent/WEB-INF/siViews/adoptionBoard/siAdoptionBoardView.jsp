@@ -142,7 +142,7 @@
 										<td width="20%"> └─ ${clist.adoptionBoardCommentName }(${clist.adoptionBoardCommentId })</td>
 										<td width="65%">
 											<pre><c:out value="${clist.adoptionBoardCommentContent }" escapeXml="true"/></pre>
-											<input type="text" <c:out value="${clist.adoptionBoardCommentContent }" escapeXml="true"/>" class="adoptionBoardReCommentModify${clist.adoptionBoardCommentNo }" style="display:none;"/>
+											<input type="text" value="<c:out value="${clist.adoptionBoardCommentContent }" escapeXml="true"/>" class="adoptionBoardReCommentModify${clist.adoptionBoardCommentNo }" style="display:none;"/>
 										</td>
 										<td width="11%">
 											${clist.adoptionBoardCommentDate2 }<br/>
@@ -284,8 +284,9 @@
 	});
 	function cmtrMfy(adoptionBoardCommentRef,adoptionBoardCommentNo){	//대댓글 수정
 		var adoptionBoardCommentContent2 = $('.adoptionBoardReCommentModify'+adoptionBoardCommentNo).val();
-		location.href="/siAdoptionBoardReCommentUpdate?adoptionBoardCommentContent="+adoptionBoardCommentContent2
-			+"&adoptionBoardNo="+${vd.a.adoptionBoardNo }+"&adoptionBoardCommentRef="+adoptionBoardCommentRef+"&adoptionBoardCommentNo="+adoptionBoardCommentNo;
+		location.href="/siAdoptionBoardReCommentUpdate?&adoptionBoardNo="+${vd.a.adoptionBoardNo }
+		+"&adoptionBoardCommentRef="+adoptionBoardCommentRef+"&adoptionBoardCommentNo="+adoptionBoardCommentNo
+		+"&adoptionBoardCommentContent="+adoptionBoardCommentContent2;
 	}
 	$(document).ready(function(){	//삭제 확인
 		$('#adoptionBoardDelBtn').click(function(){
