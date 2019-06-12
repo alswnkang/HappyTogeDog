@@ -212,9 +212,20 @@
 		var memberId = '${sessionScope.member.id }';		
 		var memberName = '${sessionScope.member.name }';
 		var adoptionBoardCommentContent = $(".adoptionBoardReCommentContent"+adoptionBoardCommentNo).val();
-		location.href="/siAdoptionBoardReCommentInsert?adoptionBoardType=2"+"&adoptionBoardRef="+${vd.a.adoptionBoardNo }
-			+"&memberId="+memberId+"&memberName="+memberName+"&adoptionBoardNo="+${vd.a.adoptionBoardNo }
-			+"&adoptionBoardCommentRef="+adoptionBoardCommentNo+"&adoptionBoardCommentContent="+encodeURI(adoptionBoardCommentContent);
+		var formData = "adoptionBoardType=2"+"&adoptionBoardRef="+${vd.a.adoptionBoardNo }
+		+"&memberId="+memberId+"&memberName="+memberName+"&adoptionBoardNo="+${vd.a.adoptionBoardNo }
+		+"&adoptionBoardCommentRef="+adoptionBoardCommentNo+"&adoptionBoardCommentContent="+encodeURI(adoptionBoardCommentContent);
+		$.ajax({
+			url : "/siAdoptionBoardReCommentInsert",
+			type : "post",
+			data : formData,
+			success : function(data){
+				location.href="/siAdoptionBoardView?adoptionBoardNo="+${vd.a.adoptionBoardNo };
+			},
+			error : function(){
+				location.href="/siAdoptionBoardView?adoptionBoardNo="+${vd.a.adoptionBoardNo };
+			}
+		});
 	}
 	function rcmtDelBtn(adoptionBoardCommentNo,adoptionBoardCommentRef){//대댓글 삭제확인
 		if(confirm("답글을 삭제하시겠습니까?")){
@@ -284,9 +295,19 @@
 	});
 	function cmtrMfy(adoptionBoardCommentRef,adoptionBoardCommentNo){	//대댓글 수정
 		var adoptionBoardCommentContent2 = $('.adoptionBoardReCommentModify'+adoptionBoardCommentNo).val();
-		location.href="/siAdoptionBoardReCommentUpdate?&adoptionBoardNo="+${vd.a.adoptionBoardNo }
-		+"&adoptionBoardCommentRef="+adoptionBoardCommentRef+"&adoptionBoardCommentNo="+adoptionBoardCommentNo
-		+"&adoptionBoardCommentContent="+adoptionBoardCommentContent2;
+		var formData = "adoptionBoardNo="+${vd.a.adoptionBoardNo }+"&adoptionBoardCommentRef="+adoptionBoardCommentRef
+		+"&adoptionBoardCommentNo="+adoptionBoardCommentNo+"&adoptionBoardCommentContent="+adoptionBoardCommentContent2;
+		$.ajax({
+			url : "/siAdoptionBoardReCommentUpdate",
+			type : "post",
+			data : formData,
+			success : function(data){
+				location.href="/siAdoptionBoardView?adoptionBoardNo="+${vd.a.adoptionBoardNo };
+			},
+			error : function(){
+				location.href="/siAdoptionBoardView?adoptionBoardNo="+${vd.a.adoptionBoardNo };
+			}
+		});
 	}
 	$(document).ready(function(){	//삭제 확인
 		$('#adoptionBoardDelBtn').click(function(){

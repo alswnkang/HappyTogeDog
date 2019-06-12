@@ -200,9 +200,20 @@
 		var memberId = '${sessionScope.member.id }';		
 		var memberName = '${sessionScope.member.name }';
 		var noticeCommentContent = $(".noticeReCommentContent"+noticeCommentNo).val();
-		location.href="/siNoticeReCommentInsert?noticeType=0"+"&noticeRef="+${vd.n.noticeNo }
-			+"&memberId="+memberId+"&memberName="+memberName+"&noticeNo="+${vd.n.noticeNo }
-			+"&noticeCommentRef="+noticeCommentNo+"&noticeCommentContent="+encodeURI(noticeCommentContent);
+		var formData = "noticeType=0"+"&noticeRef="+${vd.n.noticeNo }
+		+"&memberId="+memberId+"&memberName="+memberName+"&noticeNo="+${vd.n.noticeNo }
+		+"&noticeCommentRef="+noticeCommentNo+"&noticeCommentContent="+encodeURI(noticeCommentContent);
+		$.ajax({
+			url : "/siNoticeReCommentInsert",
+			type : "post",
+			data : formData,
+			success : function(data){
+				location.href="/siNoticeView?noticeNo="+${vd.n.noticeNo };
+			},
+			error : function(){
+				location.href="/siNoticeView?noticeNo="+${vd.n.noticeNo };
+			}
+		});
 	}
 	function rcmtDelBtn(noticeCommentNo,noticeCommentRef){//대댓글 삭제확인
 		if(confirm("답글을 삭제하시겠습니까?")){
@@ -272,8 +283,22 @@
 	});
 	function cmtrMfy(noticeCommentRef,noticeCommentNo){//대댓글 수정
 		var noticeCommentContent2 = $('.noticeReCommentModify'+noticeCommentNo).val();
+		var formData = "noticeNo="+${vd.n.noticeNo }+"&noticeCommentRef="+noticeCommentRef
+		+"&noticeCommentNo="+noticeCommentNo+"&noticeCommentContent="+noticeCommentContent2;
+		$.ajax({
+			url : "/siNoticeReCommentUpdate",
+			type : "post",
+			data : formData,
+			success : function(data){
+				location.href="/siNoticeView?noticeNo="+${vd.n.noticeNo };
+			},
+			error : function(){
+				location.href="/siNoticeView?noticeNo="+${vd.n.noticeNo };
+			}
+		});
+/* 		var noticeCommentContent2 = $('.noticeReCommentModify'+noticeCommentNo).val();
 		location.href="/siNoticeReCommentUpdate?&noticeNo="+${vd.n.noticeNo }+"&noticeCommentRef="
-				+noticeCommentRef+"&noticeCommentNo="+noticeCommentNo+"&noticeCommentContent="+noticeCommentContent2;
+				+noticeCommentRef+"&noticeCommentNo="+noticeCommentNo+"&noticeCommentContent="+noticeCommentContent2; */
 	}
 	$(document).ready(function(){	//게시글 삭제확인
 		$('#noticeDelBtn').click(function(){
