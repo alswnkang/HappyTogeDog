@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import adoption.model.service.FindDogService;
 import adoption.model.vo.SearchDogPageData;
 import finddog.model.service.SearchDogService;
 import finddog.model.vo.Kind;
@@ -71,17 +72,17 @@ public class PrintSearchDogServlet extends HttpServlet {
 		boolean b= true;
 		SearchDogPageData sdpd = new SearchDogPageData();
 		while(b) {
-			sdpd = new SearchDogService().selectListAPI(page,page2,sDay,eDay,kind,cityCode);
+			sdpd = new SearchDogService().selectListAPI(page2,page,sDay,eDay,kind,cityCode);
 			if(!sdpd.getList().isEmpty()) {
-				if(sdpd.getList().size()==8) { //8개의 리스트를답을때까지 반복
+				if(sdpd.getList().size()==4) { 
 					count++;
 					b=false;
-					if(count==10) {
+					if(count==2) {
 						b=false;
 					}
-				}else if(sdpd.getList().size()==7||sdpd.getList().size()==6||sdpd.getList().size()==5||sdpd.getList().size()==4||sdpd.getList().size()==3||sdpd.getList().size()==2||sdpd.getList().size()==1){
+				}else if(sdpd.getList().size()==3||sdpd.getList().size()==2||sdpd.getList().size()==1){
 					count++;
-					if(count==10) {
+					if(count==2) {
 						b=false;
 					}
 				}
@@ -94,10 +95,17 @@ public class PrintSearchDogServlet extends HttpServlet {
 		
 		
 
+	
+		
 		ArrayList<cityCode> city=null;	
 		ArrayList<Kind> kindds = new ArrayList<>();
 		
-		city=new OpenApiDao().getCityCode();
+		try {
+			city=new FindDogService().getCityCode();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		
 		
@@ -118,7 +126,7 @@ public class PrintSearchDogServlet extends HttpServlet {
 		
 		BoardPageData sdpd2 = new BoardPageData();
 		
-		sdpd2 = new SearchDogService().selectListDB(page,page2, sDay, eDay, kind, cityCode);
+		sdpd2 = new SearchDogService().selectListDB(page2,page, sDay, eDay, kind, cityCode);
 		
 		
 		
