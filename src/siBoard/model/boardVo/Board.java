@@ -146,7 +146,60 @@ public class Board {
 		this.dogKind = dogKind;
 	}
 	public String getHappenCity() {
-		return happenCity;
+		String city="";
+		switch(happenCity) {
+		case "6110000":
+			city="서울";
+			break;
+		case "6260000":
+			city="부산";
+			break;
+		case "6270000":
+			city="대구";
+			break;
+		case "6280000":
+			city="인천";
+			break;
+		case "6290000":
+			city="광주";
+			break;
+		case "5690000":
+			city="세종시";
+			break;
+		case "6300000":
+			city="대전";
+			break;
+		case "6310000":
+			city="울산";
+			break;
+		case "6410000":
+			city="경기도";
+			break;
+		case "6420000":
+			city="강원도";
+			break;
+		case "6430000":
+			city="충청북도";
+			break;
+		case "6440000":
+			city="충청남도";
+			break;
+		case "6450000":
+			city="전라북도";
+			break;
+		case "6460000":
+			city="전라남도";
+			break;
+		case "6470000":
+			city="경상북도";
+			break;
+		case "6500000":
+			city="제주도";
+			break;
+			
+	}
+	
+	return city;
 	}
 	public void setHappenCity(String happenCity) {
 		this.happenCity = happenCity;
