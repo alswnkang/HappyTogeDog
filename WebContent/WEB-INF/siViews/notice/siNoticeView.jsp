@@ -123,7 +123,7 @@
 									</c:if>
 								</tr>
 							</c:if>
-							<c:forEach items="${vd.list }" var="clist"><!-- 대댓글 조회를 위해 forEach 내부에 forEach 사용 -->
+							<c:forEach items="${vd.list }" var="clist"><!-- 답글 조회를 위해 forEach 내부에 forEach 사용 -->
 								<c:if test="${clist.noticeCommentRef == list.noticeCommentNo && not empty clist.noticeCommentRef && clist.noticeRef == vd.n.noticeNo }">
 									<tr>
 										<td width="20%"> └─ ${clist.noticeCommentName }(${clist.noticeCommentId })</td>
@@ -152,7 +152,7 @@
 									</tr>
 								</c:if>
 							</c:forEach>
-							<tr style="display:none;"><!-- 대댓글 버튼 클릭시 입력창 노출 -->
+							<tr style="display:none;"><!-- 답글 버튼 클릭시 입력창 노출 -->
 								<td> ⇒ re : ${sessionScope.member.name }(${sessionScope.member.id })</td>
 								<td>
 									<input type="text" name="noticeReCommentContent" class="noticeReCommentContent${list.noticeCommentNo }"  placeholder="답글을 입력하세요" maxlenth="50">
@@ -189,14 +189,14 @@
 			$(this).prev().show();
 		});
 	});
-	$(document).ready(function(){	//대댓글 입력 취소	
+	$(document).ready(function(){	//답글 입력 취소	
 		$('.reCmtBtnr').click(function(){
 			$(this).parent().parent().hide();
 			$(this).parent().prev().children().val('');
 			$('.reCmtBtn').show();
 		});
 	});
-	function sendReCmt(noticeCommentNo){	//대댓글 전송
+	function sendReCmt(noticeCommentNo){	//답글 전송
 		var memberId = '${sessionScope.member.id }';		
 		var memberName = '${sessionScope.member.name }';
 		var noticeCommentContent = $(".noticeReCommentContent"+noticeCommentNo).val();
@@ -215,7 +215,7 @@
 			}
 		});
 	}
-	function rcmtDelBtn(noticeCommentNo,noticeCommentRef){//대댓글 삭제확인
+	function rcmtDelBtn(noticeCommentNo,noticeCommentRef){//답글 삭제확인
 		if(confirm("답글을 삭제하시겠습니까?")){
 			location.href="/siNoticeReCommentDelete?noticeCommentNo="+noticeCommentNo+"&noticeNo="+${vd.n.noticeNo }+"&noticeCommentRef="+noticeCommentRef;
 		}else{
@@ -229,7 +229,7 @@
 			location.href="/siNoticeView?noticeNo="+${vd.n.noticeNo };
 		}
 	};
-	$(document).ready(function(){	//대댓글 입력 tr 노출
+	$(document).ready(function(){	//답글 입력 tr 노출
 		$('.reCmtBtn').click(function(){
 			$(this).parent().parent().parent().children().last().toggle();
 		});
@@ -265,7 +265,7 @@
 			});
 		});
 	});
-	$(document).ready(function(){	//대댓글 수정,취소 버튼 
+	$(document).ready(function(){	//답글 수정,취소 버튼 
 		$('.mdfBtnr').click(function(){
 			$(this).parent().prev().children().eq(0).hide();
 			$(this).parent().prev().children().eq(2).show();
@@ -285,7 +285,7 @@
 			});
 		});
 	});
-	function cmtrMfy(noticeCommentRef,noticeCommentNo){//대댓글 수정
+	function cmtrMfy(noticeCommentRef,noticeCommentNo){//답글 수정
 		var noticeCommentContent2 = $('.noticeReCommentModify'+noticeCommentNo).val();
 		var formData = "noticeNo="+${vd.n.noticeNo }+"&noticeCommentRef="+noticeCommentRef
 		+"&noticeCommentNo="+noticeCommentNo+"&noticeCommentContent="+noticeCommentContent2;
