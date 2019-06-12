@@ -29,6 +29,12 @@
 				return false;
 			}
 			var phone = $('input[name=phone1]').val()+'-'+$('input[name=phone2]').val()+'-'+$('input[name=phone3]').val();
+			
+			if($('select[name=phone1]').val()==''){
+				alert('필수입력항목이 누락되었습니다');
+				$('select[name=phone1]').focus();
+				return false;
+			}
 			if($('input[name=phone2]').val()==''){
 				alert('필수입력항목이 누락되었습니다');
 				$('input[name=phone2]').focus();
@@ -50,6 +56,11 @@
 			if($('input[name=receiveName]').val()==''){
 				alert('필수입력항목이 누락되었습니다');
 				$('input[name=receiveName]').focus();
+				return false;
+			}
+			if($('select[name=receivePhone1]').val()==''){
+				alert('필수입력항목이 누락되었습니다');
+				$('select[name=receivePhone1]').focus();
 				return false;
 			}
 			if($('input[name=receivePhone2]').val()==''){

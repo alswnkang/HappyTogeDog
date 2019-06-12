@@ -136,7 +136,7 @@
 									</td>
 								</tr>
 							</c:if>
-							<c:forEach items="${vd.list }" var="clist"><!-- 대댓글 조회를 위해 forEach 내부에 forEach 사용 -->
+							<c:forEach items="${vd.list }" var="clist"><!-- 답글 조회를 위해 forEach 내부에 forEach 사용 -->
 								<c:if test="${clist.adoptionBoardCommentRef == list.adoptionBoardCommentNo && not empty clist.adoptionBoardCommentRef && clist.adoptionBoardRef == vd.a.adoptionBoardNo }">
 									<tr>
 										<td width="20%"> └─ ${clist.adoptionBoardCommentName }(${clist.adoptionBoardCommentId })</td>
@@ -162,7 +162,7 @@
 									</tr>
 								</c:if>
 							</c:forEach>
-							<tr style="display:none;"><!-- 대댓글 버튼 클릭시 입력창 노출 -->
+							<tr style="display:none;"><!-- 답글 버튼 클릭시 입력창 노출 -->
 								<td> -> re : ${sessionScope.member.name }(${sessionScope.member.id })</td>
 								<td>
 									<input type="text" name="adoptionBoardReCommentContent" class="adoptionBoardReCommentContent${list.adoptionBoardCommentNo }"  placeholder="답글을 입력하세요" maxlenth="50">
@@ -201,14 +201,14 @@
 			$(this).prev().show();
 		});
 	}); 
-	$(document).ready(function(){	//대댓글 입력 취소	
+	$(document).ready(function(){	//답글 입력 취소	
 		$('.reCmtBtnr').click(function(){
 			$(this).parent().parent().hide();
 			$(this).parent().prev().children().val('');
 			$(this).parent().parent().prev().prev().children().eq(4).last().show();
 		});
 	});
-	function sendReCmt(adoptionBoardCommentNo){	//대댓글 전송
+	function sendReCmt(adoptionBoardCommentNo){	//답글 전송
 		var memberId = '${sessionScope.member.id }';		
 		var memberName = '${sessionScope.member.name }';
 		var adoptionBoardCommentContent = $(".adoptionBoardReCommentContent"+adoptionBoardCommentNo).val();
@@ -227,7 +227,7 @@
 			}
 		});
 	}
-	function rcmtDelBtn(adoptionBoardCommentNo,adoptionBoardCommentRef){//대댓글 삭제확인
+	function rcmtDelBtn(adoptionBoardCommentNo,adoptionBoardCommentRef){//답글 삭제확인
 		if(confirm("답글을 삭제하시겠습니까?")){
 			location.href="/siAdoptionBoardReCommentDelete?adoptionBoardCommentNo="+adoptionBoardCommentNo+"&adoptionBoardNo="+${vd.a.adoptionBoardNo }+"&adoptionBoardCommentRef="+adoptionBoardCommentRef;
 		}else{
@@ -241,7 +241,7 @@
 			location.href="/siAdoptionBoardView?adoptionBoardNo="+${vd.a.adoptionBoardNo };
 		}
 	};
-	$(document).ready(function(){	//대댓글 입력 tr 노출
+	$(document).ready(function(){	//답글 입력 tr 노출
 		$('.reCmtBtn').click(function(){
 			$(this).parent().parent().parent().children().last().toggle();
 		});
@@ -277,7 +277,7 @@
 			});
 		});
 	});
-	$(document).ready(function(){	//대댓글 수정,취소 버튼 
+	$(document).ready(function(){	//답글 수정,취소 버튼 
 		$('.mdfBtnr').click(function(){
 			$(this).parent().prev().children().eq(0).hide();
 			$(this).parent().prev().children().eq(1).show();
@@ -297,7 +297,7 @@
 			});
 		});
 	});
-	function cmtrMfy(adoptionBoardCommentRef,adoptionBoardCommentNo){	//대댓글 수정
+	function cmtrMfy(adoptionBoardCommentRef,adoptionBoardCommentNo){	//답글 수정
 		var adoptionBoardCommentContent2 = $('.adoptionBoardReCommentModify'+adoptionBoardCommentNo).val();
 		var formData = "adoptionBoardNo="+${vd.a.adoptionBoardNo }+"&adoptionBoardCommentRef="+adoptionBoardCommentRef
 		+"&adoptionBoardCommentNo="+adoptionBoardCommentNo+"&adoptionBoardCommentContent="+adoptionBoardCommentContent2;

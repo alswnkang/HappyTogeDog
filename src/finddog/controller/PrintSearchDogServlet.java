@@ -2,6 +2,7 @@ package finddog.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import adoption.model.service.FindDogService;
 import adoption.model.vo.SearchDogPageData;
+import finddog.model.dao.SearchDogDao;
 import finddog.model.service.SearchDogService;
 import finddog.model.vo.Kind;
 import openApi.model.dao.OpenApiDao;
@@ -40,18 +42,35 @@ public class PrintSearchDogServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+
 		int count =0;
 		String kind = request.getParameter("kind");
-		String cityCode= request.getParameter("happenCity");
+		String cityCode=request.getParameter("happenCity");
+		
 		String sDay=request.getParameter("startDay");
 		String eDay=request.getParameter("endDay");
+		
+		if(sDay==null||sDay.equals("")||sDay.equals(null)) {
+			sDay=new SearchDogDao().preMonth();
+		}
+		if(eDay==null||eDay.equals("")||eDay.equals(null)) {
+			eDay=new SearchDogDao().date();
+		}
+		if(kind==null||kind.equals("")||kind.equals(null)) {
+			kind="";
+		}
+		if(cityCode==null||cityCode.equals("")||cityCode.equals(null)) {
+			cityCode="";
+		}
+		
+		
+		
 		System.out.println(sDay+","+eDay);
-		System.out.println("해픈시티가 왜넘어오나요");
-		System.out.println(cityCode);
+		
 		if(kind.equals("content")) {
 			kind="";
 		}
-		if(cityCode.equals(",")) {
+		if(cityCode.equals(",")||cityCode.equals("도시")) {
 			cityCode="";
 		}
 	
@@ -77,12 +96,12 @@ public class PrintSearchDogServlet extends HttpServlet {
 				if(sdpd.getList().size()==4) { 
 					count++;
 					b=false;
-					if(count==2) {
+					if(count==1) {
 						b=false;
 					}
 				}else if(sdpd.getList().size()==3||sdpd.getList().size()==2||sdpd.getList().size()==1){
 					count++;
-					if(count==2) {
+					if(count==1) {
 						b=false;
 					}
 				}
@@ -119,17 +138,24 @@ public class PrintSearchDogServlet extends HttpServlet {
 		
 		
 		
+		
+		DecimalFormat formatter = new DecimalFormat("####-##-##");
+		
+		
 
 		request.setAttribute("kind", kindds);
+		request.setAttribute("kinda", kind);
 		request.setAttribute("city", city);
-		
+		request.setAttribute("sDay", sDay);
+		request.setAttribute("eDay", eDay);
+		request.setAttribute("citya", cityCode);
 		
 		BoardPageData sdpd2 = new BoardPageData();
 		
 		sdpd2 = new SearchDogService().selectListDB(page2,page, sDay, eDay, kind, cityCode);
 		
 		
-		
+		System.out.println("sDay:"+sDay+"eDay:"+eDay);
 		
 		
 		request.setAttribute("sdpd2", sdpd2);

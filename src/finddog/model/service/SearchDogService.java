@@ -147,13 +147,23 @@ public class SearchDogService {
 
 	public SearchDogPageData selectListAPI(int page2, int page, String sDay, String eDay, String kind, String cityCode) {
 		// TODO Auto-generated method stub
+		System.out.println("sDay:"+sDay+"eDay:"+eDay+"kind:"+kind+"cityCode:"+cityCode);
 		ArrayList<DogList> list= new SearchDogDao().getList(page2,sDay,eDay,kind,cityCode);
+		
+		
 		int reqPage=page2;
 		String pageNavi="";
 		int numPerPage = 4;
 		System.out.println(page+sDay+kind+cityCode+eDay);
+		int totalCount=0;
+		if(list.isEmpty()) {
+			totalCount=0;
+		}else {
+			totalCount=list.get(0).getTotalCount();
+		}
+
 		
-		int totalCount=list.get(0).getTotalCount();
+		
 		//네비바 생성
 		System.out.println("API총갯수는"+totalCount);
 		int totalPage = (totalCount%numPerPage==0)?(totalCount/numPerPage):(totalCount/numPerPage)+1;
@@ -161,7 +171,7 @@ public class SearchDogService {
 		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		if(pageNo!=1) {
-			pageNavi+="<a href='/printSearchDog?startDay="+sDay+"&endDay="+eDay+"&kind="+kind+"&happenCity="+cityCode+"&page2="+(pageNo-1)+"&page="+page+"'>이전</a>";
+			pageNavi+="<a href='/printSearchDog?startDay="+sDay+"&endDay="+eDay+"&kind="+kind+"&happenCity="+cityCode+"&page2="+(pageNo-1)+"&page="+page+"'><img src='/img/left_arrow.png' style='width:30px;height:30px'></a>";
 		}
 		int i = 1;
 		while(!(i++>pageNaviSize || pageNo>totalPage)) {
@@ -173,7 +183,7 @@ public class SearchDogService {
 			pageNo++;
 		}
 		if(pageNo<=totalPage) {
-			pageNavi+="<a href='/printSearchDog?startDay="+sDay+"&endDay="+eDay+"&kind="+kind+"&happenCity="+cityCode+"&page2="+(pageNo+1)+"&page="+page+"'><img src='/img/right_arrow.png' style='width:30px;height:30px'></a>";
+			pageNavi+="<a href='/printSearchDog?startDay="+sDay+"&endDay="+eDay+"&kind="+kind+"&happenCity="+cityCode+"&page2="+(pageNo)+"&page="+page+"'><img src='/img/right_arrow.png' style='width:30px;height:30px'></a>";
 		}
 		
 		
