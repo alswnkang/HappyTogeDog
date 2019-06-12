@@ -17,6 +17,7 @@
 	<div class="area">
 		<h2 class="comm-content-tit">회원 관리</h2>
 		<input type="hidden" id="a" value="${user }">
+		<input type="hidden" id="b" value="${select }">
 		<div class="">
 		 	<form action="/seeUser" method="post" id="form"> 
 		 		<select name="user" id="user">
@@ -24,7 +25,7 @@
 					<option value="0">일반회원</option>
 					<option value="1">보호소회원</option>
 				</select>
-		 	</form> 	
+		<!--  	</form>	 --> 	
 			<table class="comm-tbl type2">
 				<colgroup>
 					<col width="">
@@ -79,13 +80,13 @@
 			<div id="pageNavi" class="paging">${pd.pageNavi }</div>
 			<!-- 검색박스 -->
 	 		<div class="board-search-box">
-				<form action="/searchUser" method="post">
-					<select name="select">
+		<!-- 		<form action="/searchUser" method="post">	 -->
+					<select name="select" id="select">
 						<option value="1">아이디</option>
 						<option value="2">이름,보호소</option>
 						<option value="3">코드</option>
 					</select>
-					<input type="text" name="search" class="search-word" >
+					<input type="text" name="search" class="search-word" value="${search }">
 					<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
 				</form>
 			</div>
@@ -96,7 +97,9 @@
 <script>
 		$(document).ready(function(){
 			var a = $('#a').val();
-			console.log(a);
+			var b = $('#b').val();
+			console.log(a+"이건 유저");
+			console.log(b+"이건 셀렉트");
 			if(a == 0){
 				$('#user').children().eq(1).attr('selected','selected');
 			}else if(a == 1){
@@ -104,6 +107,14 @@
 			}else if(a == 2){
 				$('#user').children().eq(0).attr('selected','selected');
 			}
+			if(b == 2){
+				$('#select').children().eq(1).attr('selected','selected');
+			}else if(b == 3){
+				$('#select').children().eq(2).attr('selected','selected');
+			}else if(b == 1){
+				$('#select').children().eq(0).attr('selected','selected');
+			}
+			
 		});
 			$('#user').change(function(){
 				$('#form').submit();
