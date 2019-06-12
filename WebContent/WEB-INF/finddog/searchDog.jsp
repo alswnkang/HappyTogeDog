@@ -27,18 +27,20 @@
 	 		 	<!-- 검색박스 -->
 		 	<form action="/printSearchDog">
 		 	<div class="board-search-box">
+		 	
+		 		<select name="happenCity" style="margin-right:7px;">
+					<option>도시</option>
+					<c:forEach items="${city }" var="c">
+						<option value="${c.cityCode }">${c.cityName }</option>
+					</c:forEach>
+				</select>
 				<select name="kind"><!-- option 세부항목은 각자 알아서 넣으시면 됩니다. -->
 					<option value="content">품종</option>
 					<c:forEach items="${kind }" var="k">
 						<option value="${k.code }">${k.kind }</option>
 					</c:forEach>
 				</select>
-				<select name="happenCity" style="margin-right:7px;">
-					<option>도시</option>
-					<c:forEach items="${city }" var="c">
-						<option value="${c.cityCode }">${c.cityName }</option>
-					</c:forEach>
-				</select>
+			
 				<input type="date" name="startDay" class="datepicker search-day"> ~ <input type="date" name="endDay" class="datepicker search-day">
 				<button type="submit" class="bbs-search-btn" title="검색" style="margin-left:5px;"><img src="/img/search_icon.png" style="width:30px;"></button>
 			</div>
@@ -67,7 +69,7 @@
 						<th>보호센터</th>
 						<th>발견장소</th>
 						<th>발견시간</th>
-						<th>특징</th>
+						<th>공고번호</th>
 					</tr>
 				</thead>
 				<tbody >
@@ -138,7 +140,7 @@
 						<th>보호자</th>
 						<th>제목</th>
 						<th>발견장소</th>
-						<th>발견시간</th>
+						<th>발견날짜</th>
 						
 					</tr>
 				</thead>
