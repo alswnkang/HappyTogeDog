@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import adoption.model.service.FindDogService;
 import adoption.model.vo.SearchDogPageData;
+import finddog.model.dao.SearchDogDao;
 import finddog.model.service.SearchDogService;
 import finddog.model.vo.Kind;
 import openApi.model.dao.OpenApiDao;
@@ -42,10 +43,18 @@ public class SearchDogAllServlet extends HttpServlet {
 
 
 		int count =0;
-		String kind = "";
-		String cityCode= "";
-		String sDay="";
-		String eDay="";
+		
+	
+		
+			String sDay=new SearchDogDao().preMonth();
+			String kind = "";
+			String cityCode="";
+			
+			String eDay=new SearchDogDao().date();
+		
+	
+		
+		
 		System.out.println(sDay+","+eDay);
 		
 	
@@ -63,7 +72,6 @@ public class SearchDogAllServlet extends HttpServlet {
 			page2 = 1;
 		}
 		
-		
 		boolean b= true;
 		SearchDogPageData sdpd = new SearchDogPageData();
 		while(b) {
@@ -72,12 +80,12 @@ public class SearchDogAllServlet extends HttpServlet {
 				if(sdpd.getList().size()==4) { 
 					count++;
 					b=false;
-					if(count==5) {
+					if(count==2) {
 						b=false;
 					}
 				}else if(sdpd.getList().size()==3||sdpd.getList().size()==2||sdpd.getList().size()==1){
 					count++;
-					if(count==5) {
+					if(count==2) {
 						b=false;
 					}
 				}
@@ -90,6 +98,8 @@ public class SearchDogAllServlet extends HttpServlet {
 		
 		
 
+	
+		
 		ArrayList<cityCode> city=null;	
 		ArrayList<Kind> kindds = new ArrayList<>();
 		
@@ -111,7 +121,6 @@ public class SearchDogAllServlet extends HttpServlet {
 		
 		
 		
-		
 
 		request.setAttribute("kind", kindds);
 		request.setAttribute("city", city);
@@ -123,7 +132,7 @@ public class SearchDogAllServlet extends HttpServlet {
 		BoardPageData sdpd2 = new BoardPageData();
 		
 		
-		sdpd2 = new SearchDogService().selectListAllDB(page2,page, sDay, eDay, kind, cityCode);
+		sdpd2 = new SearchDogService().selectListDB(page2,page, sDay, eDay, kind, cityCode);
 		
 		
 		

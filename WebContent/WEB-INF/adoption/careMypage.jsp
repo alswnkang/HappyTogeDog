@@ -16,7 +16,7 @@
 		<div class="common-box">
 		<div class="search-selectDate">
 			<form action="/reservationCareMypage" method="post">
-				<input type="search" name="startDay" class="datepicker search-word" value="${start}"> ~ <input type="search" name="endDay" class="datepicker search-word" value="${end}">
+				<input type="search" name="startDay" class="datepicker search-word" value="${start}" autocomplete="off"> ~ <input type="search" name="endDay" class="datepicker search-word" value="${end}" autocomplete="off">
 				<button type="submit" class="bbs-search-btn2" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
 			</form>
 		</div>

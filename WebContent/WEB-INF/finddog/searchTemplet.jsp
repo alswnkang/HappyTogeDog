@@ -22,18 +22,21 @@
 			<!-- 검색박스 -->
 		 	<form action="/printSearchDog">
 			 	<div class="board-search-box">
+			 		
+			 		<select name="happenCity" style="margin-right:7px;">
+						<option>도시</option>
+						<c:forEach items="${city }" var="c">
+							<option value="${c.cityCode }">${c.cityName }</option>
+						</c:forEach>
+					</select>
+			 	
 					<select name="kind"><!-- option 세부항목은 각자 알아서 넣으시면 됩니다. -->
 						<option value="content">품종</option>
 						<c:forEach items="${kind }" var="k">
 							<option value="${k.code }">${k.kind }</option>
 						</c:forEach>
 					</select>
-					<select name="happenCity" style="margin-right:7px;">
-						<option>도시</option>
-						<c:forEach items="${city }" var="c">
-							<option value="${c.cityCode }">${c.cityName }</option>
-						</c:forEach>
-					</select>
+				
 					<input type="text" name="startDay" class="datepicker search-day" autocomplete="off"> ~ <input type="text" name="endDay" class="datepicker search-day" autocomplete="off">
 					<button type="submit" class="bbs-search-btn" title="검색" style="margin-left:5px;"><img src="/img/search_icon.png" style="width:30px;"></button>
 				</div>
@@ -54,7 +57,7 @@
 						<th>No.</th>
 						<th>사진</th>
 						<th>보호센터</th>
-						<th>발견장소</th>
+						<th>발견도시</th>
 						<th>발견시간</th>
 						<th>특징</th>
 					</tr>
