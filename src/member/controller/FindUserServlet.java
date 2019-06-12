@@ -86,8 +86,8 @@ public class FindUserServlet extends HttpServlet {
 					    + "<table id='table' style='width:50%; max-width: none;margin: 0 auto;background-color: #fff;padding: 0;border-spacing: 0;border-collapse: collapse; font-size:20px;'>"+
 					     "<tr>"
 					     + "<th style='border: 1px solid #ddd;border-top: 2px solid rgba(254,67,30);height: 50px;'>아이디</th>"
-					     + "<td style='border: 1px solid #ddd;border-top: 2px solid rgba(254,67,30);height: 50px;'>"+m.getId()+"</td></tr></table></div>"+
-					     "<th style='border: 1px solid #ddd;height: 50px;'>임시비밀번호</th>"
+					     + "<td style='border: 1px solid #ddd;border-top: 2px solid rgba(254,67,30);height: 50px;'>"+m.getId()+"</td></tr>"+
+					     "<tr><th style='border: 1px solid #ddd;height: 50px;'>임시비밀번호</th>"
 					     + "<td style='border: 1px solid #ddd;height: 50px;'>"+m.getPw()+"</td></tr></table></div>"+
 					"</body></html>";
 			

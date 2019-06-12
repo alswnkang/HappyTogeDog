@@ -133,7 +133,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>주소</th>
+						<th>주소 <b class="star join">*</b></th>
 						<td>
 							<input type="text" id="address" placeholder="도로명주소" name="address" style="margin-bottom:5px;">
 							<span id="guide" style="color:#999;display:none"></span>
@@ -460,6 +460,11 @@
 			}
 			if(checkPw.test($('#pw').val())==false){
 				alert("비밀번호 양식이 틀렸습니다");
+				$('#pw').focus();
+				return false;
+			}
+			if($('#pw').val() != $('#pw_re').val()){
+				alert("비밀번호가 일치하지 않습니다");
 				$('#pw').focus();
 				return false;
 			}
