@@ -60,7 +60,6 @@
 
 			<table class="comm-tbl type2"><!-- 신청목록게시판은 한페이지에 게시물 최대 10개 노출 -->
 				<colgroup>
-					<col width="5%">
 					<col width="">
 					<col width="15%">
 					<col width="18%">
@@ -70,7 +69,6 @@
 				</colgroup>
 				<thead>
 					<tr>
-						<th>No.</th>
 						<th>사진</th>
 						<th>보호센터</th>
 						<th>발견장소</th>
@@ -105,13 +103,12 @@
 						<input type="hidden" name="page1" value="${page1 }">
 						<input type="hidden" name="page2" value="${page2 }">
 						<input type="hidden" name="reqPage" value="${reqPage}">
-					</form>
-						<td><a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo">${i.count }</a></td>
+					</form>	
 						<td><a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo"><img src=${m.filename } style="height: 200px; width: 200px;" ></a></td>
-						<td>${m.careNm }</td>
-						<td>${m.happenPlace }</td>
-						<td>${m.happenDt }</td>
-						<td>${m.noticeNo }</td>	
+						<td><a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo">${m.careNm }</a></td>
+						<td><a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo">${m.happenPlace }</a></td>
+						<td><a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo">${m.happenDt }</a></td>
+						<td><a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo">${m.noticeNo }</a></td>	
 					</tr>
 				
 					</c:forEach>
@@ -131,7 +128,6 @@
 	 		
 	 		<table class="comm-tbl type2"><!-- 신청목록게시판은 한페이지에 게시물 최대 10개 노출 -->
 				<colgroup>
-					<col width="5%">
 					<col width="">
 					<col width="15%">
 					<col width="18%">
@@ -141,7 +137,7 @@
 				</colgroup>
 				<thead>
 					<tr>
-						<th>No.</th>
+						
 						<th>사진</th>
 						<th>보호자</th>
 						<th>제목</th>
@@ -153,9 +149,9 @@
 				<tbody >
 					<c:forEach items="${sdpd2.list }" var="m" varStatus="i">
 					<tr>
-						<td>${i.count }</td>
+						
 						<td><a href="/dogDetailView2?boardNo=${m.boardNo }"><img src="/siUpload/board/${m.boardFilepath }" style="height: 200px; width: 200px;" ></a></td>
-						<td><a href="/detailTakeBoard?boardNo=${m.boardNo }">${m.boardName }</a></td>
+						<td><a href="/dogDetailView2?boardNo=${m.boardNo }">${m.boardName }</a></td>
 						<td><a href="/detailTakeBoard?boardNo=${m.boardNo }">${m.boardTitle }</a></td>
 						<td>${m.happenCity }</td>
 						<td>${m.happenDate }</td>
