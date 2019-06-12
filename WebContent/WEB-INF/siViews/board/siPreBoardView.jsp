@@ -19,7 +19,6 @@
 						<col width="100%">
 					</colgroup>
 					<tr>
-						<button class="2333">ddd</button>
 						<th colspan="2" style="text-align:center;">${vd.b.boardTitle }</th>
 					</tr>
 					<tr>
@@ -111,7 +110,7 @@
 									</td>
 								</tr>	
 							</c:if>
-							<c:forEach items="${vd.list }" var="clist"><!-- 대댓글 조회를 위해 forEach 내부에 forEach 사용 -->
+							<c:forEach items="${vd.list }" var="clist"><!-- 답글 조회를 위해 forEach 내부에 forEach 사용 -->
 								<c:if test="${clist.boardCommentRef == list.boardCommentNo && not empty clist.boardCommentRef && clist.boardRef == vd.b.boardNo }">
 									<tr>
 										<td width="20%"> └─ ${clist.boardCommentName }(${clist.boardCommentId })</td>
@@ -137,7 +136,7 @@
 									</tr>
 								</c:if>
 							</c:forEach>
-							<tr style="display:none;"><!-- 대댓글 버튼 클릭시 입력창 노출 -->
+							<tr style="display:none;"><!-- 답글 버튼 클릭시 입력창 노출 -->
 								<td> -> re : ${sessionScope.member.name }(${sessionScope.member.id })</td>
 								<td>
 									<input type="text" name="boardReCommentContent" class="boardReCommentContent${list.boardCommentNo }"  placeholder="답글을 입력하세요" maxlenth="50">
@@ -178,14 +177,14 @@
 			$(this).prev().show();
 		});
 	});
-	$(document).ready(function(){	//대댓글 입력 취소	
+	$(document).ready(function(){	//답글 입력 취소	
 		$('.reCmtBtnr').click(function(){
 			$(this).parent().parent().hide();
 			$(this).parent().prev().children().val('');
 			$('.reCmtBtn').show();
 		});
 	});
-	function sendReCmt(boardCommentNo){	//대댓글 전송
+	function sendReCmt(boardCommentNo){	//답글 전송
 		var memberId = '${sessionScope.member.id }';		
 		var memberName = '${sessionScope.member.name }';
 		var boardCommentContent = $(".boardReCommentContent"+boardCommentNo).val();
@@ -204,7 +203,7 @@
 			}
 		});
 	};
-	function rcmtDelBtn(boardCommentNo,boardCommentRef){//대댓글 삭제확인
+	function rcmtDelBtn(boardCommentNo,boardCommentRef){//답글 삭제확인
 		if(confirm("답글을 삭제하시겠습니까?")){
 			location.href="/siPreBoardReCommentDelete?boardCommentNo="+boardCommentNo+"&boardNo="+${vd.b.boardNo }+"&boardCommentRef="+boardCommentRef;
 		}else{
@@ -218,7 +217,7 @@
 			location.href="/siPreBoardView?boardNo="+${vd.b.boardNo };
 		}
 	};
-	$(document).ready(function(){	//대댓글 입력 tr 노출
+	$(document).ready(function(){	//답글 입력 tr 노출
 		$('.reCmtBtn').click(function(){
 			$(this).parent().parent().parent().children().last().toggle();
 		});
@@ -254,7 +253,7 @@
 			});
 		});
 	});
-	$(document).ready(function(){	//대댓글 수정,취소 버튼 
+	$(document).ready(function(){	//답글 수정,취소 버튼 
 		$('.mdfBtnr').click(function(){
 			$(this).parent().prev().children().eq(0).hide();
 			$(this).parent().prev().children().eq(1).show();
@@ -274,7 +273,7 @@
 			});
 		});
 	});
-	function cmtrMfy(boardCommentRef,boardCommentNo){	//대댓글 수정
+	function cmtrMfy(boardCommentRef,boardCommentNo){	//답글 수정
 		var boardCommentContent2 = $('.boardReCommentModify'+boardCommentNo).val();
 		var formData = "boardNo="+${vd.b.boardNo }+"&boardCommentRef="+boardCommentRef
 		+"&boardCommentNo="+boardCommentNo+"&boardCommentContent="+boardCommentContent2;
