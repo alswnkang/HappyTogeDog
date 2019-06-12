@@ -75,7 +75,7 @@
 				</form>
 		
 				<c:forEach items="${vd.list }" var="list" varStatus="i">
-					<form action="/siPreBoardCommentUpdate" method="post">
+					<form class="cmtForm"action="/siPreBoardCommentUpdate" method="post">
 						<input type="hidden" name="memberId" value="${sessionScope.member.id }"/>
 						<input type="hidden" name="boardNo" value="${vd.b.boardNo }"/>
 						<table class="comm-tbl view">
@@ -189,10 +189,21 @@
 		var memberId = '${sessionScope.member.id }';		
 		var memberName = '${sessionScope.member.name }';
 		var boardCommentContent = $(".boardReCommentContent"+boardCommentNo).val();
-		location.href="/siPreBoardReCommentInsert?boardType=1"+"&boardRef="+${vd.b.boardNo }
+		var formData = "boardType=1"+"&boardRef="+${vd.b.boardNo }
 			+"&memberId="+memberId+"&memberName="+memberName+"&boardNo="+${vd.b.boardNo }
 			+"&boardCommentRef="+boardCommentNo+"&boardCommentContent="+encodeURI(boardCommentContent);
-	}
+		$.ajax({
+			url : "/siPreBoardReCommentInsert",
+			type : "post",
+			data : formData,
+			success : function(data){
+				location.href="/siPreBoardView?boardNo="+${vd.b.boardNo };
+			},
+			error : function(){
+				location.href="/siPreBoardView?boardNo="+${vd.b.boardNo };	
+			}
+		});
+	};
 	function rcmtDelBtn(boardCommentNo,boardCommentRef){//대댓글 삭제확인
 		if(confirm("답글을 삭제하시겠습니까?")){
 			location.href="/siPreBoardReCommentDelete?boardCommentNo="+boardCommentNo+"&boardNo="+${vd.b.boardNo }+"&boardCommentRef="+boardCommentRef;
@@ -261,9 +272,20 @@
 	});
 	function cmtrMfy(boardCommentRef,boardCommentNo){	//대댓글 수정
 		var boardCommentContent2 = $('.boardReCommentModify'+boardCommentNo).val();
-		location.href="/siPreBoardReCommentUpdate?&boardNo="+${vd.b.boardNo }
-		+"&boardCommentRef="+boardCommentRef+"&boardCommentNo="+boardCommentNo+"&boardCommentContent="+boardCommentContent2;
-	}
+		var formData = "boardNo="+${vd.b.boardNo }+"&boardCommentRef="+boardCommentRef
+		+"&boardCommentNo="+boardCommentNo+"&boardCommentContent="+boardCommentContent2;
+		$.ajax({
+			url : "/siPreBoardReCommentUpdate",
+			type : "post",
+			data : formData,
+			success : function(data){
+				location.href="/siPreBoardView?boardNo="+${vd.b.boardNo };
+			},
+			error : function(){
+				location.href="/siPreBoardView?boardNo="+${vd.b.boardNo };	
+			}
+		});
+	};
 	$(document).ready(function(){	//게시글 삭제 확인
 		$('#boardDelBtn').click(function(){
 			if(confirm("게시글을 삭제하시겠습니까?")){

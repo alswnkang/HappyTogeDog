@@ -33,11 +33,8 @@ public class SiPreBoardReCommentUpdateServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		String boardCommentContent = request.getParameter("boardCommentContent");
-		System.out.println(boardCommentContent);
 		int boardCommentNo = Integer.parseInt(request.getParameter("boardCommentNo"));	
-		System.out.println(boardCommentNo);
 		int boardCommentRef = Integer.parseInt(request.getParameter("boardCommentRef"));	
-		System.out.println(boardCommentRef);	
 		int result = new BoardCommentService().reCommentUpdate(boardCommentContent,boardCommentNo,boardCommentRef);
 		String view = "";
 		if(result>0) {
