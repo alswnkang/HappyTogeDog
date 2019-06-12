@@ -31,7 +31,7 @@
 							<th style="text-align:center;">파일첨부</th>
 							<td>
 								<div class="filebox">
-									<input type="text" id="fileName" style="width:80%"/>
+									<input type="text" id="fileName" style="width:72.5%"/>
 									<label for="boardFile">파일 업로드</label>
 									<input type="file" id="boardFile" name="boardFilename" 
 									onchange="javascript: document.getElementById('fileName').value = this.value.replace(/c:\\fakepath\\/i, '')" />
@@ -59,19 +59,19 @@
 			  font-size: inherit;
 			  line-height: normal;
 			  vertical-align: middle;
-			  background-color: #5cb85c;
+			  background-color: #444;
 			  cursor: pointer;
-			  border: 1px solid #4cae4c;
+			  border: 1px solid #444;
 			  border-radius: .25em;
 			  -webkit-transition: background-color 0.2s;
 			  transition: background-color 0.2s;
 		}
 		.filebox label:hover {
-		  background-color: #6ed36e;
+		  background-color: #444;
 		}
 		
 		.filebox label:active {
-		  background-color: #367c36;
+		  background-color: #444;
 		}
 		
 		.filebox input[type="file"] {
