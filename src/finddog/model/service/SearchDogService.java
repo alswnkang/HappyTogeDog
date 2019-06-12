@@ -171,7 +171,7 @@ public class SearchDogService {
 		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		if(pageNo!=1) {
-			pageNavi+="<a href='/printSearchDog?startDay="+sDay+"&endDay="+eDay+"&kind="+kind+"&happenCity="+cityCode+"&page2="+(pageNo-1)+"&page="+page+"'>이전</a>";
+			pageNavi+="<a href='/printSearchDog?startDay="+sDay+"&endDay="+eDay+"&kind="+kind+"&happenCity="+cityCode+"&page2="+(pageNo-1)+"&page="+page+"'><img src='/img/left_arrow.png' style='width:30px;height:30px'></a>";
 		}
 		int i = 1;
 		while(!(i++>pageNaviSize || pageNo>totalPage)) {
@@ -183,7 +183,7 @@ public class SearchDogService {
 			pageNo++;
 		}
 		if(pageNo<=totalPage) {
-			pageNavi+="<a href='/printSearchDog?startDay="+sDay+"&endDay="+eDay+"&kind="+kind+"&happenCity="+cityCode+"&page2="+(pageNo+1)+"&page="+page+"'><img src='/img/right_arrow.png' style='width:30px;height:30px'></a>";
+			pageNavi+="<a href='/printSearchDog?startDay="+sDay+"&endDay="+eDay+"&kind="+kind+"&happenCity="+cityCode+"&page2="+(pageNo)+"&page="+page+"'><img src='/img/right_arrow.png' style='width:30px;height:30px'></a>";
 		}
 		
 		
