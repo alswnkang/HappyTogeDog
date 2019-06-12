@@ -23,8 +23,8 @@
 						<tr>
 							<th>품종</th>
 							<th>
-								<select name="kind"><!-- option 세부항목은 각자 알아서 넣으시면 됩니다. -->
-									<option value="content">품종</option>
+								<select name="kind" required="required"><!-- option 세부항목은 각자 알아서 넣으시면 됩니다. -->
+									<option value="">품종</option>
 									<c:forEach items="${kind }" var="k">
 										<option value="${k.code }">${k.kind }</option>
 									</c:forEach>
@@ -34,8 +34,8 @@
 						<tr>
 							<th>잃어버린 도시</th>
 							<th>
-								<select name="happenCity">
-									<option>도시</option>
+								<select name="happenCity" required="required">
+									<option value="">도시</option>
 									<c:forEach items="${city }" var="c">
 										<option value="${c.cityCode }">${c.cityName }</option>
 									</c:forEach>
@@ -45,22 +45,22 @@
 						<tr>
 							<th>잃어버린 날짜</th>
 							<th>
-								<input type="date" name="startDay" class="datepicker search-day">
+								<input type="text" name="startDay" class="datepicker search-day short" autocomplete="off" required="required">
 							</th>
 							
 						</tr>
 						
 						<tr>
 							<th>제목</th>
-							<td><input type="text" name="boardTitle"/></td>
+							<td><input type="text" name="boardTitle" required="required"/></td>
 						</tr>
 						<tr>
 							<th>사진</th>
-							<td><input type="file" name="boardFilename"/></td>
+							<td><input type="file" name="boardFilename" required="required"/></td>
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><textarea type="text" name="boardContent"></textarea></td>
+							<td><textarea type="text" name="boardContent" required="required"></textarea></td>
 						</tr>
 					</table>
 					<div class="common-tbl-btn-group">
