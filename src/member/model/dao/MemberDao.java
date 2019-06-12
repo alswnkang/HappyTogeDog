@@ -31,7 +31,6 @@ public class MemberDao {
 		String id = m.getId();
 		String query = "insert into member values(?,?,?,?,?,?,?,null,?,?,sysdate)";
 		pstmt= conn.prepareStatement(query);
-		System.out.println("dao!!!!");
 		pstmt.setString(1, m.getId());
 		pstmt.setString(2, m.getPw());
 		pstmt.setString(3, id);

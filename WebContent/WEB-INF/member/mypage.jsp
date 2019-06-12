@@ -336,6 +336,11 @@
 			$('#pw').focus();
 			return false;
 		}
+		if($('#pw').val() != $('#pw_re').val()){
+			alert("비밀번호가 일치하지 않습니다");
+			$('#pw').focus();
+			return false;
+		}
 		if($('#name').val() == ""){
 			alert("이름을 입력해주세요");
 			$('#name').focus();
