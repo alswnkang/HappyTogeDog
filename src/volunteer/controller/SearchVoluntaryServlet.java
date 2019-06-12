@@ -44,6 +44,8 @@ public class SearchVoluntaryServlet extends HttpServlet {
 		VoluntaryListData vld = new VoluntaryService().searchVoluntary(reqPage, type, keyword);
 		
 		request.setAttribute("vld", vld);
+		String pageTitle = "봉사활동 신청";
+		request.setAttribute("pageTitle", pageTitle);
 		request.setAttribute("type", type);
 		request.setAttribute("keyword", keyword);
 		
