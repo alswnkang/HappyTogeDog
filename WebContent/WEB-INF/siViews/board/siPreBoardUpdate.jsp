@@ -10,7 +10,7 @@
 			$("#delFileBtn").click(function(){
 				if(confirm("첨부파일을 삭제하시겠습니까?")){
 					$(".delFile").hide();
-					$("#boardFilename").show();
+					$(".boardFilename").show();
 					$("#status").val("delete");
 				}
 			});
@@ -42,16 +42,27 @@
 								<!-- 삭제 유무 판단용 input태그 -->
 								<c:choose>
 									<c:when test="${not empty board.boardFilepath }">
-										<img class="delFile" src="/siUpload/board/${board.boardFilename }" width="16px">
-										<input type="file" id="boardFilename" name="boardFilename" style="display:none;">
-										<span class="delFile">${board.boardFilename }</span>
-										<button type="button" id="delFileBtn" class="file-del-btn delFile">삭제하기</button>
-										<input type="hidden" name="boardOldFilename" value=${board.boardFilename }>
-										<input type="hidden" name="boardOldFilepath" value=${board.boardFilepath }>
-										<br/>
+										<div class="filebox">
+											<img class="delFile" src="/siUpload/board/${board.boardFilename }" width="16px">
+											<input type="text" id="fileName" class="boardFilename" style="width:72.5%;display:none;" />
+											<label for="boardname" class="boardFilename" style="display:none;">파일 업로드</label>
+											<input type="file" id="boardname" class="boardFilename" name="boardFilename" style="display:none;"
+												onchange="javascript: document.getElementById('fileName').value = this.value.replace(/c:\\fakepath\\/i, '')" />
+											<span class="delFile">${board.boardFilename }</span>
+											<button type="button" id="delFileBtn" class="delFile">삭제하기</button>
+											<input type="hidden" name="boardOldFilename" value=${board.boardFilename }>
+											<input type="hidden" name="boardOldFilepath" value=${board.boardFilepath }>
+											<br/>
+										</div>
 									</c:when>
 									<c:otherwise>
-										<input type="file" name="boardFilename">
+										<div class="filebox">
+											<input type="text" id="fileName" class="boardFilename" style="width:72.5%;" />
+											<label for="boardname" class="boardFilename">파일 업로드</label>
+											<input type="file" id="boardname" class="boardFilename" name="boardFilename"
+												onchange="javascript: document.getElementById('fileName').value = this.value.replace(/c:\\fakepath\\/i, '')" />
+											<br/>
+										</div>
 									</c:otherwise>
 								</c:choose>
 							</td>
@@ -69,6 +80,39 @@
 			</div>
 		</div>
 	</section>
-
+	<style>
+		.filebox label,button {
+			  display: inline-block;
+			  padding: .5em .75em;
+			  color: #fff;
+			  font-size: inherit;
+			  line-height: normal;
+			  vertical-align: middle;
+			  background-color: #444;
+			  cursor: pointer;
+			  border: 1px solid #444;
+			  border-radius: .25em;
+			  -webkit-transition: background-color 0.2s;
+			  transition: background-color 0.2s;
+		}
+		.filebox label,button:hover {
+		  background-color: #444;
+		}
+		
+		.filebox label,button:active {
+		  background-color: #444;
+		}
+		
+		.filebox input[type="file"] {
+		  position: absolute;
+		  width: 1px;
+		  height: 1px;
+		  padding: 0;
+		  margin: -1px;
+		  overflow: hidden;
+		  clip: rect(0, 0, 0, 0);
+		  border: 0;
+		}
+	</style>
 <%-- Footer --%>
 <jsp:include page="/WEB-INF/common/footer.jsp" />
