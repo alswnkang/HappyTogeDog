@@ -18,7 +18,7 @@
 	
 <section id="content-wrapper">
 	<div class="area">
-		<h2 class="comm-content-tit">유기동물 조회 서비스</h2>
+		<h2 class="comm-content-tit">실종 유기견 찾기</h2>
 		<div id="searchDog" class=""><!-- id는 바꿔서 복붙 -->
 			<table class="comm-tbl type2"><!-- 신청목록게시판은 한페이지에 게시물 최대 10개 노출 -->
 				<colgroup>

@@ -17,7 +17,7 @@
 <%-- Content --%>
 <section id="content-wrapper">
 	<div class="area">
-		<h2 class="comm-content-tit">유기동물 조회 서비스</h2>
+		<h2 class="comm-content-tit">실종 유기견 찾기</h2>
 		<div id="searchDog" class=""><!-- id는 바꿔서 복붙 -->
 			<!-- 검색박스 -->
 		 	<form action="/printSearchDog">
