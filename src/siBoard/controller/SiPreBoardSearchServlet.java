@@ -47,6 +47,8 @@ public class SiPreBoardSearchServlet extends HttpServlet {
 		if(bp.getList().size()>0){
 			request.setAttribute("bp", bp);
 			view = "/WEB-INF/siViews/board/siPreBoardSearchList.jsp";
+			request.setAttribute("searchKeyword", searchType);
+			request.setAttribute("keyword", searchKeyword);
 		}else {
 			request.setAttribute("msg", "일치하는 게시글이 없습니다.");
 			request.setAttribute("loc", "/siPreBoard");

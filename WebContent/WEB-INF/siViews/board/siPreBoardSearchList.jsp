@@ -72,13 +72,13 @@
 					${bp.pageNavi }
 				</div>
 				<!-- 검색박스 -->
-				<form action="/siPreBoardSearch" method="get">
+				<form action="/siPreBoardSearch" method="post">
 					<div class="board-search-box">
-						<select name="searchWord">
+						<select name="searchWord" data-val="${searchKeyword}">
 							<option value="boardName">작성자</option>
 							<option value="boardTitle">글 제목</option>
 						</select>
-						<input placeholder="검색어를 입력해주세요." type="text" name="keyword" class="search-word" >
+						<input placeholder="검색어를 입력해주세요." type="text" name="keyword" class="search-word" value="${keyword}">
 						<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>
 					</div>
 				</form>
@@ -89,6 +89,15 @@
 	function viewOne(no){
 		location.href="/siPreBoardView?boardNo="+no;
 	}
+	
+	$(function(){
+		var searchWord = $('select[name=searchWord]').data('val');
+		$('select[name=searchWord]').children('option').each(function(){
+			if(searchWord == $(this).val()){
+				$(this).prop("selected",true);
+			}
+		});
+	})
 </script>
 <%-- Footer --%>
 <jsp:include page="/WEB-INF/common/footer.jsp" />
