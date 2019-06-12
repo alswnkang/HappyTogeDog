@@ -75,37 +75,7 @@ $(function(){
 		$('#realPrice').text(addComma($(this).val()*1));
 	});
 	
-	/* 비회원 주문조회 */
-	$('.find-order button').click(function() {
-		var no = $('input[name=no]').val();
-		var phone = $('input[name=phone1]').val()+'-'+$('input[name=phone2]').val()+'-'+$('input[name=phone3]').val();
-		if(no==''){
-			alert('주문번호를 입력하세요');
-			$('input[name=no]').focus();
-			return false;
-		}
-		if(phone=='--'){
-			alert('연락처를 입력하세요');
-			$('input[name=phone1]').focus();
-			return false;
-		}
-		$.ajax({
-			url : "/findOrder",
-			type : "post",
-			data : {no:no,phone:phone},
-			success : function(data){
-				if(data=='fail'){
-					alert('조회 결과가 없습니다.');
-				}else{
-					location.href=data;
-				}
-				
-			},
-			error : function(){
-				console.log("실패");
-			}
-		});
-	});
+	
 	
 	
 });
