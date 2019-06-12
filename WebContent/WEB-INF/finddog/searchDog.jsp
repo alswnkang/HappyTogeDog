@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link rel="stylesheet" type="text/css" href="/css/findMydog_DJ.css">
 
 <%-- Header --%>
@@ -42,14 +42,40 @@
 				</thead>
 				<tbody >
 					<c:forEach items="${sdpd.list }" var="m" varStatus="i">
+					
 					<tr>
-						<td>${i.count }</td>
-						<td><img src=${m.filename } style="height: 200px; width: 200px;" ></td>
+					<form action="/dogDetailView" method="post" name="form_${i.count}">
+						<input type="hidden" name="careNm" value="${m.careNm }">
+						<c:if test="${fn:contains(m.careAddr,'(')}">
+						<input type="hidden" name="careAddr" value="${fn:split(m.careAddr,'(')[0] }">
+						</c:if>
+						<c:if test="${fn:contains(m.careAddr,'(')==false}">
+						<input type="hidden" name="careAddr" value="${m.careAddr}">
+						</c:if>
+						<input type="hidden" name="careTel" value="${m.careTel }">
+						<input type="hidden" name="kindCd" value="${m.kindCd }">
+						<input type="hidden" name="age" value="${m.age }">
+						<input type="hidden" name="sexCd" value="${m.sexCd }">
+						<input type="hidden" name="specialMark" value="${m.specialMark }">
+						<input type="hidden" name="neuterYn" value="${m.neuterYn }">
+						<input type="hidden" name="filename" value="${m.filename }">
+						<input type="hidden" name="city" value="${m.careNm }">
+						<input type="hidden" name="gun" >
+						<input type="hidden" name="dogsize">
+						<input type="hidden" name="dogkind">
+						<input type="hidden" name="neuter">
+						<input type="hidden" name="page1" value="${page1 }">
+						<input type="hidden" name="page2" value="${page2 }">
+						<input type="hidden" name="reqPage" value="${reqPage}">
+					</form>
+						<td><a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo">${i.count }</a></td>
+						<td><a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo"><img src=${m.filename } style="height: 200px; width: 200px;" ></a></td>
 						<td>${m.careNm }</td>
 						<td>${m.happenPlace }</td>
 						<td>${m.happenDt }</td>
-						<td>${m.noticeNo }</td>
+						<td>${m.noticeNo }</td>	
 					</tr>
+				
 					</c:forEach>
 					<c:if test="${empty sdpd.list }">
 						<tr>
@@ -90,7 +116,7 @@
 					<c:forEach items="${sdpd2.list }" var="m" varStatus="i">
 					<tr>
 						<td>${i.count }</td>
-						<td><a href="/detailTakeBoard?boardNo=${m.boardNo }"><img src="/siUpload/board/${m.boardFilepath }" style="height: 200px; width: 200px;" ></a></td>
+						<td><a href="/dogDetailView2?boardNo=${m.boardNo }"><img src="/siUpload/board/${m.boardFilepath }" style="height: 200px; width: 200px;" ></a></td>
 						<td><a href="/detailTakeBoard?boardNo=${m.boardNo }">${m.boardName }</a></td>
 						<td><a href="/detailTakeBoard?boardNo=${m.boardNo }">${m.boardTitle }</a></td>
 						<td>${m.happenCity }</td>
