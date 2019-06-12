@@ -14,6 +14,7 @@
 <%-- Content --%>
 <section id="content-wrapper">
 		<div class="area">
+		<h2 class="comm-content-tit">보호중인 유기견</h2>
 		<div id="DetailTake" class="">
 			<div class="common-tbl-btn-group type2">
 			</div>
@@ -28,7 +29,7 @@
 					</tr>
 					<tr>
 						<td>품종 : ${kindNm }</td>
-						<td>시간 : ${vd.b.happenDate }</td>
+						<td>발견 날짜 : ${vd.b.happenDate }</td>
 					</tr>
 					<c:if test="${not empty vd.b.boardFilename }">
 					<!-- 파일이 있을 때 -->

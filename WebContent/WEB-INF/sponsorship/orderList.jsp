@@ -17,7 +17,7 @@
 		 	<div class="board-search-box order-search">
 		 		<form action="/orderList" method="post" name="search">
 		 			<input type="hidden" name="reqPage" value="">
-					<input type="search" name="startDay" class="datepicker search-day" value="${search.startDay }"> ~ <input type="search" name="endDay" class="datepicker search-day" value="${search.endDay }">
+					<input type="search" name="startDay" class="datepicker search-day" value="${search.startDay }" autocomplete="off"> ~ <input type="search" name="endDay" class="datepicker search-day" value="${search.endDay }" autocomplete="off">
 					<br><br>
 					<select name="status" data-val="${search.status }">
 						<option value="">---주문상태---</option>

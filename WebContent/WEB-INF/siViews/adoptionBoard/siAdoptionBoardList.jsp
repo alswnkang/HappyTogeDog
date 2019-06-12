@@ -52,7 +52,7 @@
 			</ul> -->
 		</div>
 		<!-- 글쓰기 버튼 -->
-		<c:if test="${not empty sessionScope.member.id }">
+		<c:if test="${not empty sessionScope.member.id && sessionScope.member.memberLevel eq 0}">
 			<div class="common-tbl-btn-group" style="text-align:right;padding-top:0;">
 				<!-- 로그인이 되있어야 글쓰기버튼 활성화 -->
 				<button type="button" class="bbs-search-btn btn-style1" onclick="location.href='/siViews/adoptionBoard/siAdoptionBoardInsert.jsp'">글쓰기</button>

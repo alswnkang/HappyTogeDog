@@ -113,6 +113,7 @@ public class VoluntaryService {
 	public VoluntaryRegister voluntaryView(int no) {
 		Connection conn = JDBCTemplate.getCon();
 		VoluntaryRegister vr = new VoluntaryDao().voluntaryView(conn, no);
+		//vr.setDetail(vr.getDetail().replaceAll("<br>", "\r\n"));
 		JDBCTemplate.close(conn);
 		return vr;
 	}
@@ -120,6 +121,8 @@ public class VoluntaryService {
 	// 봉사활동 공고 수정
 	public int updateVoluntary(VoluntaryRegister vr) {
 		Connection conn = JDBCTemplate.getCon();
+		//vr.setDetail(vr.getDetail().replaceAll("<br>", "\r\n"));
+		vr.setDetail(vr.getDetail().replaceAll("<", "&lt").replaceAll(">", "&gt").replaceAll("\r\n", "<br>"));
 		int result = new VoluntaryDao().updateVoluntary(conn, vr);
 		if(result>0) {
 			JDBCTemplate.commit(conn);

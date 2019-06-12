@@ -90,7 +90,7 @@ public class SearchDogDao {
 				System.out.println(sDay+","+eDay+"진짜이상하네");
 				String url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde="+sDay+"&endde="+eDay+"&pageNo="
 						+ page
-						+kinds+cityCo+"&upkind=417000&numOfRows=8&ServiceKey=9foRMY8t3j0MRIsmBCTWOiLUVaW4yJivGOtPfYE9x8yYsPcPCkCUZgGm39bZZGdQQc1ZT9MN87KHULUH8aLpMg%3D%3D";
+						+kinds+cityCo+"&upkind=417000&numOfRows=4&ServiceKey=9foRMY8t3j0MRIsmBCTWOiLUVaW4yJivGOtPfYE9x8yYsPcPCkCUZgGm39bZZGdQQc1ZT9MN87KHULUH8aLpMg%3D%3D";
 				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
 				Document doc = dBuilder.parse(url);
@@ -183,29 +183,30 @@ public class SearchDogDao {
 		// TODO Auto-generated method stub
 		//보완 필요
 		String city="";
-		String kindcode="";
+		
+		String kindCodes="";
 		if(sDay.equals("")||sDay==null) {
 			sDay=preMonth();
 		}
 		if(eDay.equals("")||eDay==null) {
 			eDay=date();
 		}
-		if(cityCode.equals("도시")||cityCode==null) {
+		if(cityCode.equals("도시")||cityCode==null||cityCode.equals("")) {
 			city="";
 		}else {
-			city="and happen_city=".concat(cityCode);
+			city=" and happen_city=".concat(cityCode);
 		}
-		if(kind.equals("품종")||kind==null) {
-			kindcode="";
+		if(kind.equals("품종")||kind==null||kind.equals("content")||kind.equals("")) {
+			kindCodes="";
 		}else {
-			kindcode=" and dog_kind=".concat(kind);
+			kindCodes=" and dog_kind=".concat(kind);
 		}
 		System.out.println(kind+"???");
 		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		System.out.println("여기는 겟리스트 도착");
-		String query ="SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD where board_type=3 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?"+kindcode+city+" and happen_date>? and happen_date<=?";
+		String query ="SELECT * FROM (SELECT ROWNUM AS RNUM, n.* FROM (SELECT * FROM BOARD where board_type=3 ORDER BY BOARD_NO desc) n) WHERE RNUM BETWEEN ? AND ?"+kindCodes+city+" and happen_date>? and happen_date<=?";
 		System.out.println(query);
 		
 		try {
@@ -546,6 +547,52 @@ public class SearchDogDao {
 			JDBCTemplete.close(pstmt);
 		}
 		return list;
+	}
+
+	public int totalSelCount(Connection conn, int type, String sDay, String eDay, String kind, String cityCode) {
+		// TODO Auto-generated method stub
+		PreparedStatement stmt = null;
+		ResultSet rset = null;
+		
+		int result = 0;
+		if(sDay.equals("")||sDay==null) {
+			sDay=preMonth();
+		}
+		if(eDay.equals("")||eDay==null) {
+			eDay=date();
+		}
+		if(cityCode.equals("도시")||cityCode==null) {
+			cityCode="";
+		}else {
+			cityCode="and happen_city=".concat(cityCode);
+		}
+		if(kind.equals("content")||kind==null||kind.equals("")) {
+			kind="";
+		}else {
+			kind=" and dog_kind=".concat(kind);
+		}
+		
+		
+		String query = "select count(*) as cnt from board where board_type=? and happen_date>? and happen_date<?"+kind;
+		System.out.println("여기는 토탈sel카운트 도착");
+		System.out.println(query);
+		try {
+			stmt = conn.prepareStatement(query);
+			stmt.setInt(1, type);
+			stmt.setString(2, sDay);
+			stmt.setString(3, eDay);
+			rset = stmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplete.close(rset);
+			JDBCTemplete.close(stmt);
+		}
+		return result;
 	}
 
 }

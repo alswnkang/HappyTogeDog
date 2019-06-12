@@ -45,8 +45,14 @@ public class PrintSearchDogServlet extends HttpServlet {
 		String sDay=request.getParameter("startDay");
 		String eDay=request.getParameter("endDay");
 		System.out.println(sDay+","+eDay);
-		
-	
+		System.out.println("해픈시티가 왜넘어오나요");
+		System.out.println(cityCode);
+		if(kind.equals("content")) {
+			kind="";
+		}
+		if(cityCode.equals(",")) {
+			cityCode="";
+		}
 	
 		int page;
 		try {
@@ -120,7 +126,8 @@ public class PrintSearchDogServlet extends HttpServlet {
 		
 		request.setAttribute("sdpd2", sdpd2);
 		request.setAttribute("sdpd", sdpd);   //pagedata저장
-		
+		request.setAttribute("page1", page);
+		request.setAttribute("page2", page2);
 		
 		
 		

@@ -14,6 +14,7 @@
 <%-- Content --%>
 <section id="content-wrapper">
 		<div class="area">
+		<h2 class="comm-content-tit">강아지를 찾습니다</h2>
 		<div id="DetailTake" class="">
 			<div class="common-tbl-btn-group type2">
 			</div>
@@ -28,7 +29,7 @@
 					</tr>
 					<tr>
 						<td>품종 : ${kindNm }</td>
-						<td>시간 : ${vd.b.happenDate }</td>
+						<td>실종 날짜 : ${vd.b.happenDate }</td>
 					</tr>
 					<c:if test="${not empty vd.b.boardFilename }">
 					<!-- 파일이 있을 때 -->
@@ -154,7 +155,7 @@
 						</table>
 					</form>
 				</c:forEach>
-					<form action="/takeBoardUpdate?boardNo=${vd.b.boardNo }" method="post" enctype="multipart/form-data">
+					<form action="/findBoardUpdate?boardNo=${vd.b.boardNo }" method="post" enctype="multipart/form-data">
 					<div class="common-tbl-btn-group" style="text-align:right;">
 						<c:if test='${sessionScope.member.id==vd.b.boardId }'>
 						<!-- 회원 아이디와 글 작성자의 아이디가 같을때만 수정버튼 생성-->
@@ -246,7 +247,7 @@
 	$(document).ready(function(){	//게시글 삭제 확인
 		$('#boardDelBtn').click(function(){
 			if(confirm("게시글을 삭제하시겠습니까?")){
-				location.href = '/takeBoardDelete?boardNo='+${vd.b.boardNo };
+				location.href = '/deleteFindBoard?boardNo='+${vd.b.boardNo };
 			}
 		});
 	});

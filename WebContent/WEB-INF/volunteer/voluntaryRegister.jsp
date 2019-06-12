@@ -30,7 +30,7 @@
 					</tr>				
 					<tr>
 						<th>봉사 날짜</th>
-						<td><input type="text" id="datepicker" name="volunDate"></td>
+						<td><input type="text" id="datepicker2" name="volunDate"></td>
 					</tr>
 					<tr>
 						<th>봉사 시간</th>

@@ -65,7 +65,7 @@
 						<!-- 로그인 된 경우 내용과 댓글 버튼 노출 -->
 							<tr>
 								<td colspan="2" style="text-align:center;border-bottom: 0px;">
-									${vd.a.adoptionBoardContent }
+									<pre>${fn:replace(vd.a.adoptionBoardContent,newLineChar,"<br/>")}</pre>
 								</td>
 							</tr>
 							<tr>
@@ -79,7 +79,7 @@
 						<!-- 로그인 안된 경우 내용만 -->
 							<tr>
 								<td colspan="2" style="text-align:center;">
-									${vd.a.adoptionBoardContent }
+									<pre>${fn:replace(vd.a.adoptionBoardContent,newLineChar,"<br/>")}</pre>
 								</td>
 							</tr>
 						</c:if>
@@ -110,8 +110,8 @@
 								<tr>
 									<td width="20%">${list.adoptionBoardCommentName }(${list.adoptionBoardCommentId })</td>
 									<td width="65%">
-										<span>${list.adoptionBoardCommentContent }</span>
-										<input type="text" value="${list.adoptionBoardCommentContent }" name="adoptionBoardCommentContent" style="display:none;"/>
+										<pre><c:out value="${list.adoptionBoardCommentContent }" escapeXml="true"/></pre>
+										<input type="text" value="<c:out value="${list.adoptionBoardCommentContent }" escapeXml="true"/>" name="adoptionBoardCommentContent" style="display:none;"/>
 									</td>
 									<td width="11%">
 										${list.adoptionBoardCommentDate2 }<br/>
@@ -141,8 +141,8 @@
 									<tr>
 										<td width="20%"> └─ ${clist.adoptionBoardCommentName }(${clist.adoptionBoardCommentId })</td>
 										<td width="65%">
-											<span>${clist.adoptionBoardCommentContent }</span>
-											<input type="text" value="${clist.adoptionBoardCommentContent }" class="adoptionBoardReCommentModify${clist.adoptionBoardCommentNo }" style="display:none;"/>
+											<pre><c:out value="${clist.adoptionBoardCommentContent }" escapeXml="true"/></pre>
+											<input type="text" value="<c:out value="${clist.adoptionBoardCommentContent }" escapeXml="true"/>" class="adoptionBoardReCommentModify${clist.adoptionBoardCommentNo }" style="display:none;"/>
 										</td>
 										<td width="11%">
 											${clist.adoptionBoardCommentDate2 }<br/>
@@ -213,8 +213,8 @@
 		var memberName = '${sessionScope.member.name }';
 		var adoptionBoardCommentContent = $(".adoptionBoardReCommentContent"+adoptionBoardCommentNo).val();
 		location.href="/siAdoptionBoardReCommentInsert?adoptionBoardType=2"+"&adoptionBoardRef="+${vd.a.adoptionBoardNo }
-			+"&memberId="+memberId+"&memberName="+memberName+"&adoptionBoardCommentContent="+adoptionBoardCommentContent
-			+"&adoptionBoardNo="+${vd.a.adoptionBoardNo }+"&adoptionBoardCommentRef="+adoptionBoardCommentNo;
+			+"&memberId="+memberId+"&memberName="+memberName+"&adoptionBoardNo="+${vd.a.adoptionBoardNo }
+			+"&adoptionBoardCommentRef="+adoptionBoardCommentNo+"&adoptionBoardCommentContent="+encodeURI(adoptionBoardCommentContent);
 	}
 	function rcmtDelBtn(adoptionBoardCommentNo,adoptionBoardCommentRef){//대댓글 삭제확인
 		if(confirm("답글을 삭제하시겠습니까?")){
@@ -284,8 +284,9 @@
 	});
 	function cmtrMfy(adoptionBoardCommentRef,adoptionBoardCommentNo){	//대댓글 수정
 		var adoptionBoardCommentContent2 = $('.adoptionBoardReCommentModify'+adoptionBoardCommentNo).val();
-		location.href="/siAdoptionBoardReCommentUpdate?adoptionBoardCommentContent="+adoptionBoardCommentContent2
-			+"&adoptionBoardNo="+${vd.a.adoptionBoardNo }+"&adoptionBoardCommentRef="+adoptionBoardCommentRef+"&adoptionBoardCommentNo="+adoptionBoardCommentNo;
+		location.href="/siAdoptionBoardReCommentUpdate?&adoptionBoardNo="+${vd.a.adoptionBoardNo }
+		+"&adoptionBoardCommentRef="+adoptionBoardCommentRef+"&adoptionBoardCommentNo="+adoptionBoardCommentNo
+		+"&adoptionBoardCommentContent="+adoptionBoardCommentContent2;
 	}
 	$(document).ready(function(){	//삭제 확인
 		$('#adoptionBoardDelBtn').click(function(){

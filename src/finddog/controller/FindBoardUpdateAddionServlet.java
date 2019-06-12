@@ -92,7 +92,7 @@ public class FindBoardUpdateAddionServlet extends HttpServlet {
 			
 			view = "/WEB-INF/siViews/common/siMsg.jsp";
 			request.setAttribute("msg", "게시글 수정이 완료되었습니다.");
-			request.setAttribute("loc", "/detailTakeBoard?boardNo="+boardNo);
+			request.setAttribute("loc", "/detailFindBoard?boardNo="+boardNo);
 			
 		}
 		RequestDispatcher rd = request.getRequestDispatcher(view);
