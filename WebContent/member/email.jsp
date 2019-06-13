@@ -51,7 +51,7 @@
 				<input type="text" name="a" id="a" value="0" style="display:none">	<br>		<!-- 이메일 인증 완료시 1 미완료시 0 -->
 			
 			<div class="common-tbl-btn-group">
-				<button type="submit" id="btn2" class="btn-style1">계속하기</button>
+				<button type="submit" id="btn2" class="btn-style1" style="display:none">계속하기</button>
 			</div>
 		</form>
 	</div>

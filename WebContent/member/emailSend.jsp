@@ -102,10 +102,13 @@
 		$('#btn').click(function(){
 			var serverNum = $('#serverNum').val();
 			var email_num = $('#email_num').val();
+			
 			if(serverNum == email_num){
 				alert("인증완료");
 				var a = opener.document.getElementById("a");		//email.jsp 의 input a 저장
+				var con = opener.document.getElementById("btn2");	//email.jsp 의 btn2 con 지정
 				a.value=1;											// value값 1로 변경
+				con.style = 'display:inline-block';					//인증 성공시 btn2 block
 				self.close();										//팝업창 닫기
 			}else{
 				alert("인증실패");
