@@ -51,12 +51,6 @@
 				<button type="submit" class="bbs-search-btn" title="검색" style="margin-left:5px;"><img src="/img/search_icon.png" style="width:30px;"></button>
 			</div>
 			</form>
-		
-		
-		
-		
-		
-		
 
 			<table class="comm-tbl type2"><!-- 신청목록게시판은 한페이지에 게시물 최대 10개 노출 -->
 				<colgroup>
@@ -79,7 +73,7 @@
 				<tbody >
 					<c:forEach items="${sdpd.list }" var="m" varStatus="i">
 					
-					<tr>
+							<tr onclick="javascript:form_${i.count}.submit();" style="cursor:pointer">
 					<form action="/dogDetailView" method="post" name="form_${i.count}">
 						<input type="hidden" name="careNm" value="${m.careNm }">
 						<c:if test="${fn:contains(m.careAddr,'(')}">
@@ -100,15 +94,14 @@
 						<input type="hidden" name="dogsize">
 						<input type="hidden" name="dogkind">
 						<input type="hidden" name="neuter">
-						<input type="hidden" name="page1" value="${page1 }">
-						<input type="hidden" name="page2" value="${page2 }">
 						<input type="hidden" name="reqPage" value="${reqPage}">
-					</form>	
+					</form>
+						
 						<td><a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo"><img src=${m.filename } style="height: 200px; width: 200px;" ></a></td>
-						<td><a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo">${m.careNm }</a></td>
-						<td><a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo">${m.happenPlace }</a></td>
-						<td><a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo">${m.happenDt }</a></td>
-						<td><a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo">${m.noticeNo }</a></td>	
+						<td>${m.careNm }</td>
+						<td>${m.happenPlace }</td>
+						<td>${m.happenDt }</td>
+						<td>${m.noticeNo }</td>	
 					</tr>
 				
 					</c:forEach>
@@ -148,16 +141,16 @@
 				</thead>
 				<tbody >
 					<c:forEach items="${sdpd2.list }" var="m" varStatus="i">
-					<tr>
-						
-						<td><a href="/dogDetailView2?boardNo=${m.boardNo }"><img src="/siUpload/board/${m.boardFilepath }" style="height: 200px; width: 200px;" ></a></td>
-						<td><a href="/dogDetailView2?boardNo=${m.boardNo }">${m.boardName }</a></td>
-						<td><a href="/detailTakeBoard?boardNo=${m.boardNo }">${m.boardTitle }</a></td>
-						<td>${m.happenCity }</td>
-						<td>${m.happenDate }</td>
-					
 
-					</tr>
+
+
+					<tr onclick="location.href='/dogDetailView2?boardNo=${m.boardNo }'" style="cursor:pointer">
+							<td><img src="/siUpload/board/${m.boardFilepath }" style="height: 200px; width: 200px;" ></td>
+							<td>${m.boardName }</td>
+							<td>${m.boardTitle }</td>
+							<td>${m.happenCity }</td>
+							<td>${m.happenDate }</td>
+						</tr>
 					</c:forEach>
 					<c:if test="${empty sdpd2.list }">
 						<tr>
@@ -178,15 +171,6 @@
 </section>
 
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	<%--footer --%>

@@ -31,6 +31,9 @@
 						<td>품종 : ${kindNm }</td>
 						<td>발견 날짜 : ${vd.b.happenDate }</td>
 					</tr>
+					<tr>
+						<td colspan="2" style="">이메일 : <a href="mailto:${vd.b.boardPw }">${vd.b.boardPw }<br>(해당 글에 대한 문의는 위의 이메일로 연락주시기 바랍니다.)</a></td>
+					</tr>
 					
 					<!-- 파일이 있을 때 -->
 						<c:if test="${not empty sessionScope.member.id }">
