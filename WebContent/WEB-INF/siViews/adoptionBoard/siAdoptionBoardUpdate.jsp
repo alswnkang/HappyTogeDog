@@ -47,7 +47,7 @@
 											<input type="text" id="fileName" class="adoptionBoardFilename" style="width:72.5%;display:none;" />
 											<label for="adoptionBoardname" class="adoptionBoardFilename" style="display:none;">파일 업로드</label>
 											<input type="file" id="adoptionBoardname" class="adoptionBoardFilename" name="adoptionBoardFilename" style="display:none;"
-												onchange="javascript: document.getElementById('fileName').value = this.value.replace(/c:\\fakepath\\/i, '')" />
+												onchange="javascript: document.getElementById('fileName').value = this.value.replace(/c:\\fakepath\\/i, '')" required/>
 											<span class="delFile">${adoptionBoard.adoptionBoardFilename }</span>
 											<button type="button" id="delFileBtn" class="delFile">삭제하기</button>
 											<input type="hidden" name="adoptionBoardOldFilename" value=${adoptionBoard.adoptionBoardFilename }>
