@@ -71,14 +71,24 @@ public class MailSendServlet extends HttpServlet {
 		Authenticator auth = new MailAuth();		//MailAuth.class에서 Authenticator를 상속
 		Session session = Session.getDefaultInstance(prop,auth);	//getDefaultInstance의 첫 번째 파라미터는 앞에 설정한 메일 처리 환경
 		MimeMessage msg = new MimeMessage(session);			//MimeMessage는 Message(추상) 클래스를 상속받은 인터넷 메일을 위한 클래스이며 위에서 생성한 세션을 담아 msg객체를 생성한다
+		String send =
+		"<html><head><title></title>"+
+		    "</head><body>"+
+		    "<div id='div' style='text-align : center;padding : 50px 20px;}'>"
+		    + "<table id='table' style='width:50%; max-width: none;margin: 0 auto;background-color: #fff;padding: 0;border-spacing: 0;border-collapse: collapse; font-size:20px;'>"+
+		     "<tr>"
+		     + "<th style='border: 1px solid #ddd;border-top: 2px solid rgba(254,67,30);height: 50px;'>인증번호</th>"
+		     + "<td style='border: 1px solid #ddd;border-top: 2px solid rgba(254,67,30);height: 50px;'>"+num+"</td></tr></table></div>"+
+		"</body></html>";
+		
 		
 		try {
 			msg.setSentDate(new Date());		//보내는 날짜 지정
 			msg.setFrom(new InternetAddress("wlsdh104@naver.com","해피투게독"));	//Message 클래스의 setFrom()메소드를 사용하여 발송자를 지정한다. 발송자의 메일, 발송자명 InternetAddress클래스는 이메일 주소를 나타날 때 사용하는 클래스이다
 			InternetAddress to = new InternetAddress(email);		//수신자의 메일
 			msg.setRecipient(Message.RecipientType.TO, to);			//Message 클래스의 setRecipient()메소드를 사용하여 수신자를 설정한다. setRecipient()메소드로 수신자,참조,숨은 참조 설정이 가능하다.
-			msg.setSubject("제목","utf-8");		//메일의 제목
-			msg.setText("인증번호는 "+num+"입니다","utf-8");		//메일의 내용
+			msg.setSubject("해피투게독 메일인증입니다","utf-8");		//메일의 제목		
+			msg.setContent(send, "text/html; charset=utf-8");	//메일의 내용
 			Transport.send(msg);		//Transport는 메일을 최종적으로 보내는 클래스로 메일을 보내는 부분이다.
 			
 		} catch (MessagingException e) {			//메일 계정인증 관련 예외 처리

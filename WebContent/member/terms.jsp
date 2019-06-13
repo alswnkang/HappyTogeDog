@@ -244,7 +244,7 @@
 					<p class="terms-chk"><input type="checkbox" id="chk3"><label for="chk3">개인정보수집 및 이용에 동의 합니다.</label></p><br>
 					<div class="common-tbl-btn-group" style="padding-top:0;">
 						<button type="submit" class="btn-style1">확인</button>
-						<button type="button" class="btn-style2">취소</button>
+						<button type="button" onclick="location.href='/index.jsp'"class="btn-style2">취소</button>
 					</div>
 				</div>
 			</div>
