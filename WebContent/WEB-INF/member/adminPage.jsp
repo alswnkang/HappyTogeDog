@@ -52,7 +52,7 @@
 				<c:forEach items="${pd.list }" var = "m">
 				<c:if test="${m.memberLevel < 2 }">
 				<tr>
-					<td>${m.id }</td>
+					<td id="id">${m.id }</td>
 					<c:if test="${m.memberLevel >= 1 }">
 						<td>${m.code }</td>
 					</c:if>
@@ -72,7 +72,8 @@
 					</td>
 					<td>${m.email }</td>
 					<td>${m.user }</td>
-					<td><button onclick="location.href='/adminDelete?id=${m.id}'">탈퇴</button></td>
+				<!-- 	<td><button onclick="location.href='/adminDelete?id=${m.id}'">탈퇴</button></td>  -->
+					<td><button type="button" id="btn">탈퇴</button></td>
 				</tr>
 				</c:if>
 				</c:forEach>
@@ -114,6 +115,7 @@
 			}else if(b == 1){
 				$('#select').children().eq(0).attr('selected','selected');
 			}
+		
 			
 		});
 			$('#user').change(function(){
@@ -133,6 +135,27 @@
 						console.log("전송 실패");
 					}
 				});	*/
+			});
+			
+			$('#btn').click(function(){
+				var id = $('#id').text();
+				$.ajax({
+					url : "/adminDelete",
+					type : "get",
+					data : {id : id},
+					success : function(data){
+						if(data ==1){
+							alert("탈퇴완료")
+							location.href='/adminPage';
+						}else{
+							alert("탈퇴실패")
+							location.href='/adminPage';
+						}
+					},
+					error : function(){
+						console.log("실패");
+					}
+				});
 			});
 		
 </script>

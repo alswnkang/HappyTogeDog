@@ -53,6 +53,14 @@
 							<div class="mypage-box">
 								<p><a href="/myPage?id=<%= m.getId() %>">회원정보<br/>수정/탈퇴</a></p>
 								<p><a href="/totalMyPage">MyPage</a></p>
+								<c:if test="${member.memberLevel eq 2 }">
+									<div class="mypage-sub-box">
+										<p><a href="/adminPage">회원 관리</a></p>
+										<p><a href="/orderList">주문 관리</a></p>
+										<p><a href="/siNotice">공지사항</a></p>
+										<p><a href="/adminReservPage">방문예약리스트</a></p> 
+									</div>
+								</c:if>
 							</div>
 						</li>
 						<li class="name"><p><b><%=m.getId() %></b>님 환영합니다.</p></li>
@@ -128,3 +136,6 @@
 	<div id="subVisual">
 		
 	</div>
+	
+	
+	

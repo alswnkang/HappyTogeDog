@@ -1,6 +1,7 @@
 package member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -35,19 +36,27 @@ public class AdminDeleteServlet extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setCharacterEncoding("utf-8");
 		String id = request.getParameter("id");
+		System.out.println(id);
 		try {
 			int result = new MemberService().delete(id);
-			if(result>0) {
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
-				request.setAttribute("msg", "탈퇴 완료");
-				request.setAttribute("loc", "/adminPage");
-				rd.forward(request, response);
+			PrintWriter out = response.getWriter();
+			if(result > 0 ) {
+				out.print(1);
 			}else {
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
-				request.setAttribute("msg", "탈퇴 실패");
-				request.setAttribute("loc", "/adminPage");
-				rd.forward(request, response);
+				out.print(0);
 			}
+			
+//			if(result>0) {
+//				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+//				request.setAttribute("msg", "탈퇴 완료");
+//				request.setAttribute("loc", "/adminPage");
+//				rd.forward(request, response);
+//			}else {
+//				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+//				request.setAttribute("msg", "탈퇴 실패");
+//				request.setAttribute("loc", "/adminPage");
+//				rd.forward(request, response);
+//			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
