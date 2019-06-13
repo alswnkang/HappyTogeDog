@@ -148,15 +148,12 @@
 				</thead>
 				<tbody >
 					<c:forEach items="${sdpd2.list }" var="m" varStatus="i">
-					<tr>
-						
-						<td><a href="/dogDetailView2?boardNo=${m.boardNo }"><img src="/siUpload/board/${m.boardFilepath }" style="height: 200px; width: 200px;" ></a></td>
-						<td><a href="/dogDetailView2?boardNo=${m.boardNo }">${m.boardName }</a></td>
-						<td><a href="/detailTakeBoard?boardNo=${m.boardNo }">${m.boardTitle }</a></td>
+					<tr onclick="/dogDetailView2?boardNo=${m.boardNo }" style="cursor:pointer">
+						<td><img src="/siUpload/board/${m.boardFilepath }" style="height: 200px; width: 200px;" ></td>
+						<td>${m.boardName }</td>
+						<td>${m.boardTitle }</td>
 						<td>${m.happenCity }</td>
 						<td>${m.happenDate }</td>
-					
-
 					</tr>
 					</c:forEach>
 					<c:if test="${empty sdpd2.list }">
