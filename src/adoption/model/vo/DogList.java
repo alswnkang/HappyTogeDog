@@ -200,7 +200,7 @@ public class DogList {
 		}else if(neuterYn.equals("N")) {
 			return "X";
 		}else {
-			return "모름";
+			return "미상";
 		}
 	}
 }
