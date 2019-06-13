@@ -97,7 +97,7 @@ public class FindUserServlet extends HttpServlet {
 				msg.setFrom(new InternetAddress("wlsdh104@naver.com","해피투게독"));	//Message 클래스의 setFrom()메소드를 사용하여 발송자를 지정한다. 발송자의 메일, 발송자명 InternetAddress클래스는 이메일 주소를 나타날 때 사용하는 클래스이다
 				InternetAddress to = new InternetAddress(email);		//수신자의 메일
 				msg.setRecipient(Message.RecipientType.TO, to);			//Message 클래스의 setRecipient()메소드를 사용하여 수신자를 설정한다. setRecipient()메소드로 수신자,참조,숨은 참조 설정이 가능하다.
-				msg.setSubject("제목","utf-8");		//메일의 제목
+				msg.setSubject("해피투게독입니다","utf-8");		//메일의 제목
 				msg.setContent(send, "text/html; charset=utf-8");		//메일의 내용
 				Transport.send(msg);		//Transport는 메일을 최종적으로 보내는 클래스로 메일을 보내는 부분이다.
 				
@@ -110,7 +110,7 @@ public class FindUserServlet extends HttpServlet {
 			}
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
-			request.setAttribute("msg", "아이디/비밀번호 메일을 발송했습니다");
+			request.setAttribute("msg", "아이디/임시비밀번호를 입력하신 메일로 발송했습니다");
 			request.setAttribute("loc", "/member/login.jsp");
 			rd.forward(request, response);
 
