@@ -47,6 +47,11 @@
 							</a>
 						</td>
 					</tr>
+					<tr>
+					<td>주문수량</td>
+					<td>${orderInfo.amount } 개
+					</td>
+				</tr>
 					<tr class="tr-title"><td colspan="2">주문자 정보</td></tr>
 					<tr>
 						<td>주문자 명</td><td>${orderInfo.name }</td>
