@@ -73,7 +73,7 @@
 				<tbody >
 					<c:forEach items="${sdpd.list }" var="m" varStatus="i">
 					
-					<tr>
+							<tr onclick="javascript:form_${i.count}.submit();" style="cursor:pointer">
 					<form action="/dogDetailView" method="post" name="form_${i.count}">
 						<input type="hidden" name="careNm" value="${m.careNm }">
 						<c:if test="${fn:contains(m.careAddr,'(')}">
@@ -94,15 +94,14 @@
 						<input type="hidden" name="dogsize">
 						<input type="hidden" name="dogkind">
 						<input type="hidden" name="neuter">
-						<input type="hidden" name="page1" value="${page1 }">
-						<input type="hidden" name="page2" value="${page2 }">
 						<input type="hidden" name="reqPage" value="${reqPage}">
-					</form>	
+					</form>
+						
 						<td><a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo"><img src=${m.filename } style="height: 200px; width: 200px;" ></a></td>
-						<td><a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo">${m.careNm }</a></td>
-						<td><a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo">${m.happenPlace }</a></td>
-						<td><a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo">${m.happenDt }</a></td>
-						<td><a onclick="javascript:form_${i.count}.submit();" class="send-dogInfo">${m.noticeNo }</a></td>	
+						<td>${m.careNm }</td>
+						<td>${m.happenPlace }</td>
+						<td>${m.happenDt }</td>
+						<td>${m.noticeNo }</td>	
 					</tr>
 				
 					</c:forEach>
