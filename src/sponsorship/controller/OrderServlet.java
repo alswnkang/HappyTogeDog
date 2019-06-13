@@ -161,8 +161,8 @@ public class OrderServlet extends HttpServlet {
 						}
 					}
 
-					mailCon += "						<a href=\"http://localhost/viewProduct?code="+code+"\" style=\"color:black;text-decoration:none;\">\r\n" + 
-							"							<img height=\"100\" src=\"http://localhost/img/"+img+"\"><br>"+orderInfo.getProductName()+"\r\n" + 
+					mailCon += "						<a href=\"http://192.168.10.72/viewProduct?code="+code+"\" style=\"color:black;text-decoration:none;\">\r\n" + 
+							"							<img height=\"100\" src=\"http://192.168.10.72/img/"+img+"\"><br>"+orderInfo.getProductName()+"\r\n" + 
 							"						</a>\r\n" + 
 							"					</td>\r\n" + 
 							"				</tr>\r\n" + 
