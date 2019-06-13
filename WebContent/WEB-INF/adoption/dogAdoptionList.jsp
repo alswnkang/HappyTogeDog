@@ -36,9 +36,9 @@
 					<option value="">==== 품종 선택 ====</option>
 				</select>
 				<select name="neuterYn" id="neuterYn" data-neuter="${neuterYn}">
-					<option value="">==== 중성화여부 ====</option>
-					<option value="Y">했음</option>
-					<option value="N">안했음</option>
+					<option value="">==== 중성화 여부 ====</option>
+					<option value="Y">완료</option>
+					<option value="N">미완료</option>
 					<option value="U">미상</option>
 				</select>
 				<button type="submit" class="bbs-search-btn" title="검색"><img src="/img/search_icon.png" style="width:30px;"></button>

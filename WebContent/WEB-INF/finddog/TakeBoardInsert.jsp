@@ -63,6 +63,15 @@
 							<td><textarea type="text" name="boardContent" style="height: 600px;" required="required"></textarea></td>
 						</tr>
 					</table>
+					<br>
+					<table class="comm-tbl" >
+						<tr style="display: none;"></tr>
+						<tr>
+							<td>
+								<p>※ 유실 동물을 찾기위한 연락책의 일환으로 회원정보에 등록된 이메일이 게시글에 노출됩니다.</p>
+							</td>
+						</tr>
+					</table>
 					<div class="common-tbl-btn-group">
 						<button type="submit" class="btn-style1">등록하기</button>
 						<button type="reset" class="btn-style2" onclick="location.href='/takeBoard'">취소</button>

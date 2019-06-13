@@ -95,7 +95,7 @@
 						</tr>
 						<tr>
 							<th>특징</th>
-							<td colspan="3">중성화 여부 : ${dl.neuter}<br>${dl.specialMark}</td>
+							<td colspan="3">중성화 여부 : ${dl.neuter}<br>특이사항 : ${dl.specialMark}</td>
 						</tr>
 					</table>
 				</div>
