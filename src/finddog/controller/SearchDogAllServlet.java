@@ -142,7 +142,7 @@ public class SearchDogAllServlet extends HttpServlet {
 		request.setAttribute("sdpd", sdpd);   //pagedata저장
 		
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/searchTemplet.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/finddog/searchDog.jsp");
 		rd.forward(request, response);
 	}
 

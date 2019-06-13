@@ -142,12 +142,18 @@
 .find-shelter-right-box .map > a.loc16{left:65px; top:180px;} /*세종시*/
 .find-shelter-right-box .map > a .loc-name{position:absolute; top:-51px; left:9px; display:none; width:74px; height:49px; background:url(/img/map_txt_2.png) no-repeat; text-align:center; line-height:25px; font-size:12px; color:#3e3e3e; font-weight:500; z-index:9;}
 .find-shelter-right-box .map > a.loc1 .loc-name,
-.find-shelter-right-box .map > a.loc6 .loc-name,
+.find-shelter-right-box .map > a.loc3 .loc-name,
 .find-shelter-right-box .map > a.loc9 .loc-name,
 .find-shelter-right-box .map > a.loc10 .loc-name,
-.find-shelter-right-box .map > a.loc11 .loc-name,
-.find-shelter-right-box .map > a.loc15 .loc-name{background:url(/img/map_txt_3.png) no-repeat; left:-65px;}
-.find-shelter-right-box .map > a .loc-name > span{font-weight:normal; color:#7f7f7f;}
+.find-shelter-right-box .map > a.loc11 .loc-name{background:url(/img/map_txt_3.png) no-repeat; left:-65px;}
+.find-shelter-right-box .map > a.loc6 .loc-name,
+.find-shelter-right-box .map > a.loc12 .loc-name,
+.find-shelter-right-box .map > a.loc15 .loc-name{background:url(/img/map_txt_4.png) no-repeat; background-size:contain; left:13px; top:7px; width:70px; height:45px;}
+.find-shelter-right-box .map > a.loc12 .loc-name{top:15px;}
+.find-shelter-right-box .map > a.loc6 .loc-name > span,
+.find-shelter-right-box .map > a.loc12 .loc-name > span,
+.find-shelter-right-box .map > a.loc15 .loc-name > span{margin-top:37px;}
+.find-shelter-right-box .map > a .loc-name > span{display:inline-block; font-weight:normal; color:#7f7f7f;}
 
 /* ****************** 마이 페이지 ********************** */
 .mypage-tit{font-size:18px; line-height:24px; color:#333; font-weight:400;}

@@ -63,7 +63,7 @@
 				</thead>
 				<tbody >
 					<c:forEach items="${sdpd.list }" var="m" varStatus="i">
-					<tr>
+					<tr onclick="javascript:form_${i.count}.submit();" style="cursor:pointer">
 					<form action="/dogDetailView" method="post" name="form_${i.count}">
 						<input type="hidden" name="careNm" value="${m.careNm }">
 						<c:if test="${fn:contains(m.careAddr,'(')}">
@@ -134,16 +134,13 @@
 				</thead>
 				<tbody >
 					<c:forEach items="${sdpd2.list }" var="m" varStatus="i">
-					<tr>
-						
-						<td><a href="/detailTakeBoard?boardNo=${m.boardNo }"><img src="/siUpload/board/${m.boardFilepath }" style="height: 200px; width: 200px;" ></a></td>
-						<td><a href="/detailTakeBoard?boardNo=${m.boardNo }">${m.boardName }</a></td>
-						<td><a href="/detailTakeBoard?boardNo=${m.boardNo }">${m.boardTitle }</a></td>
-						<td>${m.happenCity }</td>
-						<td>${m.happenDate }</td>
-					
-
-					</tr>
+						<tr onclick="href='/dogDetailView2?boardNo=${m.boardNo }'" style="cursor:pointer">
+							<td><img src="/siUpload/board/${m.boardFilepath }" style="height: 200px; width: 200px;" ></td>
+							<td>${m.boardName }</td>
+							<td>${m.boardTitle }</td>
+							<td>${m.happenCity }</td>
+							<td>${m.happenDate }</td>
+						</tr>
 					</c:forEach>
 					<c:if test="${empty sdpd2.list }">
 						<tr>
