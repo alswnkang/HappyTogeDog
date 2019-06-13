@@ -543,7 +543,7 @@ public class VoluntaryDao {
 		ArrayList<VoluntaryRegister> volunList = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from (select rownum as rnum, name, volunteer_register.* from volunteer_register left join member on (volunteer_register.code = member.code) order by volunteer_register.enroll_date desc) where rnum between ? and ? ";
+		String query = "select * from (select rownum as rnum, t.* from (select name, volunteer_register.* from volunteer_register left join member on (volunteer_register.code = member.code) order by volunteer_register.enroll_date desc) t) where rnum between ? and ? ";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
