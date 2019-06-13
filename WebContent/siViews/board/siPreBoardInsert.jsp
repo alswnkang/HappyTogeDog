@@ -6,7 +6,7 @@
 
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
-			<h2 class="comm-content-tit">게시글 작성</h2>
+			<h2 class="comm-content-tit">자유게시판 작성</h2>
 			<div class="common-tbl-box">
 				<form action="/siPreBoardInsert" method="post" enctype="multipart/form-data"><!-- 파일 첨부를 하기위해 enctype 설정 -->
 					<input type="hidden" name="boardType" value="1"/>

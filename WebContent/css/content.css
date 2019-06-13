@@ -167,6 +167,8 @@
 .mypage-box > li > a .txt-thum{}
 .mypage-box > li > a .txt-thum h4{font-size:18px; color:#333; font-weight:500; margin-bottom:10px;}
 .mypage-box > li > a .txt-thum p{font-size:13px; line-height:16px; color:#888;}
+/* 마이페이지 관리자 Navi */
+.admin-navi{}
 
 /* ****************** 로그인 ********************** */
 .login-inner{max-width:65%; margin:0 auto 30px;}

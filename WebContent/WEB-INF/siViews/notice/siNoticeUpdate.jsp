@@ -19,7 +19,7 @@
 
 	<section id="content-wrapper">
 		<div class="area">
-			<h2 class="comm-content-tit">게시글 수정</h2>
+			<h2 class="comm-content-tit">공지사항 글 수정</h2>
 			<div class="common-tbl-box">
 				<form action="/siNoticeUpdate?noticeNo=${notice.noticeNo }" method="post" enctype="multipart/form-data">
 					<table class="comm-tbl">
@@ -81,7 +81,7 @@
 						</tr>
 					</table>
 					<div class="common-tbl-btn-group">
-						<button type="submit" class="btn-style1">수정하기</button>
+						<button type="submit" class="btn-style1" style="border:0;">수정하기</button>
 						<button type="reset" class="btn-style2" onclick="location.href='siNoticeView?noticeNo=${notice.noticeNo }'">취소</button>
 					</div>
 				</form>

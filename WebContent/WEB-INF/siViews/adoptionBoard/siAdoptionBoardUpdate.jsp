@@ -19,7 +19,7 @@
 
 	<section id="content-wrapper">
 		<div class="area">
-			<h2 class="comm-content-tit">게시글 수정</h2>
+			<h2 class="comm-content-tit">입양후기 글 수정</h2>
 			<div class="common-tbl-box">
 				<form action="/siAdoptionBoardUpdate?adoptionBoardNo=${adoptionBoard.adoptionBoardNo }" method="post" enctype="multipart/form-data">
 					<table class="comm-tbl">
@@ -73,7 +73,7 @@
 						</tr>
 					</table>
 					<div class="common-tbl-btn-group">
-						<button type="submit" class="btn-style1">수정하기</button>
+						<button type="submit" class="btn-style1" style="border:0;">수정하기</button>
 						<button type="reset" class="btn-style2" onclick="location.href='siAdoptionBoardView?adoptionBoardNo=${adoptionBoard.adoptionBoardNo }'">취소</button>
 					</div>
 				</form>

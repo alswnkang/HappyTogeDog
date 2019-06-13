@@ -6,7 +6,7 @@
 
 	<section name="siSection" id="content-wrapper">
 		<div class="area">
-			<h2 class="comm-content-tit">게시글 작성</h2>
+			<h2 class="comm-content-tit">입양후기 작성</h2>
 			<div class="common-tbl-box">
 				<form action="/siAdoptionBoardInsert" method="post" enctype="multipart/form-data"><!-- 파일 첨부를 하기위해 enctype 설정 -->
 					<input type="hidden" name="adoptionBoardType" value="2"/>
