@@ -51,12 +51,6 @@
 				<button type="submit" class="bbs-search-btn" title="검색" style="margin-left:5px;"><img src="/img/search_icon.png" style="width:30px;"></button>
 			</div>
 			</form>
-		
-		
-		
-		
-		
-		
 
 			<table class="comm-tbl type2"><!-- 신청목록게시판은 한페이지에 게시물 최대 10개 노출 -->
 				<colgroup>
@@ -148,14 +142,13 @@
 				</thead>
 				<tbody >
 					<c:forEach items="${sdpd2.list }" var="m" varStatus="i">
-					<tr>
-						<td><a href="/dogDetailView2?boardNo=${m.boardNo }"><img src="/siUpload/board/${m.boardFilepath }" style="height: 200px; width: 200px;" ></a></td>
-						<td><a href="/dogDetailView2?boardNo=${m.boardNo }">${m.boardName }</a></td>
-						<td><a href="/detailTakeBoard?boardNo=${m.boardNo }">${m.boardTitle }</a></td>
+
+					<tr onclick="/dogDetailView2?boardNo=${m.boardNo }" style="cursor:pointer">
+						<td><img src="/siUpload/board/${m.boardFilepath }" style="height: 200px; width: 200px;" ></td>
+						<td>${m.boardName }</td>
+						<td>${m.boardTitle }</td>
 						<td>${m.happenCity }</td>
 						<td>${m.happenDate }</td>
-					
-
 					</tr>
 					</c:forEach>
 					<c:if test="${empty sdpd2.list }">
@@ -177,15 +170,6 @@
 </section>
 
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	<%--footer --%>
