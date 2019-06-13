@@ -134,7 +134,7 @@
 				</thead>
 				<tbody >
 					<c:forEach items="${sdpd2.list }" var="m" varStatus="i">
-						<tr onclick="location.href='/dogDetailView2?boardNo=${m.boardNo }'" style="cursor:pointer">
+						<tr onclick="href='/dogDetailView2?boardNo=${m.boardNo }'" style="cursor:pointer">
 							<td><img src="/siUpload/board/${m.boardFilepath }" style="height: 200px; width: 200px;" ></td>
 							<td>${m.boardName }</td>
 							<td>${m.boardTitle }</td>
